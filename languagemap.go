@@ -1,0 +1,80 @@
+package main
+
+import (
+	"encoding/json"
+	"os"
+	"log"
+	"strings"
+)
+
+var LanguageMap map[string]string
+
+func init() {
+	// Load language mappings from JSON file on startup
+	loadLanguageMap("language.json")
+}
+
+func loadLanguageMap(filename string) {
+	file, err := os.ReadFile(filename)
+	if err != nil {
+		log.Printf("Warning: Could not load language map from %s: %v", filename, err)
+		// Fall back to a minimal map if file can't be loaded
+		LanguageMap = map[string]string{
+			"E": "English",
+			"S": "Spanish",
+			"F": "French",
+			"D": "German",
+			"R": "Russian",
+			"C": "Chinese",
+			// Add other essential mappings as needed
+		}
+		return
+	}
+	
+	err = json.Unmarshal(file, &LanguageMap)
+	if err != nil {
+		log.Printf("Warning: Could not parse language map from %s: %v", filename, err)
+		// Fall back to a minimal map if JSON is invalid
+		LanguageMap = map[string]string{
+			"E": "English",
+			"S": "Spanish",
+			"F": "French",
+			"D": "German",
+			"R": "Russian",
+			"C": "Chinese",
+		}
+	}
+}
+
+// getLanguageName returns the full language name for an abbreviation
+// getLanguageName returns the full language name for an abbreviation or multiple abbreviations
+func getLanguageName(langCode string) string {
+    if langCode == "" {
+        return ""
+    }
+    
+    // Split by comma to handle multiple languages
+    codes := strings.Split(langCode, ",")
+    var languageNames []string
+    
+    for _, code := range codes {
+        // Remove anything in parentheses and trim spaces
+        cleanCode := strings.TrimSpace(code)
+        if idx := strings.Index(cleanCode, "("); idx != -1 {
+            cleanCode = strings.TrimSpace(cleanCode[:idx])
+        }
+        
+        // Convert to uppercase for case-insensitive lookup
+        upperCode := strings.ToUpper(cleanCode)
+        
+        if language, exists := LanguageMap[upperCode]; exists {
+            languageNames = append(languageNames, language)
+        } else {
+            // Return original code if not found
+            languageNames = append(languageNames, cleanCode)
+        }
+    }
+    
+    // Join multiple languages with comma and space
+    return strings.Join(languageNames, ", ")
+}
