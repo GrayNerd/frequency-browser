@@ -46,7 +46,7 @@
   let timeInterval;
   let manualTimeMode = false;
   let frequencyFilterTimeout;
-  let frequencyFilterMode = "all"; // "exact", "near", "all", or "manual"
+  let frequencyFilterMode = "near"; // "exact", "near", "all", or "manual"
 
   // Input filtering functions
   function handleManualInput(event) {
@@ -740,7 +740,7 @@
             type="radio"
             name="time"
             value="now"
-            checked
+            checked={currentTimeFilter === 'now'}
             on:change={handleTimeFilterChange}
           />
           <span>Now</span>
