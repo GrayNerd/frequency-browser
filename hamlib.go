@@ -8,6 +8,7 @@ import (
     "strconv"
     "strings"
     "time"
+    "math"
     
     "github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -68,21 +69,23 @@ func (a *App) sendRigCommand(command string) (string, error) {
 
     return response, nil
 }
-func (a *App) getFrequency() (int, error) {
+func (a *App) getFrequency() (float64, error) {
     response, err := a.sendRigCommand("f")
     if err != nil {
         return 0, err
     }
     
-    // Parse frequency response
-    frequency, err := strconv.Atoi(response)
+    // Parse frequency response (in Hz)
+    frequencyHz, err := strconv.ParseFloat(response, 64)
     if err != nil {
         return 0, fmt.Errorf("failed to parse frequency: %v", err)
     }
     
-    return frequency, nil
+    // Convert Hz to kHz
+    frequencykHz := frequencyHz / 1000.0
+    
+    return frequencykHz, nil
 }
-
 func (a *App) getMode() (string, error) {
     response, err := a.sendRigCommand("m")
     if err != nil {
@@ -98,30 +101,17 @@ func (a *App) getMode() (string, error) {
     return response, nil
 }
 
-func (a *App) setFrequency(frequency int) error {
-    response, err := a.sendRigCommand(fmt.Sprintf("F %d", frequency))
-    if err != nil {
-        return err
-    }
-    
-    // Check if set command returned an error
-    if response != "" && strings.HasPrefix(response, "RPRT") {
-        parts := strings.Split(response, " ")
-        if len(parts) > 1 {
-            if errorCode, err := strconv.Atoi(parts[1]); err == nil && errorCode != 0 {
-                return fmt.Errorf("set frequency failed with error: %d", errorCode)
-            }
-        }
-    }
-    
-    return nil
+func (a *App) SetFrequency(frequencykHz float64) error {
+    // Convert kHz to Hz
+    frequencyHz := int(frequencykHz * 1000)
+    _, err := a.sendRigCommand(fmt.Sprintf("F %d", frequencyHz))
+    return err
 }
-
 func (a *App) pollRadioFrequency() {
     ticker := time.NewTicker(250 * time.Millisecond)
     defer ticker.Stop()
     
-    var lastFrequency int = -1
+    var lastFrequency float64 = -1
     var errorCount int = 0
     const maxErrorCount = 3
     
@@ -147,12 +137,12 @@ func (a *App) pollRadioFrequency() {
             a.isConnected = true
             runtime.EventsEmit(a.ctx, "connectionStatus", true)
             
-            // Only send update if frequency changed
-            if frequency != lastFrequency {
+            // Only send update if frequency changed significantly
+            if math.Abs(frequency - lastFrequency) > 0.01 { // More than 1 Hz difference
                 lastFrequency = frequency
                 
-                // Send frequency to frontend
-                runtime.EventsEmit(a.ctx, "frequencyUpdate", strconv.Itoa(frequency))
+                // Send frequency to frontend as float
+                runtime.EventsEmit(a.ctx, "frequencyUpdate", frequency)
                 
                 // Also get mode if needed (but not every time to reduce load)
                 if time.Now().Second()%5 == 0 { // Get mode every 5 seconds
@@ -166,21 +156,7 @@ func (a *App) pollRadioFrequency() {
     }
 }
 
-func (a *App) GetCurrentFrequency() (string, error) {
-    frequency, err := a.getFrequency()
-    if err != nil {
-        return "", err
-    }
-    return strconv.Itoa(frequency), nil
-}
-
-func (a *App) SetFrequency(frequency int) error {
-    return a.setFrequency(frequency)
-}
-
-func (a *App) GetMode() (string, error) {
-    return a.getMode()
-}
+// Update GetRadioStatus to handle float frequency
 func (a *App) GetRadioStatus() map[string]interface{} {
     status := map[string]interface{}{
         "connected": a.isConnected,
@@ -202,6 +178,15 @@ func (a *App) GetRadioStatus() map[string]interface{} {
     return status
 }
 
+func (a *App) GetCurrentFrequency() (float64, error) {
+    return a.getFrequency()
+}
+
+
+
+func (a *App) GetMode() (string, error) {
+    return a.getMode()
+}
 func (a *App) UpdateConfig(address string) error {
     oldAddress := a.config.Address
     a.config.Address = address

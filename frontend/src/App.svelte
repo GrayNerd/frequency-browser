@@ -25,7 +25,6 @@
   let debugInfo = "";
   let currentTimeFilter = "now"; // Default to "now"
   let allData = []; // Store all data for filtering
-  let frequency = "Loading...";
   let mode = "Unknown";
   let connected = false;
   let statusMessage = "Connecting to radio...";
@@ -36,6 +35,7 @@
   let commandResponse = "";
   let tabulatorInitialized = false;
   let hasMounted = false;
+  let frequency = 0;
 
   async function importCSV() {
     loading = true;
@@ -299,10 +299,11 @@
     })();
 
     //Set up event listeners
-    EventsOn("frequencyUpdate", (newFrequency) => {
-      frequency = newFrequency;
-      updateRadioInput(newFrequency);
-    });
+  EventsOn("frequencyUpdate", (newFrequency) => {
+    console.log("Received frequency:", newFrequency, "Type:", typeof newFrequency);
+    frequency = typeof newFrequency === 'string' ? parseFloat(newFrequency) : newFrequency;
+    updateRadioInput(frequency);
+  });
 
     EventsOn("modeUpdate", (newMode) => {
       mode = newMode;
@@ -331,7 +332,7 @@
   function updateRadioInput(freq) {
     const radioInput = document.getElementById("radio-input");
     if (radioInput && radioInput instanceof HTMLInputElement) {
-      radioInput.value = formatFrequencyDisplay(freq);
+      radioInput.value = formatFrequency(freq);
     }
   }
 
@@ -339,7 +340,9 @@
     try {
       const status = await GetRadioStatus();
       connected = status.connected;
-      if (status.frequency) frequency = status.frequency.toString();
+      if (status.frequency !== undefined) {
+        frequency = typeof status.frequency === 'string' ? parseFloat(status.frequency) : status.frequency;
+      }
       if (status.mode) mode = status.mode;
       statusMessage = connected ? "Connected to radio" : "Disconnected";
     } catch (error) {
@@ -348,15 +351,13 @@
     }
   }
 
-  function formatFrequencyDisplay(freq) {
-    if (!freq) return "0";
-    const num = parseInt(freq) || 0;
-    return formatFrequency(num);
-  }
-
   function formatFrequency(freq) {
-    const freqStr = freq.toString().padStart(8, "0");
-    return freqStr.slice;
+    // Ensure freq is a number
+    const num = typeof freq === 'string' ? parseFloat(freq) : freq;
+    if (isNaN(num)) return "0.000";
+    
+    // Format to 3 decimal places
+    return num.toFixed(3);
   }
 
   async function updateConfiguration() {
@@ -373,10 +374,10 @@
   async function setNewFrequency() {
     const input = document.getElementById("set-frequency");
     if (input) {
-      const freq = parseInt(input.value.replace(/\./g, ""));
-      if (!isNaN(freq)) {
+      const freqkHz = parseFloat(input.value);
+      if (!isNaN(freqkHz)) {
         try {
-          await SetFrequency(freq);
+          await SetFrequency(freqkHz);
           statusMessage = "Frequency set successfully";
           // Refresh current frequency
           const newFreq = await GetCurrentFrequency();
@@ -419,15 +420,15 @@
       <span>Radio</span>
       <span>Frequency:</span>
     </label>
-    <input
-      id="radio-input"
-      type="text"
-      class="radio-input"
-      maxlength="8"
-      placeholder="Frequency"
-      readonly
-      value={frequency}
-    />
+<input
+  id="radio-input"
+  type="text"
+  class="radio-input"
+  maxlength="10" 
+  placeholder="Frequency"
+  readonly
+  value={formatFrequency(frequency)} 
+/>
 
     <div class="radio-group">
       <div class="radio-group-title">Time</div>
