@@ -445,19 +445,30 @@
 
 <main>
   <div class="header">
-    <label for="radio-input" class="radio-label">
-      <span>Radio</span>
-      <span>Frequency:</span>
-    </label>
-    <input
-      id="radio-input"
-      type="text"
-      class="radio-input"
-      maxlength="10"
-      placeholder="Frequency"
-      readonly
-      value={formatFrequency(frequency)}
-    />
+    <div class="frequency-container">
+      <div class="radio-group">
+        <div class="frequency-label">Frequency</div>
+        <input
+          id="radio-input"
+          type="text"
+          class="radio-input"
+          maxlength="10"
+          placeholder="Frequency"
+          readonly
+          value={formatFrequency(frequency)}
+        />
+        <div class="frequency-options">
+          <label class="checkbox-option">
+            <input type="checkbox" bind:checked={exactFrequency} />
+            <span>Exact</span>
+          </label>
+          <label class="checkbox-option">
+            <input type="checkbox" bind:checked={manualFrequency} />
+            <span>Manual</span>
+          </label>
+        </div>
+      </div>
+    </div>
 
     <div class="radio-group">
       <div class="radio-group-title">Time</div>
@@ -498,7 +509,6 @@
     </button>
   </div>
 
-  <!-- ADD THIS TABLE CONTAINER -->
   <div class="table-container" bind:this={tableContainer}>
     {#if !tabulatorInitialized}
       <div class="loading-message">Loading table data...</div>
@@ -694,5 +704,46 @@
 
   :global(.tabulator .tabulator-tableholder) {
     height: calc(100% - 40px) !important;
+  }
+
+  .frequency-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .frequency-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+  .frequency-label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .radio-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 120px; /* Slightly wider to accommodate larger font */
+    text-align: center;
+    font-family: monospace;
+    background-color: #f8f9fa;
+    color: #495057;
+    cursor: not-allowed;
+    font-size: 18px; /* Larger font size for frequency */
+    font-weight: bold;
+  }
+
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #000;
   }
 </style>
