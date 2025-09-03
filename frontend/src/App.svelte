@@ -18,13 +18,13 @@
   } from "../wailsjs/go/main/App";
 
   let table;
-  let tableContainer; // This will reference the DOM element
+  let tableContainer;
   let loading = false;
   let errorMessage = "";
   let successMessage = "";
   let debugInfo = "";
-  let currentTimeFilter = "now"; // Default to "now"
-  let allData = []; // Store all data for filtering
+  let currentTimeFilter = "now";
+  let allData = [];
   let mode = "Unknown";
   let connected = false;
   let statusMessage = "Connecting to radio...";
@@ -39,6 +39,75 @@
   let exactFrequency = false;
   let manualFrequency = false;
   let editableFrequency = "";
+  let showManualInput = false;
+
+  // Input filtering functions
+  function handleManualInput(event) {
+    const input = event.target.value;
+    // Only allow digits and decimal point
+    const filteredInput = input.replace(/[^0-9.]/g, '');
+    
+    // Ensure only one decimal point
+    const decimalCount = (filteredInput.match(/\./g) || []).length;
+    if (decimalCount > 1) {
+      const firstDecimalIndex = filteredInput.indexOf('.');
+      editableFrequency = filteredInput.substring(0, firstDecimalIndex + 1) + 
+                         filteredInput.substring(firstDecimalIndex + 1).replace(/\./g, '');
+    } else {
+      editableFrequency = filteredInput;
+    }
+    
+    // Update the input value
+    event.target.value = editableFrequency;
+  }
+
+  function handleManualKeypress(event) {
+    // Allow only numbers, decimal point, and navigation keys
+    if (!/[0-9.]/.test(event.key) && 
+        event.key !== 'Enter' && 
+        event.key !== 'Backspace' && 
+        event.key !== 'Delete' && 
+        event.key !== 'ArrowLeft' && 
+        event.key !== 'ArrowRight' &&
+        event.key !== 'Tab') {
+      event.preventDefault();
+    }
+    
+    // Handle Enter key to apply frequency
+    if (event.key === 'Enter') {
+      applyManualFrequency();
+    }
+  }
+
+  async function applyManualFrequency() {
+    if (editableFrequency && editableFrequency.trim() !== '') {
+      try {
+        const freqValue = parseFloat(editableFrequency);
+        if (!isNaN(freqValue)) {
+          await SetFrequency(freqValue);
+          frequency = freqValue;
+          statusMessage = "Manual frequency set successfully";
+          showManualInput = false;
+        }
+      } catch (error) {
+        statusMessage = "Failed to set manual frequency";
+        console.error("Set frequency error:", error);
+      }
+    }
+  }
+
+  // Watch for manual mode changes
+  $: if (manualFrequency) {
+    editableFrequency = formatFrequency(frequency);
+    showManualInput = true;
+    // Focus the input after a short delay
+    setTimeout(() => {
+      const manualInput = document.getElementById('manual-frequency-input');
+      if (manualInput) manualInput.focus();
+    }, 50);
+  } else {
+    showManualInput = false;
+  }
 
   async function importCSV() {
     loading = true;
@@ -61,15 +130,11 @@
         return;
       }
 
-      // Save to JSON file
-      console.log("Saving data to eibi-list.json...");
       await SaveEIBIList(data);
-
-      allData = data; // Store all data
+      allData = data;
 
       if (table) {
         table.setData(data);
-        // applyTimeFilter(currentTimeFilter); // Apply current filter to new data
       } else {
         initTabulator(data);
       }
@@ -84,7 +149,6 @@
     }
   }
 
-  // Function to parse time string (HHMM) to minutes since midnight
   function timeToMinutes(timeString) {
     if (!/^\d{4}$/.test(timeString)) {
       throw new Error("Input must be a 4-digit string in HHMM format");
@@ -110,10 +174,8 @@
     return hours * 60 + minutes;
   }
 
-  // Function to apply time filter based on selected radio button
   function applyTimeFilter(filterType) {
     currentTimeFilter = filterType;
-
     if (!table || allData.length === 0) return;
 
     const now = new Date();
@@ -124,39 +186,28 @@
     let filteredData = [];
 
     if (filterType === "now") {
-      // Filter for rows where current time is between startTime and endTime
       filteredData = allData.filter((row) => {
         const startMinutes = timeToMinutes(row.startTime);
         const endMinutes = timeToMinutes(row.endTime);
 
-        // Handle cases where end time might be on the next day
         if (endMinutes < startMinutes) {
-          // End time is on the next day
           return currentMinutes >= startMinutes || currentMinutes <= endMinutes;
         } else {
-          // Normal case within the same day
           return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
         }
       });
     } else if (filterType === "soon") {
-      // Filter for rows where current time is between startTime and endTime OR within 30 minutes of start time
       filteredData = allData.filter((row) => {
         const startMinutes = timeToMinutes(row.startTime);
         const endMinutes = timeToMinutes(row.endTime);
 
-        // Check if current time is between start and end
         let isNow = false;
         if (endMinutes < startMinutes) {
-          // End time is on the next day
-          isNow =
-            currentMinutes >= startMinutes || currentMinutes <= endMinutes;
+          isNow = currentMinutes >= startMinutes || currentMinutes <= endMinutes;
         } else {
-          // Normal case within the same day
-          isNow =
-            currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+          isNow = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
         }
 
-        // Check if current time is within 30 minutes of start time
         const timeUntilStart = (startMinutes - currentMinutes + 1440) % 1440;
         const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
 
@@ -165,21 +216,16 @@
     } else if (filterType === "all") {
       filteredData = allData;
     }
-    // For "all", we use allData without filtering
 
     table.setData(filteredData);
   }
 
-  // Handle radio button change
   function handleTimeFilterChange(event) {
     applyTimeFilter(event.target.value);
   }
 
   function initTabulator(data) {
-    // Add guard to prevent double initialization
     if (tabulatorInitialized && table) {
-      console.log("Tabulator already initialized, setting data only");
-      console.log("Setting data with", data.length, "records");
       table.setData(data);
       return;
     }
@@ -189,78 +235,23 @@
       return;
     }
 
-    console.log("Initializing Tabulator with data:", data, "records");
     table = new Tabulator(tableContainer, {
       data: data,
       layout: "fitColumns",
       responsiveLayout: "collapse",
-      height: "100%", // Ensure table takes full container height
-
+      height: "100%",
       columns: [
         { title: "kHz", field: "khz", headerFilter: "input", width: 60 },
-        {
-          title: "Start Time",
-          field: "startTime",
-          headerFilter: "input",
-          width: 100,
-        },
-        {
-          title: "End Time",
-          field: "endTime",
-          headerFilter: "input",
-          width: 100,
-        },
+        { title: "Start Time", field: "startTime", headerFilter: "input", width: 100 },
+        { title: "End Time", field: "endTime", headerFilter: "input", width: 100 },
         { title: "Days", field: "days", headerFilter: "input", width: 100 },
-        {
-          title: "Country",
-          field: "country",
-          headerFilter: "input",
-          widthShrink: 1,
-          minWidth: 100,
-        },
-        {
-          title: "Station",
-          field: "station",
-          headerFilter: "input",
-          widthShrink: 2,
-          minWidth: 150,
-        },
-        {
-          title: "Language",
-          field: "language",
-          headerFilter: "input",
-          widthShrink: 1,
-          minWidth: 100,
-        },
-        {
-          title: "Target",
-          field: "target",
-          headerFilter: "input",
-          widthShrink: 1,
-          minWidth: 100,
-        },
+        { title: "Country", field: "country", headerFilter: "input", widthShrink: 1, minWidth: 100 },
+        { title: "Station", field: "station", headerFilter: "input", widthShrink: 2, minWidth: 150 },
+        { title: "Language", field: "language", headerFilter: "input", widthShrink: 1, minWidth: 100 },
+        { title: "Target", field: "target", headerFilter: "input", widthShrink: 1, minWidth: 100 },
       ],
     });
     tabulatorInitialized = true;
-
-    // Add debug event to see what data Tabulator is receiving
-    table.on("dataLoaded", function (data) {
-      console.log("Tabulator data loaded:", data);
-      if (data && data.length > 0) {
-        console.log("First row in tabulator:", data[0]);
-        console.log("khz value in tabulator:", data[0].khz);
-      }
-    });
-
-    // Add column resize event to debug
-    table.on("columnResized", function (column) {
-      console.log(
-        "Column resized:",
-        column.getField(),
-        "width:",
-        column.getWidth(),
-      );
-    });
   }
 
   function handleResize() {
@@ -269,25 +260,39 @@
     }
   }
 
+  function formatFrequency(freq) {
+    const num = typeof freq === "string" ? parseFloat(freq) : freq;
+    if (isNaN(num)) return "0.000";
+    return num.toFixed(3);
+  }
+
+  async function updateStatus() {
+    try {
+      const status = await GetRadioStatus();
+      connected = status.connected;
+      if (status.frequency !== undefined) {
+        frequency = typeof status.frequency === "string" ? parseFloat(status.frequency) : status.frequency;
+      }
+      if (status.mode) mode = status.mode;
+      statusMessage = connected ? "Connected to radio" : "Disconnected";
+    } catch (error) {
+      statusMessage = "Error getting status";
+      console.error("Status error:", error);
+    }
+  }
+
   onMount(() => {
     if (hasMounted) return;
     hasMounted = true;
 
-    console.log("Component mounted, tableContainer:", tableContainer);
-
     (async () => {
       try {
-        console.log("Checking for existing eibi-list.json...");
         const existingData = await LoadEIBIList();
-        console.log("Existing data loaded:", existingData.length);
         if (existingData && existingData.length > 0) {
-          console.log("Found existing data:", existingData.length, "records");
           allData = existingData;
           initTabulator(existingData);
-          console.log("Tabulator initialized with existing data");
           successMessage = `Loaded ${existingData.length} records from eibi-list.json`;
         } else {
-          console.log("No existing data found, initializing empty table");
           allData = [];
           initTabulator([]);
         }
@@ -296,20 +301,12 @@
         allData = [];
         initTabulator([]);
       }
-
-      // Get initial status
-      updateStatus();
+      await updateStatus();
     })();
 
-    //Set up event listeners
     EventsOn("frequencyUpdate", (newFrequency) => {
       if (!manualFrequency) {
-        // Only update if not in manual mode
-        frequency =
-          typeof newFrequency === "string"
-            ? parseFloat(newFrequency)
-            : newFrequency;
-        updateRadioInput(frequency);
+        frequency = typeof newFrequency === "string" ? parseFloat(newFrequency) : newFrequency;
       }
     });
 
@@ -322,13 +319,10 @@
       statusMessage = isConnected ? "Connected to radio" : "Disconnected";
     });
 
-    // Add window resize listener
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function
     return () => {
       window.removeEventListener("resize", handleResize);
-      // Clean up Tabulator
       if (table) {
         table.destroy();
         table = null;
@@ -336,118 +330,13 @@
       }
     };
   });
-
-  function updateRadioInput(freq) {
-    const radioInput = document.getElementById("radio-input");
-    if (radioInput && radioInput instanceof HTMLInputElement) {
-      radioInput.value = formatFrequency(freq);
-    }
-  }
-
-  async function updateStatus() {
-    try {
-      const status = await GetRadioStatus();
-      connected = status.connected;
-      if (status.frequency !== undefined) {
-        frequency =
-          typeof status.frequency === "string"
-            ? parseFloat(status.frequency)
-            : status.frequency;
-      }
-      if (status.mode) mode = status.mode;
-      statusMessage = connected ? "Connected to radio" : "Disconnected";
-    } catch (error) {
-      statusMessage = "Error getting status";
-      console.error("Status error:", error);
-    }
-  }
-
-  function formatFrequency(freq) {
-    // Ensure freq is a number
-    const num = typeof freq === "string" ? parseFloat(freq) : freq;
-    if (isNaN(num)) return "0.000";
-
-    // Format to 3 decimal places
-    return num.toFixed(3);
-  }
-
-  async function updateConfiguration() {
-    try {
-      await UpdateConfig(config.address);
-      await updateStatus();
-      statusMessage = "Configuration updated";
-    } catch (error) {
-      console.error("Config update error:", error);
-      statusMessage = "Config update failed";
-    }
-  }
-
-  async function setNewFrequency() {
-    const input = document.getElementById("set-frequency");
-    if (input) {
-      const freqkHz = parseFloat(input.value);
-      if (!isNaN(freqkHz)) {
-        try {
-          await SetFrequency(freqkHz);
-          statusMessage = "Frequency set successfully";
-          // Refresh current frequency
-          const newFreq = await GetCurrentFrequency();
-          frequency = newFreq;
-        } catch (error) {
-          statusMessage = "Failed to set frequency";
-          console.error("Set frequency error:", error);
-        }
-      }
-    }
-  }
-
-  async function sendCustomCommand() {
-    if (customCommand.trim()) {
-      try {
-        const response = await SendCustomCommand(customCommand);
-        commandResponse = response;
-        statusMessage = "Command executed";
-
-        // Refresh data if frequency or mode might have changed
-        if (
-          customCommand.toLowerCase() === "f" ||
-          customCommand.toLowerCase() === "m"
-        ) {
-          await updateStatus();
-        }
-      } catch (error) {
-        commandResponse = `Error: ${error.message}`;
-        statusMessage = "Command failed";
-      }
-    }
-  }
-
-  function handleFrequencyInput(event) {
-    editableFrequency = event.target.value;
-  }
-
-  async function applyManualFrequency() {
-    if (editableFrequency && manualFrequency) {
-      try {
-        const freqValue = parseFloat(editableFrequency);
-        if (!isNaN(freqValue)) {
-          await SetFrequency(freqValue);
-          frequency = freqValue; // Update the displayed frequency
-          statusMessage = "Manual frequency set successfully";
-        }
-      } catch (error) {
-        statusMessage = "Failed to set manual frequency";
-        console.error("Set frequency error:", error);
-      }
-    }
-  }
 </script>
 
 <main>
   <div class="header">
-    <div class="frequency-container">
-      <div class="radio-group">
-        <div class="frequency-label">Frequency</div>
+    <div class="frequency-box">
+      <div class="frequency-label">Frequency</div>
+      <div class="frequency-display-container">
         <input
           id="radio-input"
           type="text"
@@ -457,16 +346,27 @@
           readonly
           value={formatFrequency(frequency)}
         />
-        <div class="frequency-options">
-          <label class="checkbox-option">
-            <input type="checkbox" bind:checked={exactFrequency} />
-            <span>Exact</span>
-          </label>
-          <label class="checkbox-option">
-            <input type="checkbox" bind:checked={manualFrequency} />
-            <span>Manual</span>
-          </label>
-        </div>
+        {#if showManualInput}
+          <input
+            id="manual-frequency-input"
+            type="text"
+            class="manual-frequency-input"
+            maxlength="10"
+            value={editableFrequency}
+            on:input={handleManualInput}
+            on:keydown={handleManualKeypress}
+          />
+        {/if}
+      </div>
+      <div class="frequency-options">
+        <label class="checkbox-option">
+          <input type="checkbox" bind:checked={exactFrequency} />
+          <span>Exact</span>
+        </label>
+        <label class="checkbox-option">
+          <input type="checkbox" bind:checked={manualFrequency} />
+          <span>Manual</span>
+        </label>
       </div>
     </div>
 
@@ -474,31 +374,15 @@
       <div class="radio-group-title">Time</div>
       <div class="radio-buttons">
         <label class="radio-option">
-          <input
-            type="radio"
-            name="time"
-            value="now"
-            checked
-            on:change={handleTimeFilterChange}
-          />
+          <input type="radio" name="time" value="now" checked on:change={handleTimeFilterChange} />
           <span>Now</span>
         </label>
         <label class="radio-option">
-          <input
-            type="radio"
-            name="time"
-            value="soon"
-            on:change={handleTimeFilterChange}
-          />
+          <input type="radio" name="time" value="soon" on:change={handleTimeFilterChange} />
           <span>Soon</span>
         </label>
         <label class="radio-option">
-          <input
-            type="radio"
-            name="time"
-            value="all"
-            on:change={handleTimeFilterChange}
-          />
+          <input type="radio" name="time" value="all" on:change={handleTimeFilterChange} />
           <span>All</span>
         </label>
       </div>
@@ -529,7 +413,6 @@
 </main>
 
 <style>
-  /* Your existing styles remain unchanged */
   :global(*) {
     margin: 0;
     padding: 0;
@@ -546,48 +429,89 @@
     flex-direction: column;
     height: 100vh;
     padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
   }
 
   .header {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px;
+    padding: 4px;
     flex-shrink: 0;
   }
 
-  .radio-label {
+  .frequency-box {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 4px;
+    background-color: #f8f9fa;
+    min-width: 140px;
+    position: relative;
+  }
+
+  .frequency-label {
     font-weight: bold;
-    color: #ffffff;
-    min-width: 60px;
-    background-color: transparent;
-    text-align: left;
-    line-height: 1.2;
-    padding: 4px 8px;
+    font-size: 14px;
+    color: #000000;
   }
 
-  .radio-label span:first-child {
-    font-size: 14px;
-  }
-
-  .radio-label span:last-child {
-    font-size: 14px;
+  .frequency-display-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .radio-input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
+    padding: 6px 6px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    width: 100px;
+    width: 120px;
     text-align: center;
     font-family: monospace;
-    background-color: #f8f9fa;
-    color: #495057;
+    background-color: #ffffff;
+    color: #000000;
     cursor: not-allowed;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .manual-frequency-input {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 6px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    width: 120px;
+    text-align: center;
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+  .frequency-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #000000;
   }
 
   .radio-group {
@@ -619,12 +543,8 @@
   }
 
   .radio-option span {
-    color: #000000 !important; /* Force black text */
+    color: #000000;
     font-weight: normal;
-  }
-
-  .radio-option input[type="radio"] {
-    margin: 0;
   }
 
   button {
@@ -635,7 +555,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
   }
 
   button:hover:not(:disabled) {
@@ -677,7 +596,6 @@
     overflow-x: auto;
   }
 
-  /* ADD THESE STYLES FOR TABLE CONTAINER */
   .table-container {
     flex: 1;
     border: 1px solid #ddd;
@@ -697,53 +615,11 @@
     font-style: italic;
   }
 
-  /* Ensure Tabulator styles work properly */
   :global(.tabulator) {
     height: 100% !important;
   }
 
   :global(.tabulator .tabulator-tableholder) {
     height: calc(100% - 40px) !important;
-  }
-
-  .frequency-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .frequency-options {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-  }
-  .frequency-label {
-    font-weight: bold;
-    font-size: 14px;
-    color: #000;
-  }
-
-  .radio-input {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    width: 120px; /* Slightly wider to accommodate larger font */
-    text-align: center;
-    font-family: monospace;
-    background-color: #f8f9fa;
-    color: #495057;
-    cursor: not-allowed;
-    font-size: 18px; /* Larger font size for frequency */
-    font-weight: bold;
-  }
-
-  .checkbox-option {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-    font-size: 12px;
-    color: #000;
   }
 </style>
