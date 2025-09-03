@@ -45,6 +45,8 @@
   let showManualTimeInput = false;
   let timeInterval;
   let manualTimeMode = false;
+  let frequencyFilterTimeout;
+  let frequencyFilterMode = "all"; // "exact", "near", "all", or "manual"
 
   // Input filtering functions
   function handleManualInput(event) {
@@ -95,13 +97,18 @@
           await SetFrequency(freqValue);
           frequency = freqValue;
           statusMessage = "Manual frequency set successfully";
-          showManualInput = false;
+          // Apply frequency filtering after setting manual frequency
+          applyFrequencyFilter();
         }
       } catch (error) {
         statusMessage = "Failed to set manual frequency";
         console.error("Set frequency error:", error);
       }
     }
+  }
+
+  $: if (exactFrequency) {
+    applyFrequencyFilter();
   }
 
   // Watch for manual mode changes
@@ -115,6 +122,22 @@
     }, 50);
   } else {
     showManualInput = false;
+  }
+
+  $: if (frequencyFilterMode === "manual") {
+    editableFrequency = formatFrequency(frequency);
+    showManualInput = true;
+    // Focus the input after a short delay
+    setTimeout(() => {
+      const manualInput = document.getElementById("manual-frequency-input");
+      if (manualInput) manualInput.focus();
+    }, 50);
+  } else {
+    showManualInput = false;
+    // When manual mode is disabled, update with actual radio frequency if needed
+    if (frequencyFilterMode !== "manual") {
+      updateFrequencyFromRadio();
+    }
   }
 
   async function importCSV() {
@@ -515,7 +538,7 @@
     table.setData(filteredData);
   }
 
- function handleTimeFilterChange(event) {
+  function handleTimeFilterChange(event) {
     const filterType = event.target.value;
     currentTimeFilter = filterType;
 
@@ -538,20 +561,6 @@
     }
   }
 
-  $: if (manualFrequency) {
-    editableFrequency = formatFrequency(frequency);
-    showManualInput = true;
-    // Focus the input after a short delay
-    setTimeout(() => {
-      const manualInput = document.getElementById("manual-frequency-input");
-      if (manualInput) manualInput.focus();
-    }, 50);
-  } else {
-    showManualInput = false;
-    // When manual mode is disabled, update with actual radio frequency
-    updateFrequencyFromRadio();
-  }
-
   async function updateFrequencyFromRadio() {
     try {
       const currentFreq = await GetCurrentFrequency();
@@ -566,45 +575,140 @@
       statusMessage = "Failed to get current frequency from radio";
     }
   }
+
+  $: if (!manualFrequency) {
+    applyFrequencyFilter();
+  }
+
+  $: if (exactFrequency) {
+    // When exact mode is enabled, apply filtering immediately
+    applyFrequencyFilter();
+  }
+
+  $: if (frequencyFilterMode !== "all") {
+    // When not in "all" mode, apply filtering
+    applyFrequencyFilter();
+  }
+
+  function applyFrequencyFilter() {
+    if (!table || allData.length === 0) return;
+
+    // Clear any existing timeout
+    if (frequencyFilterTimeout) {
+      clearTimeout(frequencyFilterTimeout);
+      frequencyFilterTimeout = null;
+    }
+
+    if (frequencyFilterMode === "exact") {
+      // Exact mode: filter immediately on any change
+      filterByFrequencyExact();
+    } else if (frequencyFilterMode === "near") {
+      // Near mode: debounce filtering
+      frequencyFilterTimeout = setTimeout(() => {
+        filterByFrequencyNear();
+      }, 300); // Small delay to catch rapid changes
+    } else if (frequencyFilterMode === "all") {
+      // Show all data
+      table.setData(allData);
+    }
+  }
+
+  function filterByFrequencyExact() {
+    const filteredData = allData.filter((row) => {
+      const rowFrequency = parseFloat(row.khz);
+      return Math.abs(rowFrequency - frequency) < 0.001; // Exact match within 0.001 kHz
+    });
+    table.setData(filteredData);
+  }
+
+    function filterByFrequencyNear() {
+    const filteredData = allData.filter((row) => {
+      const rowFrequency = parseFloat(row.khz);
+      return Math.abs(rowFrequency - frequency) <= 2.5; // Within ±2.5 kHz
+    });
+    table.setData(filteredData);
+  }
+
+  function filterByFrequencyRange() {
+    const filteredData = allData.filter((row) => {
+      const rowFrequency = parseFloat(row.khz);
+      return Math.abs(rowFrequency - frequency) <= 2.5; // Within ±2.5 kHz
+    });
+    table.setData(filteredData);
+  }
 </script>
 
 <main>
   <div class="header">
     <div class="frequency-box">
-      <div class="frequency-label">Frequency</div>
-      <div class="frequency-display-container">
+    <div class="frequency-label">Frequency</div>
+    <div class="frequency-display-container">
+      <input
+        id="radio-input"
+        type="text"
+        class="radio-input"
+        maxlength="10"
+        placeholder="Frequency"
+        readonly
+        value={formatFrequency(frequency)}
+      />
+      {#if showManualInput}
         <input
-          id="radio-input"
+          id="manual-frequency-input"
           type="text"
-          class="radio-input"
+          class="manual-frequency-input"
           maxlength="10"
-          placeholder="Frequency"
-          readonly
-          value={formatFrequency(frequency)}
+          value={editableFrequency}
+          on:input={handleManualInput}
+          on:keydown={handleManualKeypress}
         />
-        {#if showManualInput}
+      {/if}
+    </div>
+    <div class="frequency-options">
+      <div class="radio-buttons">
+        <label class="radio-option">
           <input
-            id="manual-frequency-input"
-            type="text"
-            class="manual-frequency-input"
-            maxlength="10"
-            value={editableFrequency}
-            on:input={handleManualInput}
-            on:keydown={handleManualKeypress}
+            type="radio"
+            name="frequencyFilter"
+            value="exact"
+            checked={frequencyFilterMode === 'exact'}
+            on:change={() => frequencyFilterMode = 'exact'}
           />
-        {/if}
-      </div>
-      <div class="frequency-options">
-        <label class="checkbox-option">
-          <input type="checkbox" bind:checked={exactFrequency} />
           <span>Exact</span>
         </label>
-        <label class="checkbox-option">
-          <input type="checkbox" bind:checked={manualFrequency} />
+        <label class="radio-option">
+          <input
+            type="radio"
+            name="frequencyFilter"
+            value="near"
+            checked={frequencyFilterMode === 'near'}
+            on:change={() => frequencyFilterMode = 'near'}
+          />
+          <span>Near</span>
+        </label>
+        <label class="radio-option">
+          <input
+            type="radio"
+            name="frequencyFilter"
+            value="all"
+            checked={frequencyFilterMode === 'all'}
+            on:change={() => frequencyFilterMode = 'all'}
+          />
+          <span>All</span>
+        </label>
+        <label class="radio-option">
+          <input
+            type="radio"
+            name="frequencyFilter"
+            value="manual"
+            checked={frequencyFilterMode === 'manual'}
+            on:change={() => frequencyFilterMode = 'manual'}
+          />
           <span>Manual</span>
         </label>
       </div>
     </div>
+  </div>
 
     <div class="frequency-box time-control-box">
       <div class="time-label">Time</div>
@@ -670,7 +774,7 @@
         </label>
       </div>
     </div>
-    
+
     <button on:click={importCSV} disabled={loading}>
       {loading ? "Importing..." : "Import CSV"}
     </button>
@@ -733,7 +837,7 @@
     border-radius: 6px;
     padding: 4px;
     background-color: #f8f9fa;
-    min-width: 140px;
+    min-width: 200px;
     position: relative;
   }
 
@@ -791,17 +895,28 @@
 
   .frequency-options {
     display: flex;
-    gap: 15px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .frequency-options .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .manual-option {
+    display: flex;
     justify-content: center;
   }
 
-  .checkbox-option {
+  .manual-option .checkbox-option {
     display: flex;
     align-items: center;
-    gap: 5px;
-    cursor: pointer;
+    gap: 4px;
     font-size: 12px;
-    color: #000000;
   }
 
   .radio-group {
@@ -948,14 +1063,25 @@
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
   }
 
-  /* Adjust radio buttons layout for the new option */
-  .radio-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
+.radio-buttons {
+  display: flex !important; /* Use flexbox instead of grid */
+  flex-wrap: nowrap; /* Prevent wrapping to new lines */
+  gap: 8px; /* Maintain spacing between buttons */
+  justify-content: center; /* Center the buttons */
+}
 
   .radio-option {
     white-space: nowrap;
   }
+
+  .frequency-box .radio-buttons {
+  display: flex !important;
+  flex-wrap: nowrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.frequency-box {
+  min-width: 220px; /* Increase from 200px to fit all buttons */
+}
 </style>

@@ -19,3 +19,6 @@ func compareCSVRows(a, b []CSVRow) bool {
 		if a[i] != b[i] {
 			return false
 		}
+	}
+	return true
+}
