@@ -36,6 +36,9 @@
   let tabulatorInitialized = false;
   let hasMounted = false;
   let frequency = 0;
+  let exactFrequency = false;
+  let manualFrequency = false;
+  let editableFrequency = "";
 
   async function importCSV() {
     loading = true;
@@ -180,12 +183,12 @@
       table.setData(data);
       return;
     }
-    
+
     if (!tableContainer) {
       console.error("Table container not found!");
       return;
     }
-    
+
     console.log("Initializing Tabulator with data:", data, "records");
     table = new Tabulator(tableContainer, {
       data: data,
@@ -269,7 +272,7 @@
   onMount(() => {
     if (hasMounted) return;
     hasMounted = true;
-    
+
     console.log("Component mounted, tableContainer:", tableContainer);
 
     (async () => {
@@ -299,11 +302,16 @@
     })();
 
     //Set up event listeners
-  EventsOn("frequencyUpdate", (newFrequency) => {
-    console.log("Received frequency:", newFrequency, "Type:", typeof newFrequency);
-    frequency = typeof newFrequency === 'string' ? parseFloat(newFrequency) : newFrequency;
-    updateRadioInput(frequency);
-  });
+    EventsOn("frequencyUpdate", (newFrequency) => {
+      if (!manualFrequency) {
+        // Only update if not in manual mode
+        frequency =
+          typeof newFrequency === "string"
+            ? parseFloat(newFrequency)
+            : newFrequency;
+        updateRadioInput(frequency);
+      }
+    });
 
     EventsOn("modeUpdate", (newMode) => {
       mode = newMode;
@@ -341,7 +349,10 @@
       const status = await GetRadioStatus();
       connected = status.connected;
       if (status.frequency !== undefined) {
-        frequency = typeof status.frequency === 'string' ? parseFloat(status.frequency) : status.frequency;
+        frequency =
+          typeof status.frequency === "string"
+            ? parseFloat(status.frequency)
+            : status.frequency;
       }
       if (status.mode) mode = status.mode;
       statusMessage = connected ? "Connected to radio" : "Disconnected";
@@ -353,9 +364,9 @@
 
   function formatFrequency(freq) {
     // Ensure freq is a number
-    const num = typeof freq === 'string' ? parseFloat(freq) : freq;
+    const num = typeof freq === "string" ? parseFloat(freq) : freq;
     if (isNaN(num)) return "0.000";
-    
+
     // Format to 3 decimal places
     return num.toFixed(3);
   }
@@ -411,7 +422,25 @@
     }
   }
 
-  // Debug panel state and function already defined above, so remove duplicate below if present.
+  function handleFrequencyInput(event) {
+    editableFrequency = event.target.value;
+  }
+
+  async function applyManualFrequency() {
+    if (editableFrequency && manualFrequency) {
+      try {
+        const freqValue = parseFloat(editableFrequency);
+        if (!isNaN(freqValue)) {
+          await SetFrequency(freqValue);
+          frequency = freqValue; // Update the displayed frequency
+          statusMessage = "Manual frequency set successfully";
+        }
+      } catch (error) {
+        statusMessage = "Failed to set manual frequency";
+        console.error("Set frequency error:", error);
+      }
+    }
+  }
 </script>
 
 <main>
@@ -420,15 +449,15 @@
       <span>Radio</span>
       <span>Frequency:</span>
     </label>
-<input
-  id="radio-input"
-  type="text"
-  class="radio-input"
-  maxlength="10" 
-  placeholder="Frequency"
-  readonly
-  value={formatFrequency(frequency)} 
-/>
+    <input
+      id="radio-input"
+      type="text"
+      class="radio-input"
+      maxlength="10"
+      placeholder="Frequency"
+      readonly
+      value={formatFrequency(frequency)}
+    />
 
     <div class="radio-group">
       <div class="radio-group-title">Time</div>
@@ -483,7 +512,7 @@
   {#if successMessage}
     <div class="success">{successMessage}</div>
   {/if}
-  
+
   {#if debugInfo}
     <div class="debug">{debugInfo}</div>
   {/if}
