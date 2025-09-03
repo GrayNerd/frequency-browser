@@ -515,15 +515,13 @@
     table.setData(filteredData);
   }
 
-  function handleTimeFilterChange(event) {
+ function handleTimeFilterChange(event) {
     const filterType = event.target.value;
     currentTimeFilter = filterType;
 
     if (filterType === "manual") {
-      // Don't reset to current time - keep the existing manualTimeInput if it exists
-      if (!manualTimeInput || manualTimeInput === "") {
-        manualTimeInput = currentUTCTime;
-      }
+      // Always update to the current receiver time when manual mode is selected
+      manualTimeInput = currentUTCTime;
       showManualTimeInput = true;
       manualTimeMode = true;
       // Focus the input after a short delay
@@ -531,7 +529,7 @@
         const manualTimeInputEl = document.getElementById("manual-time-input");
         if (manualTimeInputEl) manualTimeInputEl.focus();
       }, 50);
-      // Apply filter with the current manual time
+      // Apply filter with the current time
       applyTimeFilterWithManualTime(filterType, manualTimeInput);
     } else {
       showManualTimeInput = false;
