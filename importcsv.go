@@ -52,17 +52,6 @@ func isHeaderRow(record []string) bool {
 		strings.Contains(firstField, "frequency") || strings.Contains(firstField, "freq")
 }
 
-// isNumericFrequency checks if a string looks like a frequency value
-// func isNumericFrequency(s string) bool {
-// 	s = strings.TrimSpace(s)
-// 	if s == "" {
-// 		return false
-// 	}
-
-// 	// Try to parse as float to see if it's a number
-// 	_, err := strconv.ParseFloat(s, 64)
-// 	return err == nil
-// }
 
 // ImportCSV imports a CSV file and returns its contents
 func (a *App) ImportCSV() ([]CSVRow, error) {
@@ -92,7 +81,7 @@ func (a *App) ImportCSV() ([]CSVRow, error) {
 
 	// Create a reader that converts from Windows-1252 to UTF-8 and removes BOM
 	decodedReader := transform.NewReader(file, charmap.Windows1252.NewDecoder())
-	
+
 	// Parse CSV
 	reader := csv.NewReader(decodedReader)
 	reader.Comma = ';'          // Use semicolon as delimiter
@@ -149,7 +138,7 @@ func (a *App) ImportCSV() ([]CSVRow, error) {
 		stationName := strings.TrimSpace(record[4])
 
 		// Debug output to see what's being parsed
-		fmt.Printf("Row %d: khz='%s', Lang='%s' -> Language='%s' Target='%s Station=%s'\n", 
+		fmt.Printf("Row %d: khz='%s', Lang='%s' -> Language='%s' Target='%s Station=%s'\n",
 			i, record[0], langCode, languageName, record[6], stationName)
 
 		row := CSVRow{
@@ -238,6 +227,7 @@ func (a *App) SaveEIBIList(data []CSVRow) error {
 		Title:   "Success",
 		Message: fmt.Sprintf("Saved %d records to eibi-list.json", len(data)),
 	})
+
 
 	return nil
 }

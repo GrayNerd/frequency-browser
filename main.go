@@ -14,8 +14,12 @@ var assets embed.FS
 
 // App struct
 type App struct {
-	ctx context.Context
-}
+	ctx 		context.Context
+    config      RadioConfig
+    rig         RadioInterface
+    isConnected bool
+	pollingActive bool
+	}
 
 // NewApp creates a new App application struct
 func NewApp() *App {
@@ -25,7 +29,10 @@ func NewApp() *App {
 // startup is called when the app starts. The context is saved
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
-	a.ctx = ctx
+    a.ctx = ctx
+    a.config.Address = "localhost:4532" // Default rigctld address
+	go a.pollRadioFrequency()
+
 }
 
 func main() {
@@ -50,4 +57,11 @@ func main() {
 	if err != nil {
 		println("Error:", err.Error())
 	}
+}
+
+func (a *App) StartPolling() {
+    if !a.pollingActive {
+        a.pollingActive = true
+        go a.pollRadioFrequency()
+    }
 }

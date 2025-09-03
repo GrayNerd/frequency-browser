@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { EventsOn } from "../wailsjs/runtime";
   import { TabulatorFull as Tabulator } from "tabulator-tables";
   import "tabulator-tables/dist/css/tabulator.min.css";
   import {
@@ -7,38 +8,34 @@
     LoadEIBIList,
     SaveEIBIList,
   } from "../wailsjs/go/main/App";
+  import {
+    GetCurrentFrequency,
+    SetFrequency,
+    GetMode,
+    GetRadioStatus,
+    UpdateConfig,
+    SendCustomCommand,
+  } from "../wailsjs/go/main/App";
 
   let table;
-  let tableContainer;
+  let tableContainer; // This will reference the DOM element
   let loading = false;
   let errorMessage = "";
   let successMessage = "";
   let debugInfo = "";
   let currentTimeFilter = "now"; // Default to "now"
   let allData = []; // Store all data for filtering
-
-  // Load data on startup
-  onMount(async () => {
-    try {
-      console.log("Checking for existing eibi-list.json...");
-      const existingData = await LoadEIBIList();
-
-      if (existingData && existingData.length > 0) {
-        console.log("Found existing data:", existingData.length, "records");
-        allData = existingData;
-        initTabulator(existingData);
-        successMessage = `Loaded ${existingData.length} records from eibi-list.json`;
-      } else {
-        console.log("No existing data found, initializing empty table");
-        allData = [];
-        initTabulator([]);
-      }
-    } catch (err) {
-      console.error("Error loading existing data:", err);
-      allData = [];
-      initTabulator([]);
-    }
-  });
+  let frequency = "Loading...";
+  let mode = "Unknown";
+  let connected = false;
+  let statusMessage = "Connecting to radio...";
+  let config = {
+    address: "localhost:4532",
+  };
+  let customCommand = "";
+  let commandResponse = "";
+  let tabulatorInitialized = false;
+  let hasMounted = false;
 
   async function importCSV() {
     loading = true;
@@ -58,16 +55,8 @@
 
       if (data.length === 0) {
         successMessage = "No data rows found in CSV file";
-        debugInfo =
-          "The CSV file may contain only headers or be improperly formatted";
         return;
       }
-
-      // Debug the data structure
-      debugDataStructure(data);
-
-      // Debug: show first few rows
-      debugInfo = `Parsed ${data.length} rows. First row khz: "${data[0].khz}"`;
 
       // Save to JSON file
       console.log("Saving data to eibi-list.json...");
@@ -77,7 +66,7 @@
 
       if (table) {
         table.setData(data);
-        applyTimeFilter(currentTimeFilter); // Apply current filter to new data
+        // applyTimeFilter(currentTimeFilter); // Apply current filter to new data
       } else {
         initTabulator(data);
       }
@@ -92,28 +81,29 @@
     }
   }
 
-  function debugDataStructure(data) {
-    if (!data || data.length === 0) return;
+  // Function to parse time string (HHMM) to minutes since midnight
+  function timeToMinutes(timeString) {
+    if (!/^\d{4}$/.test(timeString)) {
+      throw new Error("Input must be a 4-digit string in HHMM format");
+    }
 
-    const firstRow = data[0];
-    console.log("Data structure keys:", Object.keys(firstRow));
-    console.log("Data structure values:", firstRow);
+    const [hours, minutes] = [
+      parseInt(timeString.substring(0, 2), 10),
+      parseInt(timeString.substring(2, 4), 10),
+    ];
 
-    // Check if khz field exists
-    if ("khz" in firstRow) {
-      console.log("khz field exists with value:", firstRow.khz);
-    } else {
-      console.log(
-        "khz field does not exist. Available fields:",
-        Object.keys(firstRow),
+    if (
+      hours < 0 ||
+      hours > 24 ||
+      minutes < 0 ||
+      minutes > 59 ||
+      (hours === 24 && minutes !== 0)
+    ) {
+      throw new Error(
+        "Invalid time values. Hours must be 00-24, minutes must be 00-59",
       );
     }
-  }
 
-  // Function to parse time string (HH:MM) to minutes since midnight
-  function timeToMinutes(timeStr) {
-    if (!timeStr) return 0;
-    const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
   }
 
@@ -128,7 +118,7 @@
     const currentUTCMinutes = now.getUTCMinutes();
     const currentMinutes = currentUTCHours * 60 + currentUTCMinutes;
 
-    let filteredData = allData;
+    let filteredData = [];
 
     if (filterType === "now") {
       // Filter for rows where current time is between startTime and endTime
@@ -169,6 +159,8 @@
 
         return isNow || isSoon;
       });
+    } else if (filterType === "all") {
+      filteredData = allData;
     }
     // For "all", we use allData without filtering
 
@@ -181,13 +173,26 @@
   }
 
   function initTabulator(data) {
+    // Add guard to prevent double initialization
+    if (tabulatorInitialized && table) {
+      console.log("Tabulator already initialized, setting data only");
+      console.log("Setting data with", data.length, "records");
+      table.setData(data);
+      return;
+    }
+    
+    if (!tableContainer) {
+      console.error("Table container not found!");
+      return;
+    }
+    
+    console.log("Initializing Tabulator with data:", data, "records");
     table = new Tabulator(tableContainer, {
       data: data,
       layout: "fitColumns",
       responsiveLayout: "collapse",
-      // pagination: 'local',
-      // paginationSize: 10,
-      // paginationSizeSelector: [5, 10, 20, 50],
+      height: "100%", // Ensure table takes full container height
+
       columns: [
         { title: "kHz", field: "khz", headerFilter: "input", width: 60 },
         {
@@ -232,8 +237,8 @@
           minWidth: 100,
         },
       ],
-      height: "100%",
     });
+    tabulatorInitialized = true;
 
     // Add debug event to see what data Tabulator is receiving
     table.on("dataLoaded", function (data) {
@@ -262,9 +267,150 @@
   }
 
   onMount(() => {
+    if (hasMounted) return;
+    hasMounted = true;
+    
+    console.log("Component mounted, tableContainer:", tableContainer);
+
+    (async () => {
+      try {
+        console.log("Checking for existing eibi-list.json...");
+        const existingData = await LoadEIBIList();
+        console.log("Existing data loaded:", existingData.length);
+        if (existingData && existingData.length > 0) {
+          console.log("Found existing data:", existingData.length, "records");
+          allData = existingData;
+          initTabulator(existingData);
+          console.log("Tabulator initialized with existing data");
+          successMessage = `Loaded ${existingData.length} records from eibi-list.json`;
+        } else {
+          console.log("No existing data found, initializing empty table");
+          allData = [];
+          initTabulator([]);
+        }
+      } catch (err) {
+        console.error("Error loading existing data:", err);
+        allData = [];
+        initTabulator([]);
+      }
+
+      // Get initial status
+      updateStatus();
+    })();
+
+    //Set up event listeners
+    EventsOn("frequencyUpdate", (newFrequency) => {
+      frequency = newFrequency;
+      updateRadioInput(newFrequency);
+    });
+
+    EventsOn("modeUpdate", (newMode) => {
+      mode = newMode;
+    });
+
+    EventsOn("connectionStatus", (isConnected) => {
+      connected = isConnected;
+      statusMessage = isConnected ? "Connected to radio" : "Disconnected";
+    });
+
+    // Add window resize listener
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      // Clean up Tabulator
+      if (table) {
+        table.destroy();
+        table = null;
+        tabulatorInitialized = false;
+      }
+    };
   });
+
+  function updateRadioInput(freq) {
+    const radioInput = document.getElementById("radio-input");
+    if (radioInput && radioInput instanceof HTMLInputElement) {
+      radioInput.value = formatFrequencyDisplay(freq);
+    }
+  }
+
+  async function updateStatus() {
+    try {
+      const status = await GetRadioStatus();
+      connected = status.connected;
+      if (status.frequency) frequency = status.frequency.toString();
+      if (status.mode) mode = status.mode;
+      statusMessage = connected ? "Connected to radio" : "Disconnected";
+    } catch (error) {
+      statusMessage = "Error getting status";
+      console.error("Status error:", error);
+    }
+  }
+
+  function formatFrequencyDisplay(freq) {
+    if (!freq) return "0";
+    const num = parseInt(freq) || 0;
+    return formatFrequency(num);
+  }
+
+  function formatFrequency(freq) {
+    const freqStr = freq.toString().padStart(8, "0");
+    return freqStr.slice;
+  }
+
+  async function updateConfiguration() {
+    try {
+      await UpdateConfig(config.address);
+      await updateStatus();
+      statusMessage = "Configuration updated";
+    } catch (error) {
+      console.error("Config update error:", error);
+      statusMessage = "Config update failed";
+    }
+  }
+
+  async function setNewFrequency() {
+    const input = document.getElementById("set-frequency");
+    if (input) {
+      const freq = parseInt(input.value.replace(/\./g, ""));
+      if (!isNaN(freq)) {
+        try {
+          await SetFrequency(freq);
+          statusMessage = "Frequency set successfully";
+          // Refresh current frequency
+          const newFreq = await GetCurrentFrequency();
+          frequency = newFreq;
+        } catch (error) {
+          statusMessage = "Failed to set frequency";
+          console.error("Set frequency error:", error);
+        }
+      }
+    }
+  }
+
+  async function sendCustomCommand() {
+    if (customCommand.trim()) {
+      try {
+        const response = await SendCustomCommand(customCommand);
+        commandResponse = response;
+        statusMessage = "Command executed";
+
+        // Refresh data if frequency or mode might have changed
+        if (
+          customCommand.toLowerCase() === "f" ||
+          customCommand.toLowerCase() === "m"
+        ) {
+          await updateStatus();
+        }
+      } catch (error) {
+        commandResponse = `Error: ${error.message}`;
+        statusMessage = "Command failed";
+      }
+    }
+  }
+
+  // Debug panel state and function already defined above, so remove duplicate below if present.
 </script>
 
 <main>
@@ -280,6 +426,7 @@
       maxlength="8"
       placeholder="Frequency"
       readonly
+      value={frequency}
     />
 
     <div class="radio-group">
@@ -321,6 +468,13 @@
     </button>
   </div>
 
+  <!-- ADD THIS TABLE CONTAINER -->
+  <div class="table-container" bind:this={tableContainer}>
+    {#if !tabulatorInitialized}
+      <div class="loading-message">Loading table data...</div>
+    {/if}
+  </div>
+
   {#if errorMessage}
     <div class="error">{errorMessage}</div>
   {/if}
@@ -328,12 +482,10 @@
   {#if successMessage}
     <div class="success">{successMessage}</div>
   {/if}
-
+  
   {#if debugInfo}
     <div class="debug">{debugInfo}</div>
   {/if}
-
-  <div class="table-container" bind:this={tableContainer}></div>
 </main>
 
 <style>
@@ -363,6 +515,7 @@
     align-items: center;
     gap: 10px;
     padding: 10px;
+    flex-shrink: 0;
   }
 
   .radio-label {
@@ -484,10 +637,32 @@
     overflow-x: auto;
   }
 
+  /* ADD THESE STYLES FOR TABLE CONTAINER */
   .table-container {
     flex: 1;
     border: 1px solid #ddd;
     border-radius: 4px;
     overflow: hidden;
+    margin-top: 15px;
+    min-height: 300px;
+    position: relative;
+  }
+
+  .loading-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+    font-style: italic;
+  }
+
+  /* Ensure Tabulator styles work properly */
+  :global(.tabulator) {
+    height: 100% !important;
+  }
+
+  :global(.tabulator .tabulator-tableholder) {
+    height: calc(100% - 40px) !important;
   }
 </style>
