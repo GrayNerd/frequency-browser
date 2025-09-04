@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { EventsOn } from "../wailsjs/runtime";
-  import { TabulatorFull as Tabulator } from "tabulator-tables";
+  import { MoveRowsModule, TabulatorFull as Tabulator } from "tabulator-tables";
   import "tabulator-tables/dist/css/tabulator.min.css";
   import {
     ImportCSV,
@@ -17,36 +17,49 @@
     SendCustomCommand,
   } from "../wailsjs/go/main/App";
 
+  // UI State and Components
   let table;
   let tableContainer;
+  let tabulatorInitialized = false;
+  let hasMounted = false;
+
+  // Data State
+  let allData = [];
   let loading = false;
+
+  // Status and Messages
+  let statusMessage = "Connecting to radio...";
   let errorMessage = "";
   let successMessage = "";
   let debugInfo = "";
-  let currentTimeFilter = "now";
-  let allData = [];
-  let mode = "Unknown";
   let connected = false;
-  let statusMessage = "Connecting to radio...";
+
+  // Radio Configuration and State
   let config = {
     address: "localhost:4532",
   };
-  let customCommand = "";
-  let commandResponse = "";
-  let tabulatorInitialized = false;
-  let hasMounted = false;
+  let mode = "Unknown";
   let frequency = 0;
+
+  // Frequency Filtering
+  let frequencyFilterMode = "near"; // "exact", "near", "all", or "manual"
+  let frequencyFilterTimeout;
   let exactFrequency = false;
   let manualFrequency = false;
   let editableFrequency = "";
   let showManualInput = false;
+
+  // Time Filtering
+  let currentTimeFilter = "now";
   let currentUTCTime = "0000";
   let manualTimeInput = "";
   let showManualTimeInput = false;
-  let timeInterval;
   let manualTimeMode = false;
-  let frequencyFilterTimeout;
-  let frequencyFilterMode = "near"; // "exact", "near", "all", or "manual"
+  let timeInterval;
+
+  // Command Handling
+  let customCommand = "";
+  let commandResponse = "";
 
   // Input filtering functions
   function handleManualInput(event) {
@@ -107,10 +120,6 @@
     }
   }
 
-  $: if (exactFrequency) {
-    applyFrequencyFilter();
-  }
-
   // Watch for manual mode changes
   $: if (manualFrequency) {
     editableFrequency = formatFrequency(frequency);
@@ -122,6 +131,11 @@
     }, 50);
   } else {
     showManualInput = false;
+  }
+
+  $: if (frequencyFilterMode === "all") {
+    console.log("Frequency filter mode changed to 'all'");
+    table.setData(allData); // Show all data when in "all" mode (filteredData);
   }
 
   $: if (frequencyFilterMode === "manual") {
@@ -591,6 +605,7 @@
   }
 
   function applyFrequencyFilter() {
+    console.log("applyFrequencyFilter");
     if (!table || allData.length === 0) return;
 
     // Clear any existing timeout
@@ -603,12 +618,14 @@
       // Exact mode: filter immediately on any change
       filterByFrequencyExact();
     } else if (frequencyFilterMode === "near") {
+      // filterByFrequencyNear()
       // Near mode: debounce filtering
       frequencyFilterTimeout = setTimeout(() => {
         filterByFrequencyNear();
       }, 300); // Small delay to catch rapid changes
     } else if (frequencyFilterMode === "all") {
       // Show all data
+      console.log("Show all data");
       table.setData(allData);
     }
   }
@@ -618,14 +635,16 @@
       const rowFrequency = parseFloat(row.khz);
       return Math.abs(rowFrequency - frequency) < 0.001; // Exact match within 0.001 kHz
     });
+    console.log("filterByFrequencyExact");
     table.setData(filteredData);
   }
 
-    function filterByFrequencyNear() {
+  function filterByFrequencyNear() {
     const filteredData = allData.filter((row) => {
       const rowFrequency = parseFloat(row.khz);
       return Math.abs(rowFrequency - frequency) <= 2.5; // Within ±2.5 kHz
     });
+    console.log("filterByFrequencyNear");
     table.setData(filteredData);
   }
 
@@ -641,74 +660,74 @@
 <main>
   <div class="header">
     <div class="frequency-box">
-    <div class="frequency-label">Frequency</div>
-    <div class="frequency-display-container">
-      <input
-        id="radio-input"
-        type="text"
-        class="radio-input"
-        maxlength="10"
-        placeholder="Frequency"
-        readonly
-        value={formatFrequency(frequency)}
-      />
-      {#if showManualInput}
+      <div class="frequency-label">Frequency</div>
+      <div class="frequency-display-container">
         <input
-          id="manual-frequency-input"
+          id="radio-input"
           type="text"
-          class="manual-frequency-input"
+          class="radio-input"
           maxlength="10"
-          value={editableFrequency}
-          on:input={handleManualInput}
-          on:keydown={handleManualKeypress}
+          placeholder="Frequency"
+          readonly
+          value={formatFrequency(frequency)}
         />
-      {/if}
-    </div>
-    <div class="frequency-options">
-      <div class="radio-buttons">
-        <label class="radio-option">
+        {#if showManualInput}
           <input
-            type="radio"
-            name="frequencyFilter"
-            value="exact"
-            checked={frequencyFilterMode === 'exact'}
-            on:change={() => frequencyFilterMode = 'exact'}
+            id="manual-frequency-input"
+            type="text"
+            class="manual-frequency-input"
+            maxlength="10"
+            value={editableFrequency}
+            on:input={Frequency}
+            on:keydown={handleManualKeypress}
           />
-          <span>Exact</span>
-        </label>
-        <label class="radio-option">
-          <input
-            type="radio"
-            name="frequencyFilter"
-            value="near"
-            checked={frequencyFilterMode === 'near'}
-            on:change={() => frequencyFilterMode = 'near'}
-          />
-          <span>Near</span>
-        </label>
-        <label class="radio-option">
-          <input
-            type="radio"
-            name="frequencyFilter"
-            value="all"
-            checked={frequencyFilterMode === 'all'}
-            on:change={() => frequencyFilterMode = 'all'}
-          />
-          <span>All</span>
-        </label>
-        <label class="radio-option">
-          <input
-            type="radio"
-            name="frequencyFilter"
-            value="manual"
-            checked={frequencyFilterMode === 'manual'}
-            on:change={() => frequencyFilterMode = 'manual'}
-          />
-          <span>Manual</span>
-        </label>
+        {/if}
+      </div>
+      <div class="frequency-options">
+        <div class="radio-buttons">
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="frequencyFilter"
+              value="exact"
+              checked={frequencyFilterMode === "exact"}
+              on:change={() => (frequencyFilterMode = "exact")}
+            />
+            <span>Exact</span>
+          </label>
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="frequencyFilter"
+              value="near"
+              checked={frequencyFilterMode === "near"}
+              on:change={() => (frequencyFilterMode = "near")}
+            />
+            <span>Near</span>
+          </label>
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="frequencyFilter"
+              value="all"
+              checked={frequencyFilterMode === "all"}
+              on:change={() => (frequencyFilterMode = "all")}
+            />
+            <span>All</span>
+          </label>
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="frequencyFilter"
+              value="manual"
+              checked={frequencyFilterMode === "manual"}
+              on:change={() => (frequencyFilterMode = "manual")}
+            />
+            <span>Manual</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
 
     <div class="frequency-box time-control-box">
       <div class="time-label">Time</div>
@@ -740,7 +759,7 @@
             type="radio"
             name="time"
             value="now"
-            checked={currentTimeFilter === 'now'}
+            checked={currentTimeFilter === "now"}
             on:change={handleTimeFilterChange}
           />
           <span>Now</span>
@@ -800,32 +819,25 @@
 </main>
 
 <style>
-  :global(*) {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  .debug {
+    color: #7d3c98;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #e8daef;
+    border-radius: 4px;
+    border-left: 4px solid #7d3c98;
+    font-family: monospace;
+    font-size: 12px;
+    overflow-x: auto;
   }
 
-  :global(html, body) {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, sans-serif;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 4px;
-    flex-shrink: 0;
+  .error {
+    color: #e74c3c;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #fadbd8;
+    border-radius: 4px;
+    border-left: 4px solid #e74c3c;
   }
 
   .frequency-box {
@@ -837,20 +849,15 @@
     border-radius: 6px;
     padding: 4px;
     background-color: #f8f9fa;
-    min-width: 200px;
+    min-width: 220px;
     position: relative;
   }
 
-  .frequency-label {
-    font-weight: bold;
-    font-size: 14px;
-    color: #000000;
-  }
-
-  .time-label {
-    font-weight: bold;
-    font-size: 14px;
-    color: #000000;
+  .frequency-box .radio-buttons {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: center;
   }
 
   .frequency-display-container {
@@ -860,18 +867,50 @@
     justify-content: center;
   }
 
-  .radio-input {
-    padding: 6px 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 120px;
-    text-align: center;
-    font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
-    cursor: not-allowed;
-    font-size: 18px;
+  .frequency-label {
     font-weight: bold;
+    font-size: 14px;
+    color: #000000;
+  }
+
+  .frequency-options {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .frequency-options .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+
+  .loading-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #666;
+    font-style: italic;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, sans-serif;
   }
 
   .manual-frequency-input {
@@ -893,20 +932,6 @@
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
   }
 
-  .frequency-options {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .frequency-options .radio-option {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-  }
-
   .manual-option {
     display: flex;
     justify-content: center;
@@ -919,11 +944,79 @@
     font-size: 12px;
   }
 
+  .manual-time-input {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 6px;
+    border: 2px solid #3498db;
+    border-radius: 4px;
+    width: 80px;
+    text-align: center;
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+  }
+
+  .radio-buttons {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 8px;
+    justify-content: center;
+  }
+
   .radio-group {
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 6px 6px;
     background-color: #fff;
+  }
+
+  .radio-input {
+    padding: 6px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 120px;
+    text-align: center;
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: not-allowed;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .radio-option {
+    white-space: nowrap;
+  }
+
+  .radio-option span {
+    color: #000000;
+    font-weight: normal;
+  }
+
+  .success {
+    color: #27ae60;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #d5f4e6;
+    border-radius: 4px;
+    border-left: 4px solid #27ae60;
+  }
+
+  .table-container {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 15px;
+    min-height: 300px;
+    position: relative;
   }
 
   .time-control-box .radio-buttons {
@@ -937,9 +1030,37 @@
     white-space: nowrap;
     font-size: 12px;
   }
-  .radio-option span {
+
+  .time-display-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2px;
+  }
+
+  .time-group {
+    min-width: 160px;
+  }
+
+  .time-label {
+    font-weight: bold;
+    font-size: 14px;
     color: #000000;
-    font-weight: normal;
+  }
+
+  .utc-time-display {
+    padding: 6px 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 80px;
+    text-align: center;
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #000000;
+    cursor: not-allowed;
+    font-size: 18px;
+    font-weight: bold;
   }
 
   button {
@@ -952,62 +1073,24 @@
     font-size: 16px;
   }
 
-  button:hover:not(:disabled) {
-    background-color: #2980b9;
-  }
-
   button:disabled {
     background-color: #95a5a6;
     cursor: not-allowed;
   }
 
-  .error {
-    color: #e74c3c;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #fadbd8;
-    border-radius: 4px;
-    border-left: 4px solid #e74c3c;
+  button:hover:not(:disabled) {
+    background-color: #2980b9;
   }
 
-  .success {
-    color: #27ae60;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #d5f4e6;
-    border-radius: 4px;
-    border-left: 4px solid #27ae60;
+  :global(*) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
 
-  .debug {
-    color: #7d3c98;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #e8daef;
-    border-radius: 4px;
-    border-left: 4px solid #7d3c98;
-    font-family: monospace;
-    font-size: 12px;
-    overflow-x: auto;
-  }
-
-  .table-container {
-    flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+  :global(html, body) {
+    height: 100%;
     overflow: hidden;
-    margin-top: 15px;
-    min-height: 300px;
-    position: relative;
-  }
-
-  .loading-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #666;
-    font-style: italic;
   }
 
   :global(.tabulator) {
@@ -1017,71 +1100,4 @@
   :global(.tabulator .tabulator-tableholder) {
     height: calc(100% - 40px) !important;
   }
-
-  .time-group {
-    min-width: 160px;
-  }
-
-  .time-display-container {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2px;
-  }
-
-  .utc-time-display {
-    padding: 6px 6px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 80px; /* Ensure consistent width */
-    text-align: center;
-    font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
-    cursor: not-allowed;
-    font-size: 18px;
-    font-weight: bold;
-  }
-
-  .manual-time-input {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 6px 6px;
-    border: 2px solid #3498db;
-    border-radius: 4px;
-    width: 80px; /* Match the width of utc-time-display */
-    text-align: center;
-    font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 18px;
-    font-weight: bold;
-    z-index: 10;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-  }
-
-.radio-buttons {
-  display: flex !important; /* Use flexbox instead of grid */
-  flex-wrap: nowrap; /* Prevent wrapping to new lines */
-  gap: 8px; /* Maintain spacing between buttons */
-  justify-content: center; /* Center the buttons */
-}
-
-  .radio-option {
-    white-space: nowrap;
-  }
-
-  .frequency-box .radio-buttons {
-  display: flex !important;
-  flex-wrap: nowrap;
-  gap: 6px;
-  justify-content: center;
-}
-
-.frequency-box {
-  min-width: 220px; /* Increase from 200px to fit all buttons */
-}
 </style>
