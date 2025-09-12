@@ -7,6 +7,12 @@
     ImportEiBi,
     LoadEIBIList,
     SaveEIBIList,
+    ImportAOKI,
+    LoadAokiList,
+    SaveAokiList,
+    ImportHFCC,
+    LoadHfccList,
+    SaveHfccList,
   } from "../wailsjs/go/main/App";
   import {
     GetCurrentFrequency,
@@ -16,8 +22,6 @@
     UpdateConfig,
     SendCustomCommand,
   } from "../wailsjs/go/main/App";
-  import{ImportAOKI, LoadAokiList, SaveAokiList} from "../wailsjs/go/main/App";
-  import{ImportHFCC, LoadHfccList, SaveHfccList} from "../wailsjs/go/main/App";
 
   // UI State and Components
   let table;
@@ -28,6 +32,9 @@
   // Data State
   let allData = [];
   let loading = false;
+  let loadingEiBi = false;
+  let loadingAoki = false;
+  let loadingHfcc = false;
 
   // Status and Messages
   let statusMessage = "Connecting to radio...";
@@ -225,6 +232,7 @@
 
   async function importEiBi() {
     loading = true;
+    loadingEiBi = true; // Change text only for this button
     errorMessage = "";
     successMessage = "";
     debugInfo = "";
@@ -260,11 +268,13 @@
       debugInfo = `EiBi CSV Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
+      loadingEiBi = false;
     }
   }
 
   async function importAoki() {
     loading = true;
+    loadingAoki = true; // Change text only for this button
     errorMessage = "";
     successMessage = "";
     debugInfo = "";
@@ -300,10 +310,11 @@
       debugInfo = `Aoki CSV Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
+      loadingAoki = false;
     }
   }
 
-    async function importHFCC() {
+  async function importHFCC() {
     loading = true;
     errorMessage = "";
     successMessage = "";
@@ -340,9 +351,9 @@
       debugInfo = `Hfcc CSV Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
+      loadingHFCC = false;
     }
   }
-
 
   function timeToMinutes(timeString) {
     if (!/^\d{4}$/.test(timeString)) {
@@ -811,17 +822,17 @@
     </div>
 
     <button id="import-eibi" on:click={importEiBi} disabled={loading}>
-      {loading ? "Importing..." : "Import EiBi"}
+      {loadingEiBi ? "Importing..." : "Import EiBi"}
     </button>
 
     <button id="import-aoki" on:click={importAoki} disabled={loading}>
-      {loading ? "Importing..." : "Import AOKI"}
+      {loadingAoki ? "Importing..." : "Import AOKI"}
     </button>
 
     <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
-      {loading ? "Importing..." : "Import HFCC"}
+      {loadingHfcc ? "Importing..." : "Import HFCC"}
     </button>
-    </div>
+  </div>
 
   <div class="table-container" bind:this={tableContainer}>
     {#if !tabulatorInitialized}
@@ -1072,7 +1083,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    height: 30px
+    height: 30px;
   }
 
   button:disabled {
