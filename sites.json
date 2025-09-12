@@ -1,0 +1,8431 @@
+[
+  {
+    "country": "AFG",
+    "site_abbrev": "k",
+    "site_name": "Kabul / Pol-e-Charkhi"
+  },
+  {
+    "country": "AFG",
+    "site_abbrev": "x",
+    "site_name": "Khost"
+  },
+  {
+    "country": "AFG",
+    "site_abbrev": "y",
+    "site_name": "Kabul-Yakatut"
+  },
+  {
+    "country": "AFS",
+    "site_abbrev": "",
+    "site_name": "Meyerton"
+  },
+  {
+    "country": "AFS",
+    "site_abbrev": "ct",
+    "site_name": "Cape Town"
+  },
+  {
+    "country": "AFS",
+    "site_abbrev": "j",
+    "site_name": "Johannesburg"
+  },
+  {
+    "country": "AGL",
+    "site_abbrev": "",
+    "site_name": "L-Luena (Moxico)"
+  },
+  {
+    "country": "AGL",
+    "site_abbrev": "lu",
+    "site_name": "Luanda Radio"
+  },
+  {
+    "country": "AGL",
+    "site_abbrev": "m",
+    "site_name": "Luanda - Mulenvos"
+  },
+  {
+    "country": "AIA",
+    "site_abbrev": "",
+    "site_name": "The Valley"
+  },
+  {
+    "country": "ALB",
+    "site_abbrev": "c",
+    "site_name": "Cerrik (CRI)"
+  },
+  {
+    "country": "ALB",
+    "site_abbrev": "f",
+    "site_name": "Fllake (Durres, 500kW)"
+  },
+  {
+    "country": "ALB",
+    "site_abbrev": "s",
+    "site_name": "Shijiak (Radio Tirana) (1x100kW = 2x50kW)"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "ad",
+    "site_name": "Adrar7"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "al",
+    "site_name": "Algiers"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "an",
+    "site_name": "Annaba"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "b",
+    "site_name": "Béchar"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "fk",
+    "site_name": "F'Kirina (Aïn Beïda)"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "o",
+    "site_name": "Ouargla / Ourgla"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "of",
+    "site_name": "Ouled Fayet"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "or",
+    "site_name": "Oran 7TO"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "r",
+    "site_name": "Reggane"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "s",
+    "site_name": "In Salah (Ain Salih)"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "t",
+    "site_name": "Tindouf (Rabbouni)6"
+  },
+  {
+    "country": "ALG",
+    "site_abbrev": "tm",
+    "site_name": "Timimoun"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "an",
+    "site_name": "Annette"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "ap",
+    "site_name": "Anchor Point"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "ba",
+    "site_name": "Barrow"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "cb",
+    "site_name": "Cold Bay"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "e",
+    "site_name": "Elmendorf AFB"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "g",
+    "site_name": "Gakona"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "k",
+    "site_name": "Kodiak"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "ks",
+    "site_name": "King Salmon"
+  },
+  {
+    "country": "ALS",
+    "site_abbrev": "no",
+    "site_name": "Nome"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "b",
+    "site_name": "Buenos Aires"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "co",
+    "site_name": "Córdoba"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "cr",
+    "site_name": "Comodoro Rivadavia (Navy)"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "cv",
+    "site_name": "Comodoro Rivadavia (Air)"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "e",
+    "site_name": "Ezeiza, Prov. Buenos Aires"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "g",
+    "site_name": "General Pacheco"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "mp",
+    "site_name": "Mar del Plata, Prov. Buenos Aires"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "r",
+    "site_name": "Resistencia, Chaco"
+  },
+  {
+    "country": "ARG",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "ARM",
+    "site_abbrev": "",
+    "site_name": "Gavar (formerly Kamo)"
+  },
+  {
+    "country": "ARM",
+    "site_abbrev": "y",
+    "site_name": "Yerevan"
+  },
+  {
+    "country": "ARS",
+    "site_abbrev": "j",
+    "site_name": "Jeddah/Jiddah"
+  },
+  {
+    "country": "ARS",
+    "site_abbrev": "jr",
+    "site_name": "Jiddah Radio"
+  },
+  {
+    "country": "ARS",
+    "site_abbrev": "jz",
+    "site_name": "Jazan"
+  },
+  {
+    "country": "ARS",
+    "site_abbrev": "nj",
+    "site_name": "Najran"
+  },
+  {
+    "country": "ARS",
+    "site_abbrev": "r",
+    "site_name": "Riyadh"
+  },
+  {
+    "country": "ASC",
+    "site_abbrev": "",
+    "site_name": "Ascension Island"
+  },
+  {
+    "country": "ATA",
+    "site_abbrev": "e",
+    "site_name": "Base Esperanza"
+  },
+  {
+    "country": "ATA",
+    "site_abbrev": "f",
+    "site_name": "Bahia Fildes, King George Island"
+  },
+  {
+    "country": "ATA",
+    "site_abbrev": "ma",
+    "site_name": "Maramio Base, Seymour Island"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "a",
+    "site_name": "Alice Springs NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ae",
+    "site_name": "Aero sites: Cape Pallarenda and Broken Hill and Knuckeys Lagoon"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "al",
+    "site_name": "VKS737 Alice Springs NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "as",
+    "site_name": "Alice Springs NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "at",
+    "site_name": "Alice Springs NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "av",
+    "site_name": "Alice Springs Velodrome NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "b",
+    "site_name": "Brandon QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "be",
+    "site_name": "Bendigo VIC"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "bm",
+    "site_name": "Broadmeadows VIC"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "c",
+    "site_name": "Charleville QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ca",
+    "site_name": "Casino NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ch",
+    "site_name": "VKS737 Charter Towers QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "cl",
+    "site_name": "RFDS Charleville QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ct",
+    "site_name": "VKS737 Charter Towers QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "cv",
+    "site_name": "RFDS Carnarvon WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "du",
+    "site_name": "Dural/Sydney NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ee",
+    "site_name": "VKS737 Adelaide/Elizabeth East SA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ex",
+    "site_name": "Exmouth WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "g",
+    "site_name": "Gunnedah NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "h",
+    "site_name": "Humpty Doo NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "hc",
+    "site_name": "Halls Creek NSW, 50 km NE of Tamsworth"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "hp",
+    "site_name": "Hurlstone Park, Sydney NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "il",
+    "site_name": "VKS737 Alice Springs-Ilparpa NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "in",
+    "site_name": "Innisfail QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ka",
+    "site_name": "Katherine NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "kd",
+    "site_name": "RFDS Kuranda QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "kr",
+    "site_name": "Kuranda QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ku",
+    "site_name": "Kununurra WA (24 Jul 2012 moved to \"Lot 3000\" 2 mi west)"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "kw",
+    "site_name": "Kununurra WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "",
+    "site_name": "L-Sydney-Leppington NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "m",
+    "site_name": "Macleay Island QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ma",
+    "site_name": "Manilla NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "md",
+    "site_name": "Mareeba-Dimbulah QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "mi",
+    "site_name": "RFDS Mount Isa QLD"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "mk",
+    "site_name": "RFDS Meekatharra WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "n",
+    "site_name": "Ningi QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "nc",
+    "site_name": "VKS737 Newcastle/Edgeworth NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "pc",
+    "site_name": "Perth / Chittering WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "pe",
+    "site_name": "Penong SA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "pw",
+    "site_name": "VKS737 Perth/Wanneroo WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ri",
+    "site_name": "Russell Island QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "rm",
+    "site_name": "Roma QL"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "rz",
+    "site_name": "Razorback NSW"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "s",
+    "site_name": "Shepparton VIC"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "sa",
+    "site_name": "Shepparton-Ardmona VIC"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "sb",
+    "site_name": "VKS737 Stawell-Black Range VIC"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "sf",
+    "site_name": "Schofields, western Sydney"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "sm",
+    "site_name": "St Mary's, Sydney"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "st",
+    "site_name": "VKS737 St Marys TAS"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "t",
+    "site_name": "Tennant Creek NT"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "va",
+    "site_name": "VKS737 Adelaide/Virginia SA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "vs",
+    "site_name": "VKS737 at sites va/ee/st/nc/ch/ct/pw/il/al/sb"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "w",
+    "site_name": "Wiluna WA"
+  },
+  {
+    "country": "AUS",
+    "site_abbrev": "ww",
+    "site_name": "Wee Waa NSW"
+  },
+  {
+    "country": "AUT",
+    "site_abbrev": "",
+    "site_name": "Moosbrunn"
+  },
+  {
+    "country": "AZE",
+    "site_abbrev": "b",
+    "site_name": "Baku"
+  },
+  {
+    "country": "AZE",
+    "site_abbrev": "g",
+    "site_name": "Gäncä"
+  },
+  {
+    "country": "AZE",
+    "site_abbrev": "s",
+    "site_name": "Stepanakert"
+  },
+  {
+    "country": "AZR",
+    "site_abbrev": "ho",
+    "site_name": "Horta"
+  },
+  {
+    "country": "AZR",
+    "site_abbrev": "lj",
+    "site_name": "Lajes Field"
+  },
+  {
+    "country": "AZR",
+    "site_abbrev": "sm",
+    "site_name": "Santa Maria"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "a",
+    "site_name": "Porto Alegre, RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ag",
+    "site_name": "Araguaína, TO"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "am",
+    "site_name": "Amparo, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "an",
+    "site_name": "Anápolis, GO"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ap",
+    "site_name": "Aparecida, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ar",
+    "site_name": "Araraquara, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "b",
+    "site_name": "Brasilia, Parque do Rodeador, DF"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "be",
+    "site_name": "Belém, PA"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "bh",
+    "site_name": "Belo Horizonte, Minas Gerais"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "br",
+    "site_name": "Braganca, PA"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "bt",
+    "site_name": "Belém, PA (Ondas Tropicais 5045)"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "bv",
+    "site_name": "Boa Vista, RR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "c",
+    "site_name": "Contagem/Belo Horizonte, MG"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ca",
+    "site_name": "Campo Largo (Curitiba), PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cb",
+    "site_name": "Camboriú, SC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cc",
+    "site_name": "Cáceres, MT"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cg",
+    "site_name": "Campo Grande, MS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "",
+    "site_name": "Cg-Campo Grande, MS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cl",
+    "site_name": "Cabedelo, PB"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cm",
+    "site_name": "Campinas, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cn",
+    "site_name": "Congonhas, MG"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "co",
+    "site_name": "Coari, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cp",
+    "site_name": "Cachoeira Paulista, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "",
+    "site_name": "Cp-Cachoeira Paulista, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cs",
+    "site_name": "Cruzeiro do Sul, Estrada do Aeroporto, AC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cu",
+    "site_name": "Curitiba, PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "cv",
+    "site_name": "Cuiabá, MT"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "c2",
+    "site_name": "Curitiba, PR RB2"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "",
+    "site_name": "E-Esteio (Porto Alegre), RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "e",
+    "site_name": "Esteio (Porto Alegre), RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "f",
+    "site_name": "Foz do Iguacu, PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "fl",
+    "site_name": "Florianópolis, SC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "fp",
+    "site_name": "Florianópolis - Comboriú, SC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "g",
+    "site_name": "Guarujá, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "gb",
+    "site_name": "Guaíba (Porto Alegre), RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "gc",
+    "site_name": "Sao Gabriel de Cachoeira, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "gm",
+    "site_name": "Guajará-Mirim, RO"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "go",
+    "site_name": "Goiânia"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "gu",
+    "site_name": "Guarulhos, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "h",
+    "site_name": "Belo Horizonte, MG"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ib",
+    "site_name": "Ibitinga, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "it",
+    "site_name": "Itapevi, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ld",
+    "site_name": "Londrina, PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "li",
+    "site_name": "Limeira, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "lj",
+    "site_name": "Lajeado, RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "lo",
+    "site_name": "Londrina, PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "m",
+    "site_name": "Manaus AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ma",
+    "site_name": "Manaus - Radiodif.Amazonas, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mc",
+    "site_name": "Macapá, AP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mg",
+    "site_name": "Manaus - Radio Globo, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mi",
+    "site_name": "Marília, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mm",
+    "site_name": "São Mateus do Maranhão, Maranhão"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mo",
+    "site_name": "Mogi das Cruces, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mp",
+    "site_name": "Mirandópolis, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "mr",
+    "site_name": "Manaus - Radio Rio Mar, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ob",
+    "site_name": "Óbidos, PA"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "os",
+    "site_name": "Osasco, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "pa",
+    "site_name": "Parintins, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "pc",
+    "site_name": "Pocos da Caldas, MG"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "pe",
+    "site_name": "Petrolina, PE"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "pi",
+    "site_name": "Piraquara (Curitiba), PR"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "pv",
+    "site_name": "Porto Velho, RO (4 dipolos em quadrado)"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "r",
+    "site_name": "Rio de Janeiro (Radio Globo), RJ"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rb",
+    "site_name": "Rio Branco, AC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rc",
+    "site_name": "Rio de Janeiro (Radio Capital), RJ"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "re",
+    "site_name": "Recife, PE"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rj",
+    "site_name": "Rio de Janeiro (Radio Relogio), RJ"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ro",
+    "site_name": "Rio de Janeiro, Observatório Nacional"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rp",
+    "site_name": "Ribeirão Preto, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rs",
+    "site_name": "Rio de Janeiro (Super Radio), RJ"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "rw",
+    "site_name": "Rio de Janeiro PWZ"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sa",
+    "site_name": "Santarém, PA"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sb",
+    "site_name": "Sao Paulo - Radio Bandeirantes, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sc",
+    "site_name": "Sao Paulo - Radio Cultura, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "se",
+    "site_name": "Senador Guiomard, AC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sg",
+    "site_name": "Sao Paulo - Radio Globo, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sj",
+    "site_name": "Sao Paulo - Radio 9 de Julho, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sm",
+    "site_name": "Santa Maria, RS"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "so",
+    "site_name": "Sorocaba, SP / Votorantim"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sr",
+    "site_name": "Sao Paulo - Radio Record, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sy",
+    "site_name": "Sao Paulo PYB45"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "sz",
+    "site_name": "Sao Paulo - Radio Gazeta, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "ta",
+    "site_name": "Taubaté, SP"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "te",
+    "site_name": "Teresina, PI"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "tf",
+    "site_name": "Tefé, AM"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "vi",
+    "site_name": "Vitória, ES"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "x",
+    "site_name": "Xapuri, AC"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "xm",
+    "site_name": "Unknown location in Maranhão"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "xn",
+    "site_name": "Unknown location in Paraná"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "xp",
+    "site_name": "Unknown location in Paraíba"
+  },
+  {
+    "country": "B",
+    "site_abbrev": "xx",
+    "site_name": "Unknown location"
+  },
+  {
+    "country": "BEL",
+    "site_abbrev": "o",
+    "site_name": "Oostende"
+  },
+  {
+    "country": "BEL",
+    "site_abbrev": "r",
+    "site_name": "Ruiselede OSN"
+  },
+  {
+    "country": "BEL",
+    "site_abbrev": "w",
+    "site_name": "Wingene"
+  },
+  {
+    "country": "BEN",
+    "site_abbrev": "c",
+    "site_name": "Cotonou"
+  },
+  {
+    "country": "BEN",
+    "site_abbrev": "p",
+    "site_name": "Parakou"
+  },
+  {
+    "country": "BER",
+    "site_abbrev": "h",
+    "site_name": "Bermuda Harbour"
+  },
+  {
+    "country": "BES",
+    "site_abbrev": "",
+    "site_name": "Bonaire"
+  },
+  {
+    "country": "BFA",
+    "site_abbrev": "",
+    "site_name": "Ouagadougou"
+  },
+  {
+    "country": "BGD",
+    "site_abbrev": "d",
+    "site_name": "Dhaka-Dhamrai"
+  },
+  {
+    "country": "BGD",
+    "site_abbrev": "k",
+    "site_name": "Dhaka-Khabirpur"
+  },
+  {
+    "country": "BGD",
+    "site_abbrev": "s",
+    "site_name": "Dhaka-Savar"
+  },
+  {
+    "country": "BHR",
+    "site_abbrev": "a",
+    "site_name": "Abu Hayan"
+  },
+  {
+    "country": "BHR",
+    "site_abbrev": "m",
+    "site_name": "Al Muharraq"
+  },
+  {
+    "country": "BIH",
+    "site_abbrev": "b",
+    "site_name": "Bijeljina"
+  },
+  {
+    "country": "BIH",
+    "site_abbrev": "z",
+    "site_name": "Zavidovici"
+  },
+  {
+    "country": "BIO",
+    "site_abbrev": "",
+    "site_name": "Diego Garcia"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "",
+    "site_name": "Minsk-Sasnovy/Kalodziscy"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "b",
+    "site_name": "Brest"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "g",
+    "site_name": "Hrodna/Grodno"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "m",
+    "site_name": "Mahiliou/Mogilev (\"Orsha\")"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "mo",
+    "site_name": "Molodechno/Vileyka (43 Comm Center Russian Navy)"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "vi",
+    "site_name": "Vitebsk"
+  },
+  {
+    "country": "BLR",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site(s)"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "ay",
+    "site_name": "Santa Ana del Yacuma"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "cb",
+    "site_name": "Cochabamba"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "p",
+    "site_name": "La Paz"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "ri",
+    "site_name": "Riberalta"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "sc",
+    "site_name": "Santa Cruz"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "si",
+    "site_name": "San Ignacio de Velasco"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "sz",
+    "site_name": "Santa Cruz Airport"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "uy",
+    "site_name": "Uyuni"
+  },
+  {
+    "country": "BOL",
+    "site_abbrev": "yu",
+    "site_name": "Yura "
+  },
+  {
+    "country": "BOT",
+    "site_abbrev": "",
+    "site_name": "Mopeng Hill"
+  },
+  {
+    "country": "BTN",
+    "site_abbrev": "",
+    "site_name": "Thimphu"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "bg",
+    "site_name": "Blagoevgrad (864)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "bk",
+    "site_name": "Bankya"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "do",
+    "site_name": "Doulovo (1161)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "kj",
+    "site_name": "Kardjali (963)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "p",
+    "site_name": "Plovdiv-Padarsko"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "pe",
+    "site_name": "Petrich"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "s",
+    "site_name": "Sofia-Kostinbrod"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "sa",
+    "site_name": "Samuil (864)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "sl",
+    "site_name": "Salmanovo (747)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "tv",
+    "site_name": "Targovishte (1161)"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "va",
+    "site_name": "Varna"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "vi",
+    "site_name": "Vidin"
+  },
+  {
+    "country": "BUL",
+    "site_abbrev": "vk",
+    "site_name": "Vakarel"
+  },
+  {
+    "country": "CAF",
+    "site_abbrev": "ba",
+    "site_name": "Bangui"
+  },
+  {
+    "country": "CAF",
+    "site_abbrev": "bo",
+    "site_name": "Boali"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "al",
+    "site_name": "Aldergrove BC, Matsqui Tx site"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "ap",
+    "site_name": "VAE/XLK Amphitrite Point (Tofino) BC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "c",
+    "site_name": "Calgary AB"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "cb",
+    "site_name": "Cambridge Bay, Victoria Island NU"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "cc",
+    "site_name": "Churchill MB"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "ch",
+    "site_name": "Coral Harbour NU"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "cr",
+    "site_name": "Cap des Rosiers"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "cw",
+    "site_name": "Cartwright NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "di",
+    "site_name": "VAJ Digby Island BC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "ex",
+    "site_name": "Essex County (Harrow), near Detroit, ON"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "fg",
+    "site_name": "CFG8525 ON"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "g",
+    "site_name": "Gander NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "h",
+    "site_name": "Halifax NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "hd",
+    "site_name": "Hopedale NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "hp",
+    "site_name": "VOH-498 Hunter Point BC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "hr",
+    "site_name": "Hay River"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "hx",
+    "site_name": "Halifax CFH NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "i",
+    "site_name": "Iqaluit NU"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "in",
+    "site_name": "Inuvik NWT"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "j",
+    "site_name": "St John's NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "k",
+    "site_name": "Killiniq/Killinek NU"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "ki",
+    "site_name": "Kingsburg NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "lp",
+    "site_name": "Lockeport NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "lv",
+    "site_name": "La Vernière, Îles-de-la-Madeleine QC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "na",
+    "site_name": "Natashquan QC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "o",
+    "site_name": "Ottawa ON"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "pc",
+    "site_name": "Port Caledonia NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "r",
+    "site_name": "Resolute, Cornwallis Island NU"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "sa",
+    "site_name": "St Anthony / Pistolet Bay NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "sj",
+    "site_name": "St John's NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "sl",
+    "site_name": "St Lawrence NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "sm",
+    "site_name": "Sambro NS"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "sv",
+    "site_name": "Stephenville NL"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "t",
+    "site_name": "Toronto (Mississauga/Clarkson) ON"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "tr",
+    "site_name": "Trenton (Pointe Petre, Lake Ontario)"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "",
+    "site_name": "tr2-Trenton Receiver Site ON"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "v",
+    "site_name": "Vancouver BC"
+  },
+  {
+    "country": "CAN",
+    "site_abbrev": "ym",
+    "site_name": "Yarmouth/Chebogue NS"
+  },
+  {
+    "country": "CBG",
+    "site_abbrev": "ka",
+    "site_name": "Kandal"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "a",
+    "site_name": "Antofagasta"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "e",
+    "site_name": "Radio Esperanza"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "fx",
+    "site_name": "Bahia Felix"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "gc",
+    "site_name": "\"General Carrera\" (RCW), unknown location"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "jf",
+    "site_name": "Juan Fernández"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "pa",
+    "site_name": "Punta Arenas"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "pm",
+    "site_name": "Puerto Montt"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "q",
+    "site_name": "Isla de Pascua"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "s",
+    "site_name": "Santiago (Calera de Tango)"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "t",
+    "site_name": "Talagante"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "tq",
+    "site_name": "Talcahuano, Quiriquina Island"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "v",
+    "site_name": "Valparaiso"
+  },
+  {
+    "country": "CHL",
+    "site_abbrev": "w",
+    "site_name": "Wollaston Island"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "a",
+    "site_name": "Baoji-Xinjie (Shaanxi; CRI 150 kW; CNR2 9820)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "as",
+    "site_name": "Baoji-Sifangshan (Shaanxi; CNR1,8)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "b",
+    "site_name": "Beijing-Matoucun \"572\" (100 kW CNR1)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "",
+    "site_name": "B-Beijing-Chaoyang/Gaobeidian/Shuangqiao \"491\" (CNR2-8)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "bd",
+    "site_name": "Beijing-Doudian (150/500 kW CRI) \"564\""
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "bm",
+    "site_name": "Beijing BAF"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "bs",
+    "site_name": "Beijing 3SD"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "b0",
+    "site_name": "Basuo, Hainan"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "c",
+    "site_name": "Chengdu (Sichuan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "cc",
+    "site_name": "Changchun \"523\" (Jilin)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "ch",
+    "site_name": "Changzhou Henglinchen \"623\" (Jiangsu)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "d",
+    "site_name": "Dongfang (Hainan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "da",
+    "site_name": "Dalian"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "db",
+    "site_name": "Dongfang-Basuo"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "de",
+    "site_name": "Dehong (Yunnan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "e",
+    "site_name": "Gejiu (Yunnan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "eb",
+    "site_name": "Beijing, Posolstvo"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "f",
+    "site_name": "Fuzhou (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "fz",
+    "site_name": "Fuzhou-Mawei XSL (Fujian) and Tailu"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "g",
+    "site_name": "Gannan (Hezuo)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "gu",
+    "site_name": "Gutian-Xincheng"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "gx",
+    "site_name": "Guangzhou XSQ"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "gy",
+    "site_name": "Guiyang"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "gz",
+    "site_name": "Guangzhou-Huadu (Guangdong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "h",
+    "site_name": "Hohhot \"694\" (Nei Menggu, CRI)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "ha",
+    "site_name": "Hailar (Nei Menggu)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "hd",
+    "site_name": "Huadian \"763\" (Jilin)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "he",
+    "site_name": "Hezuo"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "hh",
+    "site_name": "Hohhot-Yijianfang (Nei Menggu, PBS NM)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "hk",
+    "site_name": "Haikou (Hainan) XSR"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "hu",
+    "site_name": "Hutubi (Xinjiang)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "j",
+    "site_name": "Jinhua"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "k",
+    "site_name": "Kunming-Anning CRI (Yunnan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "ka",
+    "site_name": "Kashi (Kashgar) (Xinjiang)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "kl",
+    "site_name": "Kunming-Lantao PBS (Yunnan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "",
+    "site_name": "L-Lingshi \"725\" (Shanxi)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "ly",
+    "site_name": "Lianyungang, Jiangsu"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "n",
+    "site_name": "Nanning (Guangxi)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "nj",
+    "site_name": "Nanjing (Jiangsu)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "nm",
+    "site_name": "Nei Menggu network, see http://www.asiawaves.net/ for details"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "p",
+    "site_name": "Pucheng (Shaanxi)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "pt",
+    "site_name": "Putian (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "q",
+    "site_name": "Ge'ermu/Golmud \"916\" (Qinghai)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "qq",
+    "site_name": "Qiqihar (500kW)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "qz",
+    "site_name": "Quanzhou \"641\" (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "s",
+    "site_name": "Shijiazhuang \"723\" (Hebei; Nanpozhuang CRI 500 kW; Huikou CNR 100 kW)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sg",
+    "site_name": "Shanghai-Taopuzhen"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sh",
+    "site_name": "Shanghai XSG Chongming Island"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sn",
+    "site_name": "Sanya (Hainan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sq",
+    "site_name": "Shangqiu (Henan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "st",
+    "site_name": "Shantou (Guangdong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sw",
+    "site_name": "Nanping-Shaowu (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "sy",
+    "site_name": "Shuangyashan \"128\" (Heilongjiang)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "t",
+    "site_name": "Tibet (Lhasa-Baiding \"602\")"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "tj",
+    "site_name": "Tianjin"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "u",
+    "site_name": "Urumqi (Xinjiang, CRI)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "uc",
+    "site_name": "Urumqi-Changji (Xinjiang, PBS XJ)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "x",
+    "site_name": "Xian-Xianyang \"594\" (Shaanxi)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xc",
+    "site_name": "Xichang (Sichuan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xd",
+    "site_name": "Xiamen-Xiangdian (Fujian) XSM and Dong'an"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xg",
+    "site_name": "Xining (Qinghai)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xm",
+    "site_name": "Xiamen (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xt",
+    "site_name": "Xiangtan (Hunan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xw",
+    "site_name": "Xuanwei (Yunnan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xy",
+    "site_name": "Xingyang (Henan)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "xz",
+    "site_name": "Xinzhaicun (Fujian)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "ya",
+    "site_name": "Yanbian-Yanji (Jilin)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "yt",
+    "site_name": "Yantai (Shandong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "zh",
+    "site_name": "Zhuhai \"909\" (Guangdong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "zj",
+    "site_name": "Zhanjiang (Guangdong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "zn",
+    "site_name": "Zhongshan (Guangdong)"
+  },
+  {
+    "country": "CHN",
+    "site_abbrev": "zs",
+    "site_name": "Mount Putuo, Xiaohulu Island, Zhoushan"
+  },
+  {
+    "country": "CKH",
+    "site_abbrev": "rt",
+    "site_name": "Rarotonga"
+  },
+  {
+    "country": "CLM",
+    "site_abbrev": "b",
+    "site_name": "Barranquilla"
+  },
+  {
+    "country": "CLM",
+    "site_abbrev": "bu",
+    "site_name": "Buenaventura"
+  },
+  {
+    "country": "CLM",
+    "site_abbrev": "pl",
+    "site_name": "Puerto Lleras"
+  },
+  {
+    "country": "CLM",
+    "site_abbrev": "r",
+    "site_name": "Rioblanco, Tolima"
+  },
+  {
+    "country": "CLM",
+    "site_abbrev": "sa",
+    "site_name": "San Andrés Island (SAP)"
+  },
+  {
+    "country": "CLN",
+    "site_abbrev": "e",
+    "site_name": "Ekala (SLBC,RJ)"
+  },
+  {
+    "country": "CLN",
+    "site_abbrev": "i",
+    "site_name": "Iranawila (IBB)"
+  },
+  {
+    "country": "CLN",
+    "site_abbrev": "p",
+    "site_name": "Puttalam"
+  },
+  {
+    "country": "CLN",
+    "site_abbrev": "t",
+    "site_name": "Trincomalee (DW)"
+  },
+  {
+    "country": "CME",
+    "site_abbrev": "",
+    "site_name": "Buea"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "ar",
+    "site_name": "Arrecife (Lanzarote)"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "fc",
+    "site_name": "Fuencaliente (Las Palmas)"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "gc",
+    "site_name": "Gran Canaria airport"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "hr",
+    "site_name": "Haría (Tenerife)"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "hy",
+    "site_name": "Los Hoyos (Gran Canaria)"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "lm",
+    "site_name": "Las Mesas (Las Palmas)"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "pr",
+    "site_name": "Puerto del Rosario"
+  },
+  {
+    "country": "CNR",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "COD",
+    "site_abbrev": "bk",
+    "site_name": "Bukavu"
+  },
+  {
+    "country": "COD",
+    "site_abbrev": "bu",
+    "site_name": "Bunia"
+  },
+  {
+    "country": "COG",
+    "site_abbrev": "b",
+    "site_name": "Brazzaville-M'Pila"
+  },
+  {
+    "country": "COG",
+    "site_abbrev": "bv",
+    "site_name": "Brazzaville Volmet"
+  },
+  {
+    "country": "COG",
+    "site_abbrev": "pn",
+    "site_name": "Pointe Noire"
+  },
+  {
+    "country": "CTI",
+    "site_abbrev": "a",
+    "site_name": "Abidjan"
+  },
+  {
+    "country": "CTR",
+    "site_abbrev": "",
+    "site_name": "Cariari de Pococí (REE)"
+  },
+  {
+    "country": "CTR",
+    "site_abbrev": "g",
+    "site_name": "Guápiles (Canton de Pococí, Prov.de Limón) ELCOR"
+  },
+  {
+    "country": "CUB",
+    "site_abbrev": "",
+    "site_name": "La Habana sites Quivicán/Bejucal/Bauta"
+  },
+  {
+    "country": "CUB",
+    "site_abbrev": "b",
+    "site_name": "Bauta (Centro Transmisor No.1)"
+  },
+  {
+    "country": "CUB",
+    "site_abbrev": "be",
+    "site_name": "Bejucal (Centro Transmisor No.2)"
+  },
+  {
+    "country": "CUB",
+    "site_abbrev": "hr",
+    "site_name": "Havana Radio"
+  },
+  {
+    "country": "CUB",
+    "site_abbrev": "q",
+    "site_name": "Quivicán/Titan (Centro Transmisor No.3)"
+  },
+  {
+    "country": "CVA",
+    "site_abbrev": "",
+    "site_name": "Santa Maria di Galeria"
+  },
+  {
+    "country": "CVA",
+    "site_abbrev": "v",
+    "site_name": "Citta del Vaticano"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "a",
+    "site_name": "Akrotiri (UK territory)"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "cr",
+    "site_name": "Cyprus Radio"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "g",
+    "site_name": "Cape Greco"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "m",
+    "site_name": "Lady's Mile (UK territory)"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "n",
+    "site_name": "Nicosia"
+  },
+  {
+    "country": "CYP",
+    "site_abbrev": "y",
+    "site_name": "Yeni Iskele"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "b",
+    "site_name": "Brno-Dobrochov"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "cb",
+    "site_name": "Ceske Budejovice-Husova kolonie"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "dl",
+    "site_name": "Dlouhá Louka"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "kv",
+    "site_name": "Karlovy Vary-Stará Role"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "mb",
+    "site_name": "Moravské Budejovice-Domamil"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "os",
+    "site_name": "Ostrava-Svinov"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "p",
+    "site_name": "Praha"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "pl",
+    "site_name": "Praha-Liblice"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "pr",
+    "site_name": "Pruhonice / Pruhonice"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "pv",
+    "site_name": "Panská Ves"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "tr",
+    "site_name": "Trebon / Trebon"
+  },
+  {
+    "country": "CZE",
+    "site_abbrev": "va",
+    "site_name": "Vackov"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "al",
+    "site_name": "Albersloh"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "b",
+    "site_name": "Biblis"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "be",
+    "site_name": "Berlin-Britz"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "bl",
+    "site_name": "Berlin"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "br",
+    "site_name": "Braunschweig"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "bu",
+    "site_name": "Burg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "bv",
+    "site_name": "Bonn-Venusberg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "cx",
+    "site_name": "Cuxhaven-Sahlenburg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "d",
+    "site_name": "Dillberg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "dd",
+    "site_name": "Dresden-Wilsdruff"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "dt",
+    "site_name": "Datteln"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "e",
+    "site_name": "Erlangen-Tennenlohe"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "fl",
+    "site_name": "Flensburg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "g",
+    "site_name": "Goehren"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "ge",
+    "site_name": "Gera"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "gl",
+    "site_name": "Glücksburg and Neuharlingersiel, Schortens, Hürup, Rostock, Marlow"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "ha",
+    "site_name": "Hannover"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "hc",
+    "site_name": "Hamburg-Curslack"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "he",
+    "site_name": "Hannover/Hemmingen"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "hh",
+    "site_name": "Hamburg-Moorfleet"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "ht",
+    "site_name": "Hartenstein (Sachsen)"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "jr",
+    "site_name": "Juliusruh"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "k",
+    "site_name": "Kall-Krekel"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "",
+    "site_name": "L-Lampertheim"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "la",
+    "site_name": "Langenberg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "li",
+    "site_name": "Lingen"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "mf",
+    "site_name": "Mainflingen"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "n",
+    "site_name": "Nauen"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "nh",
+    "site_name": "Neuharlingersiel DHJ59"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "nu",
+    "site_name": "Nuernberg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "or",
+    "site_name": "Oranienburg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "pi",
+    "site_name": "Pinneberg"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "r",
+    "site_name": "Rohrbach"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "rf",
+    "site_name": "Rhauderfehn"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "s",
+    "site_name": "Stade"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "w",
+    "site_name": "Wertachtal"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "wa",
+    "site_name": "Winsen (Aller)"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "wb",
+    "site_name": "Wachenbrunn"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "we",
+    "site_name": "Weenermoor"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "wh",
+    "site_name": "Waldheim"
+  },
+  {
+    "country": "D",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "DJI",
+    "site_abbrev": "d",
+    "site_name": "Djibouti"
+  },
+  {
+    "country": "DJI",
+    "site_abbrev": "i",
+    "site_name": "Centre de Transmissions Interarmées FUV"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "a",
+    "site_name": "Aarhus-Mårslet"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "bl",
+    "site_name": "Blaavand"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "br",
+    "site_name": "Bramming"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "bv",
+    "site_name": "Bovbjerg"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "co",
+    "site_name": "Copenhagen OXT"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "f",
+    "site_name": "Frederikshavn"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "h",
+    "site_name": "Hillerod"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "hv",
+    "site_name": "Copenhagen Hvidovre"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "i",
+    "site_name": "Copenhagen Ishøj"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "k",
+    "site_name": "Kalundborg"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "ra",
+    "site_name": "Randers"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "ro",
+    "site_name": "Ronne"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "sg",
+    "site_name": "Skagen"
+  },
+  {
+    "country": "DNK",
+    "site_abbrev": "sk",
+    "site_name": "Skamlebaek"
+  },
+  {
+    "country": "DOM",
+    "site_abbrev": "sd",
+    "site_name": "Santo Domingo"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "af",
+    "site_name": "Alfabia (Mallorca)"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "ag",
+    "site_name": "Aguilas"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "ar",
+    "site_name": "Ares"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "as",
+    "site_name": "La Asomada"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "bo",
+    "site_name": "Boal"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "c",
+    "site_name": "Coruna"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "cg",
+    "site_name": "Cabo de Gata - Sabinar"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "cp",
+    "site_name": "Chipiona"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "fi",
+    "site_name": "Finisterre"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "gm",
+    "site_name": "Torreta de Guardamar, Guardamar del Segura"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "h",
+    "site_name": "Huelva"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "hv",
+    "site_name": "Huelva"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "jq",
+    "site_name": "Jaizquibel"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "ma",
+    "site_name": "Madrid"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "mu",
+    "site_name": "Muxía"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "mx",
+    "site_name": "Marratxí"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "n",
+    "site_name": "Noblejas"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "pm",
+    "site_name": "Palma de Mallorca"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "pz",
+    "site_name": "Pastoriza"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "rq",
+    "site_name": "Roquetas"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "rs",
+    "site_name": "Rostrío/Cabo de Peñas"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "sb",
+    "site_name": "Sabiner"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "ta",
+    "site_name": "Tarifa"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "tj",
+    "site_name": "Trijueque"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "to",
+    "site_name": "Torrejón de Ardoz (Pegaso, Pavon, Brujo)"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "",
+    "site_name": "Jota,Polar-Zaragoza; Perseo-Alcala de los Gazules; Matador-Villatobas; Embargo-Soller"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "vj",
+    "site_name": "Vejer"
+  },
+  {
+    "country": "E",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "EGY",
+    "site_abbrev": "a",
+    "site_name": "Abis"
+  },
+  {
+    "country": "EGY",
+    "site_abbrev": "al",
+    "site_name": "Alexandria / Al-Iskandaria"
+  },
+  {
+    "country": "EGY",
+    "site_abbrev": "ca",
+    "site_name": "Cairo"
+  },
+  {
+    "country": "EGY",
+    "site_abbrev": "ea",
+    "site_name": "El Arish"
+  },
+  {
+    "country": "EGY",
+    "site_abbrev": "z",
+    "site_name": "Abu Zaabal"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "a",
+    "site_name": "Ambato"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "c",
+    "site_name": "Pico Pichincha"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "g",
+    "site_name": "Guayaquil"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "i",
+    "site_name": "Ibarra"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "o",
+    "site_name": "Otavalo"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "p",
+    "site_name": "Pifo"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "s",
+    "site_name": "Saraguro"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "t",
+    "site_name": "Tena"
+  },
+  {
+    "country": "EQA",
+    "site_abbrev": "u",
+    "site_name": "Sucúa"
+  },
+  {
+    "country": "ERI",
+    "site_abbrev": "",
+    "site_name": "Asmara-Saladaro"
+  },
+  {
+    "country": "EST",
+    "site_abbrev": "ta",
+    "site_name": "Tallinn Radio"
+  },
+  {
+    "country": "EST",
+    "site_abbrev": "tt",
+    "site_name": "Tartu"
+  },
+  {
+    "country": "EST",
+    "site_abbrev": "tv",
+    "site_name": "Tallinn Volmet"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "a",
+    "site_name": "Addis Abeba"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "ad",
+    "site_name": "Adama"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "b",
+    "site_name": "Bahir Dar"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "d",
+    "site_name": "Geja Dera (HS)"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "j",
+    "site_name": "Geja Jewe (FS)8"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "jj",
+    "site_name": "Jijiga"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "m",
+    "site_name": "Mekele"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "n",
+    "site_name": "Nekemte"
+  },
+  {
+    "country": "ETH",
+    "site_abbrev": "r",
+    "site_name": "Robe"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "a",
+    "site_name": "Allouis"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "au",
+    "site_name": "Auros"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "av",
+    "site_name": "Avord"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "br",
+    "site_name": "FUE Brest"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "cm",
+    "site_name": "Col de la Madone"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "co",
+    "site_name": "Corsen"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "g",
+    "site_name": "La Garde (Toulon)"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "gn",
+    "site_name": "Gris-Nez"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "hy",
+    "site_name": "Hyères Island"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "i",
+    "site_name": "Issoudun"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "jb",
+    "site_name": "Jobourg"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "ma",
+    "site_name": "Mont Angel/Fontbonne"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "oe",
+    "site_name": "Ouessant"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "p",
+    "site_name": "Paris"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "r",
+    "site_name": "Rennes"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "ro",
+    "site_name": "Roumoules"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "sa",
+    "site_name": "FUG Saissac (11)"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "sb",
+    "site_name": "Strasbourg"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "sg",
+    "site_name": "Saint Guénolé"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "to",
+    "site_name": "FUO Toulon"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "v",
+    "site_name": "Favières FAV"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "ve",
+    "site_name": "Vernon"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "wu",
+    "site_name": "Rosnay (HWU)"
+  },
+  {
+    "country": "F",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "as",
+    "site_name": "Asikkala"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "ha",
+    "site_name": "Hailuoto (Oulu)"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "he",
+    "site_name": "Helsinki"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "hk",
+    "site_name": "Hämeenkyrö"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "lp",
+    "site_name": "Lappeenranta"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "mh",
+    "site_name": "Mariehamn (Aland Islands)6"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "o",
+    "site_name": "Ovaniemi"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "p",
+    "site_name": "Pori"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "pk",
+    "site_name": "Pori (Blacksmith Knoll)"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "r",
+    "site_name": "Raseborg/Raasepori"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "t",
+    "site_name": "Topeno, Loppi, near Riihimäki"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "v",
+    "site_name": "Virrat"
+  },
+  {
+    "country": "FIN",
+    "site_abbrev": "va",
+    "site_name": "Vaasa"
+  },
+  {
+    "country": "FJI",
+    "site_abbrev": "n",
+    "site_name": "Nadi-Enamanu"
+  },
+  {
+    "country": "FRO",
+    "site_abbrev": "t",
+    "site_name": "Tórshavn"
+  },
+  {
+    "country": "FSM",
+    "site_abbrev": "",
+    "site_name": "Pohnpei"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ab",
+    "site_name": "Aberdeen (Gregness)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "aq",
+    "site_name": "Aberdeen (Blaikie's Quay)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "an",
+    "site_name": "Anthorn"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ba",
+    "site_name": "Bangor (No.Ireland)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "bd",
+    "site_name": "Bridlington (East Yorkshire)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "cf",
+    "site_name": "Collafirth Hill (Shetland)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "cm",
+    "site_name": "Crimond (Aberdeenshire)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "cp",
+    "site_name": "London-Crystal Palace"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "cr",
+    "site_name": "London-Croydon"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ct",
+    "site_name": "Croughton (Northants)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "cu",
+    "site_name": "Cullercoats, Newcastle"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "d",
+    "site_name": "Droitwich"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "dv",
+    "site_name": "Dover"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ev",
+    "site_name": "St.Eval (Cornwall)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "fh",
+    "site_name": "Fareham (Hampshire)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "fl",
+    "site_name": "Falmouth Coastguard"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "fm",
+    "site_name": "Falmouth (Lizard)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "hh",
+    "site_name": "Holyhead (Isle of Anglesey, Wales)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "hu",
+    "site_name": "Humber (Flamborough)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ic",
+    "site_name": "one of: Inskip (Lancashire) / St.Eval (Cornwall) / Crimond (Aberdeenshire)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "in",
+    "site_name": "Inskip (Lancashire)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "lo",
+    "site_name": "London"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "lw",
+    "site_name": "Lerwick (Shetland)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "mh",
+    "site_name": "Milford Haven, Wales"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ni",
+    "site_name": "Niton Navtex, Isle of Wight"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "nw",
+    "site_name": "Northwood"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "o",
+    "site_name": "Orfordness"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "p",
+    "site_name": "Portland"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "pp",
+    "site_name": "Portpatrick Navtex (Dumfries and Galloway)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "r",
+    "site_name": "Rampisham"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "s",
+    "site_name": "Skelton"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "sc",
+    "site_name": "Shetland (Lerwick)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "sm",
+    "site_name": "St Mary's (Isles of Scilly)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "sp",
+    "site_name": "Saint Peter Port (Guernsey)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "st",
+    "site_name": "Stornoway (Butt of Lewis)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "sw",
+    "site_name": "Stornoway port"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "ti",
+    "site_name": "Tiree (Inner Hebrides)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "w",
+    "site_name": "Woofferton"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "wa",
+    "site_name": "Washford (Somerset)"
+  },
+  {
+    "country": "G",
+    "site_abbrev": "xy",
+    "site_name": "Varying site, see rsgb.org/main/gb2rs/"
+  },
+  {
+    "country": "GAB",
+    "site_abbrev": "",
+    "site_name": "Moyabi"
+  },
+  {
+    "country": "GEO",
+    "site_abbrev": "s",
+    "site_name": "Sukhumi"
+  },
+  {
+    "country": "GNE",
+    "site_abbrev": "b",
+    "site_name": "Bata"
+  },
+  {
+    "country": "GNE",
+    "site_abbrev": "m",
+    "site_name": "Malabo"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "a",
+    "site_name": "Avlis"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "i",
+    "site_name": "Iraklion"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "k",
+    "site_name": "Kerkyra"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "",
+    "site_name": "L-Limnos (Myrina)"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "o",
+    "site_name": "Olimpia"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "r",
+    "site_name": "Rhodos"
+  },
+  {
+    "country": "GRC",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "aa",
+    "site_name": "Aasiaat"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "ik",
+    "site_name": "Ikerasassuaq (Prins Christian Sund)"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "ko",
+    "site_name": "Kook Island"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "ma",
+    "site_name": "Maniitsoq"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "n",
+    "site_name": "Nuuk"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "pa",
+    "site_name": "Paamiut"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "qa",
+    "site_name": "Qaqortoq"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "qe",
+    "site_name": "Qeqertarsuaq"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "si",
+    "site_name": "Sisimiut"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "sq",
+    "site_name": "Simiutaq"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "t",
+    "site_name": "Tasiilaq/Ammassalik"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "up",
+    "site_name": "Upernavik"
+  },
+  {
+    "country": "GRL",
+    "site_abbrev": "uu",
+    "site_name": "Uummannaq"
+  },
+  {
+    "country": "GUF",
+    "site_abbrev": "",
+    "site_name": "Montsinery"
+  },
+  {
+    "country": "GUI",
+    "site_abbrev": "c",
+    "site_name": "Conakry-Sonfonia"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "a",
+    "site_name": "Station KSDA, Agat"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "an",
+    "site_name": "Andersen Air Force Base"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "b",
+    "site_name": "Barrigada"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "h",
+    "site_name": "Agana HFDL site"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "m",
+    "site_name": "Station KTWR, Agana/Merizo"
+  },
+  {
+    "country": "GUM",
+    "site_abbrev": "n",
+    "site_name": "Naval station NPN"
+  },
+  {
+    "country": "GUY",
+    "site_abbrev": "",
+    "site_name": "Sparendaam"
+  },
+  {
+    "country": "HKG",
+    "site_abbrev": "a",
+    "site_name": "Cape d'Aguilar"
+  },
+  {
+    "country": "HKG",
+    "site_abbrev": "m",
+    "site_name": "Marine Rescue Radio VRC"
+  },
+  {
+    "country": "HND",
+    "site_abbrev": "t",
+    "site_name": "Tegucigalpa"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "b",
+    "site_name": "Budapest"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "g",
+    "site_name": "Györ"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "lh",
+    "site_name": "Lakihegy"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "m",
+    "site_name": "Marcali-Somogyszentpal"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "p",
+    "site_name": "Pecs-Kozarmisleny"
+  },
+  {
+    "country": "HNG",
+    "site_abbrev": "sz",
+    "site_name": "Szolnok-Besenyszoegi ut"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "a",
+    "site_name": "Alphen aan den Rijn"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "b",
+    "site_name": "Borculo"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "cg",
+    "site_name": "Coast Guard Den Helder - Scheveningen"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "e",
+    "site_name": "Elburg"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "he",
+    "site_name": "Heerde"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "k",
+    "site_name": "Klazienaveen"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "m",
+    "site_name": "Margraten"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "n",
+    "site_name": "Nijmegen"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "o",
+    "site_name": "Ouddorp, Goeree-Overflakkee island"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "ov",
+    "site_name": "Overslag (Westdorpe)"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "w",
+    "site_name": "Winterswijk"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "HOL",
+    "site_abbrev": "zw",
+    "site_name": "Zwolle"
+  },
+  {
+    "country": "HRV",
+    "site_abbrev": "",
+    "site_name": "Deanovec"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "a",
+    "site_name": "WWVH"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "b",
+    "site_name": "WWVH"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "c",
+    "site_name": "WWVH"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "d",
+    "site_name": "WWVH"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "hi",
+    "site_name": "Hickam AFB"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "ho",
+    "site_name": "Honolulu/Iroquois Point"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "",
+    "site_name": "L-Lualualei"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "m",
+    "site_name": "Moloka'i"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "n",
+    "site_name": "Naalehu"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "nm",
+    "site_name": "NMO Honolulu/Maili"
+  },
+  {
+    "country": "HWA",
+    "site_abbrev": "p",
+    "site_name": "Pearl Harbour"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "a",
+    "site_name": "Andrate"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "ac",
+    "site_name": "Ancona IDR"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "an",
+    "site_name": "Ancona IPA"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "au",
+    "site_name": "Augusta IQA (Sicily)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "b",
+    "site_name": "San Benedetto de Tronto IQP"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "ba",
+    "site_name": "Bari IPB"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "cg",
+    "site_name": "Cagliari IDC (Sardinia)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "cm",
+    "site_name": "Cagliari IDR"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "cv",
+    "site_name": "Civitavecchia IPD"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "eu",
+    "site_name": "Radio Europa, NW Italy"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "ge",
+    "site_name": "Genova ICB"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "kr",
+    "site_name": "Crotone IPC"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "li",
+    "site_name": "Livorno-Montenero IPL"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "lm",
+    "site_name": "Lampedusa-Ponente IQN"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "ls",
+    "site_name": "La Spazia IDR"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "me",
+    "site_name": "Messina IDF (Sicily)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "mp",
+    "site_name": "Monteparano (IPC)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "mz",
+    "site_name": "Mazara del Vallo"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "na",
+    "site_name": "Napoli-Posillipo IQH"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "p",
+    "site_name": "Padova"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "pa",
+    "site_name": "Palermo-Punta Raisi IPP (Sicily)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "pi",
+    "site_name": "San Pietro island IDR"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "pt",
+    "site_name": "Porto Torres IZN (Sardinia)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "r",
+    "site_name": "Roma"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "ra",
+    "site_name": "Roma IMB"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "re",
+    "site_name": "Rome"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "sa",
+    "site_name": "Sant'Anna d'Alfaedo IDR"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "si",
+    "site_name": "Sigonella (Sicilia)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "sp",
+    "site_name": "Santa Panagia/Siracusa IDR (Sicilia)"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "sr",
+    "site_name": "Santa Rosa (IDR Maritele), Roma"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "sy",
+    "site_name": "NSY"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "t",
+    "site_name": "Trieste (Monte Radio) IQX"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "v",
+    "site_name": "Viareggio, Toscana"
+  },
+  {
+    "country": "I",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "a",
+    "site_name": "Aligarh (4x250kW)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "ah",
+    "site_name": "Ahmedabad"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "az",
+    "site_name": "Aizawl(10kW)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "b",
+    "site_name": "Bengaluru-Doddaballapur (Bangalore)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "bh",
+    "site_name": "Bhopal(50kW)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "c",
+    "site_name": "Chennai (Madras)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "d",
+    "site_name": "Delhi (Kingsway)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "dn",
+    "site_name": "Delhi-Nangli Poona"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "g",
+    "site_name": "Gorakhpur"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "gt",
+    "site_name": "Gangtok"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "hy",
+    "site_name": "Hyderabad"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "im",
+    "site_name": "Imphal"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "it",
+    "site_name": "Itanagar"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "j",
+    "site_name": "Jalandhar"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "ja",
+    "site_name": "Jaipur"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "je",
+    "site_name": "Jeypore"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "jm",
+    "site_name": "Jammu"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "k",
+    "site_name": "Kham Pur, Delhi 110036 (Khampur)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "kc",
+    "site_name": "Kolkata-Chandi"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "kh",
+    "site_name": "Kohima"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "ko",
+    "site_name": "Kolkata(Calcutta)-Chinsurah"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "ku",
+    "site_name": "Kurseong"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "kv",
+    "site_name": "Kolkata Volmet"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "le",
+    "site_name": "Leh"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "lu",
+    "site_name": "Lucknow"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "m",
+    "site_name": "Mumbai (Bombay)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "mv",
+    "site_name": "Mumbai Volmet"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "n",
+    "site_name": "Nagpur, Maharashtra"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "nj",
+    "site_name": "Najibabad, Uttar Pradesh"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "p",
+    "site_name": "Panaji (Goa)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "pb",
+    "site_name": "Port Blair-Brookshabad"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "r",
+    "site_name": "Rajkot"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "ra",
+    "site_name": "Ranchi"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "sg",
+    "site_name": "Shillong"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "si",
+    "site_name": "Siliguri"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "sm",
+    "site_name": "Shimla"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "sr",
+    "site_name": "Srinagar"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "su",
+    "site_name": "Suratgarh (Rajasthan)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "t",
+    "site_name": "Tuticorin (Tamil Nadu)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "tv",
+    "site_name": "Thiruvananthapuram(Trivendrum)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "v",
+    "site_name": "Vijayanarayanam (Tamil Nadu)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "vs",
+    "site_name": "Vishakapatnam (Andhra Pradesh)"
+  },
+  {
+    "country": "IND",
+    "site_abbrev": "w",
+    "site_name": "Guwahati (1x200kW, 1x50kW)"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "am",
+    "site_name": "Ambon, Ambon Island, Maluku"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ap",
+    "site_name": "Amamapare, Papua "
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "at",
+    "site_name": "Atapupu, Timor"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ba",
+    "site_name": "Banggai, Banggai Island, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bb",
+    "site_name": "Banabungi, Buton Island, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bd",
+    "site_name": "Badas, Sumbawa Island, West Nusa Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "be",
+    "site_name": "Bade, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bg",
+    "site_name": "Bagan Siapi-Api, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bi",
+    "site_name": "Biak, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bj",
+    "site_name": "Banjarmasin, Kalimantan Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bk",
+    "site_name": "Bengkalis, Bengkalis Island, Riau"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bl",
+    "site_name": "Batu Licin, Kalimantan Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bm",
+    "site_name": "Batu Ampar, Batam Island next to Singapore"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bn",
+    "site_name": "Bawean, Bawean Island, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bo",
+    "site_name": "Benoa, Denpasar, Bali"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bp",
+    "site_name": "Balikpapan, Kalimantan Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bt",
+    "site_name": "Benete, Sumbawa Island, West Nusa Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bu",
+    "site_name": "Bukittinggi, Sumatera Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "bw",
+    "site_name": "Belawan, Medan, Sumatera Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "by",
+    "site_name": "Biak, Biak Island, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b2",
+    "site_name": "Bau-Bau, Buton Island, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b3",
+    "site_name": "Bengkulu, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b4",
+    "site_name": "Bima, Sumbawa Island, West Nusa Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b5",
+    "site_name": "Bintuni, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b6",
+    "site_name": "Bitung, Sulawesi Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "b7",
+    "site_name": "Bontang, Kalimantan Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "cb",
+    "site_name": "Celukan Bawang, Bali"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "cc",
+    "site_name": "Cilacap, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ci",
+    "site_name": "Cigading, Merak, Banten, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "cr",
+    "site_name": "Cirebon, Jawa Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "dg",
+    "site_name": "Donggala, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "dm",
+    "site_name": "Dumai, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "do",
+    "site_name": "Dobo, Wamar Island, Maluku"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ds",
+    "site_name": "Dabo Singkep, Singkep Island, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "en",
+    "site_name": "Ende, Flores Island, Nusa Tenggara Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "f",
+    "site_name": "Fakfak, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "fj",
+    "site_name": "Fatujuring, Wokam Island, Maluku"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "g",
+    "site_name": "Gorontalo, Sulawesi"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "gi",
+    "site_name": "Gilimanuk, Bali"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "go",
+    "site_name": "Gorontalo port, Sulawesi"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "gr",
+    "site_name": "Gresik, Surabaya, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "gs",
+    "site_name": "Gunung Sitoli, Nias Island, Sumatera Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "j",
+    "site_name": "Jakarta (Cimanggis)"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ja",
+    "site_name": "Jambi PKC3"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jb",
+    "site_name": "Jakarta BMG"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jm",
+    "site_name": "Jambi, Sumatera"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jp",
+    "site_name": "Jepara, Jawa Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "js",
+    "site_name": "Jakarta, Sunda Kelapa port"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jw",
+    "site_name": "Juwana, Jawa Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jx",
+    "site_name": "Jakarta PKX"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "jy",
+    "site_name": "Jayapura, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ka",
+    "site_name": "Kaimana, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kb",
+    "site_name": "Kalabahi, Alor Island, East Nusa Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kd",
+    "site_name": "Kendari, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kg",
+    "site_name": "Kalianget, Sumenep, Madura Island, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ki",
+    "site_name": "Kumai, Kalimantan Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kj",
+    "site_name": "Kijang, Bintan Island"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kl",
+    "site_name": "Kolonodale, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "km",
+    "site_name": "Karimunjawa Island, off Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kn",
+    "site_name": "Kupang, Timor"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ko",
+    "site_name": "Kolaka, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kp",
+    "site_name": "Ketapang, Kalimantan Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ks",
+    "site_name": "Kota Langsa, Aceh, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kt",
+    "site_name": "Kuala Tungkal, Jambi, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ku",
+    "site_name": "Kota Baru, Laut Island, Kalimantan Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "kw",
+    "site_name": "Kwandang, Gorontalo, Sulawesi"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "le",
+    "site_name": "Lembar, Lombok"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "lh",
+    "site_name": "Lhokseumawe, Aceh, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "lk",
+    "site_name": "Larantuka, Flores"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "lo",
+    "site_name": "Lombok"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "lu",
+    "site_name": "Luwuky, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ma",
+    "site_name": "Manokwari, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mb",
+    "site_name": "Masalembo Island, Java Sea"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "md",
+    "site_name": "Manado, Sulawesi Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "me",
+    "site_name": "Meneng, Banyuwangi, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mk",
+    "site_name": "Manokwari, Irian Jaya Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mm",
+    "site_name": "Maumere, Flores, Nusa Tenggara Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mn",
+    "site_name": "Manado, Sulawesi Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mr",
+    "site_name": "Merauke, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ms",
+    "site_name": "Makassar, Sulawesi Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "mu",
+    "site_name": "Muntok, Bangka Island"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "n",
+    "site_name": "Nabire, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "na",
+    "site_name": "Natuna, Tiga Island, Riau Islands"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "nu",
+    "site_name": "Nunukan, Nunukan Island, Kalimantan Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "p",
+    "site_name": "Palangkaraya, Kalimantan Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pa",
+    "site_name": "Palu, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pb",
+    "site_name": "Padang Bai, Bali"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pd",
+    "site_name": "Padang, Sumatera Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pe",
+    "site_name": "Pekalongan, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pf",
+    "site_name": "Pare-Pare, Sulawesi Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pg",
+    "site_name": "Pangkal Baru, Bangkal Island"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ph",
+    "site_name": "Panipahan, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pi",
+    "site_name": "Parigi, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pj",
+    "site_name": "Panjang, Lampung, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pk",
+    "site_name": "Pontianak "
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pl",
+    "site_name": "Plaju, Palembang, Sumatera Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pm",
+    "site_name": "Palembang, Sumatera Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "po",
+    "site_name": "Pomalaa, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pp",
+    "site_name": "Palopo, Sulawesi Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pq",
+    "site_name": "Probolinggo, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pr",
+    "site_name": "Panarukan, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ps",
+    "site_name": "Poso, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pt",
+    "site_name": "Pantoloan, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pu",
+    "site_name": "Pekanbaru, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "pv",
+    "site_name": "Pulau Sambu, Riau Islands"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ra",
+    "site_name": "Raha, Muna Island, Sulawesi Tenggara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "re",
+    "site_name": "Rengat, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ro",
+    "site_name": "Reo, Flores"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sa",
+    "site_name": "Sabang, We Island, Aceh"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sb",
+    "site_name": "Seba, Sawu Island"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "se",
+    "site_name": "Serui, Japen Island, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sg",
+    "site_name": "Semarang, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sh",
+    "site_name": "Susoh, Aceh, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "si",
+    "site_name": "Sarmi, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sj",
+    "site_name": "Selat Panjang, Tebingtinggi Island, Riau"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sk",
+    "site_name": "Singkil, Aceh, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sm",
+    "site_name": "Simalungun, Sumatera"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sn",
+    "site_name": "Sanana, Sulabes Island, Maluku"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "so",
+    "site_name": "Sorong, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sp",
+    "site_name": "Sipange, Tapanuli, Sumatera Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sq",
+    "site_name": "Sibolga, Sumatera Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sr",
+    "site_name": "Samarinda, Kalimantan Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "st",
+    "site_name": "Sampit, Kalimantan Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "su",
+    "site_name": "Siau Island"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "sy",
+    "site_name": "Selayar, Sulawesi Selatan"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "s2",
+    "site_name": "Sinabang, Simeulue Island, Aceh"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "s3",
+    "site_name": "Sipura Island, Sumatera Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "s4",
+    "site_name": "Surabaya, Jawa Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "s8",
+    "site_name": "Sorong PKY8, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "s9",
+    "site_name": "Sorong PKY9, Papua Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "t",
+    "site_name": "Ternate, Ternate Island, Maluku Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ta",
+    "site_name": "Tahuna, Sulawesi Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tb",
+    "site_name": "Tanjung Balai Karimun, Karimunbesar Island, Riau Islands"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "td",
+    "site_name": "Teluk Dalam, Dima Island, Sumatera Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "te",
+    "site_name": "Tegal, Java"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tg",
+    "site_name": "Tanjung Selor, Kalimantan Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tk",
+    "site_name": "Tarakan, Tarakan Island, Kalimantan Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tl",
+    "site_name": "Tembilahan, Riau, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tm",
+    "site_name": "Tarempa, Siantan Island, Riau Islands"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "to",
+    "site_name": "Tobelo, Halmahera Island, Maluku Utara"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ts",
+    "site_name": "Tanjung Santan, Kalimantan Timur"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tt",
+    "site_name": "Toli-Toli, Sulawesi Tengah"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tu",
+    "site_name": "Tanjung Uban, Bintan Island, Riau Islands"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "tw",
+    "site_name": "Tual, Dullah Island, Maluku"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ty",
+    "site_name": "Taluk Bayur, Sumatera Barat"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "ul",
+    "site_name": "Ulee-Lheue, Banda Aceh, Aceh, Sumatra"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "w",
+    "site_name": "Wamena, Papua"
+  },
+  {
+    "country": "INS",
+    "site_abbrev": "wa",
+    "site_name": "Waingapu, Sumba Island, East Nusa Tenggara"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "mh",
+    "site_name": "Malin Head, Co. Donegal"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "s",
+    "site_name": "Shannon"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "sk",
+    "site_name": "Sheskin, Co. Donegal"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "tr",
+    "site_name": "Tralee, Co. Kerry"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "v",
+    "site_name": "Valentia, Co. Kerry"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "xx",
+    "site_name": "Secret pirate site"
+  },
+  {
+    "country": "IRL",
+    "site_abbrev": "xy",
+    "site_name": "Varying site, see irts.ie"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "a",
+    "site_name": "Ahwaz"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "b",
+    "site_name": "Bandar-e Torkeman"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "ba",
+    "site_name": "Bandar Abbas"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "bb",
+    "site_name": "Bonab"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "c",
+    "site_name": "Chah Bahar"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "g",
+    "site_name": "Gorgan"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "j",
+    "site_name": "Jolfa"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "k",
+    "site_name": "Kamalabad"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "ke",
+    "site_name": "Kish Island"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "ki",
+    "site_name": "Kiashar"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "m",
+    "site_name": "Mashhad"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "mh",
+    "site_name": "Bandar-e Mahshahr"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "q",
+    "site_name": "Qasr-e Shirin"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "s",
+    "site_name": "Sirjan"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "t",
+    "site_name": "Tayebad"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "te",
+    "site_name": "Tehran"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "z",
+    "site_name": "Zahedan"
+  },
+  {
+    "country": "IRN",
+    "site_abbrev": "zb",
+    "site_name": "Zabol"
+  },
+  {
+    "country": "IRQ",
+    "site_abbrev": "d",
+    "site_name": "Salah al-Din (Saladin)"
+  },
+  {
+    "country": "IRQ",
+    "site_abbrev": "s",
+    "site_name": "Sulaimaniya"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "f",
+    "site_name": "Fjallabyggd"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "g",
+    "site_name": "Keflavik/Grindavik"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "gt",
+    "site_name": "Grindavik Thorbjöen"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "hf",
+    "site_name": "Hornafjördur"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "if",
+    "site_name": "Isafjördur"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "n",
+    "site_name": "Neskaupstadur"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "r",
+    "site_name": "Reykjavik Aero/HFDL"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "rf",
+    "site_name": "Raufarhöfn"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "rs",
+    "site_name": "Reykjavik-Seltjarjarnes"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "s",
+    "site_name": "Saudanes"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "sh",
+    "site_name": "Stórhöfði"
+  },
+  {
+    "country": "ISL",
+    "site_abbrev": "v",
+    "site_name": "Vestmannaeyjar"
+  },
+  {
+    "country": "ISR",
+    "site_abbrev": "h",
+    "site_name": "Haifa"
+  },
+  {
+    "country": "ISR",
+    "site_abbrev": "ii",
+    "site_name": "Unknown 1224"
+  },
+  {
+    "country": "ISR",
+    "site_abbrev": "",
+    "site_name": "L-Lod (Galei Zahal)"
+  },
+  {
+    "country": "ISR",
+    "site_abbrev": "sy",
+    "site_name": "She'ar-Yeshuv"
+  },
+  {
+    "country": "ISR",
+    "site_abbrev": "y",
+    "site_name": "Yavne"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ao",
+    "site_name": "Aonoyama Signal Station, Utazu (Kagawa)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "as",
+    "site_name": "Asahikawa AF JJU22"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ay",
+    "site_name": "Ashiya AB JJZ59"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "c",
+    "site_name": "Chiba Nagara"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ct",
+    "site_name": "Chitose AB, Hokkaido JJR20"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "es",
+    "site_name": "Esaki Signal Station (Osaka Bay), Awaji island (Hyogo)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "f",
+    "site_name": "Chofu Campus, Tokyo"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "fu",
+    "site_name": "Fuchu AB JJT55"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "gf",
+    "site_name": "Gifu AB JJV67"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "h",
+    "site_name": "Mount Hagane"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "hf",
+    "site_name": "Hofu / Bofu AB JJX36"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "hm",
+    "site_name": "Hamamatsu AB JJV56"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "hy",
+    "site_name": "Hyakurigahara AB JJT33"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "io",
+    "site_name": "Imabari Ohama Vessel Station (Kurushima), Imabari (Ehime)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ir",
+    "site_name": "Iruma / Irumagawa AB JJT44"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "it",
+    "site_name": "Itoman, Okinawa JFE"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "iw",
+    "site_name": "Isewan Signal Station, Cape Irago, Tahara (Aichi)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "k",
+    "site_name": "Kagoshima JMH"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "kg",
+    "site_name": "Kumagaya AB JJT66"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ki",
+    "site_name": "Kisarazu AB JJT22"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "kk",
+    "site_name": "Komaki AB (Nagoya) JJV23"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "km",
+    "site_name": "Kume Shima / Kumejina, Okinawa JJU66"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "kn",
+    "site_name": "Kanmon Oseto Strait Signal Station"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ko",
+    "site_name": "Komatsu AB JJV90"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ks",
+    "site_name": "Kasuga AB JJZ37"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ku",
+    "site_name": "Kumamoto JJE20"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ky",
+    "site_name": "Kyodo"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "kz",
+    "site_name": "Kannonzaki Signal Station, Yokosuka (Kanagawa)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "m",
+    "site_name": "Miura"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "mh",
+    "site_name": "Miho AB, Yonago"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ms",
+    "site_name": "Misawa AB JJS21"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "mt",
+    "site_name": "Matsushima AB JJS32"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "mu",
+    "site_name": "Muroto (Kochi, Shikoku)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "mz",
+    "site_name": "Makurazaki (Kagoshima, Kyushu)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "n",
+    "site_name": "Nemuro"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "nh",
+    "site_name": "Naha AB, Okinawa"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "nk",
+    "site_name": "Nagoya Kinjo Signal Station, Nagoya (Aichi)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "nr",
+    "site_name": "Nara JJW24"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ny",
+    "site_name": "Nyutabaru AB JJZ26"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "o",
+    "site_name": "Mount Otakadoya"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "oe",
+    "site_name": "Okinoerabu JJZ44"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ok",
+    "site_name": "Okinawa"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "os",
+    "site_name": "Osaka JJD20"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ot",
+    "site_name": "Otaru, Hokkaido JJS65"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "sa",
+    "site_name": "Sapporo / Chitose AB JJA20"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "sg",
+    "site_name": "Sodegaura (Kubota), Chiba"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "sn",
+    "site_name": "Sendai / Kasuminome AB JJB20"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "sz",
+    "site_name": "Shizuoka"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "tk",
+    "site_name": "Tokyo / Tachikawa AF JJC20 JJT88"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "ts",
+    "site_name": "Tsuiki AB JJZ48"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "tv",
+    "site_name": "Tokyo Volmet, Kagoshima Broadcasting Station"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "y",
+    "site_name": "Yamata"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "yo",
+    "site_name": "Yokota AFB"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "yz",
+    "site_name": "Yozadake (Okinawa)"
+  },
+  {
+    "country": "J",
+    "site_abbrev": "zz",
+    "site_name": "Trading sites, licensed until 2027: Kubota Minami-Boso Kawato" 
+  },{
+    "country": "JOR",
+    "site_abbrev": "ak",
+    "site_name": "Al Karanah / Qast Kherane"
+  },
+  {
+    "country": "JOR",
+    "site_abbrev": "am",
+    "site_name": "Amman"
+  },
+  {
+    "country": "KAZ",
+    "site_abbrev": "a",
+    "site_name": "Almaty"
+  },
+  {
+    "country": "KAZ",
+    "site_abbrev": "ak",
+    "site_name": "Aktyubinsk/Aktöbe"
+  },
+  {
+    "country": "KAZ",
+    "site_abbrev": "av",
+    "site_name": "Almaty Volmet"
+  },
+  {
+    "country": "KAZ",
+    "site_abbrev": "n",
+    "site_name": "Nursultan (Akmolinsk/Tselinograd/Astana)"
+  },
+  {
+    "country": "KEN",
+    "site_abbrev": "ny",
+    "site_name": "Nairobi 5YE"
+  },
+  {
+    "country": "KGZ",
+    "site_abbrev": "b",
+    "site_name": "Bishkek (Krasnaya Rechka)"
+  },
+  {
+    "country": "KGZ",
+    "site_abbrev": "bk",
+    "site_name": "Bishkek Beta"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "c",
+    "site_name": "Chuncheon"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "d",
+    "site_name": "Dangjin"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "db",
+    "site_name": "Daebu-do (Ansan)"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "g",
+    "site_name": "Goyang / Koyang, Gyeonggi-do / Kyonggi-do"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "h",
+    "site_name": "Hwasung/Hwaseong"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "j",
+    "site_name": "Jeju/Aewol HLAZ"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "k",
+    "site_name": "Kimjae"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "m",
+    "site_name": "Muan HFDL"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "n",
+    "site_name": "Hwaseong?"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "o",
+    "site_name": "Suwon-Osan/Hwaseong-Jeongnam"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "s",
+    "site_name": "Seoul-Incheon HLKX"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "sg",
+    "site_name": "Seoul-Gangseo-gu"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "t",
+    "site_name": "Taedok"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "w",
+    "site_name": "Nowon Gyeonggi-do / Seoul-Taereung"
+  },
+  {
+    "country": "KOR",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "KOS",
+    "site_abbrev": "b",
+    "site_name": "Camp Bondsteel"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "c",
+    "site_name": "Chongjin"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "e",
+    "site_name": "Hyesan"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "h",
+    "site_name": "Hamhung "
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "hw",
+    "site_name": "Hwadae/Kimchaek"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "j",
+    "site_name": "Haeju"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "k",
+    "site_name": "Kanggye"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "kn",
+    "site_name": "Kangnam"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "p",
+    "site_name": "Pyongyang"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "s",
+    "site_name": "Sariwon"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "sg",
+    "site_name": "Samgo"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "sn",
+    "site_name": "Sinuiju"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "sw",
+    "site_name": "Sangwon"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "u",
+    "site_name": "Kujang"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "w",
+    "site_name": "Wonsan"
+  },
+  {
+    "country": "KRE",
+    "site_abbrev": "y",
+    "site_name": "Pyongsong"
+  },
+  {
+    "country": "KWT",
+    "site_abbrev": "j",
+    "site_name": "Jahra/Umm al-Rimam"
+  },
+  {
+    "country": "KWT",
+    "site_abbrev": "k",
+    "site_name": "Kabd/Sulaibiyah"
+  },
+  {
+    "country": "KWT",
+    "site_abbrev": "kw",
+    "site_name": "Kuwait"
+  },
+  {
+    "country": "LAO",
+    "site_abbrev": "s",
+    "site_name": "Sam Neua"
+  },
+  {
+    "country": "LAO",
+    "site_abbrev": "v",
+    "site_name": "Vientiane"
+  },
+  {
+    "country": "LBN",
+    "site_abbrev": "be",
+    "site_name": "Beirut"
+  },
+  {
+    "country": "LBR",
+    "site_abbrev": "e",
+    "site_name": "Monrovia ELWA"
+  },
+  {
+    "country": "LBR",
+    "site_abbrev": "m",
+    "site_name": "Monrovia Mamba Point"
+  },
+  {
+    "country": "LBR",
+    "site_abbrev": "s",
+    "site_name": "Star Radio Monrovia"
+  },
+  {
+    "country": "LBY",
+    "site_abbrev": "",
+    "site_name": "Sabrata"
+  },
+  {
+    "country": "LTU",
+    "site_abbrev": "",
+    "site_name": "Sitkunai"
+  },
+  {
+    "country": "LTU",
+    "site_abbrev": "v",
+    "site_name": "Viesintos"
+  },
+  {
+    "country": "LUX",
+    "site_abbrev": "j",
+    "site_name": "Junglinster" 
+  },
+  {
+    "country": "LUX",
+    "site_abbrev": "m",
+    "site_name": "Marnach"
+  },
+  {
+    "country": "LVA",
+    "site_abbrev": "",
+    "site_name": "Ulbroka"
+  },
+  {
+    "country": "MAU",
+    "site_abbrev": "m",
+    "site_name": "Malherbes"
+  },
+  {
+    "country": "MDA",
+    "site_abbrev": "",
+    "site_name": "Maiac near Grigoriopol"
+  },
+  {
+    "country": "MDA",
+    "site_abbrev": "ca",
+    "site_name": "Cahul"
+  },
+  {
+    "country": "MDA",
+    "site_abbrev": "ce",
+    "site_name": "Chisinau"
+  },
+  {
+    "country": "MDA",
+    "site_abbrev": "co",
+    "site_name": "Codru-Costiujeni"
+  },
+  {
+    "country": "MDA",
+    "site_abbrev": "ed",
+    "site_name": "Edinet"
+  },
+  {
+    "country": "MDG",
+    "site_abbrev": "",
+    "site_name": "Talata Volonondry"
+  },
+  {
+    "country": "MDG",
+    "site_abbrev": "a",
+    "site_name": "Ambohidrano/Sabotsy"
+  },
+  {
+    "country": "MDG",
+    "site_abbrev": "m",
+    "site_name": "Mahajanga (WCBC)"
+  },
+  {
+    "country": "MDR",
+    "site_abbrev": "ps",
+    "site_name": "Porto Santo"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "c",
+    "site_name": "Cuauhtémoc, Mexico City"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "cb",
+    "site_name": "Choya Bay, Sonora"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "e",
+    "site_name": "Mexico City (Radio Educación)"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "i",
+    "site_name": "Iztacalco, Mexico City"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "m",
+    "site_name": "Merida"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "mz",
+    "site_name": "Mazatlan"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "pr",
+    "site_name": "Progreso"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "s",
+    "site_name": "San Luis Potosi"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "p",
+    "site_name": "Chiapas"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "u",
+    "site_name": "UNAM, Mexico City"
+  },
+  {
+    "country": "MEX",
+    "site_abbrev": "vh",
+    "site_name": "Villahermosa, Tabasco"
+  },
+  {
+    "country": "MLA",
+    "site_abbrev": "ka",
+    "site_name": "Kajang"
+  },
+  {
+    "country": "MLA",
+    "site_abbrev": "kk",
+    "site_name": "Kota Kinabalu"
+  },
+  {
+    "country": "MLA",
+    "site_abbrev": "ku",
+    "site_name": "Kuching-Stapok (closed 2011)"
+  },
+  {
+    "country": "MLA",
+    "site_abbrev": "l",
+    "site_name": "Lumut"
+  },
+  {
+    "country": "MLA",
+    "site_abbrev": "s",
+    "site_name": "Sibu"
+  },
+  {
+    "country": "MLI",
+    "site_abbrev": "c",
+    "site_name": "CRI-Bamako 12N41"
+  },
+  {
+    "country": "MLI",
+    "site_abbrev": "k",
+    "site_name": "Kati(Bamako)"
+  },
+  {
+    "country": "MLT",
+    "site_abbrev": "mr",
+    "site_name": "Malta Radio"
+  },
+  {
+    "country": "MNE",
+    "site_abbrev": "oc",
+    "site_name": "Ocas"
+  },
+  {
+    "country": "MNG",
+    "site_abbrev": "a",
+    "site_name": "Altay"
+  },
+  {
+    "country": "MNG",
+    "site_abbrev": "c",
+    "site_name": "Choybalsan"
+  },
+  {
+    "country": "MNG",
+    "site_abbrev": "m",
+    "site_name": "Moron/Mörön"
+  },
+  {
+    "country": "MNG",
+    "site_abbrev": "u",
+    "site_name": "Ulaanbaatar-Khonkhor"
+  },
+  {
+    "country": "MRA",
+    "site_abbrev": "m",
+    "site_name": "Marpi, Saipan (KFBS)"
+  },
+  {
+    "country": "MRA",
+    "site_abbrev": "s",
+    "site_name": "Saipan/Agingan Point (IBB)"
+  },
+  {
+    "country": "MRA",
+    "site_abbrev": "t",
+    "site_name": "Tinian (IBB)"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "ag",
+    "site_name": "Agadir"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "b",
+    "site_name": "Briech (VoA/RL/RFE)"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "ca",
+    "site_name": "Casablanca8"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "",
+    "site_name": "L-Laayoune (UN 6678)"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "n",
+    "site_name": "Nador (RTM,Medi1)"
+  },
+  {
+    "country": "MRC",
+    "site_abbrev": "s",
+    "site_name": "Safi"
+  },
+  {
+    "country": "MRT",
+    "site_abbrev": "fc",
+    "site_name": "Fort-de-France CROSS"
+  },
+  {
+    "country": "MRT",
+    "site_abbrev": "u",
+    "site_name": "FUF Martinique"
+  },
+  {
+    "country": "MTN",
+    "site_abbrev": "",
+    "site_name": "Nouakchott"
+  },
+  {
+    "country": "MYA",
+    "site_abbrev": "n",
+    "site_name": "Naypyidaw"
+  },
+  {
+    "country": "MYA",
+    "site_abbrev": "p",
+    "site_name": "Phin Oo Lwin, Mandalay"
+  },
+  {
+    "country": "MYA",
+    "site_abbrev": "t",
+    "site_name": "Taunggyi(Kalaw)"
+  },
+  {
+    "country": "MYA",
+    "site_abbrev": "y",
+    "site_name": "Yegu (Yangon/Rangoon)"
+  },
+  {
+    "country": "NCL",
+    "site_abbrev": "n",
+    "site_name": "Nouméa - FUJ Ouen-Toro"
+  },
+  {
+    "country": "NFK",
+    "site_abbrev": "",
+    "site_name": "Norfolk Island"
+  },
+  {
+    "country": "NGR",
+    "site_abbrev": "",
+    "site_name": "Niamey"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "a",
+    "site_name": "Abuja-Gwagwalada"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "b",
+    "site_name": "Ibadan"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "e",
+    "site_name": "Enugu"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "i",
+    "site_name": "Ikorodu"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "j",
+    "site_name": "Abuja-Lugbe (new site, opened March 2012)"
+  },
+  {
+    "country": "NIG",
+    "site_abbrev": "k",
+    "site_name": "Kaduna"
+  },
+  {
+    "country": "NMB",
+    "site_abbrev": "wb",
+    "site_name": "Walvis Bay"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "a",
+    "site_name": "Andenes"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "as",
+    "site_name": "Andenes-Saura "
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "at",
+    "site_name": "Andenes (Telenor site)"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "be",
+    "site_name": "Bergen (LLE station, Erdal, Askoy Island)"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "bj",
+    "site_name": "Bjørnøya / Bear Island"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "bk",
+    "site_name": "Bergen-Kvarren"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "bo",
+    "site_name": "Bodø"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "bs",
+    "site_name": "Bodø-Seines"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "bv",
+    "site_name": "Berlevåg"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "e",
+    "site_name": "Erdal"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "f",
+    "site_name": "Florø"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "fs",
+    "site_name": "Farsund"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "hf",
+    "site_name": "Hammerfest"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "hp",
+    "site_name": "Hopen Island"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "jm",
+    "site_name": "Jan Mayen Island"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "ly",
+    "site_name": "Longyearbyen, Svalbard"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "ma",
+    "site_name": "Marøy"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "mg",
+    "site_name": "Molde-Gossen"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "mr",
+    "site_name": "Mågerø"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "nm",
+    "site_name": "Nordmela-Andøya"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "no",
+    "site_name": "Novik"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "oh",
+    "site_name": "Oslo-Helgelandsmoen"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "or",
+    "site_name": "Ørlandet"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "ro",
+    "site_name": "Rogaland (Vigreskogen)"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "sa",
+    "site_name": "Sandnessjøen"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "sr",
+    "site_name": "Sørreisa"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "st",
+    "site_name": "Stavanger-Ulsnes"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "tj",
+    "site_name": "Tjøme"
+  },
+  {
+    "country": "NOR",
+    "site_abbrev": "va",
+    "site_name": "Vardø"
+  },
+  {
+    "country": "NPL",
+    "site_abbrev": "",
+    "site_name": "Khumaltar"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "a",
+    "site_name": "Auckland (Wiroa Island)"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "du",
+    "site_name": "Dunedin"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "r",
+    "site_name": "Rangitaiki"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "ru",
+    "site_name": "Russell"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "t",
+    "site_name": "Taupo"
+  },
+  {
+    "country": "NZL",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "OCE",
+    "site_abbrev": "fa",
+    "site_name": "Faa'a airport"
+  },
+  {
+    "country": "OCE",
+    "site_abbrev": "ma",
+    "site_name": "Mahina (FUM Tahiti)"
+  },
+  {
+    "country": "OMA",
+    "site_abbrev": "a",
+    "site_name": "A'Seela"
+  },
+  {
+    "country": "OMA",
+    "site_abbrev": "s",
+    "site_name": "Seeb"
+  },
+  {
+    "country": "OMA",
+    "site_abbrev": "t",
+    "site_name": "Thumrait"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "i",
+    "site_name": "Islamabad"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "kv",
+    "site_name": "Karachi Volmet"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "m",
+    "site_name": "Multan"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "p",
+    "site_name": "Peshawar"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "q",
+    "site_name": "Quetta"
+  },
+  {
+    "country": "PAK",
+    "site_abbrev": "r",
+    "site_name": "Rawalpindi"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "b",
+    "site_name": "Bocaue (FEBC)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "dv",
+    "site_name": "Davao City, Mindanao"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "i",
+    "site_name": "Iba (FEBC)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "ko",
+    "site_name": "Koronadal City, Mindanao"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "m",
+    "site_name": "Marulas/Quezon City, Valenzuela (PBS 6170,9581)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "p",
+    "site_name": "Palauig, Zembales (RVA)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "po",
+    "site_name": "Poro"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "sc",
+    "site_name": "Santiago City, Luzon"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "t",
+    "site_name": "Tinang (VoA)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "x",
+    "site_name": "Tinang-2/portable 50kW (VoA)"
+  },
+  {
+    "country": "PHL",
+    "site_abbrev": "zm",
+    "site_name": "Zamboanga City, Mindanao"
+  },
+  {
+    "country": "PLW",
+    "site_abbrev": "",
+    "site_name": "Koror-Babeldaob (Medorn)"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "a",
+    "site_name": "Alotau"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "b",
+    "site_name": "Bougainville/Buka-Kubu"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "d",
+    "site_name": "Daru"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "g",
+    "site_name": "Goroka"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ka",
+    "site_name": "Kavieng"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "kb",
+    "site_name": "Kimbe"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ke",
+    "site_name": "Kerema"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ki",
+    "site_name": "Kiunga"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ku",
+    "site_name": "Kundiawa"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "la",
+    "site_name": "Lae (Morobe)"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ln",
+    "site_name": "Lae Nadzab airport"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "lo",
+    "site_name": "Lorengau"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ma",
+    "site_name": "Madang"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "me",
+    "site_name": "Mendi"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "mh",
+    "site_name": "Mount Hagen"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "pm",
+    "site_name": "Port Moresby (Waigani)"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "pr",
+    "site_name": "Port Moresby Maritime Radio"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "po",
+    "site_name": "Popondetta"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "r",
+    "site_name": "Rabaul"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "v",
+    "site_name": "Vanimo"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "va",
+    "site_name": "Vanimo"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "wa",
+    "site_name": "Port Moresby (Radio Wantok)"
+  },
+  {
+    "country": "PNG",
+    "site_abbrev": "ww",
+    "site_name": "Wewak"
+  },
+  {
+    "country": "PNR",
+    "site_abbrev": "al",
+    "site_name": "Albrook, Panama City"
+  },
+  {
+    "country": "POL",
+    "site_abbrev": "b",
+    "site_name": "Babice"
+  },
+  {
+    "country": "POL",
+    "site_abbrev": "p",
+    "site_name": "Puchaly, in Falenty"
+  },
+  {
+    "country": "POL",
+    "site_abbrev": "sk",
+    "site_name": "Solec Kujawski"
+  },
+  {
+    "country": "POL",
+    "site_abbrev": "u",
+    "site_name": "Ustka"
+  },
+  {
+    "country": "POL",
+    "site_abbrev": "w",
+    "site_name": "Witowo"
+  },
+  {
+    "country": "POR",
+    "site_abbrev": "ms",
+    "site_name": "Monsanto"
+  },
+  {
+    "country": "PRG",
+    "site_abbrev": "c",
+    "site_name": "Capiatá"
+  },
+  {
+    "country": "PRG",
+    "site_abbrev": "f",
+    "site_name": "Filadelfia"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ar",
+    "site_name": "Arequipa"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "at",
+    "site_name": "Atalaya"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "bv",
+    "site_name": "Bolívar"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "cc",
+    "site_name": "Chiclayo/Santa Ana (Carretera a Lambayeque)"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ce",
+    "site_name": "Celendín"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ch",
+    "site_name": "Chachapoyas"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "cl",
+    "site_name": "Callalli"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "cp",
+    "site_name": "Cerre de Pasco"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ct",
+    "site_name": "Chota"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "cu",
+    "site_name": "Cuzco-Cerro Oscollo"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "cz",
+    "site_name": "Chazuta/Tarapoto, San Martin"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "hb",
+    "site_name": "Huancabamba"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "hc",
+    "site_name": "Huancayo/Viques"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ho",
+    "site_name": "Huánuco"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ht",
+    "site_name": "Huanta/Tirapampa"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "hu",
+    "site_name": "Huanta/Vista Alegre (Pasaje Amauta)"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "hv",
+    "site_name": "Huancavelica"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "hz",
+    "site_name": "Huaraz"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "in",
+    "site_name": "Chau Alto/Independencia, Huarez, Ancash (planned for 6090 kHz in 2015/16)"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "iq",
+    "site_name": "Iquitos/Moronacocha"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ja",
+    "site_name": "Jaén"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ju",
+    "site_name": "Junín/Cuncush"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "li",
+    "site_name": "Lima"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "or",
+    "site_name": "La Oroya"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "pc",
+    "site_name": "Paucartambo"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "pm",
+    "site_name": "Puerto Maldonado"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "qb",
+    "site_name": "Quillabamba/Macamango"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "qt",
+    "site_name": "Quillabamba/Tiobamba Baja"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "rm",
+    "site_name": "Rodrigues de Mendoza"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "sc",
+    "site_name": "Santa Cruz (R Satelite)"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "si",
+    "site_name": "Sicuani"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "su",
+    "site_name": "Santiago de Chuco"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ta",
+    "site_name": "Tarma/Cerro Penitencia"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "tc",
+    "site_name": "Tacna"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "ur",
+    "site_name": "valle de Urubamba, Cusco"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "vv",
+    "site_name": "Valle de Vitor, San Luís, Arequipa"
+  },
+  {
+    "country": "PRU",
+    "site_abbrev": "yu",
+    "site_name": "Yurimaguas"
+  },
+  {
+    "country": "PTR",
+    "site_abbrev": "i",
+    "site_name": "Isabela"
+  },
+  {
+    "country": "PTR",
+    "site_abbrev": "s",
+    "site_name": "Salinas, Camp Santiago"
+  },
+  {
+    "country": "QAT",
+    "site_abbrev": "dr",
+    "site_name": "Doha Radio"
+  },
+  {
+    "country": "REU",
+    "site_abbrev": "su",
+    "site_name": "FUX Sainte-Suzanne"
+  },
+  {
+    "country": "ROU",
+    "site_abbrev": "b",
+    "site_name": "Bucuresti/Bucharest airport"
+  },
+  {
+    "country": "ROU",
+    "site_abbrev": "c",
+    "site_name": "Constanta"
+  },
+  {
+    "country": "ROU",
+    "site_abbrev": "g",
+    "site_name": "Galbeni"
+  },
+  {
+    "country": "ROU",
+    "site_abbrev": "s",
+    "site_name": "Saftica 100kW"
+  },
+  {
+    "country": "ROU",
+    "site_abbrev": "t",
+    "site_name": "Tiganesti 300kW"
+  },
+  {
+    "country": "RRW",
+    "site_abbrev": "",
+    "site_name": "Kigali"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "a",
+    "site_name": "Armavir/Tblisskaya/Krasnodar"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "af",
+    "site_name": "Astrakhan Fedorovka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ag",
+    "site_name": "Angarsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ak",
+    "site_name": "Arkhangelsk Beta"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "am",
+    "site_name": "Amderma"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "an",
+    "site_name": "Astrakhan Narimanovo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ar",
+    "site_name": "Arkhangelsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "as",
+    "site_name": "Astrakhan Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "at",
+    "site_name": "Arkhangelsk-Talagi"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ay",
+    "site_name": "Anadyr, Chukotka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "b",
+    "site_name": "Blagoveshchensk (Amur)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ba",
+    "site_name": "Barnaul, Altay"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "bg",
+    "site_name": "Belaya Gora, Sakha(Yakutia)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "bo",
+    "site_name": "Bolotnoye, Novosibirsk oblast"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "",
+    "site_name": "B1-Buzzer sites: Kerro (St Petersburg)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "",
+    "site_name": "B2-Buzzer sites: Iskra, Naro-Fominsk (Moscow) and Kerro (St Petersburg)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "c",
+    "site_name": "Chita (Atamanovka) (S Siberia)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "cb",
+    "site_name": "Cheboksary"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "cs",
+    "site_name": "Cherskiy, Yakutia"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "cy",
+    "site_name": "Chelyabinsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "di",
+    "site_name": "Dikson"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ek",
+    "site_name": "Yekaterinburg"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "el",
+    "site_name": "Elista"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ey",
+    "site_name": "Yeysk port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ge",
+    "site_name": "Gelendzhik"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "gk",
+    "site_name": "Goryachiy Klyuch, Omsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "go",
+    "site_name": "Gorbusha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "gr",
+    "site_name": "Grozny"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "i",
+    "site_name": "Irkutsk (Angarsk) (S Siberia)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ig",
+    "site_name": "Igrim XMAO"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ik",
+    "site_name": "Ivashka, Kamchatka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "io",
+    "site_name": "Ioshkar-Ola"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ir",
+    "site_name": "Irkutsk port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "iv",
+    "site_name": "Irkutsk Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "iz",
+    "site_name": "Izhevsk sites"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k",
+    "site_name": "Kaliningrad-Bolshakovo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ka",
+    "site_name": "Komsomolsk-na-Amur (Far East)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kd",
+    "site_name": "Krasnodar Beta"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kf",
+    "site_name": "Krasnoyarsk HFDL site"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kg",
+    "site_name": "Kaliningrad Radio UIW23"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kh",
+    "site_name": "Khabarovsk (Far East)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ki",
+    "site_name": "Kirinskoye, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kl",
+    "site_name": "Kaliningrad Military Base Yantarny"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "km",
+    "site_name": "Khanty-Mansiysk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ko",
+    "site_name": "Korsakov, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kp",
+    "site_name": "Krasnodar-Poltovskaya"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kr",
+    "site_name": "Krasnoyarsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kt",
+    "site_name": "Kotlas"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ku",
+    "site_name": "Kurovskaya-Avsyunino (near Moscow)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kv",
+    "site_name": "Kirensk Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kx",
+    "site_name": "Kamenka, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ky",
+    "site_name": "Kyzyl"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "kz",
+    "site_name": "Kazan"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k1",
+    "site_name": "Krasnodar Pashkovsky"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k2",
+    "site_name": "Kamskoye Ustye, Tatarstan"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k3",
+    "site_name": "Kolpashevo, Tomsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k4",
+    "site_name": "Komsomolsk-na-Amure"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k5",
+    "site_name": "Kultayevo, Perm"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "k6",
+    "site_name": "Kozmino, Cape Povorotny, Primorye"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "",
+    "site_name": "L-Lesnoy (near Moscow)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "li",
+    "site_name": "Liski, Voronezh"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ln",
+    "site_name": "Labytnangi, YNAO"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "l2",
+    "site_name": "Labytnangi, YNAO Gazprom"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "m",
+    "site_name": "Moscow/Moskva"    
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ma",
+    "site_name": "Magadan/Arman"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mg",
+    "site_name": "Magadan Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mi",
+    "site_name": "Mineralnye Vody"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mk",
+    "site_name": "Makhachkala, Dagestan"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mm",
+    "site_name": "Murmansk Meteo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mp",
+    "site_name": "Maykop"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mr",
+    "site_name": "Moscow-Razdory"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mt",
+    "site_name": "MTUSI University, Moscow"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mu",
+    "site_name": "Murmansk/Monchegorsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mv",
+    "site_name": "Magadan Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mx",
+    "site_name": "Makhachkala, Dagestan"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "mz",
+    "site_name": "Mozdok, North Ossetia"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "m2",
+    "site_name": "Magadan Rosmorport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "m3",
+    "site_name": "Makhachkala, Dagestan"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "m4",
+    "site_name": "Mezen, Arkhangelsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "m5",
+    "site_name": "Murmansk MRCC"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "n",
+    "site_name": "Novosibirsk / Oyash, (500 kW, 1000 kW)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nc",
+    "site_name": "Nalchik, Kabardino-Balkaria"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ne",
+    "site_name": "Nevelsk, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ni",
+    "site_name": "Nizhnevartovsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nk",
+    "site_name": "Nizhnekamsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nm",
+    "site_name": "Naryan-Mar"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nn",
+    "site_name": "Nizhni Novgorod sites"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "no",
+    "site_name": "Novosibirsk City"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "np",
+    "site_name": "Novosibirsk city port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nr",
+    "site_name": "Novorossiysk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ns",
+    "site_name": "Novosibirsk Shipping Canal"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nu",
+    "site_name": "Novy Urengoy"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "nv",
+    "site_name": "Novosibirsk Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ny",
+    "site_name": "Nadym"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "oe",
+    "site_name": "Okhotskoye, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "og",
+    "site_name": "Orenburg-Gagarin airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ok",
+    "site_name": "Oktyarbskiy, Kamchatka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ol",
+    "site_name": "Oleniy, Yamalo-Nenets"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "om",
+    "site_name": "Omsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "or",
+    "site_name": "Orenburg"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ox",
+    "site_name": "Okhotsk Bulgin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "o2",
+    "site_name": "Orenburg-2"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p",
+    "site_name": "Petropavlovsk-Kamchatskiy (Yelizovo)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pc",
+    "site_name": "Pechora"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pe",
+    "site_name": "Perm"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pk",
+    "site_name": "Petropavlovsk-Kamchatskij Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pm",
+    "site_name": "Perm airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "po",
+    "site_name": "Preobrazhenie, Primorye"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pp",
+    "site_name": "Petropavlovsk-Kamchatskiy Port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ps",
+    "site_name": "Pskov airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pt",
+    "site_name": "Sankt Peterburg Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pu",
+    "site_name": "Puteyets, Pechora, Rep.Komi"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "pv",
+    "site_name": "Sankt Peterburg Volmet / Pulkovo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "py",
+    "site_name": "Peleduy, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p2",
+    "site_name": "Petropavlovsk-Kamchatskiy Port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p3",
+    "site_name": "Petropavlovsk-Kamchatskiy Commercial sea port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p4",
+    "site_name": "Pevek, Chukotka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p5",
+    "site_name": "Plastun, Primorye"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "p6",
+    "site_name": "Poronaisk, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "rd",
+    "site_name": "Reydovo, Etorofu Island, Kuril"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "re",
+    "site_name": "Revda"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ro",
+    "site_name": "Rossosh, Voronezhskaya oblast"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "rp",
+    "site_name": "Rostov-na-Donu"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ru",
+    "site_name": "Russkoye Ustye"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "rv",
+    "site_name": "Rostov Volmet, Rostov-na-Donu"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ry",
+    "site_name": "Rybachi, Primorye"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s",
+    "site_name": "Samara (Zhygulevsk)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sa",
+    "site_name": "Samara Centre"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sb",
+    "site_name": "Sabetta, Yamalo-Nenets"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sc",
+    "site_name": "Seshcha (Bryansk)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sd",
+    "site_name": "Severodvinsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "se",
+    "site_name": "Sevastopol"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sh",
+    "site_name": "Salekhard"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sk",
+    "site_name": "Smolensk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sl",
+    "site_name": "Seleznevo, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sm",
+    "site_name": "Severomorsk/Arkhangelsk Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "so",
+    "site_name": "Sochi"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sp",
+    "site_name": "St.Petersburg (Popovka/Krasnyj Bor)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sr",
+    "site_name": "Sevastopol Radio"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "st",
+    "site_name": "Saratov"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "su",
+    "site_name": "Surgut"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sv",
+    "site_name": "Samara airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sy",
+    "site_name": "Syktyvkar Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "sz",
+    "site_name": "Syzran"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s1",
+    "site_name": "Saratov airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s2",
+    "site_name": "Stavropol airport"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s3",
+    "site_name": "St Petersburg port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s4",
+    "site_name": "St Petersburg Shepelevo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s5",
+    "site_name": "Sterlegova Cape, Taymyr, Krasnoyarski krai"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s6",
+    "site_name": "Stolbovoy Island, New Siberian Islands, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "s7",
+    "site_name": "Svobodny, Amur"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "t",
+    "site_name": "Taldom - Severnyj, Radiotsentr 3 (near Moscow)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tc",
+    "site_name": "Taganrog Centralny"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tg",
+    "site_name": "Taganrog"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ti",
+    "site_name": "Tiksi, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tm",
+    "site_name": "Tomsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "to",
+    "site_name": "Tver-Migalovo"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tr",
+    "site_name": "Temryuk, Krasnodar"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ts",
+    "site_name": "Tarko-Sale"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tu",
+    "site_name": "Tulagino, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "tv",
+    "site_name": "Tavrichanka (Vladivostok, 549, 1377)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ty",
+    "site_name": "Tyumen Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "t3",
+    "site_name": "Tiksi-3, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "u",
+    "site_name": "Ulan-Ude"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ub",
+    "site_name": "Ust-Barguzin, Buryatia"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "uf",
+    "site_name": "Ufa"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ug",
+    "site_name": "Uglegorsk, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "uk",
+    "site_name": "Ust-Kamchatsk, Kamchatka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "us",
+    "site_name": "Ulan-Ude/Selenginsk"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "uu",
+    "site_name": "Ulan-Ude port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "uy",
+    "site_name": "Ustyevoye, Kamchatka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "v",
+    "site_name": "Vladivostok Razdolnoye (Ussuriysk)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "va",
+    "site_name": "Vanino, Khabarovski kray"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vg",
+    "site_name": "Vologda"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vk",
+    "site_name": "Vorkuta"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vl",
+    "site_name": "Vladivostok Military Base"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vm",
+    "site_name": "Vzmorye, Kaliningrad"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vo",
+    "site_name": "Volgograd"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vp",
+    "site_name": "Vladivostok port"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vr",
+    "site_name": "Varandey, Nenets"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vv",
+    "site_name": "Veselo-Voznesenka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "vz",
+    "site_name": "Vladikavkaz Beslan, North Ossetia"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "xe",
+    "site_name": "Khabarovsk-Elban"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "xo",
+    "site_name": "Kholmsk, Sakhalin"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "xv",
+    "site_name": "Khabarovsk Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site(s)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "xy",
+    "site_name": "Ship position given as \"99123 10456\" meaning 12.3N-45.6E"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ya",
+    "site_name": "Yakutsk/Tulagino"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "ys",
+    "site_name": "Yuzhno-Sakhalinsk (Vestochka)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "yv",
+    "site_name": "Yekaterinburg Volmet (Koltsovo)"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "yy",
+    "site_name": "Yakutsk Volmet"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "za",
+    "site_name": "Zyryanka, Sakha"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "zg",
+    "site_name": "Zhigalovo, Irkutsk region"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "zp",
+    "site_name": "Zaporozhye, Kamchatka"
+  },
+  {
+    "country": "RUS",
+    "site_abbrev": "zy",
+    "site_name": "Zhatay, Yakutsk"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "b",
+    "site_name": "Bjuröklubb"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "d",
+    "site_name": "Delsbo"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "gr",
+    "site_name": "Varberg-Grimeton"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "gs",
+    "site_name": "Gislövshammar"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "h",
+    "site_name": "Härnösand"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "j",
+    "site_name": "Julita"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "k",
+    "site_name": "Kvarnberget-Vallentuna"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "s",
+    "site_name": "Sala"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "st",
+    "site_name": "Stavsnäs"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "t",
+    "site_name": "Tingstäde"
+  },
+  {
+    "country": "S",
+    "site_abbrev": "v",
+    "site_name": "Vaxholm, The Castle"
+  },
+  {
+    "country": "SDN",
+    "site_abbrev": "a",
+    "site_name": "Al-Aitahab"
+  },
+  {
+    "country": "SDN",
+    "site_abbrev": "r",
+    "site_name": "Reiba"
+  },
+  {
+    "country": "SEN",
+    "site_abbrev": "r",
+    "site_name": "Rufisque 6WW DIRISI"
+  },
+  {
+    "country": "SEN",
+    "site_abbrev": "y",
+    "site_name": "Dakar Yoff"
+  },
+  {
+    "country": "SEY",
+    "site_abbrev": "mh",
+    "site_name": "Mahe"
+  },
+  {
+    "country": "SLM",
+    "site_abbrev": "",
+    "site_name": "Honiara"
+  },
+  {
+    "country": "SNG",
+    "site_abbrev": "",
+    "site_name": "Kranji"
+  },
+  {
+    "country": "SNG",
+    "site_abbrev": "j",
+    "site_name": "Jurong"
+  },
+  {
+    "country": "SNG",
+    "site_abbrev": "v",
+    "site_name": "Singapore Volmet"
+  },
+  {
+    "country": "SOM",
+    "site_abbrev": "b",
+    "site_name": "Baydhabo "
+  },
+  {
+    "country": "SOM",
+    "site_abbrev": "g",
+    "site_name": "Garoowe"
+  },
+  {
+    "country": "SOM",
+    "site_abbrev": "h",
+    "site_name": "Hargeisa"
+  },
+  {
+    "country": "SOM",
+    "site_abbrev": "ma",
+    "site_name": "Mogadishu Airport"
+  },
+  {
+    "country": "SRB",
+    "site_abbrev": "be",
+    "site_name": "Beograd/Belgrade"
+  },
+  {
+    "country": "SRB",
+    "site_abbrev": "s",
+    "site_name": "Stubline"
+  },
+  {
+    "country": "SSD",
+    "site_abbrev": "n",
+    "site_name": "Narus"
+  },
+  {
+    "country": "STP",
+    "site_abbrev": "",
+    "site_name": "Pinheira"
+  },
+  {
+    "country": "SUI",
+    "site_abbrev": "be",
+    "site_name": "Bern Radio HEB, Prangins"
+  },
+  {
+    "country": "SUI",
+    "site_abbrev": "ge",
+    "site_name": "Geneva"
+  },
+  {
+    "country": "SUI",
+    "site_abbrev": "lu",
+    "site_name": "Luzern (approx; Ampegon?)"
+  },
+  {
+    "country": "SUR",
+    "site_abbrev": "pm",
+    "site_name": "Paramaribo"
+  },
+  {
+    "country": "SVK",
+    "site_abbrev": "",
+    "site_name": "Rimavska Sobota"
+  },
+  {
+    "country": "SWZ",
+    "site_abbrev": "",
+    "site_name": "Manzini/Mpangela Ranch"
+  },
+  {
+    "country": "SYR",
+    "site_abbrev": "",
+    "site_name": "Adra"
+  },
+  {
+    "country": "TCD",
+    "site_abbrev": "",
+    "site_name": "N'Djamena-Gredia"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "b",
+    "site_name": "Bangkok / Prathum Thani"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "bm",
+    "site_name": "Bangkok Meteo"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "bv",
+    "site_name": "Bangkok Volmet"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "hy",
+    "site_name": "Hat Yai"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "n",
+    "site_name": "Nakhon Sawan"
+  },
+  {
+    "country": "THA",
+    "site_abbrev": "u",
+    "site_name": "Udon Thani"
+  },
+  {
+    "country": "TJK",
+    "site_abbrev": "da",
+    "site_name": "Dushanbe airport"
+  },
+  {
+    "country": "TJK",
+    "site_abbrev": "y",
+    "site_name": "Yangi Yul (Dushanbe)"
+  },
+  {
+    "country": "TJK",
+    "site_abbrev": "o",
+    "site_name": "Orzu"
+  },
+  {
+    "country": "TKM",
+    "site_abbrev": "a",
+    "site_name": "Asgabat"
+  },
+  {
+    "country": "TKM",
+    "site_abbrev": "as",
+    "site_name": "Ashgabat airport"
+  },
+  {
+    "country": "TKM",
+    "site_abbrev": "ds",
+    "site_name": "Dasoguz/Dashoguz"
+  },
+  {
+    "country": "TKM",
+    "site_abbrev": "s",
+    "site_name": "Seyda/Seidi"
+  },
+  {
+    "country": "TKM",
+    "site_abbrev": "tb",
+    "site_name": "Turkmenbashi"
+  },
+  {
+    "country": "TRD",
+    "site_abbrev": "np",
+    "site_name": "North Post"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "bz",
+    "site_name": "Bizerte"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "gu",
+    "site_name": "La Goulette"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "ke",
+    "site_name": "Kelibia"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "mh",
+    "site_name": "Mahdia"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "s",
+    "site_name": "Sfax"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "sf",
+    "site_name": "Sfax"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "tb",
+    "site_name": "Tabarka"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "te",
+    "site_name": "Tunis"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "tu",
+    "site_name": "Tunis"
+  },
+  {
+    "country": "TUN",
+    "site_abbrev": "zz",
+    "site_name": "Zarzis"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "a",
+    "site_name": "Ankara"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "c",
+    "site_name": "Cakirlar"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "e",
+    "site_name": "Emirler"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "is",
+    "site_name": "Istanbul TAH"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "iz",
+    "site_name": "Izmir"
+  },
+  {
+    "country": "TUR",
+    "site_abbrev": "m",
+    "site_name": "Mersin"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "f",
+    "site_name": "Fangliao FAN"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "h",
+    "site_name": "Huwei (Yunlin province)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "k",
+    "site_name": "Kouhu (Yunlin province)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "",
+    "site_name": "L-Lukang"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "m",
+    "site_name": "Minhsiung (Chiayi province)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "n",
+    "site_name": "Tainan/Annan (Tainan city)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "p",
+    "site_name": "Paochung/Baujong (Yunlin province) PAO/BAJ"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "pe",
+    "site_name": "Penghu (Pescadores), Jiangmei"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "q",
+    "site_name": "Tainan-Qigu/Cigu, Mount Wufen (Central Weather Bureau)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "s",
+    "site_name": "Danshui/Tanshui/Tamsui (Taipei province)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "t",
+    "site_name": "Taipei (Pali)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "w",
+    "site_name": "Taipei, Mount Wufen (Central Weather Bureau)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "y",
+    "site_name": "Kuanyin (Han Sheng)"
+  },
+  {
+    "country": "TWN",
+    "site_abbrev": "yl",
+    "site_name": "Yilin"
+  },
+  {
+    "country": "TZA",
+    "site_abbrev": "d",
+    "site_name": "Daressalam"
+  },
+  {
+    "country": "TZA",
+    "site_abbrev": "z",
+    "site_name": "Zanzibar/Dole"
+  },
+  {
+    "country": "UAE",
+    "site_abbrev": "",
+    "site_name": "Dhabbaya"
+  },
+  {
+    "country": "UAE",
+    "site_abbrev": "aj",
+    "site_name": "Al-Abjan"
+  },
+  {
+    "country": "UAE",
+    "site_abbrev": "da",
+    "site_name": "Das Island"
+  },
+  {
+    "country": "UAE",
+    "site_abbrev": "mu",
+    "site_name": "Musaffah, Abu Dhabi"
+  },
+  {
+    "country": "UAE",
+    "site_abbrev": "sj",
+    "site_name": "Sharjah"
+  },
+  {
+    "country": "UGA",
+    "site_abbrev": "k",
+    "site_name": "Kampala-Bugolobi"
+  },
+  {
+    "country": "UGA",
+    "site_abbrev": "m",
+    "site_name": "Mukono"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "be",
+    "site_name": "Berdiansk"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "c",
+    "site_name": "Chernivtsi"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "k",
+    "site_name": "Kyyiv/Kiev/Brovary"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "ke",
+    "site_name": "Kiev"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "",
+    "site_name": "L-Lviv (Krasne)"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "lu",
+    "site_name": "Luch"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "m",
+    "site_name": "Mykolaiv (Kopani)"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "od",
+    "site_name": "Odessa"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "pe",
+    "site_name": "Petrivka"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "rv",
+    "site_name": "Rivne"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "x",
+    "site_name": "Kharkiv (Taranivka)"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site(s)"
+  },
+  {
+    "country": "UKR",
+    "site_abbrev": "z",
+    "site_name": "Zaporizhzhya"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "lp",
+    "site_name": "La Paloma"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "m",
+    "site_name": "Montevideo"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "pc",
+    "site_name": "Punta Carretas"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "pe",
+    "site_name": "Punta del Este"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "rb",
+    "site_name": "Rio Branco"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "t",
+    "site_name": "Tacuarembó"
+  },
+  {
+    "country": "URG",
+    "site_abbrev": "tr",
+    "site_name": "Trouville"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "a",
+    "site_name": "Andrews AFB, MD"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "b",
+    "site_name": "Birmingham / Vandiver, AL (WEWN)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ba",
+    "site_name": "WBMD Baltimore, MD"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "bg",
+    "site_name": "Barnegat, NJ"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "bo",
+    "site_name": "Boston, MA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "bt",
+    "site_name": "Bethel, PA (WMLK)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "c",
+    "site_name": "Cypress Creek, SC (WHRI)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ch",
+    "site_name": "Chesapeake - Pungo Airfield, VA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ci",
+    "site_name": "WLW Cincinnati, OH"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "cu",
+    "site_name": "Cutler, ME"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "da",
+    "site_name": "Davidsonville, MD"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "de",
+    "site_name": "KOA Denver, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ds",
+    "site_name": "Destin, FL"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "dv",
+    "site_name": "Dover, NC (KNC)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "dx",
+    "site_name": "Dixon, CA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ej",
+    "site_name": "Ellijay, GA (KJM)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fa",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fb",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fc",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fd",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fe",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ff",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fg",
+    "site_name": "Fort Collins, CO"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "fv",
+    "site_name": "Forest, VA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "g",
+    "site_name": "Greenville, NC"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "hw",
+    "site_name": "KWHW Altus, OK"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "jc",
+    "site_name": "Jim Creek, WA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "k",
+    "site_name": "Key Saddlebunch, FL"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "kc",
+    "site_name": "KSCS Fort Worth, TX"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ks",
+    "site_name": "KSL Salt Lake City, UT"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "",
+    "site_name": "L-Lebanon, TN (WTWW)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "",
+    "site_name": "LL-Lakeland, FL (WCY)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "lm",
+    "site_name": "Lamoure, ND"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "m",
+    "site_name": "Miami / Hialeah Gardens, FL (WRMI)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ma",
+    "site_name": "Manchester / Morrison, TN (WWRB)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "mi",
+    "site_name": "Milton, FL (WJHR)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "mo",
+    "site_name": "Mobile, AL (WLO)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "n",
+    "site_name": "Nashville, TN (WWCR)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "nm",
+    "site_name": "NMG New Orleans, LA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "no",
+    "site_name": "New Orleans, LA (WRNO)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "np",
+    "site_name": "Newport, NC (WTJC)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "o",
+    "site_name": "Okeechobee, FL (WYFR)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ob",
+    "site_name": "San Luis Obispo, CA, 3 tx sites: San Luis Obispo, Ragged Point , Vandenberg "
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "of",
+    "site_name": "Offutt AFB, NE"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "q",
+    "site_name": "Monticello, ME (WBCQ)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "pa",
+    "site_name": "Palo Alto, CA (KFS)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "pg",
+    "site_name": "Punta Gorda, FL (KPK)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "pr",
+    "site_name": "Point Reyes / Bolinas, CA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "rh",
+    "site_name": "Riverhead, Long Island, NY"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "rl",
+    "site_name": "Red Lion (York), PA (WINB)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "rs",
+    "site_name": "Los Angeles / Rancho Simi, CA (KVOH)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "rv",
+    "site_name": "Rio Vista, CA (KFS/KPH)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "sc",
+    "site_name": "KEBR Sacramento, CA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "se",
+    "site_name": "Seattle, WA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "sf",
+    "site_name": "San Francisco Radio; one of: dx; HWA-m; ALS-ba; THA-hy"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "sk",
+    "site_name": "Seattle, WA (KLB) and CA site"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "sm",
+    "site_name": "University of Southern Mississippi, 3 tx sites: Destin FL, Gulf Shores AL, Pascagoula MS"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "uc",
+    "site_name": "University of California Davis, 6 tx sites: Bodega Bay, Jenner, Inverness, Muir Beach, Sausalito, Inverness"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ud",
+    "site_name": "University of California Davis, 5 tx sites: Bodega Bay, Fort Bragg, Point Arena, Trinidad, Samoa"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "v",
+    "site_name": "Vado, NM (KJES)"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "vs",
+    "site_name": "Vashon Island, WA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "wa",
+    "site_name": "Washington, DC"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "wb",
+    "site_name": "WBAP Fort Worth, TX"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "wc",
+    "site_name": "\"West Coast\" Beale AFB Marysville, CA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "wg",
+    "site_name": "WGM Fort Lauderdale, FL"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "ws",
+    "site_name": "KOVR West Sacramento, CA"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "wx",
+    "site_name": "WHX Hillsboro, WV"
+  },
+  {
+    "country": "USA",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "UZB",
+    "site_abbrev": "",
+    "site_name": "Tashkent"
+  },
+  {
+    "country": "UZB",
+    "site_abbrev": "a",
+    "site_name": "Tashkent Airport"
+  },
+  {
+    "country": "UZB",
+    "site_abbrev": "nu",
+    "site_name": "Nukus, Karakalpakstan"
+  },
+  {
+    "country": "UZB",
+    "site_abbrev": "s",
+    "site_name": "Samarkand"
+  },
+  {
+    "country": "UZB",
+    "site_abbrev": "ta",
+    "site_name": "Tashkent I/II"
+  },
+  {
+    "country": "VEN",
+    "site_abbrev": "t",
+    "site_name": "El Tigre"
+  },
+  {
+    "country": "VEN",
+    "site_abbrev": "y",
+    "site_name": "YVTO Caracas"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "b",
+    "site_name": "Buon Me Thuot, Daclac"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "bt",
+    "site_name": "Ben Thuy"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "cm",
+    "site_name": "Ca Mau"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "co",
+    "site_name": "Cua Ong"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "cr",
+    "site_name": "Cam Ranh"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "ct",
+    "site_name": "Can Tho"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "db",
+    "site_name": "Dien Bien"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "dn",
+    "site_name": "Da Nang"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "hc",
+    "site_name": "Ho Chi Minh City / Vung Tau"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "hg",
+    "site_name": "Hon Gai (Ha Long)"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "hp",
+    "site_name": "Hai Phong"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "hu",
+    "site_name": "Hue"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "kg",
+    "site_name": "Kien Giang"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "",
+    "site_name": "L-Son La"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "m",
+    "site_name": "Hanoi-Metri"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "mc",
+    "site_name": "Mong Cai"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "mh",
+    "site_name": "My Hao"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "nt",
+    "site_name": "Nha Trang"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "pd",
+    "site_name": "Phuoc Dinh"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "pr",
+    "site_name": "Phan Rang"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "pt",
+    "site_name": "Phan Tiet"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "py",
+    "site_name": "Phu Yen"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "qn",
+    "site_name": "Quy Nhon"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "s",
+    "site_name": "Hanoi-Sontay"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "t",
+    "site_name": "Thoi Long / Thoi Hung"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "th",
+    "site_name": "Thanh Hoa"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "vt",
+    "site_name": "Vung Tau"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "x",
+    "site_name": "Xuan Mai"
+  },
+  {
+    "country": "VTN",
+    "site_abbrev": "xx",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "VUT",
+    "site_abbrev": "",
+    "site_name": "Empten Lagoon"
+  },
+  {
+    "country": "XUU",
+    "site_abbrev": "",
+    "site_name": "Unknown site"
+  },
+  {
+    "country": "YEM",
+    "site_abbrev": "a",
+    "site_name": "Al Hiswah/Aden"
+  },
+  {
+    "country": "YEM",
+    "site_abbrev": "s",
+    "site_name": "Sanaa"
+  },
+  {
+    "country": "ZMB",
+    "site_abbrev": "",
+    "site_name": "L-Lusaka"
+  },
+  {
+    "country": "ZMB",
+    "site_abbrev": "m",
+    "site_name": "Makeni Ranch"
+  },
+  {
+    "country": "ZWE",
+    "site_abbrev": "",
+    "site_name": "Gweru/Guinea Fowl"
+  }
+]

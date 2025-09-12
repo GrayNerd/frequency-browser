@@ -1,0 +1,3502 @@
+[
+  {
+    "code": "A-A",
+    "site_name": "Alma Ata",
+    "ADM": "KAZ"
+  },
+  {
+    "code": "AAR",
+    "site_name": "Alphen aan den Rijn",
+    "ADM": "HOL"
+  },
+  {
+    "code": "ABG",
+    "site_name": "Abu Ghraib (Bagdadh)",
+    "ADM": "IRQ"
+  },
+  {
+    "code": "ABH",
+    "site_name": "Abu Hayan",
+    "ADM": "BHR"
+  },
+  {
+    "code": "ABJ",
+    "site_name": "Abidjan",
+    "ADM": "CTI"
+  },
+  {
+    "code": "ABS",
+    "site_name": "Abis",
+    "ADM": "EGY"
+  },
+  {
+    "code": "ABU",
+    "site_name": "Abu Dhabi",
+    "ADM": "UAE"
+  },
+  {
+    "code": "ABZ",
+    "site_name": "Abu zaabal",
+    "ADM": "EGY"
+  },
+  {
+    "code": "ACC",
+    "site_name": "Accra",
+    "ADM": "GHA"
+  },
+  {
+    "code": "ACH",
+    "site_name": "Achkabad",
+    "ADM": "TKM"
+  },
+  {
+    "code": "ADD",
+    "site_name": "Addis Ababa",
+    "ADM": "ETH"
+  },
+  {
+    "code": "ADH",
+    "site_name": "Alpes d Huez",
+    "ADM": "F"
+  },
+  {
+    "code": "ADR",
+    "site_name": "Adra",
+    "ADM": "SYR"
+  },
+  {
+    "code": "AGT",
+    "site_name": "Agat, Guam",
+    "ADM": "USA"
+  },
+  {
+    "code": "AHW",
+    "site_name": "Ahwaz",
+    "ADM": "IRN"
+  },
+  {
+    "code": "AIA",
+    "site_name": "Anguilla",
+    "ADM": "G"
+  },
+  {
+    "code": "AIJ",
+    "site_name": "Denton, TX",
+    "ADM": "USA"
+  },
+  {
+    "code": "AIZ",
+    "site_name": "Aizawl",
+    "ADM": "IND"
+  },
+  {
+    "code": "AKA",
+    "site_name": "Al Karanah",
+    "ADM": "JOR"
+  },
+  {
+    "code": "ALF",
+    "site_name": "Al-Fatihab",
+    "ADM": "SDN"
+  },
+  {
+    "code": "ALG",
+    "site_name": "Aligarh",
+    "ADM": "IND"
+  },
+  {
+    "code": "ALH",
+    "site_name": "Al Hiswah",
+    "ADM": "YEM"
+  },
+  {
+    "code": "ALI",
+    "site_name": "Alice Springs",
+    "ADM": "AUS"
+  },
+  {
+    "code": "ALK",
+    "site_name": "Al khaisah",
+    "ADM": "QAT"
+  },
+  {
+    "code": "ALO",
+    "site_name": "Alotau",
+    "ADM": "PNG"
+  },
+  {
+    "code": "AMB",
+    "site_name": "Ambon",
+    "ADM": "INS"
+  },
+  {
+    "code": "AMM",
+    "site_name": "Amman",
+    "ADM": "JOR"
+  },
+  {
+    "code": "APA",
+    "site_name": "Aparecida",
+    "ADM": "B"
+  },
+  {
+    "code": "ARA",
+    "site_name": "Arauca",
+    "ADM": "CLM"
+  },
+  {
+    "code": "ARM",
+    "site_name": "Armavir",
+    "ADM": "RUS"
+  },
+  {
+    "code": "ARQ",
+    "site_name": "Arequipa",
+    "ADM": "PRU"
+  },
+  {
+    "code": "ASC",
+    "site_name": "Ascension",
+    "ADM": "G"
+  },
+  {
+    "code": "ASU",
+    "site_name": "Asuncion",
+    "ADM": "PRG"
+  },
+  {
+    "code": "ATG",
+    "site_name": "Antigua",
+    "ADM": "ATG"
+  },
+  {
+    "code": "AUR",
+    "site_name": "Auros",
+    "ADM": "F"
+  },
+  {
+    "code": "AVL",
+    "site_name": "Avlis",
+    "ADM": "GRC"
+  },
+  {
+    "code": "AVO",
+    "site_name": "Avoriaz Morzine",
+    "ADM": "F"
+  },
+  {
+    "code": "B-A",
+    "site_name": "Banda Aceh",
+    "ADM": "INS"
+  },
+  {
+    "code": "BAB",
+    "site_name": "Babel",
+    "ADM": "IRQ"
+  },
+  {
+    "code": "BAC",
+    "site_name": "Babice",
+    "ADM": "POL"
+  },
+  {
+    "code": "BAF",
+    "site_name": "Bafoussam",
+    "ADM": "CME"
+  },
+  {
+    "code": "BAI",
+    "site_name": "Bairiki",
+    "ADM": "KIR"
+  },
+  {
+    "code": "BAK",
+    "site_name": "Baku",
+    "ADM": "AZE"
+  },
+  {
+    "code": "BAN",
+    "site_name": "Bangkok",
+    "ADM": "THA"
+  },
+  {
+    "code": "BAO",
+    "site_name": "Baoding",
+    "ADM": "CHN"
+  },
+  {
+    "code": "BAT",
+    "site_name": "Bata",
+    "ADM": "GNE"
+  },
+  {
+    "code": "BAY",
+    "site_name": "Bayenhaote",
+    "ADM": "CHN"
+  },
+  {
+    "code": "BBY",
+    "site_name": "Bombay",
+    "ADM": "IND"
+  },
+  {
+    "code": "BCL",
+    "site_name": "Borculo",
+    "ADM": "HOL"
+  },
+  {
+    "code": "BCQ",
+    "site_name": "Monticello, ME",
+    "ADM": "USA"
+  },
+  {
+    "code": "BDD",
+    "site_name": "Bandundu",
+    "ADM": "COD"
+  },
+  {
+    "code": "BDG",
+    "site_name": "Bandung",
+    "ADM": "INS"
+  },
+  {
+    "code": "BDN",
+    "site_name": "Bandjarmasin",
+    "ADM": "INS"
+  },
+  {
+    "code": "BEC",
+    "site_name": "Bechar",
+    "ADM": "ALG"
+  },
+  {
+    "code": "BEI",
+    "site_name": "Beijing",
+    "ADM": "CHN"
+  },
+  {
+    "code": "BEL",
+    "site_name": "Belo Horizonte",
+    "ADM": "B"
+  },
+  {
+    "code": "BEN",
+    "site_name": "Benkule",
+    "ADM": "INS"
+  },
+  {
+    "code": "BEO",
+    "site_name": "Beograd",
+    "ADM": "SRB"
+  },
+  {
+    "code": "BER",
+    "site_name": "Bertoua",
+    "ADM": "CME"
+  },
+  {
+    "code": "BGA",
+    "site_name": "Benguela",
+    "ADM": "AGL"
+  },
+  {
+    "code": "BGL",
+    "site_name": "Bangalore",
+    "ADM": "IND"
+  },
+  {
+    "code": "BGZ",
+    "site_name": "Benghazi",
+    "ADM": "LBY"
+  },
+  {
+    "code": "BHO",
+    "site_name": "Bhopal",
+    "ADM": "IND"
+  },
+  {
+    "code": "BI",
+    "site_name": "Bichkek",
+    "ADM": "KGZ"
+  },
+  {
+    "code": "BIA",
+    "site_name": "Biak",
+    "ADM": "INS"
+  },
+  {
+    "code": "BIB",
+    "site_name": "Biblis",
+    "ADM": "D"
+  },
+  {
+    "code": "BIJ",
+    "site_name": "Bijeljina",
+    "ADM": "BIH"
+  },
+  {
+    "code": "BJI",
+    "site_name": "Baoji",
+    "ADM": "CHN"
+  },
+  {
+    "code": "BKA",
+    "site_name": "Buka",
+    "ADM": "PNG"
+  },
+  {
+    "code": "BKO",
+    "site_name": "Bamako",
+    "ADM": "MLI"
+  },
+  {
+    "code": "BLA",
+    "site_name": "Blantyre",
+    "ADM": "MWI"
+  },
+  {
+    "code": "BLG",
+    "site_name": "Blagovechtchen",
+    "ADM": "RUS"
+  },
+  {
+    "code": "BLN",
+    "site_name": "Berlin (Deutschlandradio)",
+    "ADM": "D"
+  },
+  {
+    "code": "BNG",
+    "site_name": "Bangui",
+    "ADM": "CAF"
+  },
+  {
+    "code": "BOA",
+    "site_name": "Boa Vista",
+    "ADM": "B"
+  },
+  {
+    "code": "BOC",
+    "site_name": "Bocaue",
+    "ADM": "PHL"
+  },
+  {
+    "code": "BOG",
+    "site_name": "Bogota",
+    "ADM": "CLM"
+  },
+  {
+    "code": "BOH",
+    "site_name": "Newport",
+    "ADM": "USA"
+  },
+  {
+    "code": "BON",
+    "site_name": "Bonaire",
+    "ADM": "HOL"
+  },
+  {
+    "code": "BOT",
+    "site_name": "Moepeng Hill",
+    "ADM": "BOT"
+  },
+  {
+    "code": "BOU",
+    "site_name": "Bouchaoui",
+    "ADM": "ALG"
+  },
+  {
+    "code": "BR",
+    "site_name": "Brest",
+    "ADM": "BLR"
+  },
+  {
+    "code": "BRA",
+    "site_name": "Brasilia",
+    "ADM": "B"
+  },
+  {
+    "code": "BRE",
+    "site_name": "Bremen (RB/SFB)",
+    "ADM": "D"
+  },
+  {
+    "code": "BRG",
+    "site_name": "Bramming",
+    "ADM": "DNK"
+  },
+  {
+    "code": "BRI",
+    "site_name": "Brisbane",
+    "ADM": "AUS"
+  },
+  {
+    "code": "BRN",
+    "site_name": "Brandon",
+    "ADM": "AUS"
+  },
+  {
+    "code": "BRT",
+    "site_name": "Beirut",
+    "ADM": "LBN"
+  },
+  {
+    "code": "BRZ",
+    "site_name": "Brazzaville",
+    "ADM": "COG"
+  },
+  {
+    "code": "BUD",
+    "site_name": "Budapest",
+    "ADM": "HNG"
+  },
+  {
+    "code": "BUE",
+    "site_name": "Buenos Aires",
+    "ADM": "ARG"
+  },
+  {
+    "code": "BUK",
+    "site_name": "Bukittinggi",
+    "ADM": "INS"
+  },
+  {
+    "code": "BWW",
+    "site_name": "Lebanon, TN",
+    "ADM": "USA"
+  },
+  {
+    "code": "BY",
+    "site_name": "Bethany, OH",
+    "ADM": "USA"
+  },
+  {
+    "code": "CAB",
+    "site_name": "Camboriu",
+    "ADM": "B"
+  },
+  {
+    "code": "CAC",
+    "site_name": "Cachoeira Paulista",
+    "ADM": "B"
+  },
+  {
+    "code": "CAH",
+    "site_name": "Changchun",
+    "ADM": "CHN"
+  },
+  {
+    "code": "CAK",
+    "site_name": "Cakirlar",
+    "ADM": "TUR"
+  },
+  {
+    "code": "CAL",
+    "site_name": "Calcutta",
+    "ADM": "IND"
+  },
+  {
+    "code": "CAM",
+    "site_name": "Campo Grande",
+    "ADM": "B"
+  },
+  {
+    "code": "CAN",
+    "site_name": "Cantho",
+    "ADM": "VTN"
+  },
+  {
+    "code": "CAR",
+    "site_name": "Carnarvon",
+    "ADM": "AUS"
+  },
+  {
+    "code": "CCH",
+    "site_name": "Chile Chico",
+    "ADM": "CHL"
+  },
+  {
+    "code": "CDA",
+    "site_name": "Cape Daguliar",
+    "ADM": "CHN"
+  },
+  {
+    "code": "CDM",
+    "site_name": "Cd. Mante",
+    "ADM": "MEX"
+  },
+  {
+    "code": "CDU",
+    "site_name": "Chengdu",
+    "ADM": "CHN"
+  },
+  {
+    "code": "CER",
+    "site_name": "Cerrik",
+    "ADM": "ALB"
+  },
+  {
+    "code": "CGY",
+    "site_name": "Calgary, AB",
+    "ADM": "CAN"
+  },
+  {
+    "code": "CHA",
+    "site_name": "Cahuita, Costa Rica",
+    "ADM": "CTR"
+  },
+  {
+    "code": "CHC",
+    "site_name": "ChunCheon",
+    "ADM": "KOR"
+  },
+  {
+    "code": "CHE",
+    "site_name": "Chengde",
+    "ADM": "CHN"
+  },
+  {
+    "code": "CHI",
+    "site_name": "Chihuahua",
+    "ADM": "MEX"
+  },
+  {
+    "code": "CHT",
+    "site_name": "Chatel",
+    "ADM": "F"
+  },
+  {
+    "code": "CK2",
+    "site_name": "Xuanmai",
+    "ADM": "VTN"
+  },
+  {
+    "code": "CLM",
+    "site_name": "Calama",
+    "ADM": "CHL"
+  },
+  {
+    "code": "CLS",
+    "site_name": "Caltanissetta",
+    "ADM": "I"
+  },
+  {
+    "code": "CLZ",
+    "site_name": "Calabozo",
+    "ADM": "VEN"
+  },
+  {
+    "code": "CNI",
+    "site_name": "Chennai",
+    "ADM": "IND"
+  },
+  {
+    "code": "COA",
+    "site_name": "Cochabamba",
+    "ADM": "BOL"
+  },
+  {
+    "code": "COC",
+    "site_name": "Concepcion CHL",
+    "ADM": "CHL"
+  },
+  {
+    "code": "COI",
+    "site_name": "Coihaique",
+    "ADM": "CHL"
+  },
+  {
+    "code": "COL",
+    "site_name": "Colombo",
+    "ADM": "CLN"
+  },
+  {
+    "code": "COM",
+    "site_name": "Comores",
+    "ADM": "COM"
+  },
+  {
+    "code": "CON",
+    "site_name": "Conakry",
+    "ADM": "GUI"
+  },
+  {
+    "code": "COP",
+    "site_name": "Concepcion PRG",
+    "ADM": "PRG"
+  },
+  {
+    "code": "COT",
+    "site_name": "Cotonou",
+    "ADM": "BEN"
+  },
+  {
+    "code": "COY",
+    "site_name": "Coyhaique",
+    "ADM": "CHL"
+  },
+  {
+    "code": "CRI",
+    "site_name": "Cariari",
+    "ADM": "CTR"
+  },
+  {
+    "code": "CUR",
+    "site_name": "Curitiba",
+    "ADM": "B"
+  },
+  {
+    "code": "CUZ",
+    "site_name": "Cuzco",
+    "ADM": "PRU"
+  },
+  {
+    "code": "CYP",
+    "site_name": "Limassol",
+    "ADM": "CYP"
+  },
+  {
+    "code": "CZB",
+    "site_name": "Clusaz Balme",
+    "ADM": "F"
+  },
+  {
+    "code": "CZJ",
+    "site_name": "Clusaz Jument",
+    "ADM": "F"
+  },
+  {
+    "code": "DAK",
+    "site_name": "Dakar",
+    "ADM": "SEN"
+  },
+  {
+    "code": "DAL",
+    "site_name": "Daclac",
+    "ADM": "VTN"
+  },
+  {
+    "code": "DAR",
+    "site_name": "Darwin",
+    "ADM": "AUS"
+  },
+  {
+    "code": "DAT",
+    "site_name": "Datteln",
+    "ADM": "D"
+  },
+  {
+    "code": "DB",
+    "site_name": "Duchanbe",
+    "ADM": "TJK"
+  },
+  {
+    "code": "DBA",
+    "site_name": "Dubai",
+    "ADM": "UAE"
+  },
+  {
+    "code": "DEA",
+    "site_name": "Deanovec",
+    "ADM": "HRV"
+  },
+  {
+    "code": "DEL",
+    "site_name": "Delhi",
+    "ADM": "IND"
+  },
+  {
+    "code": "DEN",
+    "site_name": "Denpasar",
+    "ADM": "INS"
+  },
+  {
+    "code": "DES",
+    "site_name": "Dar-es-Salaam",
+    "ADM": "TZA"
+  },
+  {
+    "code": "DHA",
+    "site_name": "Dhabayya",
+    "ADM": "UAE"
+  },
+  {
+    "code": "DIL",
+    "site_name": "Dili",
+    "ADM": "POR"
+  },
+  {
+    "code": "DIO",
+    "site_name": "Diosd",
+    "ADM": "HNG"
+  },
+  {
+    "code": "DIR",
+    "site_name": "Diriyya",
+    "ADM": "ARS"
+  },
+  {
+    "code": "DJI",
+    "site_name": "Djibouti",
+    "ADM": "DJI"
+  },
+  {
+    "code": "DKA",
+    "site_name": "Dhaka",
+    "ADM": "BGD"
+  },
+  {
+    "code": "DL",
+    "site_name": "Delano, CA",
+    "ADM": "USA"
+  },
+  {
+    "code": "DOF",
+    "site_name": "Dongfang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "DOL",
+    "site_name": "Dole",
+    "ADM": "TZA"
+  },
+  {
+    "code": "DON",
+    "site_name": "Dondo",
+    "ADM": "MOZ"
+  },
+  {
+    "code": "DOU",
+    "site_name": "Douala",
+    "ADM": "CME"
+  },
+  {
+    "code": "DOV",
+    "site_name": "Doves",
+    "ADM": "LBN"
+  },
+  {
+    "code": "DRU",
+    "site_name": "Daru",
+    "ADM": "PNG"
+  },
+  {
+    "code": "DRW",
+    "site_name": "Darwin, NT",
+    "ADM": "AUS"
+  },
+  {
+    "code": "DUB",
+    "site_name": "Dublin, Ireland",
+    "ADM": "IRL"
+  },
+  {
+    "code": "EJU",
+    "site_name": "Ejura",
+    "ADM": "GHA"
+  },
+  {
+    "code": "EKA",
+    "site_name": "Ekala",
+    "ADM": "CLN"
+  },
+  {
+    "code": "EKB",
+    "site_name": "Ekaterinburg",
+    "ADM": "RUS"
+  },
+  {
+    "code": "ELB",
+    "site_name": "Elburg",
+    "ADM": "HOL"
+  },
+  {
+    "code": "EMR",
+    "site_name": "Emirler",
+    "ADM": "TUR"
+  },
+  {
+    "code": "ENN",
+    "site_name": "Encarnacion",
+    "ADM": "PRG"
+  },
+  {
+    "code": "ERL",
+    "site_name": "Erlangen",
+    "ADM": "D"
+  },
+  {
+    "code": "ERV",
+    "site_name": "Erevan",
+    "ADM": "ARM"
+  },
+  {
+    "code": "EWN",
+    "site_name": "Vandiver, AL",
+    "ADM": "USA"
+  },
+  {
+    "code": "FAK",
+    "site_name": "Fakfak",
+    "ADM": "INS"
+  },
+  {
+    "code": "FBS",
+    "site_name": "Marpi, Saipan",
+    "ADM": "USA"
+  },
+  {
+    "code": "FIG",
+    "site_name": "Foz do Iguacu",
+    "ADM": "B"
+  },
+  {
+    "code": "FIL",
+    "site_name": "Filadelfia",
+    "ADM": "PRG"
+  },
+  {
+    "code": "FLE",
+    "site_name": "Flevo",
+    "ADM": "HOL"
+  },
+  {
+    "code": "FLI",
+    "site_name": "Forli, Italy",
+    "ADM": "I"
+  },
+  {
+    "code": "FLO",
+    "site_name": "Florianopolis",
+    "ADM": "B"
+  },
+  {
+    "code": "FOR",
+    "site_name": "Fortaleza",
+    "ADM": "B"
+  },
+  {
+    "code": "FRE",
+    "site_name": "Frederikstad",
+    "ADM": "NOR"
+  },
+  {
+    "code": "FUK",
+    "site_name": "Fukuoka",
+    "ADM": "J"
+  },
+  {
+    "code": "FUZ",
+    "site_name": "Fuzhou",
+    "ADM": "CHN"
+  },
+  {
+    "code": "GA",
+    "site_name": "Greenville, NC (Site A)",
+    "ADM": "USA"
+  },
+  {
+    "code": "GAB",
+    "site_name": "Moyabi",
+    "ADM": "GAB"
+  },
+  {
+    "code": "GAL",
+    "site_name": "Galbeni",
+    "ADM": "ROU"
+  },
+  {
+    "code": "GAR",
+    "site_name": "Garoua",
+    "ADM": "CME"
+  },
+  {
+    "code": "GAU",
+    "site_name": "Gauhati",
+    "ADM": "IND"
+  },
+  {
+    "code": "GB",
+    "site_name": "Greenville, NC (Site B)",
+    "ADM": "USA"
+  },
+  {
+    "code": "GBN",
+    "site_name": "Gaborone",
+    "ADM": "BOT"
+  },
+  {
+    "code": "GDB",
+    "site_name": "Gd. Bornand",
+    "ADM": "F"
+  },
+  {
+    "code": "GDR",
+    "site_name": "Gedja Dera",
+    "ADM": "ETH"
+  },
+  {
+    "code": "GEI",
+    "site_name": "Redwood City, CA",
+    "ADM": "USA"
+  },
+  {
+    "code": "GEM",
+    "site_name": "Geermu",
+    "ADM": "CHN"
+  },
+  {
+    "code": "GJA",
+    "site_name": "Guaruj",
+    "ADM": "B"
+  },
+  {
+    "code": "GJW",
+    "site_name": "Gedja Jewe",
+    "ADM": "ETH"
+  },
+  {
+    "code": "GIT",
+    "site_name": "Gitega",
+    "ADM": "BDI"
+  },
+  {
+    "code": "GIY",
+    "site_name": "Guiyang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "GKP",
+    "site_name": "Gorakhpur",
+    "ADM": "IND"
+  },
+  {
+    "code": "GOD",
+    "site_name": "Goderich",
+    "ADM": "SRL"
+  },
+  {
+    "code": "GOH",
+    "site_name": "Goehren",
+    "ADM": "D"
+  },
+  {
+    "code": "GOI",
+    "site_name": "Goiania",
+    "ADM": "B"
+  },
+  {
+    "code": "GR",
+    "site_name": "Greenville, NC",
+    "ADM": "USA"
+  },
+  {
+    "code": "GRA",
+    "site_name": "Granja Pavon",
+    "ADM": "GTM"
+  },
+  {
+    "code": "GRW",
+    "site_name": "Garowe",
+    "ADM": "SOM"
+  },
+  {
+    "code": "GTG",
+    "site_name": "McCaysville, GA",
+    "ADM": "USA"
+  },
+  {
+    "code": "GTK",
+    "site_name": "Gangtok",
+    "ADM": "IND"
+  },
+  {
+    "code": "GUA",
+    "site_name": "Guatemala",
+    "ADM": "GTM"
+  },
+  {
+    "code": "GUF",
+    "site_name": "Montsinery",
+    "ADM": "F"
+  },
+  {
+    "code": "GUW",
+    "site_name": "Guwahati",
+    "ADM": "IND"
+  },
+  {
+    "code": "GWE",
+    "site_name": "Gweru",
+    "ADM": "ZWE"
+  },
+  {
+    "code": "GYM",
+    "site_name": "Guayaramerin",
+    "ADM": "BOL"
+  },
+  {
+    "code": "HAB",
+    "site_name": "La Habana",
+    "ADM": "CUB"
+  },
+  {
+    "code": "HAN",
+    "site_name": "Hanoi",
+    "ADM": "VTN"
+  },
+  {
+    "code": "HAR",
+    "site_name": "Hargeysa",
+    "ADM": "SOM"
+  },
+  {
+    "code": "HB",
+    "site_name": "Horby",
+    "ADM": "S"
+  },
+  {
+    "code": "HBA",
+    "site_name": "Ha Bac",
+    "ADM": "VTN"
+  },
+  {
+    "code": "HBN",
+    "site_name": "Rep. of Palau",
+    "ADM": "USA"
+  },
+  {
+    "code": "HCN",
+    "site_name": "Ho Chi Minh V",
+    "ADM": "VTN"
+  },
+  {
+    "code": "HEE",
+    "site_name": "Heerde",
+    "ADM": "HOL"
+  },
+  {
+    "code": "HER",
+    "site_name": "Hermosillo",
+    "ADM": "MEX"
+  },
+  {
+    "code": "HEZ",
+    "site_name": "Hezuo",
+    "ADM": "CHN"
+  },
+  {
+    "code": "HFX",
+    "site_name": "Halifax, NS",
+    "ADM": "CAN"
+  },
+  {
+    "code": "HIL",
+    "site_name": "Hilleroed",
+    "ADM": "DNK"
+  },
+  {
+    "code": "HIR",
+    "site_name": "Heroshima",
+    "ADM": "J"
+  },
+  {
+    "code": "HLR",
+    "site_name": "Hailar",
+    "ADM": "CHN"
+  },
+  {
+    "code": "HOL",
+    "site_name": "Holzkirchen",
+    "ADM": "D"
+  },
+  {
+    "code": "HON",
+    "site_name": "Honiara",
+    "ADM": "SLM"
+  },
+  {
+    "code": "HRA",
+    "site_name": "Greenbush, ME",
+    "ADM": "USA"
+  },
+  {
+    "code": "HRB",
+    "site_name": "Harbin",
+    "ADM": "CHN"
+  },
+  {
+    "code": "HRI",
+    "site_name": "Furman, SC",
+    "ADM": "USA"
+  },
+  {
+    "code": "HSB",
+    "site_name": "Ha Son Binh",
+    "ADM": "VTN"
+  },
+  {
+    "code": "HST",
+    "site_name": "Hartenstein Saxony",
+    "ADM": "D"
+  },
+  {
+    "code": "HSW",
+    "site_name": "Noblesville, IN",
+    "ADM": "USA"
+  },
+  {
+    "code": "HUA",
+    "site_name": "Huancayo",
+    "ADM": "PRU"
+  },
+  {
+    "code": "HUE",
+    "site_name": "Hue",
+    "ADM": "VTN"
+  },
+  {
+    "code": "HUH",
+    "site_name": "Huhhot",
+    "ADM": "CHN"
+  },
+  {
+    "code": "HUN",
+    "site_name": "Huanuni",
+    "ADM": "BOL"
+  },
+  {
+    "code": "HVI",
+    "site_name": "Hvidovre",
+    "ADM": "DNK"
+  },
+  {
+    "code": "HWA",
+    "site_name": "HwaSung",
+    "ADM": "KOR"
+  },
+  {
+    "code": "HYD",
+    "site_name": "Hyderabad",
+    "ADM": "IND"
+  },
+  {
+    "code": "IAB",
+    "site_name": "IABLUNIV",
+    "ADM": "UKR"
+  },
+  {
+    "code": "IAK",
+    "site_name": "Iakutsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "IBA",
+    "site_name": "Iba",
+    "ADM": "PHL"
+  },
+  {
+    "code": "IBI",
+    "site_name": "Ibitinga",
+    "ADM": "B"
+  },
+  {
+    "code": "IBN",
+    "site_name": "Ibadan",
+    "ADM": "NIG"
+  },
+  {
+    "code": "ICN",
+    "site_name": "Overslag",
+    "ADM": "HOL"
+  },
+  {
+    "code": "IKO",
+    "site_name": "Ikorodu",
+    "ADM": "NIG"
+  },
+  {
+    "code": "IMF",
+    "site_name": "Beowawe, NV",
+    "ADM": "USA"
+  },
+  {
+    "code": "IMP",
+    "site_name": "Imphal",
+    "ADM": "IND"
+  },
+  {
+    "code": "INB",
+    "site_name": "Red Lion, PA",
+    "ADM": "USA"
+  },
+  {
+    "code": "IPE",
+    "site_name": "Alpine, NJ",
+    "ADM": "USA"
+  },
+  {
+    "code": "IQI",
+    "site_name": "Iquitos",
+    "ADM": "PRU"
+  },
+  {
+    "code": "IRA",
+    "site_name": "Iranawila",
+    "ADM": "CLN"
+  },
+  {
+    "code": "IRK",
+    "site_name": "Irkutsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "ISL",
+    "site_name": "Islamabad",
+    "ADM": "PAK"
+  },
+  {
+    "code": "ISM",
+    "site_name": "Ismaning (BR)",
+    "ADM": "D"
+  },
+  {
+    "code": "ISR",
+    "site_name": "Jerusalem",
+    "ADM": "ISR"
+  },
+  {
+    "code": "ISS",
+    "site_name": "Issoudun",
+    "ADM": "F"
+  },
+  {
+    "code": "ITA",
+    "site_name": "Itanagar",
+    "ADM": "IND"
+  },
+  {
+    "code": "IUJ",
+    "site_name": "Iujnsakhalinsry",
+    "ADM": "RUS"
+  },
+  {
+    "code": "IVF",
+    "site_name": "Ivanofrankovsk",
+    "ADM": "UKR"
+  },
+  {
+    "code": "JAA",
+    "site_name": "JangAn",
+    "ADM": "KOR"
+  },
+  {
+    "code": "JAI",
+    "site_name": "Jaipur",
+    "ADM": "IND"
+  },
+  {
+    "code": "JAK",
+    "site_name": "Djakarta",
+    "ADM": "INS"
+  },
+  {
+    "code": "JAM",
+    "site_name": "Jammu",
+    "ADM": "IND"
+  },
+  {
+    "code": "JAR",
+    "site_name": "Jarji",
+    "ADM": "NIG"
+  },
+  {
+    "code": "JAY",
+    "site_name": "Jayapura",
+    "ADM": "INS"
+  },
+  {
+    "code": "JBR",
+    "site_name": "Jaszbereny",
+    "ADM": "HNG"
+  },
+  {
+    "code": "JCR",
+    "site_name": "Millerstown, KY",
+    "ADM": "USA"
+  },
+  {
+    "code": "JED",
+    "site_name": "Jeddah",
+    "ADM": "ARS"
+  },
+  {
+    "code": "JES",
+    "site_name": "Vado, NM",
+    "ADM": "USA"
+  },
+  {
+    "code": "JEY",
+    "site_name": "Jeypore",
+    "ADM": "IND"
+  },
+  {
+    "code": "JHR",
+    "site_name": "Milton, FL",
+    "ADM": "USA"
+  },
+  {
+    "code": "JIE",
+    "site_name": "Millerstown, KY",
+    "ADM": "USA"
+  },
+  {
+    "code": "JIG",
+    "site_name": "Jigulevsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "JIN",
+    "site_name": "Jinhua",
+    "ADM": "CHN"
+  },
+  {
+    "code": "JMB",
+    "site_name": "Jambi",
+    "ADM": "INS"
+  },
+  {
+    "code": "JUL",
+    "site_name": "Juelich",
+    "ADM": "D"
+  },
+  {
+    "code": "JUN",
+    "site_name": "Junglinster",
+    "ADM": "LUX"
+  },
+  {
+    "code": "K-S",
+    "site_name": "Kyung San",
+    "ADM": "KOR"
+  },
+  {
+    "code": "K/A",
+    "site_name": "Komsomolsk Amur",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KAB",
+    "site_name": "Kabul",
+    "ADM": "AFG"
+  },
+  {
+    "code": "KAC",
+    "site_name": "Karachi",
+    "ADM": "PAK"
+  },
+  {
+    "code": "KAJ",
+    "site_name": "Kajang",
+    "ADM": "MLA"
+  },
+  {
+    "code": "KAL",
+    "site_name": "Kalatch",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KAM",
+    "site_name": "Kamalabad",
+    "ADM": "IRN"
+  },
+  {
+    "code": "KAR",
+    "site_name": "Kara",
+    "ADM": "TGO"
+  },
+  {
+    "code": "KAS",
+    "site_name": "Kashi",
+    "ADM": "CHN"
+  },
+  {
+    "code": "KAT",
+    "site_name": "Kathmandu",
+    "ADM": "NPL"
+  },
+  {
+    "code": "KAV",
+    "site_name": "Kavalla",
+    "ADM": "GRC"
+  },
+  {
+    "code": "KAW",
+    "site_name": "Tokyo Kawagu",
+    "ADM": "J"
+  },
+  {
+    "code": "KAZ",
+    "site_name": "Kazan",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KBD",
+    "site_name": "KABD",
+    "ADM": "KWT"
+  },
+  {
+    "code": "KCH",
+    "site_name": "Kichinev",
+    "ADM": "MDA"
+  },
+  {
+    "code": "KDI",
+    "site_name": "Kendari",
+    "ADM": "INS"
+  },
+  {
+    "code": "KEN",
+    "site_name": "Kenga",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KGA",
+    "site_name": "Kananga",
+    "ADM": "COD"
+  },
+  {
+    "code": "KGS",
+    "site_name": "Kinghisepp",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KHB",
+    "site_name": "Khabarovsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KHR",
+    "site_name": "Kharkov",
+    "ADM": "UKR"
+  },
+  {
+    "code": "KIG",
+    "site_name": "Kigali",
+    "ADM": "RRW"
+  },
+  {
+    "code": "KIM",
+    "site_name": "Kimjae",
+    "ADM": "KOR"
+  },
+  {
+    "code": "KIN",
+    "site_name": "Kinshasa",
+    "ADM": "COD"
+  },
+  {
+    "code": "KIS",
+    "site_name": "Kisangani",
+    "ADM": "COD"
+  },
+  {
+    "code": "KKT",
+    "site_name": "Kolkata",
+    "ADM": "IND"
+  },
+  {
+    "code": "KLG",
+    "site_name": "Kaliningrad",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KLL",
+    "site_name": "Kall",
+    "ADM": "D"
+  },
+  {
+    "code": "KLZ",
+    "site_name": "Klazienaveen",
+    "ADM": "HOL"
+  },
+  {
+    "code": "KMO",
+    "site_name": "Kamo",
+    "ADM": "ARM"
+  },
+  {
+    "code": "KMP",
+    "site_name": "Kampala",
+    "ADM": "UGA"
+  },
+  {
+    "code": "KNG",
+    "site_name": "Kanggye",
+    "ADM": "KRE"
+  },
+  {
+    "code": "KNX",
+    "site_name": "Kununurra WA",
+    "ADM": "AUS"
+  },
+  {
+    "code": "KOH",
+    "site_name": "Kohima",
+    "ADM": "IND"
+  },
+  {
+    "code": "KOM",
+    "site_name": "Koma Rock",
+    "ADM": "KEN"
+  },
+  {
+    "code": "KON",
+    "site_name": "Konevo",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KRA",
+    "site_name": "Kranji (SIMCOM)",
+    "ADM": "SNG"
+  },
+  {
+    "code": "KRP",
+    "site_name": "Karup",
+    "ADM": "DNK"
+  },
+  {
+    "code": "KRS",
+    "site_name": "Krasnoiarsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KS",
+    "site_name": "Kaunas",
+    "ADM": "LTU"
+  },
+  {
+    "code": "KSG",
+    "site_name": "Kurseong",
+    "ADM": "IND"
+  },
+  {
+    "code": "KTH",
+    "site_name": "Katherine",
+    "ADM": "AUS"
+  },
+  {
+    "code": "KUJ",
+    "site_name": "Kujang",
+    "ADM": "KRE"
+  },
+  {
+    "code": "KUM",
+    "site_name": "Kumamoto",
+    "ADM": "J"
+  },
+  {
+    "code": "KUN",
+    "site_name": "Kunming",
+    "ADM": "CHN"
+  },
+  {
+    "code": "KUP",
+    "site_name": "Kupang",
+    "ADM": "INS"
+  },
+  {
+    "code": "KUR",
+    "site_name": "Kursk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "KV",
+    "site_name": "Kiev",
+    "ADM": "UKR"
+  },
+  {
+    "code": "KVG",
+    "site_name": "Kavieng",
+    "ADM": "PNG"
+  },
+  {
+    "code": "KVI",
+    "site_name": "Kvitsoy",
+    "ADM": "NOR"
+  },
+  {
+    "code": "KWH",
+    "site_name": "Konigs Wusterhausen",
+    "ADM": "D"
+  },
+  {
+    "code": "KWT",
+    "site_name": "Kuwait",
+    "ADM": "KWT"
+  },
+  {
+    "code": "LAG",
+    "site_name": "Lagos",
+    "ADM": "NIG"
+  },
+  {
+    "code": "LAI",
+    "site_name": "Laitse",
+    "ADM": "EST"
+  },
+  {
+    "code": "LAM",
+    "site_name": "Lampertheim",
+    "ADM": "D"
+  },
+  {
+    "code": "LAN",
+    "site_name": "Lanzhou",
+    "ADM": "CHN"
+  },
+  {
+    "code": "LAR",
+    "site_name": "Les Arcs",
+    "ADM": "F"
+  },
+  {
+    "code": "LAW",
+    "site_name": "Lae",
+    "ADM": "PNG"
+  },
+  {
+    "code": "LDA",
+    "site_name": "Les Deux Alpes",
+    "ADM": "F"
+  },
+  {
+    "code": "LDR",
+    "site_name": "Lodwar",
+    "ADM": "KEN"
+  },
+  {
+    "code": "LEH",
+    "site_name": "Leh",
+    "ADM": "IND"
+  },
+  {
+    "code": "LRG",
+    "site_name": "Lorengau",
+    "ADM": "PNG"
+  },
+  {
+    "code": "LGS",
+    "site_name": "Les Gets",
+    "ADM": "F"
+  },
+  {
+    "code": "LHA",
+    "site_name": "Lhasa",
+    "ADM": "CHN"
+  },
+  {
+    "code": "LIB",
+    "site_name": "Libreville",
+    "ADM": "GAB"
+  },
+  {
+    "code": "LIM",
+    "site_name": "Lima",
+    "ADM": "PRU"
+  },
+  {
+    "code": "LIN",
+    "site_name": "Lingshi",
+    "ADM": "CHN"
+  },
+  {
+    "code": "LIS",
+    "site_name": "Lisbon-Sao Gabriel",
+    "ADM": "POR"
+  },
+  {
+    "code": "LIT",
+    "site_name": "Litomysl",
+    "ADM": "CZE"
+  },
+  {
+    "code": "LKW",
+    "site_name": "Lucknow",
+    "ADM": "IND"
+  },
+  {
+    "code": "LLA",
+    "site_name": "Llallangua",
+    "ADM": "BOL"
+  },
+  {
+    "code": "LMS",
+    "site_name": "Les Menuires",
+    "ADM": "F"
+  },
+  {
+    "code": "LNR",
+    "site_name": "Linares",
+    "ADM": "MEX"
+  },
+  {
+    "code": "LOB",
+    "site_name": "Lobito",
+    "ADM": "AGL"
+  },
+  {
+    "code": "LOJ",
+    "site_name": "Loja",
+    "ADM": "EQA"
+  },
+  {
+    "code": "LON",
+    "site_name": "Londrina",
+    "ADM": "B"
+  },
+  {
+    "code": "LOR",
+    "site_name": "La Oroya",
+    "ADM": "PRU"
+  },
+  {
+    "code": "LPC",
+    "site_name": "La Plagne Cham",
+    "ADM": "F"
+  },
+  {
+    "code": "LPL",
+    "site_name": "La Plagne Lac",
+    "ADM": "F"
+  },
+  {
+    "code": "LPR",
+    "site_name": "La Plagne Roch",
+    "ADM": "F"
+  },
+  {
+    "code": "LPZ",
+    "site_name": "La Paz",
+    "ADM": "BOL"
+  },
+  {
+    "code": "LSO",
+    "site_name": "Lancers Gap",
+    "ADM": "LSO"
+  },
+  {
+    "code": "LUB",
+    "site_name": "Lubumbashi",
+    "ADM": "COD"
+  },
+  {
+    "code": "LUS",
+    "site_name": "Lusaka",
+    "ADM": "ZMB"
+  },
+  {
+    "code": "LUV",
+    "site_name": "Lusaka (Voice of Hope)",
+    "ADM": "ZMB"
+  },
+  {
+    "code": "LV",
+    "site_name": "Lvov",
+    "ADM": "UKR"
+  },
+  {
+    "code": "MAA",
+    "site_name": "Marslet",
+    "ADM": "DNK"
+  },
+  {
+    "code": "MAC",
+    "site_name": "Macas",
+    "ADM": "EQA"
+  },
+  {
+    "code": "MAD",
+    "site_name": "Madras",
+    "ADM": "IND"
+  },
+  {
+    "code": "MAG",
+    "site_name": "Magwa",
+    "ADM": "KWT"
+  },
+  {
+    "code": "MAH",
+    "site_name": "Mahina",
+    "ADM": "F"
+  },
+  {
+    "code": "MAK",
+    "site_name": "Makta",
+    "ADM": "UAE"
+  },
+  {
+    "code": "MAL",
+    "site_name": "Malolos",
+    "ADM": "PHL"
+  },
+  {
+    "code": "MAN",
+    "site_name": "Manzini",
+    "ADM": "SWZ"
+  },
+  {
+    "code": "MAP",
+    "site_name": "Maputo",
+    "ADM": "MOZ"
+  },
+  {
+    "code": "MAR",
+    "site_name": "Marulas",
+    "ADM": "PHL"
+  },
+  {
+    "code": "MAS",
+    "site_name": "Mashhad",
+    "ADM": "IRN"
+  },
+  {
+    "code": "MAT",
+    "site_name": "Mataram",
+    "ADM": "INS"
+  },
+  {
+    "code": "MAU",
+    "site_name": "Mauritius",
+    "ADM": "MAU"
+  },
+  {
+    "code": "MAX",
+    "site_name": "Maxoqueira",
+    "ADM": "POR"
+  },
+  {
+    "code": "MBA",
+    "site_name": "Mbandaka",
+    "ADM": "COD"
+  },
+  {
+    "code": "MBO",
+    "site_name": "Malabo",
+    "ADM": "GNE"
+  },
+  {
+    "code": "MBU",
+    "site_name": "Mbujimayi",
+    "ADM": "COD"
+  },
+  {
+    "code": "MC",
+    "site_name": "Monte Carlo",
+    "ADM": "MCO"
+  },
+  {
+    "code": "MDC",
+    "site_name": "Madagascar",
+    "ADM": "MDG"
+  },
+  {
+    "code": "MDG",
+    "site_name": "Madang",
+    "ADM": "PNG"
+  },
+  {
+    "code": "MDO",
+    "site_name": "Manado",
+    "ADM": "INS"
+  },
+  {
+    "code": "MED",
+    "site_name": "Medan",
+    "ADM": "INS"
+  },
+  {
+    "code": "MEK",
+    "site_name": "Mekele",
+    "ADM": "ETH"
+  },
+  {
+    "code": "MEL",
+    "site_name": "Melo",
+    "ADM": "URG"
+  },
+  {
+    "code": "MEN",
+    "site_name": "Mendi",
+    "ADM": "PNG"
+  },
+  {
+    "code": "MER",
+    "site_name": "Merauke",
+    "ADM": "INS"
+  },
+  {
+    "code": "MET",
+    "site_name": "Metri",
+    "ADM": "VTN"
+  },
+  {
+    "code": "MEX",
+    "site_name": "Mexico City",
+    "ADM": "MEX"
+  },
+  {
+    "code": "MEY",
+    "site_name": "Meyerton",
+    "ADM": "AFS"
+  },
+  {
+    "code": "MGV",
+    "site_name": "Megeve",
+    "ADM": "F"
+  },
+  {
+    "code": "MIL",
+    "site_name": "Milano, Italy",
+    "ADM": "I"
+  },
+  {
+    "code": "MIN",
+    "site_name": "Minhsiung",
+    "ADM": "CHN"
+  },
+  {
+    "code": "MIR",
+    "site_name": "Miri",
+    "ADM": "MLA"
+  },
+  {
+    "code": "MIT",
+    "site_name": "Mitchurinsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "MKI",
+    "site_name": "Manokwari",
+    "ADM": "INS"
+  },
+  {
+    "code": "MLA",
+    "site_name": "Muehlacker (SDR)",
+    "ADM": "D"
+  },
+  {
+    "code": "MLK",
+    "site_name": "Bethel, PA",
+    "ADM": "USA"
+  },
+  {
+    "code": "MLT",
+    "site_name": "Malta",
+    "ADM": "MLT"
+  },
+  {
+    "code": "MNA",
+    "site_name": "Manaus",
+    "ADM": "B"
+  },
+  {
+    "code": "MNG",
+    "site_name": "Managua",
+    "ADM": "NCG"
+  },
+  {
+    "code": "MNS",
+    "site_name": "Minsk",
+    "ADM": "BLR"
+  },
+  {
+    "code": "MOG",
+    "site_name": "Mogadishu",
+    "ADM": "SOM"
+  },
+  {
+    "code": "MOK",
+    "site_name": "Mokattam",
+    "ADM": "EGY"
+  },
+  {
+    "code": "MON",
+    "site_name": "Monrovia",
+    "ADM": "LBR"
+  },
+  {
+    "code": "MOR",
+    "site_name": "Morocco",
+    "ADM": "MRC"
+  },
+  {
+    "code": "MOS",
+    "site_name": "Moosbrunn",
+    "ADM": "AUT"
+  },
+  {
+    "code": "MRD",
+    "site_name": "Merida",
+    "ADM": "MEX"
+  },
+  {
+    "code": "MRJ",
+    "site_name": "Marjayoun",
+    "ADM": "LBN"
+  },
+  {
+    "code": "MRL",
+    "site_name": "Meribel",
+    "ADM": "F"
+  },
+  {
+    "code": "MRT",
+    "site_name": "Margraten",
+    "ADM": "HOL"
+  },
+  {
+    "code": "MSK",
+    "site_name": "Moskva",
+    "ADM": "RUS"
+  },
+  {
+    "code": "MTL",
+    "site_name": "Montreal, QU",
+    "ADM": "CAN"
+  },
+  {
+    "code": "MUA",
+    "site_name": "Matsuyama",
+    "ADM": "J"
+  },
+  {
+    "code": "MUG",
+    "site_name": "Muge",
+    "ADM": "POR"
+  },
+  {
+    "code": "MUL",
+    "site_name": "Mulenvos",
+    "ADM": "AGL"
+  },
+  {
+    "code": "MUM",
+    "site_name": "Mumbai",
+    "ADM": "IND"
+  },
+  {
+    "code": "MUN",
+    "site_name": "Munich",
+    "ADM": "D"
+  },
+  {
+    "code": "MUR",
+    "site_name": "Murmansk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "MVD",
+    "site_name": "Montevideo",
+    "ADM": "URG"
+  },
+  {
+    "code": "MWV",
+    "site_name": "Madagascar World Voice",
+    "ADM": "MDG"
+  },
+  {
+    "code": "N.N",
+    "site_name": "Nishii Novgorod",
+    "ADM": "RUS"
+  },
+  {
+    "code": "N/A",
+    "site_name": "Nikolaevsk Amur",
+    "ADM": "RUS"
+  },
+  {
+    "code": "NAB",
+    "site_name": "Nabire",
+    "ADM": "INS"
+  },
+  {
+    "code": "NAD",
+    "site_name": "Nador",
+    "ADM": "MRC"
+  },
+  {
+    "code": "NAG",
+    "site_name": "Tokyo Nagara",
+    "ADM": "J"
+  },
+  {
+    "code": "NAI",
+    "site_name": "Nairobi",
+    "ADM": "KEN"
+  },
+  {
+    "code": "NAK",
+    "site_name": "Nakhon Sawan",
+    "ADM": "THA"
+  },
+  {
+    "code": "NAM",
+    "site_name": "Namibe",
+    "ADM": "AGL"
+  },
+  {
+    "code": "NAN",
+    "site_name": "Nanchang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "NAU",
+    "site_name": "Nauen",
+    "ADM": "D"
+  },
+  {
+    "code": "NAY",
+    "site_name": "Nagoya",
+    "ADM": "J"
+  },
+  {
+    "code": "NDJ",
+    "site_name": "Ndjamena",
+    "ADM": "TCD"
+  },
+  {
+    "code": "NIA",
+    "site_name": "Niamey",
+    "ADM": "NGR"
+  },
+  {
+    "code": "NIJ",
+    "site_name": "Nijmegen",
+    "ADM": "HOL"
+  },
+  {
+    "code": "NJG",
+    "site_name": "Nanjing",
+    "ADM": "CHN"
+  },
+  {
+    "code": "NLS",
+    "site_name": "Anchor Pt, Alaska",
+    "ADM": "USA"
+  },
+  {
+    "code": "NNN",
+    "site_name": "Nanning",
+    "ADM": "CHN"
+  },
+  {
+    "code": "NOB",
+    "site_name": "Noblejas",
+    "ADM": "E"
+  },
+  {
+    "code": "NOU",
+    "site_name": "Nouakchott",
+    "ADM": "MTN"
+  },
+  {
+    "code": "NVS",
+    "site_name": "Novosibirsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "OKH",
+    "site_name": "Okhotsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "OM",
+    "site_name": "Omsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "OMA",
+    "site_name": "Masirah",
+    "ADM": "OMA"
+  },
+  {
+    "code": "OR",
+    "site_name": "Orcha",
+    "ADM": "BLR"
+  },
+  {
+    "code": "ORB",
+    "site_name": "Orenburg",
+    "ADM": "RUS"
+  },
+  {
+    "code": "ORG",
+    "site_name": "Ourgla",
+    "ADM": "ALG"
+  },
+  {
+    "code": "ORU",
+    "site_name": "Oruro",
+    "ADM": "BOL"
+  },
+  {
+    "code": "OSA",
+    "site_name": "Osaka",
+    "ADM": "J"
+  },
+  {
+    "code": "OSC",
+    "site_name": "Osasco",
+    "ADM": "B"
+  },
+  {
+    "code": "OTT",
+    "site_name": "Ottawa",
+    "ADM": "CAN"
+  },
+  {
+    "code": "OUA",
+    "site_name": "Ouagadougou",
+    "ADM": "BFA"
+  },
+  {
+    "code": "OUL",
+    "site_name": "Ouled Fayet",
+    "ADM": "ALG"
+  },
+  {
+    "code": "OYA",
+    "site_name": "Tokyo Oyama",
+    "ADM": "J"
+  },
+  {
+    "code": "P-C",
+    "site_name": "Padang Cermin",
+    "ADM": "INS"
+  },
+  {
+    "code": "P.K",
+    "site_name": "Petropavlo Kam.",
+    "ADM": "RUS"
+  },
+  {
+    "code": "PAD",
+    "site_name": "Padang",
+    "ADM": "INS"
+  },
+  {
+    "code": "PAK",
+    "site_name": "Pakanbaru",
+    "ADM": "INS"
+  },
+  {
+    "code": "PAL",
+    "site_name": "Playa de Pals",
+    "ADM": "E"
+  },
+  {
+    "code": "PAN",
+    "site_name": "Panaji",
+    "ADM": "IND"
+  },
+  {
+    "code": "PAR",
+    "site_name": "Parakou",
+    "ADM": "BEN"
+  },
+  {
+    "code": "PAY",
+    "site_name": "Pt Aysen",
+    "ADM": "CHL"
+  },
+  {
+    "code": "PBL",
+    "site_name": "Port Blair",
+    "ADM": "IND"
+  },
+  {
+    "code": "PEK",
+    "site_name": "Beijing",
+    "ADM": "CHN"
+  },
+  {
+    "code": "PEN",
+    "site_name": "Penang",
+    "ADM": "MLA"
+  },
+  {
+    "code": "PES",
+    "site_name": "Peshawar",
+    "ADM": "PAK"
+  },
+  {
+    "code": "PGA",
+    "site_name": "Palangkaraya",
+    "ADM": "INS"
+  },
+  {
+    "code": "PHN",
+    "site_name": "Phnom-penh",
+    "ADM": "CBG"
+  },
+  {
+    "code": "PHP",
+    "site_name": "Poro",
+    "ADM": "PHL"
+  },
+  {
+    "code": "PHT",
+    "site_name": "Tinang 1",
+    "ADM": "PHL"
+  },
+  {
+    "code": "PHX",
+    "site_name": "Tinang 2",
+    "ADM": "PHL"
+  },
+  {
+    "code": "PIN",
+    "site_name": "Pinneberg",
+    "ADM": "D"
+  },
+  {
+    "code": "PJC",
+    "site_name": "P J Caballero",
+    "ADM": "PRG"
+  },
+  {
+    "code": "PLD",
+    "site_name": "Plovdiv",
+    "ADM": "BUL"
+  },
+  {
+    "code": "PLI",
+    "site_name": "Pali",
+    "ADM": "CHN"
+  },
+  {
+    "code": "PLU",
+    "site_name": "Palu",
+    "ADM": "INS"
+  },
+  {
+    "code": "PMB",
+    "site_name": "Paramaribo",
+    "ADM": "SUR"
+  },
+  {
+    "code": "PMG",
+    "site_name": "Palembang",
+    "ADM": "INS"
+  },
+  {
+    "code": "PMR",
+    "site_name": "Pt. Moresby",
+    "ADM": "PNG"
+  },
+  {
+    "code": "POD",
+    "site_name": "Podebrady",
+    "ADM": "CZE"
+  },
+  {
+    "code": "PON",
+    "site_name": "Pontianak",
+    "ADM": "INS"
+  },
+  {
+    "code": "POP",
+    "site_name": "Popondetta",
+    "ADM": "PNG"
+  },
+  {
+    "code": "POR",
+    "site_name": "Pori",
+    "ADM": "FIN"
+  },
+  {
+    "code": "POT",
+    "site_name": "Potosi",
+    "ADM": "BOL"
+  },
+  {
+    "code": "PPR",
+    "site_name": "Pt au Prince",
+    "ADM": "HTI"
+  },
+  {
+    "code": "PTA",
+    "site_name": "Porto Alegre",
+    "ADM": "B"
+  },
+  {
+    "code": "PTR",
+    "site_name": "Putre",
+    "ADM": "CHL"
+  },
+  {
+    "code": "PTV",
+    "site_name": "Porto Velho",
+    "ADM": "B"
+  },
+  {
+    "code": "PUG",
+    "site_name": "Palauig",
+    "ADM": "PHL"
+  },
+  {
+    "code": "PUT",
+    "site_name": "Puttalam",
+    "ADM": "CLN"
+  },
+  {
+    "code": "PVL",
+    "site_name": "Port Vila",
+    "ADM": "VUT"
+  },
+  {
+    "code": "PYO",
+    "site_name": "Pyongyang",
+    "ADM": "KRE"
+  },
+  {
+    "code": "PZV",
+    "site_name": "Petrozavodsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "QIQ",
+    "site_name": "Qiqihar",
+    "ADM": "CHN"
+  },
+  {
+    "code": "QTA",
+    "site_name": "Quetta",
+    "ADM": "PAK"
+  },
+  {
+    "code": "QUI",
+    "site_name": "Quito",
+    "ADM": "EQA"
+  },
+  {
+    "code": "RAB",
+    "site_name": "Rabaul",
+    "ADM": "PNG"
+  },
+  {
+    "code": "RAC",
+    "site_name": "Ranchi",
+    "ADM": "IND"
+  },
+  {
+    "code": "RAN",
+    "site_name": "Rangitaiki",
+    "ADM": "NZL"
+  },
+  {
+    "code": "RAS",
+    "site_name": "RAS Hayyan",
+    "ADM": "BHR"
+  },
+  {
+    "code": "RAV",
+    "site_name": "Ravenna, Italy",
+    "ADM": "I"
+  },
+  {
+    "code": "RAW",
+    "site_name": "Rawalpindi",
+    "ADM": "PAK"
+  },
+  {
+    "code": "REY",
+    "site_name": "Reykjavik",
+    "ADM": "ISL"
+  },
+  {
+    "code": "RHO",
+    "site_name": "Rhodes",
+    "ADM": "GRC"
+  },
+  {
+    "code": "RIA",
+    "site_name": "Riazan",
+    "ADM": "RUS"
+  },
+  {
+    "code": "RIG",
+    "site_name": "Riga",
+    "ADM": "LVA"
+  },
+  {
+    "code": "RIO",
+    "site_name": "Rio de Janeiro",
+    "ADM": "B"
+  },
+  {
+    "code": "RIY",
+    "site_name": "Riyadh",
+    "ADM": "ARS"
+  },
+  {
+    "code": "RME",
+    "site_name": "Riga 2 (Radio Merkurs)",
+    "ADM": "LVA"
+  },
+  {
+    "code": "RMI",
+    "site_name": "Okeechobee, FL",
+    "ADM": "USA"
+  },
+  {
+    "code": "RMP",
+    "site_name": "Rampisham",
+    "ADM": "G"
+  },
+  {
+    "code": "RND",
+    "site_name": "Randers",
+    "ADM": "DNK"
+  },
+  {
+    "code": "RNO",
+    "site_name": "New Orleans, LA",
+    "ADM": "USA"
+  },
+  {
+    "code": "ROB",
+    "site_name": "Rohrbach",
+    "ADM": "D"
+  },
+  {
+    "code": "ROH",
+    "site_name": "Rohrdorf (BR)",
+    "ADM": "D"
+  },
+  {
+    "code": "ROM",
+    "site_name": "Roma",
+    "ADM": "I"
+  },
+  {
+    "code": "RPR",
+    "site_name": "Ribeirao Preto",
+    "ADM": "B"
+  },
+  {
+    "code": "RSO",
+    "site_name": "Rimavska Sobota",
+    "ADM": "SVK"
+  },
+  {
+    "code": "RUF",
+    "site_name": "Rufisque",
+    "ADM": "SEN"
+  },
+  {
+    "code": "S.P",
+    "site_name": "Sanct-Peterburg",
+    "ADM": "RUS"
+  },
+  {
+    "code": "SAB",
+    "site_name": "Sabrata",
+    "ADM": "LBY"
+  },
+  {
+    "code": "SAC",
+    "site_name": "Sackville",
+    "ADM": "CAN"
+  },
+  {
+    "code": "SAI",
+    "site_name": "Agingan Pt, Saipan",
+    "ADM": "USA"
+  },
+  {
+    "code": "SAL",
+    "site_name": "Salman Pack",
+    "ADM": "IRQ"
+  },
+  {
+    "code": "SAM",
+    "site_name": "Samara",
+    "ADM": "RUS"
+  },
+  {
+    "code": "SAN",
+    "site_name": "Sanaa",
+    "ADM": "YEM"
+  },
+  {
+    "code": "SAO",
+    "site_name": "Sao Tome",
+    "ADM": "STP"
+  },
+  {
+    "code": "SA1",
+    "site_name": "Sao Paulo 1",
+    "ADM": "B"
+  },
+  {
+    "code": "SA2",
+    "site_name": "Sao Paulo 2",
+    "ADM": "B"
+  },
+  {
+    "code": "SA3",
+    "site_name": "Sao Paulo 3",
+    "ADM": "B"
+  },
+  {
+    "code": "SA4",
+    "site_name": "Sao Paulo 4",
+    "ADM": "B"
+  },
+  {
+    "code": "SA5",
+    "site_name": "Sao Paulo 5",
+    "ADM": "B"
+  },
+  {
+    "code": "SAP",
+    "site_name": "Sapporo",
+    "ADM": "J"
+  },
+  {
+    "code": "SBH",
+    "site_name": "Sebha",
+    "ADM": "LBY"
+  },
+  {
+    "code": "SCR",
+    "site_name": "Sucre",
+    "ADM": "BOL"
+  },
+  {
+    "code": "SCV",
+    "site_name": "S Gervais",
+    "ADM": "F"
+  },
+  {
+    "code": "SCZ",
+    "site_name": "S Cruz",
+    "ADM": "BOL"
+  },
+  {
+    "code": "SDA",
+    "site_name": "Agat, Guam",
+    "ADM": "USA"
+  },
+  {
+    "code": "SEB",
+    "site_name": "Seeb",
+    "ADM": "OMA"
+  },
+  {
+    "code": "SED",
+    "site_name": "Salah El Deel",
+    "ADM": "IRQ"
+  },
+  {
+    "code": "SEM",
+    "site_name": "Semarang",
+    "ADM": "INS"
+  },
+  {
+    "code": "SER",
+    "site_name": "Serui",
+    "ADM": "INS"
+  },
+  {
+    "code": "SEY",
+    "site_name": "Mahe, Seychelles",
+    "ADM": "SEY"
+  },
+  {
+    "code": "SFA",
+    "site_name": "Sfax",
+    "ADM": "TUN"
+  },
+  {
+    "code": "SGH",
+    "site_name": "Shanghai",
+    "ADM": "CHN"
+  },
+  {
+    "code": "SGO",
+    "site_name": "Santiago",
+    "ADM": "CHL"
+  },
+  {
+    "code": "SGP",
+    "site_name": "Singapore",
+    "ADM": "SNG"
+  },
+  {
+    "code": "SHB",
+    "site_name": "Furman, SC",
+    "ADM": "USA"
+  },
+  {
+    "code": "SHG",
+    "site_name": "Shillong",
+    "ADM": "IND"
+  },
+  {
+    "code": "SHI",
+    "site_name": "Shijak",
+    "ADM": "ALB"
+  },
+  {
+    "code": "SHO",
+    "site_name": "Tokyo Shobu",
+    "ADM": "J"
+  },
+  {
+    "code": "SHP",
+    "site_name": "Shepperton",
+    "ADM": "AUS"
+  },
+  {
+    "code": "SIB",
+    "site_name": "Sibu",
+    "ADM": "MLA"
+  },
+  {
+    "code": "SIM",
+    "site_name": "Shimla",
+    "ADM": "IND"
+  },
+  {
+    "code": "SIN",
+    "site_name": "Sines",
+    "ADM": "POR"
+  },
+  {
+    "code": "SIR",
+    "site_name": "Sirjan",
+    "ADM": "IRN"
+  },
+  {
+    "code": "SIS",
+    "site_name": "Sisoguichi",
+    "ADM": "MEX"
+  },
+  {
+    "code": "SIT",
+    "site_name": "Sitkunai",
+    "ADM": "LTU"
+  },
+  {
+    "code": "SJG",
+    "site_name": "San Jose del Guaviare",
+    "ADM": "CLM"
+  },
+  {
+    "code": "SJS",
+    "site_name": "S Johns, NF",
+    "ADM": "CAN"
+  },
+  {
+    "code": "SJV",
+    "site_name": "Sarajevo",
+    "ADM": "BIH"
+  },
+  {
+    "code": "SKA",
+    "site_name": "Surakarta",
+    "ADM": "INS"
+  },
+  {
+    "code": "SKN",
+    "site_name": "Skelton",
+    "ADM": "G"
+  },
+  {
+    "code": "SLA",
+    "site_name": "A'Seela",
+    "ADM": "OMA"
+  },
+  {
+    "code": "SLD",
+    "site_name": "Selae Daro",
+    "ADM": "ERI"
+  },
+  {
+    "code": "SLP",
+    "site_name": "S Luis Potosi",
+    "ADM": "MEX"
+  },
+  {
+    "code": "SLU",
+    "site_name": "Sao Luis",
+    "ADM": "B"
+  },
+  {
+    "code": "SLV",
+    "site_name": "Salvador",
+    "ADM": "B"
+  },
+  {
+    "code": "SMD",
+    "site_name": "Samarinda",
+    "ADM": "INS"
+  },
+  {
+    "code": "SMF",
+    "site_name": "Simferopol",
+    "ADM": "UKR"
+  },
+  {
+    "code": "SMG",
+    "site_name": "S. Maria di Galeria",
+    "ADM": "CVA"
+  },
+  {
+    "code": "SMR",
+    "site_name": "Santa Maria",
+    "ADM": "B"
+  },
+  {
+    "code": "SNG",
+    "site_name": "Kranji (Merlin)",
+    "ADM": "SNG"
+  },
+  {
+    "code": "SOF",
+    "site_name": "Sofia",
+    "ADM": "BUL"
+  },
+  {
+    "code": "SON",
+    "site_name": "Sonsonate",
+    "ADM": "SLV"
+  },
+  {
+    "code": "SOR",
+    "site_name": "Sorong",
+    "ADM": "INS"
+  },
+  {
+    "code": "SOT",
+    "site_name": "Sottens",
+    "ADM": "SUI"
+  },
+  {
+    "code": "SP1",
+    "site_name": "SPARE 1 - site not in the list",
+    "ADM": "---"
+  },
+  {
+    "code": "SP2",
+    "site_name": "SPARE 2 - site not in the list",
+    "ADM": "---"
+  },
+  {
+    "code": "SP3",
+    "site_name": "SPARE 3 - site not in the list",
+    "ADM": "---"
+  },
+  {
+    "code": "SP4",
+    "site_name": "SPARE 4 - site not in the list",
+    "ADM": "---"
+  },
+  {
+    "code": "SP5",
+    "site_name": "SPARE 5 - site not in the list",
+    "ADM": "---"
+  },
+  {
+    "code": "SRI",
+    "site_name": "Srinagar",
+    "ADM": "IND"
+  },
+  {
+    "code": "SRN",
+    "site_name": "Saransk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "SRP",
+    "site_name": "Serpukhov",
+    "ADM": "RUS"
+  },
+  {
+    "code": "SSV",
+    "site_name": "S Salvador",
+    "ADM": "SLV"
+  },
+  {
+    "code": "STA",
+    "site_name": "Stapok",
+    "ADM": "MLA"
+  },
+  {
+    "code": "STD",
+    "site_name": "Santo Domingo",
+    "ADM": "DOM"
+  },
+  {
+    "code": "STM",
+    "site_name": "Santarem",
+    "ADM": "B"
+  },
+  {
+    "code": "STR",
+    "site_name": "Starobelsk",
+    "ADM": "UKR"
+  },
+  {
+    "code": "SUC",
+    "site_name": "Sucua",
+    "ADM": "EQA"
+  },
+  {
+    "code": "SUL",
+    "site_name": "Sulaibiyah",
+    "ADM": "KWT"
+  },
+  {
+    "code": "SUM",
+    "site_name": "Sumbre",
+    "ADM": "AGL"
+  },
+  {
+    "code": "SUR",
+    "site_name": "Surabaja",
+    "ADM": "INS"
+  },
+  {
+    "code": "SUW",
+    "site_name": "Suwon",
+    "ADM": "KOR"
+  },
+  {
+    "code": "SVE",
+    "site_name": "Sveio",
+    "ADM": "NOR"
+  },
+  {
+    "code": "SVK",
+    "site_name": "Syktyvkar",
+    "ADM": "RUS"
+  },
+  {
+    "code": "SXX",
+    "site_name": "Centro Minero Siglo XX",
+    "ADM": "BOL"
+  },
+  {
+    "code": "SZG",
+    "site_name": "Shijiazhuang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "SZV",
+    "site_name": "Szekesfehervar",
+    "ADM": "HNG"
+  },
+  {
+    "code": "TAC",
+    "site_name": "Tashkent",
+    "ADM": "UZB"
+  },
+  {
+    "code": "TAI",
+    "site_name": "Taipei",
+    "ADM": "CHN"
+  },
+  {
+    "code": "TAL",
+    "site_name": "Tallinn",
+    "ADM": "EST"
+  },
+  {
+    "code": "TAN",
+    "site_name": "Tangier",
+    "ADM": "MRC"
+  },
+  {
+    "code": "TAP",
+    "site_name": "Tapachula",
+    "ADM": "MEX"
+  },
+  {
+    "code": "TAR",
+    "site_name": "Tarapoto",
+    "ADM": "PRU"
+  },
+  {
+    "code": "TBL",
+    "site_name": "Tbilisi",
+    "ADM": "GEO"
+  },
+  {
+    "code": "TBN",
+    "site_name": "Salt Lake City, UT",
+    "ADM": "USA"
+  },
+  {
+    "code": "TBO",
+    "site_name": "Turbo",
+    "ADM": "CLM"
+  },
+  {
+    "code": "TCG",
+    "site_name": "Tchoelinograd",
+    "ADM": "KAZ"
+  },
+  {
+    "code": "TCH",
+    "site_name": "Tchita",
+    "ADM": "RUS"
+  },
+  {
+    "code": "TCN",
+    "site_name": "Tacna",
+    "ADM": "PRU"
+  },
+  {
+    "code": "TCO",
+    "site_name": "Tumaco",
+    "ADM": "CLM"
+  },
+  {
+    "code": "TEM",
+    "site_name": "Temuco",
+    "ADM": "CHL"
+  },
+  {
+    "code": "TEN",
+    "site_name": "Tennant Greek",
+    "ADM": "AUS"
+  },
+  {
+    "code": "TGG",
+    "site_name": "Tegucigalpa",
+    "ADM": "HND"
+  },
+  {
+    "code": "TGN",
+    "site_name": "Tignes",
+    "ADM": "F"
+  },
+  {
+    "code": "THE",
+    "site_name": "Thessaloniki",
+    "ADM": "GRC"
+  },
+  {
+    "code": "THI",
+    "site_name": "Thimphu",
+    "ADM": "BTN"
+  },
+  {
+    "code": "THU",
+    "site_name": "Thumrayt",
+    "ADM": "OMA"
+  },
+  {
+    "code": "TIA",
+    "site_name": "Tianshui",
+    "ADM": "CHN"
+  },
+  {
+    "code": "TIG",
+    "site_name": "Tiganesti",
+    "ADM": "ROU"
+  },
+  {
+    "code": "TIN",
+    "site_name": "Tinian Islands",
+    "ADM": "MRA"
+  },
+  {
+    "code": "TJC",
+    "site_name": "Newport,NC",
+    "ADM": "USA"
+  },
+  {
+    "code": "TJK",
+    "site_name": "Tanjungkarang",
+    "ADM": "INS"
+  },
+  {
+    "code": "TLX",
+    "site_name": "Tlaxiaco",
+    "ADM": "MEX"
+  },
+  {
+    "code": "TMI",
+    "site_name": "Lebanon,OR",
+    "ADM": "USA"
+  },
+  {
+    "code": "TOG",
+    "site_name": "Togblekope",
+    "ADM": "TGO"
+  },
+  {
+    "code": "TOK",
+    "site_name": "Tokyo",
+    "ADM": "J"
+  },
+  {
+    "code": "TOM",
+    "site_name": "Tomsk",
+    "ADM": "RUS"
+  },
+  {
+    "code": "TOR",
+    "site_name": "Toronto",
+    "ADM": "CAN"
+  },
+  {
+    "code": "TRI",
+    "site_name": "Tripoli",
+    "ADM": "LBY"
+  },
+  {
+    "code": "TRJ",
+    "site_name": "Tarija",
+    "ADM": "BOL"
+  },
+  {
+    "code": "TRM",
+    "site_name": "Trincomalee (Perkara)",
+    "ADM": "CLN"
+  },
+  {
+    "code": "TSH",
+    "site_name": "Tanshui",
+    "ADM": "CHN"
+  },
+  {
+    "code": "TUA",
+    "site_name": "Tuaran",
+    "ADM": "MLA"
+  },
+  {
+    "code": "TUL",
+    "site_name": "Tula",
+    "ADM": "RUS"
+  },
+  {
+    "code": "TUM",
+    "site_name": "Tumbes",
+    "ADM": "PRU"
+  },
+  {
+    "code": "TV",
+    "site_name": "Tver",
+    "ADM": "RUS"
+  },
+  {
+    "code": "TVD",
+    "site_name": "Trivandrum",
+    "ADM": "IND"
+  },
+  {
+    "code": "TWR",
+    "site_name": "Agana, Guam",
+    "ADM": "USA"
+  },
+  {
+    "code": "TWW",
+    "site_name": "Lebanon, TN",
+    "ADM": "USA"
+  },
+  {
+    "code": "TXM",
+    "site_name": "Texmelucan",
+    "ADM": "MEX"
+  },
+  {
+    "code": "U-B",
+    "site_name": "Ulan Bator",
+    "ADM": "MNG"
+  },
+  {
+    "code": "UDO",
+    "site_name": "Udorn",
+    "ADM": "THA"
+  },
+  {
+    "code": "UJU",
+    "site_name": "Ujungpandang",
+    "ADM": "INS"
+  },
+  {
+    "code": "ULB",
+    "site_name": "Ulbroka",
+    "ADM": "LVA"
+  },
+  {
+    "code": "URU",
+    "site_name": "Urumqi",
+    "ADM": "CHN"
+  },
+  {
+    "code": "VAI",
+    "site_name": "Vanimo",
+    "ADM": "PNG"
+  },
+  {
+    "code": "VAL",
+    "site_name": "The Valley",
+    "ADM": "G"
+  },
+  {
+    "code": "VAN",
+    "site_name": "Vancouver, BC",
+    "ADM": "CAN"
+  },
+  {
+    "code": "VAT",
+    "site_name": "Vatican City",
+    "ADM": "CVA"
+  },
+  {
+    "code": "VDN",
+    "site_name": "Vidin",
+    "ADM": "BUL"
+  },
+  {
+    "code": "VIB",
+    "site_name": "Val Iseres Bell",
+    "ADM": "F"
+  },
+  {
+    "code": "VIE",
+    "site_name": "Vientiane",
+    "ADM": "LAO"
+  },
+  {
+    "code": "VIF",
+    "site_name": "Val Isere Form",
+    "ADM": "F"
+  },
+  {
+    "code": "VIL",
+    "site_name": "Villarrica",
+    "ADM": "PRG"
+  },
+  {
+    "code": "VIN",
+    "site_name": "Vinnitsa",
+    "ADM": "UKR"
+  },
+  {
+    "code": "VKO",
+    "site_name": "Velke Kostolany",
+    "ADM": "SVK"
+  },
+  {
+    "code": "VLD",
+    "site_name": "Vladivostok",
+    "ADM": "RUS"
+  },
+  {
+    "code": "VLG",
+    "site_name": "Volgograd",
+    "ADM": "RUS"
+  },
+  {
+    "code": "VLL",
+    "site_name": "Villars Lans",
+    "ADM": "F"
+  },
+  {
+    "code": "VLR",
+    "site_name": "Valloire",
+    "ADM": "F"
+  },
+  {
+    "code": "VNI",
+    "site_name": "Sontay",
+    "ADM": "VTN"
+  },
+  {
+    "code": "VN1",
+    "site_name": "Sontay",
+    "ADM": "VTN"
+  },
+  {
+    "code": "VOH",
+    "site_name": "Rancho Simi, CA",
+    "ADM": "USA"
+  },
+  {
+    "code": "VOL",
+    "site_name": "Vologda",
+    "ADM": "RUS"
+  },
+  {
+    "code": "VOR",
+    "site_name": "Voronej",
+    "ADM": "RUS"
+  },
+  {
+    "code": "VRN",
+    "site_name": "Varna",
+    "ADM": "BUL"
+  },
+  {
+    "code": "VRX",
+    "site_name": "Veracruz",
+    "ADM": "MEX"
+  },
+  {
+    "code": "VVC",
+    "site_name": "Villavicencio",
+    "ADM": "CLM"
+  },
+  {
+    "code": "WAL",
+    "site_name": "Waldheim",
+    "ADM": "D"
+  },
+  {
+    "code": "WAM",
+    "site_name": "Wamena",
+    "ADM": "INS"
+  },
+  {
+    "code": "WAV",
+    "site_name": "Wavre",
+    "ADM": "BEL"
+  },
+  {
+    "code": "WBS",
+    "site_name": "Macon, GA",
+    "ADM": "USA"
+  },
+  {
+    "code": "WCR",
+    "site_name": "Nashville, TN",
+    "ADM": "USA"
+  },
+  {
+    "code": "WEL",
+    "site_name": "Wellington",
+    "ADM": "NZL"
+  },
+  {
+    "code": "WER",
+    "site_name": "Wertachtal",
+    "ADM": "D"
+  },
+  {
+    "code": "WEW",
+    "site_name": "Wewak",
+    "ADM": "PNG"
+  },
+  {
+    "code": "WHR",
+    "site_name": "Naalehu, Hawaii",
+    "ADM": "USA"
+  },
+  {
+    "code": "WIN",
+    "site_name": "Windhoek",
+    "ADM": "NMB"
+  },
+  {
+    "code": "WIS",
+    "site_name": "Winsen",
+    "ADM": "D"
+  },
+  {
+    "code": "WIW",
+    "site_name": "Winterswijk",
+    "ADM": "HOL"
+  },
+  {
+    "code": "WNM",
+    "site_name": "Weenermoor",
+    "ADM": "D"
+  },
+  {
+    "code": "WOF",
+    "site_name": "Woofferton",
+    "ADM": "G"
+  },
+  {
+    "code": "WRB",
+    "site_name": "Morrison, TN",
+    "ADM": "USA"
+  },
+  {
+    "code": "WUH",
+    "site_name": "Wuhan",
+    "ADM": "CHN"
+  },
+  {
+    "code": "WWA",
+    "site_name": "Warszawa",
+    "ADM": "POL"
+  },
+  {
+    "code": "XIA",
+    "site_name": "Xian",
+    "ADM": "CHN"
+  },
+  {
+    "code": "XIC",
+    "site_name": "Xichang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "XIN",
+    "site_name": "Xining",
+    "ADM": "CHN"
+  },
+  {
+    "code": "XIY",
+    "site_name": "Xingyang",
+    "ADM": "CHN"
+  },
+  {
+    "code": "YAM",
+    "site_name": "Tokyo Yamata",
+    "ADM": "J"
+  },
+  {
+    "code": "YAN",
+    "site_name": "Yangoon",
+    "ADM": "BRM"
+  },
+  {
+    "code": "YAO",
+    "site_name": "Yaounde",
+    "ADM": "CME"
+  },
+  {
+    "code": "YFR",
+    "site_name": "Obsolete, changed to RMI",
+    "ADM": "USA"
+  },
+  {
+    "code": "YIN",
+    "site_name": "Yinchuan",
+    "ADM": "CHN"
+  },
+  {
+    "code": "YOG",
+    "site_name": "Yogyakarta",
+    "ADM": "INS"
+  },
+  {
+    "code": "ZAH",
+    "site_name": "Zahedan",
+    "ADM": "IRN"
+  },
+  {
+    "code": "ZWO",
+    "site_name": "Zwolle",
+    "ADM": "HOL"
+  }
+]

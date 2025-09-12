@@ -8,11 +8,23 @@ export function GetMode():Promise<string>;
 
 export function GetRadioStatus():Promise<Record<string, any>>;
 
-export function ImportCSV():Promise<Array<main.CSVRow>>;
+export function ImportAOKI():Promise<Array<main.CSVRow>>;
+
+export function ImportEiBi():Promise<Array<main.CSVRow>>;
+
+export function ImportHFCC():Promise<Array<main.CSVRow>>;
+
+export function LoadAokiList():Promise<Array<main.CSVRow>>;
 
 export function LoadEIBIList():Promise<Array<main.CSVRow>>;
 
+export function LoadHfccList():Promise<Array<main.CSVRow>>;
+
+export function SaveAokiList(arg1:Array<main.CSVRow>):Promise<void>;
+
 export function SaveEIBIList(arg1:Array<main.CSVRow>):Promise<void>;
+
+export function SaveHfccList(arg1:Array<main.CSVRow>):Promise<void>;
 
 export function SendCustomCommand(arg1:string):Promise<string>;
 

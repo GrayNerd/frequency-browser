@@ -2,8 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"os"
 	"log"
+	"os"
+	"strings"
 )
 
 var ITUCountryMap map[string]string
@@ -49,16 +50,18 @@ func GetCountryName(ituCode string) string {
 		return ""
 	}
 	
+	// fmt.Printf("ituCode: ***%s***\n", ituCode)
 	// Convert to uppercase for case-insensitive lookup
-	code := ituCode
-	if len(ituCode) <= 4 { // Most codes are 3-4 characters
-		code = ituCode
-	}
+	code := strings.TrimSpace(strings.ToUpper(ituCode))
+	// if len(ituCode) == 1 { // Most codes are 3-4 characters
+	// 	fmt.Printf("ituCode: %s\n", ituCode)
+	// }
 	
 	if country, exists := ITUCountryMap[code]; exists {
 		return country
 	}
 	
 	// Return original code if not found
+
 	return ituCode
 }

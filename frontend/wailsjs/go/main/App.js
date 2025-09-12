@@ -14,16 +14,40 @@ export function GetRadioStatus() {
   return window['go']['main']['App']['GetRadioStatus']();
 }
 
-export function ImportCSV() {
-  return window['go']['main']['App']['ImportCSV']();
+export function ImportAOKI() {
+  return window['go']['main']['App']['ImportAOKI']();
+}
+
+export function ImportEiBi() {
+  return window['go']['main']['App']['ImportEiBi']();
+}
+
+export function ImportHFCC() {
+  return window['go']['main']['App']['ImportHFCC']();
+}
+
+export function LoadAokiList() {
+  return window['go']['main']['App']['LoadAokiList']();
 }
 
 export function LoadEIBIList() {
   return window['go']['main']['App']['LoadEIBIList']();
 }
 
+export function LoadHfccList() {
+  return window['go']['main']['App']['LoadHfccList']();
+}
+
+export function SaveAokiList(arg1) {
+  return window['go']['main']['App']['SaveAokiList'](arg1);
+}
+
 export function SaveEIBIList(arg1) {
   return window['go']['main']['App']['SaveEIBIList'](arg1);
+}
+
+export function SaveHfccList(arg1) {
+  return window['go']['main']['App']['SaveHfccList'](arg1);
 }
 
 export function SendCustomCommand(arg1) {

@@ -143,14 +143,6 @@ func (a *App) pollRadioFrequency() {
                 
                 // Send frequency to frontend as float
                 runtime.EventsEmit(a.ctx, "frequencyUpdate", frequency)
-                
-                // Also get mode if needed (but not every time to reduce load)
-                if time.Now().Second()%5 == 0 { // Get mode every 5 seconds
-                    mode, err := a.getMode()
-                    if err == nil {
-                        runtime.EventsEmit(a.ctx, "modeUpdate", mode)
-                    }
-                }
             }
         }
     }

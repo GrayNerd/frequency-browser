@@ -16,7 +16,7 @@ var assets embed.FS
 type App struct {
 	ctx 		context.Context
     config      RadioConfig
-    rig         RadioInterface
+    // rig         RadioInterface
     isConnected bool
 	pollingActive bool
 	}

@@ -4,7 +4,7 @@
   import { MoveRowsModule, TabulatorFull as Tabulator } from "tabulator-tables";
   import "tabulator-tables/dist/css/tabulator.min.css";
   import {
-    ImportCSV,
+    ImportEiBi,
     LoadEIBIList,
     SaveEIBIList,
   } from "../wailsjs/go/main/App";
@@ -16,6 +16,8 @@
     UpdateConfig,
     SendCustomCommand,
   } from "../wailsjs/go/main/App";
+  import{ImportAOKI, LoadAokiList, SaveAokiList} from "../wailsjs/go/main/App";
+  import{ImportHFCC, LoadHfccList, SaveHfccList} from "../wailsjs/go/main/App";
 
   // UI State and Components
   let table;
@@ -62,12 +64,114 @@
   let commandResponse = "";
 
   // Input filtering functions
+  function applyAllFilters() {
+    console.log(
+      "Applying all filters - Frequency mode:",
+      frequencyFilterMode,
+      "Time mode:",
+      currentTimeFilter,
+    );
+    if (!table) {
+      console.warn("Table not initialized yet");
+      return;
+    }
+    if (allData.length === 0) {
+      console.warn("No data to filter");
+      table.setData([]);
+      return;
+    }
+    let filteredData = [...allData];
+
+    // Apply frequency filtering
+    if (frequencyFilterMode !== "all") {
+      if (frequencyFilterMode === "exact") {
+        filteredData = filteredData.filter((row) => {
+          const rowFrequency = parseFloat(row.khz);
+          return Math.abs(rowFrequency - frequency) < 0.001;
+        });
+      } else if (frequencyFilterMode === "near") {
+        filteredData = filteredData.filter((row) => {
+          const rowFrequency = parseFloat(row.khz);
+          return Math.abs(rowFrequency - frequency) <= 2.5;
+        });
+      } else if (frequencyFilterMode === "manual") {
+        const manualFreq = parseFloat(editableFrequency);
+        if (!isNaN(manualFreq)) {
+          filteredData = filteredData.filter((row) => {
+            const rowFrequency = parseFloat(row.khz);
+            return Math.abs(rowFrequency - manualFreq) <= 2.5;
+          });
+        }
+      }
+    }
+
+    // Apply time filtering
+    if (currentTimeFilter !== "all") {
+      let timeToUse = currentUTCTime;
+
+      if (currentTimeFilter === "manual" && manualTimeInput.length === 4) {
+        timeToUse = manualTimeInput;
+      }
+
+      try {
+        const filterMinutes = timeToMinutes(timeToUse);
+
+        if (currentTimeFilter === "now" || currentTimeFilter === "manual") {
+          filteredData = filteredData.filter((row) => {
+            const startMinutes = timeToMinutes(row.startTime);
+            const endMinutes = timeToMinutes(row.endTime);
+
+            if (endMinutes < startMinutes) {
+              return (
+                filterMinutes >= startMinutes || filterMinutes <= endMinutes
+              );
+            } else {
+              return (
+                filterMinutes >= startMinutes && filterMinutes <= endMinutes
+              );
+            }
+          });
+        } else if (currentTimeFilter === "soon") {
+          filteredData = filteredData.filter((row) => {
+            const startMinutes = timeToMinutes(row.startTime);
+            const endMinutes = timeToMinutes(row.endTime);
+
+            let isNow = false;
+            if (endMinutes < startMinutes) {
+              isNow =
+                filterMinutes >= startMinutes || filterMinutes <= endMinutes;
+            } else {
+              isNow =
+                filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+            }
+
+            let timeUntilStart;
+            if (startMinutes >= filterMinutes) {
+              timeUntilStart = startMinutes - filterMinutes;
+            } else {
+              timeUntilStart = 1440 - filterMinutes + startMinutes;
+            }
+
+            const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
+
+            return isNow || isSoon;
+          });
+          console.log(`Filtered to ${filteredData.length} records`);
+          table.setData(filteredData);
+        }
+      } catch (error) {
+        console.error("Error applying time filter:", error);
+      }
+    }
+
+    console.log(`Filtered to ${filteredData.length} records`);
+    table.setData(filteredData);
+  }
+
   function handleManualInput(event) {
     const input = event.target.value;
-    // Only allow digits and decimal point
     const filteredInput = input.replace(/[^0-9.]/g, "");
 
-    // Ensure only one decimal point
     const decimalCount = (filteredInput.match(/\./g) || []).length;
     if (decimalCount > 1) {
       const firstDecimalIndex = filteredInput.indexOf(".");
@@ -78,8 +182,8 @@
       editableFrequency = filteredInput;
     }
 
-    // Update the input value
     event.target.value = editableFrequency;
+    applyAllFilters(); // Apply filters as user types
   }
 
   function handleManualKeypress(event) {
@@ -110,8 +214,7 @@
           await SetFrequency(freqValue);
           frequency = freqValue;
           statusMessage = "Manual frequency set successfully";
-          // Apply frequency filtering after setting manual frequency
-          applyFrequencyFilter();
+          applyAllFilters(); // Apply filters after setting frequency
         }
       } catch (error) {
         statusMessage = "Failed to set manual frequency";
@@ -120,58 +223,24 @@
     }
   }
 
-  // Watch for manual mode changes
-  $: if (manualFrequency) {
-    editableFrequency = formatFrequency(frequency);
-    showManualInput = true;
-    // Focus the input after a short delay
-    setTimeout(() => {
-      const manualInput = document.getElementById("manual-frequency-input");
-      if (manualInput) manualInput.focus();
-    }, 50);
-  } else {
-    showManualInput = false;
-  }
-
-  $: if (frequencyFilterMode === "all") {
-    console.log("Frequency filter mode changed to 'all'");
-    table.setData(allData); // Show all data when in "all" mode (filteredData);
-  }
-
-  $: if (frequencyFilterMode === "manual") {
-    editableFrequency = formatFrequency(frequency);
-    showManualInput = true;
-    // Focus the input after a short delay
-    setTimeout(() => {
-      const manualInput = document.getElementById("manual-frequency-input");
-      if (manualInput) manualInput.focus();
-    }, 50);
-  } else {
-    showManualInput = false;
-    // When manual mode is disabled, update with actual radio frequency if needed
-    if (frequencyFilterMode !== "manual") {
-      updateFrequencyFromRadio();
-    }
-  }
-
-  async function importCSV() {
+  async function importEiBi() {
     loading = true;
     errorMessage = "";
     successMessage = "";
     debugInfo = "";
 
     try {
-      console.log("Starting CSV import...");
-      const data = await ImportCSV();
-      console.log("CSV data received:", data);
+      console.log("Starting EiBi CSV import...");
+      const data = await ImportEiBi();
+      console.log("EiBi CSV data received:", data);
 
       if (!data) {
-        successMessage = "Import cancelled by user";
+        successMessage = "EiBi CSV Import cancelled by user";
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in CSV file";
+        successMessage = "No data rows found in EiBi CSV file";
         return;
       }
 
@@ -186,13 +255,94 @@
 
       successMessage = `Successfully imported ${data.length} records and saved to eibi-list.json`;
     } catch (err) {
-      errorMessage = `Failed to import CSV: ${err.message || "Unknown error"}`;
-      console.error("Import error details:", err);
-      debugInfo = `Error details: ${err.toString()}`;
+      errorMessage = `Failed to import EiBi CSV: ${err.message || "Unknown error"}`;
+      console.error("EiBi CSV Import error details:", err);
+      debugInfo = `EiBi CSV Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
     }
   }
+
+  async function importAoki() {
+    loading = true;
+    errorMessage = "";
+    successMessage = "";
+    debugInfo = "";
+
+    try {
+      console.log("Starting Aoki CSV import...");
+      const data = await ImportAOKI();
+      console.log("Aoki CSV data received:", data);
+
+      if (!data) {
+        successMessage = "Aoki CSV Import cancelled by user";
+        return;
+      }
+
+      if (data.length === 0) {
+        successMessage = "No data rows found in Aoki CSV file";
+        return;
+      }
+
+      await SaveAokiList(data);
+      allData = data;
+
+      if (table) {
+        table.setData(data);
+      } else {
+        initTabulator(data);
+      }
+
+      successMessage = `Successfully imported ${data.length} records and saved to aoki-list.json`;
+    } catch (err) {
+      errorMessage = `Failed to import Aoki CSV: ${err.message || "Unknown error"}`;
+      console.error("Aoki CSV Import error details:", err);
+      debugInfo = `Aoki CSV Import Error details: ${err.toString()}`;
+    } finally {
+      loading = false;
+    }
+  }
+
+    async function importHFCC() {
+    loading = true;
+    errorMessage = "";
+    successMessage = "";
+    debugInfo = "";
+
+    try {
+      console.log("Starting Hfcc CSV import...");
+      const data = await ImportHFCC();
+      console.log("Hfcc CSV data received:", data);
+
+      if (!data) {
+        successMessage = "Hfcc CSV Import cancelled by user";
+        return;
+      }
+
+      if (data.length === 0) {
+        successMessage = "No data rows found in Hfcc CSV file";
+        return;
+      }
+
+      await SaveHfccList(data);
+      allData = data;
+
+      if (table) {
+        table.setData(data);
+      } else {
+        initTabulator(data);
+      }
+
+      successMessage = `Successfully imported ${data.length} records and saved to hfcc-list.json`;
+    } catch (err) {
+      errorMessage = `Failed to import hfcc CSV: ${err.message || "Unknown error"}`;
+      console.error("hfcc CSV Import error details:", err);
+      debugInfo = `Hfcc CSV Import Error details: ${err.toString()}`;
+    } finally {
+      loading = false;
+    }
+  }
+
 
   function timeToMinutes(timeString) {
     if (!/^\d{4}$/.test(timeString)) {
@@ -219,57 +369,11 @@
     return hours * 60 + minutes;
   }
 
-  function applyTimeFilter(filterType) {
-    currentTimeFilter = filterType;
-    if (!table || allData.length === 0) return;
-
-    const now = new Date();
-    const currentUTCHours = now.getUTCHours();
-    const currentUTCMinutes = now.getUTCMinutes();
-    const currentMinutes = currentUTCHours * 60 + currentUTCMinutes;
-
-    let filteredData = [];
-
-    if (filterType === "now") {
-      filteredData = allData.filter((row) => {
-        const startMinutes = timeToMinutes(row.startTime);
-        const endMinutes = timeToMinutes(row.endTime);
-
-        if (endMinutes < startMinutes) {
-          return currentMinutes >= startMinutes || currentMinutes <= endMinutes;
-        } else {
-          return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
-        }
-      });
-    } else if (filterType === "soon") {
-      filteredData = allData.filter((row) => {
-        const startMinutes = timeToMinutes(row.startTime);
-        const endMinutes = timeToMinutes(row.endTime);
-
-        let isNow = false;
-        if (endMinutes < startMinutes) {
-          isNow =
-            currentMinutes >= startMinutes || currentMinutes <= endMinutes;
-        } else {
-          isNow =
-            currentMinutes >= startMinutes && currentMinutes <= endMinutes;
-        }
-
-        const timeUntilStart = (startMinutes - currentMinutes + 1440) % 1440;
-        const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
-
-        return isNow || isSoon;
-      });
-    } else if (filterType === "all") {
-      filteredData = allData;
-    }
-
-    table.setData(filteredData);
-  }
-
   function initTabulator(data) {
+    console.log("Initializing Tabulator with data:", data.length, "records");
     if (tabulatorInitialized && table) {
       table.setData(data);
+      applyAllFilters();
       return;
     }
 
@@ -297,7 +401,20 @@
           headerFilter: "input",
           width: 100,
         },
-        { title: "Days", field: "days", headerFilter: "input", width: 100 },
+        {
+          title: "Days",
+          field: "days",
+          headerFilter: "input",
+          width: 105,
+          formatter: (cell) => {
+            // Create a span element with the desired font family
+            const span = document.createElement("span");
+            span.style.fontFamily = "monospace";
+            span.style.fontSize = "13px";
+            span.textContent = cell.getValue();
+            return span; // Return the span element
+          },
+        },
         {
           title: "Country",
           field: "country",
@@ -310,7 +427,7 @@
           field: "station",
           headerFilter: "input",
           widthShrink: 2,
-          minWidth: 150,
+          minWidth: 100,
         },
         {
           title: "Language",
@@ -325,6 +442,19 @@
           headerFilter: "input",
           widthShrink: 1,
           minWidth: 100,
+        },
+        {
+          title: "Transmitter",
+          field: "transmitter",
+          headerFilter: "input",
+          widthShrink: 1,
+          minWidth: 80,
+        },
+        {
+          title: "Source",
+          field: "source",
+          headerFilter: "input",
+          width: 79,
         },
       ],
     });
@@ -362,6 +492,7 @@
   }
 
   onMount(() => {
+    console.log("Component mounting...");
     if (hasMounted) return;
     hasMounted = true;
 
@@ -375,6 +506,7 @@
         if (existingData && existingData.length > 0) {
           allData = existingData;
           initTabulator(existingData);
+          applyAllFilters(); // Apply filters after loading data
           successMessage = `Loaded ${existingData.length} records from eibi-list.json`;
         } else {
           allData = [];
@@ -428,14 +560,10 @@
 
   function handleManualTimeInput(event) {
     const input = event.target.value;
-    // Only allow digits
     const filteredInput = input.replace(/[^0-9]/g, "");
-
-    // Limit to 4 digits
     manualTimeInput = filteredInput.slice(0, 4);
-
-    // Update the input value
     event.target.value = manualTimeInput;
+    applyAllFilters(); // Apply filters as user types
   }
 
   function handleManualTimeKeypress(event) {
@@ -461,14 +589,12 @@
   function applyManualTime() {
     if (manualTimeInput.length === 4) {
       try {
-        // Validate the time input
         const hours = parseInt(manualTimeInput.substring(0, 2), 10);
         const minutes = parseInt(manualTimeInput.substring(2, 4), 10);
 
         if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
           currentUTCTime = manualTimeInput;
-          // Apply filter with manual time but keep the input visible
-          applyTimeFilterWithManualTime(currentTimeFilter, currentUTCTime);
+          applyAllFilters(); // Apply filters after setting time
           statusMessage = "Manual time applied successfully";
         } else {
           statusMessage = "Invalid time format (HHMM)";
@@ -480,101 +606,30 @@
     }
   }
 
-  function applyTimeFilterWithManualTime(filterType, manualTime) {
-    if (!table || allData.length === 0) return;
-
-    const manualMinutes = timeToMinutes(manualTime);
-    let filteredData = [];
-
-    if (filterType === "now" || filterType === "manual") {
-      filteredData = allData.filter((row) => {
-        try {
-          const startMinutes = timeToMinutes(row.startTime);
-          const endMinutes = timeToMinutes(row.endTime);
-
-          // Handle broadcasts that cross midnight
-          if (endMinutes < startMinutes) {
-            // Broadcast spans across midnight (e.g., 2200-0400)
-            // Check if manual time is after start time OR before end time
-            return manualMinutes >= startMinutes || manualMinutes <= endMinutes;
-          } else {
-            // Normal broadcast within the same day
-            // Check if manual time is between start and end times
-            return manualMinutes >= startMinutes && manualMinutes <= endMinutes;
-          }
-        } catch (error) {
-          console.error("Error processing row:", row, error);
-          return false;
-        }
-      });
-    } else if (filterType === "soon") {
-      filteredData = allData.filter((row) => {
-        try {
-          const startMinutes = timeToMinutes(row.startTime);
-          const endMinutes = timeToMinutes(row.endTime);
-
-          // Check if the broadcast is currently active
-          let isNow = false;
-          if (endMinutes < startMinutes) {
-            // Broadcast spans across midnight
-            isNow =
-              manualMinutes >= startMinutes || manualMinutes <= endMinutes;
-          } else {
-            // Normal broadcast within the same day
-            isNow =
-              manualMinutes >= startMinutes && manualMinutes <= endMinutes;
-          }
-
-          // Check if the broadcast will start soon (within 30 minutes)
-          let timeUntilStart;
-          if (startMinutes >= manualMinutes) {
-            timeUntilStart = startMinutes - manualMinutes;
-          } else {
-            // Start time is tomorrow (after midnight)
-            timeUntilStart = 1440 - manualMinutes + startMinutes;
-          }
-
-          const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
-
-          return isNow || isSoon;
-        } catch (error) {
-          console.error("Error processing row:", row, error);
-          return false;
-        }
-      });
-    } else if (filterType === "all") {
-      filteredData = allData;
-    }
-
-    console.log(
-      `Filtered ${filteredData.length} records for time ${manualTime}`,
-    );
-    table.setData(filteredData);
-  }
-
   function handleTimeFilterChange(event) {
     const filterType = event.target.value;
     currentTimeFilter = filterType;
 
     if (filterType === "manual") {
-      // Always update to the current receiver time when manual mode is selected
       manualTimeInput = currentUTCTime;
       showManualTimeInput = true;
       manualTimeMode = true;
-      // Focus the input after a short delay
       setTimeout(() => {
         const manualTimeInputEl = document.getElementById("manual-time-input");
         if (manualTimeInputEl) manualTimeInputEl.focus();
       }, 50);
-      // Apply filter with the current time
-      applyTimeFilterWithManualTime(filterType, manualTimeInput);
     } else {
       showManualTimeInput = false;
       manualTimeMode = false;
-      applyTimeFilterWithManualTime(filterType, currentUTCTime);
     }
+
+    applyAllFilters();
   }
 
+  function handleFrequencyFilterChange(mode) {
+    frequencyFilterMode = mode;
+    applyAllFilters();
+  }
   async function updateFrequencyFromRadio() {
     try {
       const currentFreq = await GetCurrentFrequency();
@@ -590,70 +645,28 @@
     }
   }
 
-  $: if (!manualFrequency) {
-    applyFrequencyFilter();
+  $: if (frequencyFilterMode === "all") {
+    console.log("Frequency filter mode changed to 'all'");
+    applyAllFilters();
   }
 
-  $: if (exactFrequency) {
-    // When exact mode is enabled, apply filtering immediately
-    applyFrequencyFilter();
+  $: if (frequencyFilterMode === "manual") {
+    editableFrequency = formatFrequency(frequency);
+    showManualInput = true;
+    setTimeout(() => {
+      const manualInput = document.getElementById("manual-frequency-input");
+      if (manualInput) manualInput.focus();
+    }, 50);
+  } else {
+    showManualInput = false;
   }
 
-  $: if (frequencyFilterMode !== "all") {
-    // When not in "all" mode, apply filtering
-    applyFrequencyFilter();
+  $: if (frequency && frequencyFilterMode !== "all" && !manualFrequency) {
+    applyAllFilters();
   }
 
-  function applyFrequencyFilter() {
-    console.log("applyFrequencyFilter");
-    if (!table || allData.length === 0) return;
-
-    // Clear any existing timeout
-    if (frequencyFilterTimeout) {
-      clearTimeout(frequencyFilterTimeout);
-      frequencyFilterTimeout = null;
-    }
-
-    if (frequencyFilterMode === "exact") {
-      // Exact mode: filter immediately on any change
-      filterByFrequencyExact();
-    } else if (frequencyFilterMode === "near") {
-      // filterByFrequencyNear()
-      // Near mode: debounce filtering
-      frequencyFilterTimeout = setTimeout(() => {
-        filterByFrequencyNear();
-      }, 300); // Small delay to catch rapid changes
-    } else if (frequencyFilterMode === "all") {
-      // Show all data
-      console.log("Show all data");
-      table.setData(allData);
-    }
-  }
-
-  function filterByFrequencyExact() {
-    const filteredData = allData.filter((row) => {
-      const rowFrequency = parseFloat(row.khz);
-      return Math.abs(rowFrequency - frequency) < 0.001; // Exact match within 0.001 kHz
-    });
-    console.log("filterByFrequencyExact");
-    table.setData(filteredData);
-  }
-
-  function filterByFrequencyNear() {
-    const filteredData = allData.filter((row) => {
-      const rowFrequency = parseFloat(row.khz);
-      return Math.abs(rowFrequency - frequency) <= 2.5; // Within ±2.5 kHz
-    });
-    console.log("filterByFrequencyNear");
-    table.setData(filteredData);
-  }
-
-  function filterByFrequencyRange() {
-    const filteredData = allData.filter((row) => {
-      const rowFrequency = parseFloat(row.khz);
-      return Math.abs(rowFrequency - frequency) <= 2.5; // Within ±2.5 kHz
-    });
-    table.setData(filteredData);
+  $: if (currentUTCTime && currentTimeFilter !== "all") {
+    applyAllFilters();
   }
 </script>
 
@@ -678,7 +691,7 @@
             class="manual-frequency-input"
             maxlength="10"
             value={editableFrequency}
-            on:input={Frequency}
+            on:input={handleManualInput}
             on:keydown={handleManualKeypress}
           />
         {/if}
@@ -691,7 +704,7 @@
               name="frequencyFilter"
               value="exact"
               checked={frequencyFilterMode === "exact"}
-              on:change={() => (frequencyFilterMode = "exact")}
+              on:change={() => handleFrequencyFilterChange("exact")}
             />
             <span>Exact</span>
           </label>
@@ -701,7 +714,7 @@
               name="frequencyFilter"
               value="near"
               checked={frequencyFilterMode === "near"}
-              on:change={() => (frequencyFilterMode = "near")}
+              on:change={() => handleFrequencyFilterChange("near")}
             />
             <span>Near</span>
           </label>
@@ -711,7 +724,7 @@
               name="frequencyFilter"
               value="all"
               checked={frequencyFilterMode === "all"}
-              on:change={() => (frequencyFilterMode = "all")}
+              on:change={() => handleFrequencyFilterChange("all")}
             />
             <span>All</span>
           </label>
@@ -721,7 +734,7 @@
               name="frequencyFilter"
               value="manual"
               checked={frequencyFilterMode === "manual"}
-              on:change={() => (frequencyFilterMode = "manual")}
+              on:change={() => handleFrequencyFilterChange("manual")}
             />
             <span>Manual</span>
           </label>
@@ -769,6 +782,7 @@
             type="radio"
             name="time"
             value="soon"
+            checked={currentTimeFilter === "soon"}
             on:change={handleTimeFilterChange}
           />
           <span>Soon</span>
@@ -778,6 +792,7 @@
             type="radio"
             name="time"
             value="all"
+            checked={currentTimeFilter === "all"}
             on:change={handleTimeFilterChange}
           />
           <span>All</span>
@@ -787,6 +802,7 @@
             type="radio"
             name="time"
             value="manual"
+            checked={currentTimeFilter === "manual"}
             on:change={handleTimeFilterChange}
           />
           <span>Manual</span>
@@ -794,10 +810,18 @@
       </div>
     </div>
 
-    <button on:click={importCSV} disabled={loading}>
-      {loading ? "Importing..." : "Import CSV"}
+    <button id="import-eibi" on:click={importEiBi} disabled={loading}>
+      {loading ? "Importing..." : "Import EiBi"}
     </button>
-  </div>
+
+    <button id="import-aoki" on:click={importAoki} disabled={loading}>
+      {loading ? "Importing..." : "Import AOKI"}
+    </button>
+
+    <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
+      {loading ? "Importing..." : "Import HFCC"}
+    </button>
+    </div>
 
   <div class="table-container" bind:this={tableContainer}>
     {#if !tabulatorInitialized}
@@ -891,7 +915,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 4px;
+    padding: 0px;
     flex-shrink: 0;
   }
 
@@ -908,7 +932,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 20px;
+    padding: 8px;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, sans-serif;
   }
@@ -930,18 +954,6 @@
     font-weight: bold;
     z-index: 10;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-  }
-
-  .manual-option {
-    display: flex;
-    justify-content: center;
-  }
-
-  .manual-option .checkbox-option {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 12px;
   }
 
   .manual-time-input {
@@ -968,13 +980,6 @@
     flex-wrap: nowrap;
     gap: 8px;
     justify-content: center;
-  }
-
-  .radio-group {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 6px 6px;
-    background-color: #fff;
   }
 
   .radio-input {
@@ -1014,7 +1019,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     overflow: hidden;
-    margin-top: 15px;
+    margin-top: 6px;
     min-height: 300px;
     position: relative;
   }
@@ -1037,10 +1042,6 @@
     display: flex;
     justify-content: center;
     margin-bottom: 2px;
-  }
-
-  .time-group {
-    min-width: 160px;
   }
 
   .time-label {
@@ -1070,7 +1071,8 @@
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
+    height: 30px
   }
 
   button:disabled {

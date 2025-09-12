@@ -2,8 +2,8 @@ package main
 
 import (
 	"encoding/json"
-	"os"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -46,7 +46,6 @@ func loadLanguageMap(filename string) {
 	}
 }
 
-// getLanguageName returns the full language name for an abbreviation
 // getLanguageName returns the full language name for an abbreviation or multiple abbreviations
 func getLanguageName(langCode string) string {
     if langCode == "" {
@@ -67,7 +66,9 @@ func getLanguageName(langCode string) string {
         // Convert to uppercase for case-insensitive lookup
         upperCode := strings.ToUpper(cleanCode)
         
+		// fmt.Printf("upperCode: %s\n", upperCode)
         if language, exists := LanguageMap[upperCode]; exists {
+			// fmt.Printf("language: %s exists\n", language)
             languageNames = append(languageNames, language)
         } else {
             // Return original code if not found

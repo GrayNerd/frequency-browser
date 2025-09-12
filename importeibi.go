@@ -4,30 +4,33 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
-
-	"golang.org/x/text/encoding/charmap"
-	"golang.org/x/text/transform"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/text/encoding/charmap"
+	"golang.org/x/text/transform"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // CSVRow represents a row in the CSV file
 type CSVRow struct {
-	Khz       string `json:"khz"`
-	StartTime string `json:"startTime"`
-	EndTime   string `json:"endTime"`
-	Days      string `json:"days"`
-	Country   string `json:"country"`
-	Station   string `json:"station"`
-	Language  string `json:"language"` // Changed from Lng to Language
-	Target    string `json:"target"`
+	Khz         string `json:"khz"`
+	StartTime   string `json:"startTime"`
+	EndTime     string `json:"endTime"`
+	Days        string `json:"days"`
+	Country     string `json:"country"`
+	Station     string `json:"station"`
+	Language    string `json:"language"`
+	Target      string `json:"target"`
+	Transmitter string `json:"transmitter"` // New field
+	Source      string `json:"source"`      // New field
 }
 
 // parseTimeRange splits a time range like "0000-2400" into start and end times
-func parseTimeRange(timeRange string) (string, string) {
+
+func ParseTimeRange(timeRange string) (string, string) {
 	if timeRange == "" {
 		return "", ""
 	}
@@ -36,7 +39,6 @@ func parseTimeRange(timeRange string) (string, string) {
 	if len(parts) == 2 {
 		return strings.TrimSpace(parts[0]), strings.TrimSpace(parts[1])
 	}
-
 	return timeRange, "" // Return original if no hyphen found
 }
 
@@ -52,9 +54,8 @@ func isHeaderRow(record []string) bool {
 		strings.Contains(firstField, "frequency") || strings.Contains(firstField, "freq")
 }
 
-
-// ImportCSV imports a CSV file and returns its contents
-func (a *App) ImportCSV() ([]CSVRow, error) {
+// ImportEiBi imports a CSV file and returns its contents
+func (a *App) ImportEiBi() ([]CSVRow, error) {
 	// Open file dialog
 	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
 		Title: "Select CSV File",
@@ -101,9 +102,10 @@ func (a *App) ImportCSV() ([]CSVRow, error) {
 	// Convert to struct
 	var data []CSVRow
 	for i, record := range records {
+		i=i
 		// Skip header/metadata rows
 		if isHeaderRow(record) {
-			fmt.Printf("Skipping header row: %v\n", record)
+			// fmt.Printf("Skipping header row: %v\n", record)
 			continue
 		}
 
@@ -112,7 +114,7 @@ func (a *App) ImportCSV() ([]CSVRow, error) {
 			continue
 		}
 
-		// Ensure we have enough fields (we only need 8 now)
+		// Ensure we have enough fields (we need at least 8 for existing fields)
 		if len(record) < 8 {
 			// Pad with empty strings if needed
 			for len(record) < 7 {
@@ -122,40 +124,57 @@ func (a *App) ImportCSV() ([]CSVRow, error) {
 
 		// Parse time range into separate start and end times
 		timeUTC := strings.TrimSpace(record[1])
-		startTime, endTime := parseTimeRange(timeUTC)
+		startTime, endTime := ParseTimeRange(timeUTC)
 
+		daysString := ConvertDays(strings.TrimSpace(record[2]))	
+		// fmt.Printf("days: %s -> %s\n", strings.TrimSpace(record[2]), daysString)
 		// Convert ITU code to full country name
 		ituCode := strings.TrimSpace(record[3])
 		countryName := GetCountryName(ituCode)
 
 		// Debug output to see what's being parsed
-		fmt.Printf("Row %d: khz='%s', ITU='%s' -> Country='%s'\n", i, record[0], ituCode, countryName)
+	// fmt.Printf("Row %d: khz='%s', ITU='%s' -> Country='%s'\n", i, record[0], ituCode, countryName)
+
+		stationName := strings.TrimSpace(record[4])
 
 		// Convert language code to full language name
 		langCode := strings.TrimSpace(record[5])
 		languageName := getLanguageName(langCode)
 
-		stationName := strings.TrimSpace(record[4])
+		targetCode := strings.TrimSpace(record[6]) // Extract target code from record[6]
+		targetName := GetTargetDescription(targetCode)
+		if targetName == "" {
+			targetName = GetCountryName(targetCode) // Use country name if target code not found (e.g. "code")
+		} else {
+			targetName = targetCode
+		}
+
+		// fmt.Printf("looking up transmitter for %s\n", ituCode)
+		transmitter := GetSiteDescription(ituCode, strings.TrimSpace(record[7]))
 
 		// Debug output to see what's being parsed
-		fmt.Printf("Row %d: khz='%s', Lang='%s' -> Language='%s' Target='%s Station=%s'\n",
-			i, record[0], langCode, languageName, record[6], stationName)
+		// fmt.Printf("Row %d: khz='%s', Lang='%s' -> Language='%s' Target='%s' Station='%s' Transmitter='%s' -> Site='%s'\n",
+		// i, record[0], langCode, languageName, targetName, stationName, record[7], transmitter)
+
+		// Extract Transmitter and Source if available in the record
 
 		row := CSVRow{
-			Khz:       strings.TrimSpace(record[0]),
-			StartTime: startTime,
-			EndTime:   endTime,
-			Days:      strings.TrimSpace(record[2]),
-			Country:   countryName,
-			Station:   stationName,
-			Language:  languageName, // Use full language name instead of abbreviation
-			Target:    strings.TrimSpace(record[6]),
+			Khz:         strings.TrimSpace(record[0]),
+			StartTime:   startTime,
+			EndTime:     endTime,
+			Days:        daysString, //strings.TrimSpace(record[2]),
+			Country:     countryName,
+			Station:     stationName,
+			Language:    languageName,
+			Target:      targetName,
+			Transmitter: transmitter,
+			Source:      "EiBi",
 		}
 
 		data = append(data, row)
 	}
 
-	fmt.Printf("Parsed %d data rows\n", len(data))
+	// fmt.Printf("Parsed %d data rows\n", len(data))
 	return data, nil
 }
 
@@ -227,7 +246,6 @@ func (a *App) SaveEIBIList(data []CSVRow) error {
 		Title:   "Success",
 		Message: fmt.Sprintf("Saved %d records to eibi-list.json", len(data)),
 	})
-
 
 	return nil
 }

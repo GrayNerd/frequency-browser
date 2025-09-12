@@ -1,0 +1,1218 @@
+[
+  {
+    "code": "ABC",
+    "broadcaster_name": "ABC-Radio Australia"
+  },
+  {
+    "code": "ADM",
+    "broadcaster_name": "Abu Dhabi Media Company"
+  },
+  {
+    "code": "AGC",
+    "broadcaster_name": "Ag�ncia Goaiana de Comunica��o (Brazil)"
+  },
+  {
+    "code": "AGM",
+    "broadcaster_name": "United States Agency for Global Media (USAGM)"
+  },
+  {
+    "code": "AIJ",
+    "broadcaster_name": "Two If By Sea Broadcasting Corporation"
+  },
+  {
+    "code": "AIR",
+    "broadcaster_name": "All India Radio"
+  },
+  {
+    "code": "ALI",
+    "broadcaster_name": "Radio Alislah"
+  },
+  {
+    "code": "ALR",
+    "broadcaster_name": "Radio Tirana, Albania"
+  },
+  {
+    "code": "AMP",
+    "broadcaster_name": "Radiodifusion America (Asuncion, Paraguay)"
+  },
+  {
+    "code": "AMZ",
+    "broadcaster_name": "Radio Nacional da Amazonia (Brazil)"
+  },
+  {
+    "code": "ANT",
+    "broadcaster_name": "ANTI, Milano"
+  },
+  {
+    "code": "APA",
+    "broadcaster_name": "Radio Aparecida (Brazil)"
+  },
+  {
+    "code": "ARA",
+    "broadcaster_name": "R�dio Araguaia Ltda. (Brazil)"
+  },
+  {
+    "code": "ARD",
+    "broadcaster_name": "Arbeitsgemeinschaft der Rundfunkanst. Deutschlands"
+  },
+  {
+    "code": "ARM",
+    "broadcaster_name": "Radio of Armenia"
+  },
+  {
+    "code": "ARS",
+    "broadcaster_name": "Broadcasting Serv. of the Kingdom of Saudi Arabia"
+  },
+  {
+    "code": "AWR",
+    "broadcaster_name": "Adventist World Radio"
+  },
+  {
+    "code": "BAB",
+    "broadcaster_name": "Babcock Communications"
+  },
+  {
+    "code": "BAN",
+    "broadcaster_name": "R�dio e Televis�o bandeirantes Ltda. (Brazil)"
+  },
+  {
+    "code": "BBC",
+    "broadcaster_name": "BBC Worldservice"
+  },
+  {
+    "code": "BBS",
+    "broadcaster_name": "Bhutan Broadcasting Service"
+  },
+  {
+    "code": "BCE",
+    "broadcaster_name": "Broadcasting Center Europe S.A."
+  },
+  {
+    "code": "BCQ",
+    "broadcaster_name": "Allan H. Weiner"
+  },
+  {
+    "code": "BIX",
+    "broadcaster_name": "BitExpress (Germany)"
+  },
+  {
+    "code": "BOH",
+    "broadcaster_name": "Grace Missionary Baptist Church, Inc."
+  },
+  {
+    "code": "BRB",
+    "broadcaster_name": "Broadcast Belgium"
+  },
+  {
+    "code": "BRC",
+    "broadcaster_name": "Bahrain Radio & Television Corporation"
+  },
+  {
+    "code": "BTC",
+    "broadcaster_name": "Belarusian Tele-radio Company (Belarus)"
+  },
+  {
+    "code": "BWW",
+    "broadcaster_name": "Leap of Faith, Inc."
+  },
+  {
+    "code": "C29",
+    "broadcaster_name": "Channel 292 (Germany)"
+  },
+  {
+    "code": "CAF",
+    "broadcaster_name": "Channel Africa"
+  },
+  {
+    "code": "CBB",
+    "broadcaster_name": "Caribbean Beacon"
+  },
+  {
+    "code": "CFI",
+    "broadcaster_name": "R�dio Cultura de Foz do Igua�u Ltda.(Brazil)"
+  },
+  {
+    "code": "CHW",
+    "broadcaster_name": "Christliche Wissenschaft"
+  },
+  {
+    "code": "CLU",
+    "broadcaster_name": "Sistema Clube de Comunica��o (Brazil)"
+  },
+  {
+    "code": "CNR",
+    "broadcaster_name": "China National Radio"
+  },
+  {
+    "code": "CRI",
+    "broadcaster_name": "China Radio International"
+  },
+  {
+    "code": "CSP",
+    "broadcaster_name": "Christian Science Shortwave Broadcasts"
+  },
+  {
+    "code": "CVC",
+    "broadcaster_name": "CVC"
+  },
+  {
+    "code": "CVO",
+    "broadcaster_name": "Christian Voice"
+  },
+  {
+    "code": "DEN",
+    "broadcaster_name": "Studio Denakker"
+  },
+  {
+    "code": "DIB",
+    "broadcaster_name": "Maldives Radio & Television"
+  },
+  {
+    "code": "DJR",
+    "broadcaster_name": "Djibouti Radio"
+  },
+  {
+    "code": "DRM",
+    "broadcaster_name": "Digital Radio Mondial"
+  },
+  {
+    "code": "DTK",
+    "broadcaster_name": "Media Broadcast GmbH (former:Deutsche Telekom)"
+  },
+  {
+    "code": "DVB",
+    "broadcaster_name": "Dem. Voice of Burma"
+  },
+  {
+    "code": "DWD",
+    "broadcaster_name": "Deutscher Wetterdienst"
+  },
+  {
+    "code": "DWL",
+    "broadcaster_name": "Deutsche Welle"
+  },
+  {
+    "code": "E24",
+    "broadcaster_name": "Europa 24 (Germany)"
+  },
+  {
+    "code": "EBC",
+    "broadcaster_name": "Emirates Broadcasting Corporation"
+  },
+  {
+    "code": "EMI",
+    "broadcaster_name": "Emirates Media"
+  },
+  {
+    "code": "EMR",
+    "broadcaster_name": "European Music Radio"
+  },
+  {
+    "code": "EMX",
+    "broadcaster_name": "Radio Educacion (Mexico)"
+  },
+  {
+    "code": "ENC",
+    "broadcaster_name": "Encompass Digital Media Services"
+  },
+  {
+    "code": "ERA",
+    "broadcaster_name": "Voice of Greece"
+  },
+  {
+    "code": "ERT",
+    "broadcaster_name": "Hellenic Broadcasting Corp. S.A. - Voice of Greece"
+  },
+  {
+    "code": "ERU",
+    "broadcaster_name": "Egypt Radio & TV Union"
+  },
+  {
+    "code": "EUR",
+    "broadcaster_name": "Radio Europe Netherlands"
+  },
+  {
+    "code": "EWN",
+    "broadcaster_name": "Eternal Word Television Network, Inc."
+  },
+  {
+    "code": "FBS",
+    "broadcaster_name": "Far East Broadcasting Company, Inc."
+  },
+  {
+    "code": "FCL",
+    "broadcaster_name": "Funda��o C�sper L�bero (Brazil)"
+  },
+  {
+    "code": "FEB",
+    "broadcaster_name": "FEBA Radio"
+  },
+  {
+    "code": "FEC",
+    "broadcaster_name": "Far East Broadcasting Company"
+  },
+  {
+    "code": "FGM",
+    "broadcaster_name": "Fang Guang Ming Radio"
+  },
+  {
+    "code": "FLM",
+    "broadcaster_name": "Fiangonana Loterana Malagasy (Malagasy Lutheran Church - Radio Feon'ny Filazantsara)"
+  },
+  {
+    "code": "FMP",
+    "broadcaster_name": "Funda��o Metropolitana Paulista (Brazil)"
+  },
+  {
+    "code": "FPA",
+    "broadcaster_name": "Funda��o Padre Anchieta (Brazil)"
+  },
+  {
+    "code": "FPU",
+    "broadcaster_name": "Free Press Unlimited (Amsterdam)"
+  },
+  {
+    "code": "GAU",
+    "broadcaster_name": "R�dio Ga�cha Ltda. (Brazil)"
+  },
+  {
+    "code": "GEM",
+    "broadcaster_name": "Governo do Estado do Maranh�o (Brazil)"
+  },
+  {
+    "code": "GJA",
+    "broadcaster_name": "George Jacobs & Associates, Inc."
+  },
+  {
+    "code": "GLO",
+    "broadcaster_name": "R�dio Globo Ltda. (Brazil)"
+  },
+  {
+    "code": "GNW",
+    "broadcaster_name": "Good News World Radio"
+  },
+  {
+    "code": "GRJ",
+    "broadcaster_name": "Sociedade R�dio Guaruj� Ltda. (Brazil)"
+  },
+  {
+    "code": "GSP",
+    "broadcaster_name": "R�dio Globo de S�o Paulo Ltda. (Brazil)"
+  },
+  {
+    "code": "GTG",
+    "broadcaster_name": "Blue Ridge Communications, Inc."
+  },
+  {
+    "code": "GRP",
+    "broadcaster_name": "Radio Guaruja Paulista (Brazil)"
+  },
+  {
+    "code": "GUA",
+    "broadcaster_name": "SA R�dio Guarani (Brazil)"
+  },
+  {
+    "code": "GUI",
+    "broadcaster_name": "R�dio Gua�ba Ltda (Brazil)"
+  },
+  {
+    "code": "GUN",
+    "broadcaster_name": "Gunaz Radio, (Belgium)"
+  },
+  {
+    "code": "H.A",
+    "broadcaster_name": "LeSea Broadcasting Corporation"
+  },
+  {
+    "code": "HBN",
+    "broadcaster_name": "Republic of Palau"
+  },
+  {
+    "code": "HCA",
+    "broadcaster_name": "HCJB Australia"
+  },
+  {
+    "code": "HCJ",
+    "broadcaster_name": "Voice of the Andes"
+  },
+  {
+    "code": "HIC",
+    "broadcaster_name": "Croatian Information Center (Hrvatski Inf. Centar)"
+  },
+  {
+    "code": "HLR",
+    "broadcaster_name": "Hamburger Lokalradio e.V."
+  },
+  {
+    "code": "HNG",
+    "broadcaster_name": "BMGE trial"
+  },
+  {
+    "code": "HRA",
+    "broadcaster_name": "World Harvest Radio"
+  },
+  {
+    "code": "HRI",
+    "broadcaster_name": "LeSea Broadcasting Corporation"
+  },
+  {
+    "code": "HRT",
+    "broadcaster_name": "Hrvatska Radio - Televizija (Croatian Radio-TV)"
+  },
+  {
+    "code": "HSW",
+    "broadcaster_name": "LeSea Broadcasting Corporation"
+  },
+  {
+    "code": "IBB",
+    "broadcaster_name": "International Broadcasting Bureau"
+  },
+  {
+    "code": "IBR",
+    "broadcaster_name": "IBRA Radio"
+  },
+  {
+    "code": "IBT",
+    "broadcaster_name": "Iraqi Broadcasting Radio & Television Establ."
+  },
+  {
+    "code": "ICN",
+    "broadcaster_name": "Broccoli Trash Metal & Grunge, Netherlands"
+  },
+  {
+    "code": "IMF",
+    "broadcaster_name": "International Fellowship of Churches, Inc."
+  },
+  {
+    "code": "IMN",
+    "broadcaster_name": "Iraqi Media Network"
+  },
+  {
+    "code": "INB",
+    "broadcaster_name": "World International Broadcasters, Inc."
+  },
+  {
+    "code": "INC",
+    "broadcaster_name": "R�dio Inconfid�ncia Ltda. (Brazil)"
+  },
+  {
+    "code": "INT",
+    "broadcaster_name": "Radio of Mediterranean"
+  },
+  {
+    "code": "IPE",
+    "broadcaster_name": "Turms Tech LLC"
+  },
+  {
+    "code": "IRB",
+    "broadcaster_name": "Islamic Republic of Iran Broadcasting"
+  },
+  {
+    "code": "ISL",
+    "broadcaster_name": "Iceland Radio"
+  },
+  {
+    "code": "ITA",
+    "broadcaster_name": "R�dio Itatiaia Ltda. (Brazil)"
+  },
+  {
+    "code": "JCI",
+    "broadcaster_name": "Japan Center for Intercultural Communications"
+  },
+  {
+    "code": "JCR",
+    "broadcaster_name": "World Wide Gospel Radio, Inc."
+  },
+  {
+    "code": "JES",
+    "broadcaster_name": "Our Lady's Youth Center"
+  },
+  {
+    "code": "JHR",
+    "broadcaster_name": "Hill Radio International"
+  },
+  {
+    "code": "JIC",
+    "broadcaster_name": "Japan International Communications"
+  },
+  {
+    "code": "JIE",
+    "broadcaster_name": "Word Broadcasting Network, Inc."
+  },
+  {
+    "code": "JP2",
+    "broadcaster_name": "Funda��o Jo�o Paulo II (Brazil)"
+  },
+  {
+    "code": "JPN",
+    "broadcaster_name": "Funda��o Jos� de Paiva Netto (Brazil)"
+  },
+  {
+    "code": "JRC",
+    "broadcaster_name": "Joode Radiocommunications Consultancy (The Netherlands)"
+  },
+  {
+    "code": "JRT",
+    "broadcaster_name": "Jordan Radio & Television"
+  },
+  {
+    "code": "KAZ",
+    "broadcaster_name": "Radio of Kazakhstan"
+  },
+  {
+    "code": "KBC",
+    "broadcaster_name": "Kenya Broadcasting Corporation"
+  },
+  {
+    "code": "KBS",
+    "broadcaster_name": "Korean Broadcasting System"
+  },
+  {
+    "code": "KCB",
+    "broadcaster_name": "Korean Central Broadcasting Station"
+  },
+  {
+    "code": "KOL",
+    "broadcaster_name": "Kol Israel"
+  },
+  {
+    "code": "KRI",
+    "broadcaster_name": "Koode Radio International"
+  },
+  {
+    "code": "KTB",
+    "broadcaster_name": "Kazakhstan Television & Broadcasting Corporation"
+  },
+  {
+    "code": "LBN",
+    "broadcaster_name": "Lebanon Radio"
+  },
+  {
+    "code": "LHL",
+    "broadcaster_name": "L'Heure Lutherienne"
+  },
+  {
+    "code": "LNC",
+    "broadcaster_name": "Libyan National Broadcast Channel"
+  },
+  {
+    "code": "LNR",
+    "broadcaster_name": "Lao National Radio & Television"
+  },
+  {
+    "code": "LRC",
+    "broadcaster_name": "Latvia State Radio and Television Centre"
+  },
+  {
+    "code": "LRT",
+    "broadcaster_name": "Lithuanian National Radio and TV"
+  },
+  {
+    "code": "MAR",
+    "broadcaster_name": "R�dio Marumby Ltda. (Brazil)"
+  },
+  {
+    "code": "MBC",
+    "broadcaster_name": "Mauritius Broadcasting Corporation"
+  },
+  {
+    "code": "MBR",
+    "broadcaster_name": "Media Broadcast GmbH"
+  },
+  {
+    "code": "MCR",
+    "broadcaster_name": "MediaCorp Radio (SNG)"
+  },
+  {
+    "code": "MEZ",
+    "broadcaster_name": "Voice of Mezopotamya"
+  },
+  {
+    "code": "MIK",
+    "broadcaster_name": "Mike Radio"
+  },
+  {
+    "code": "MIL",
+    "broadcaster_name": "Radio Mil Mexico"
+  },
+  {
+    "code": "MIR",
+    "broadcaster_name": "Radio Miraya (South Sudan)"
+  },
+  {
+    "code": "MGB",
+    "broadcaster_name": "Malagasy Glabal Business S.A."
+  },
+  {
+    "code": "MLK",
+    "broadcaster_name": "Assemblies of Yahweh"
+  },
+  {
+    "code": "MLT",
+    "broadcaster_name": "Voice of the Mediterranean-Malta"
+  },
+  {
+    "code": "MND",
+    "broadcaster_name": "MND Radio"
+  },
+  {
+    "code": "MNO",
+    "broadcaster_name": "Merlin Network One"
+  },
+  {
+    "code": "MOL",
+    "broadcaster_name": "Radio of Moldavia"
+  },
+  {
+    "code": "MRA",
+    "broadcaster_name": "Mezopotamian Radio & Television"
+  },
+  {
+    "code": "MRC",
+    "broadcaster_name": "Radiodiffusion-Television Marocaine"
+  },
+  {
+    "code": "MRT",
+    "broadcaster_name": "Mongol Radio & Television"
+  },
+  {
+    "code": "MTN",
+    "broadcaster_name": "Mauritiania Radio"
+  },
+  {
+    "code": "MTR",
+    "broadcaster_name": "Mali Television et Radio"
+  },
+  {
+    "code": "MVB",
+    "broadcaster_name": "Baltic Radio (Germany)"
+  },
+  {
+    "code": "MWV",
+    "broadcaster_name": "World Christian Broadcasting (USA)"
+  },
+  {
+    "code": "NBA",
+    "broadcaster_name": "National Broadcaster of Bangladesh"
+  },
+  {
+    "code": "NBP",
+    "broadcaster_name": "National Broadcasting Corp. of Papua New Guinea"
+  },
+  {
+    "code": "NDP",
+    "broadcaster_name": "R�dio Novas de Paz Ltda.(Brazil)"
+  },
+  {
+    "code": "NBT",
+    "broadcaster_name": "NBS of Thailand"
+  },
+  {
+    "code": "NEW",
+    "broadcaster_name": "For new organization"
+  },
+  {
+    "code": "NHK",
+    "broadcaster_name": "Nippon Hoso Kyokai"
+  },
+  {
+    "code": "NLS",
+    "broadcaster_name": "World Christian Broadcasting Corporation"
+  },
+  {
+    "code": "NRC",
+    "broadcaster_name": "National Radio Company of Ukraine"
+  },
+  {
+    "code": "NSB",
+    "broadcaster_name": "Nihon Short-wave Broadc. Co."
+  },
+  {
+    "code": "OMR",
+    "broadcaster_name": "Rockpower"
+  },
+  {
+    "code": "ONT",
+    "broadcaster_name": "Office National de la Telediffusion-Tunisia"
+  },
+  {
+    "code": "ORF",
+    "broadcaster_name": "Oesterreichischer Rundfunk"
+  },
+  {
+    "code": "PBC",
+    "broadcaster_name": "Pakistan Broadcasting Corporation"
+  },
+  {
+    "code": "PBS",
+    "broadcaster_name": "Philippines Broadcasting Service"
+  },
+  {
+    "code": "PIE",
+    "broadcaster_name": "Radio Piepzender"
+  },
+  {
+    "code": "PLA",
+    "broadcaster_name": "Plummer Applications"
+  },
+  {
+    "code": "PNW",
+    "broadcaster_name": "Press Now"
+  },
+  {
+    "code": "PRW",
+    "broadcaster_name": "Polish Radio Warsaw"
+  },
+  {
+    "code": "QBS",
+    "broadcaster_name": "Qatar Broadcasting Service"
+  },
+  {
+    "code": "QHR",
+    "broadcaster_name": "Que Huong Radio"
+  },
+  {
+    "code": "RA-",
+    "broadcaster_name": "Radio Algiers International"
+  },
+  {
+    "code": "RAC",
+    "broadcaster_name": "Radio Casanova International"
+  },
+  {
+    "code": "RAE",
+    "broadcaster_name": "Radiodifusion Argentina al Exterior"
+  },
+  {
+    "code": "RAI",
+    "broadcaster_name": "Radio Televisione Italiana"
+  },
+  {
+    "code": "RBL",
+    "broadcaster_name": "Radio Byelirussia"
+  },
+  {
+    "code": "RBP",
+    "broadcaster_name": "Radio Budapest"
+  },
+  {
+    "code": "RBU",
+    "broadcaster_name": "Radio Bulgaria"
+  },
+  {
+    "code": "RCI",
+    "broadcaster_name": "Radio Canada International"
+  },
+  {
+    "code": "RCS",
+    "broadcaster_name": "Radio Corporation of Singapore"
+  },
+  {
+    "code": "RDK",
+    "broadcaster_name": "Radio Danmark"
+  },
+  {
+    "code": "RDB",
+    "broadcaster_name": "Radiobr�s Empresa Brasileira de Comunica��o Ltda (Brazil)"
+  },
+  {
+    "code": "RDI",
+    "broadcaster_name": "Radio Delta International"
+  },
+  {
+    "code": "RDP",
+    "broadcaster_name": "Radiodifusao Portuguesa, SA"
+  },
+  {
+    "code": "RDR",
+    "broadcaster_name": "HFCC, Intl. Radio for Disaster Relief project"
+  },
+  {
+    "code": "REC",
+    "broadcaster_name": "R�dio e Televis�o Record Ltda.(Brazil)"
+  },
+  {
+    "code": "REE",
+    "broadcaster_name": "Radio Exterior de Espana"
+  },
+  {
+    "code": "RET",
+    "broadcaster_name": "Radio Ethiopia"
+  },
+  {
+    "code": "RFI",
+    "broadcaster_name": "Radio France Internationale"
+  },
+  {
+    "code": "RFP",
+    "broadcaster_name": "Radio For Peace International"
+  },
+  {
+    "code": "RFV",
+    "broadcaster_name": "Radio Free Vietnam"
+  },
+  {
+    "code": "RFU",
+    "broadcaster_name": "Radio Free Ukraine"
+  },
+  {
+    "code": "RHC",
+    "broadcaster_name": "Radio Habana Cuba (Cuba)"
+  },
+  {
+    "code": "RHI",
+    "broadcaster_name": "Radio Huriyo Zthiopien"
+  },
+  {
+    "code": "RKG",
+    "broadcaster_name": "Radio of Kirghizia"
+  },
+  {
+    "code": "RKP",
+    "broadcaster_name": "Radio Klein Paris International (Germany)"
+  },
+  {
+    "code": "RKW",
+    "broadcaster_name": "Ministry of Information - State of Kuwait"
+  },
+  {
+    "code": "RLA",
+    "broadcaster_name": "Radio-Lead Africa"
+  },
+  {
+    "code": "RLB",
+    "broadcaster_name": "Radio Liberty"
+  },
+  {
+    "code": "RME",
+    "broadcaster_name": "Radio Merkurs (Latvia)"
+  },
+  {
+    "code": "RMI",
+    "broadcaster_name": "Radio Miami International"
+  },
+  {
+    "code": "RMP",
+    "broadcaster_name": "Radio Mariya"
+  },
+  {
+    "code": "RMT",
+    "broadcaster_name": "Radio Marti"
+  },
+  {
+    "code": "RMX",
+    "broadcaster_name": "Radio Mexico International (Mexico)"
+  },
+  {
+    "code": "RNA",
+    "broadcaster_name": "Radio Nacional de Angola"
+  },
+  {
+    "code": "RNB",
+    "broadcaster_name": "Radio Nacional do Brasil"
+  },
+  {
+    "code": "RNE",
+    "broadcaster_name": "Radio Nepal"
+  },
+  {
+    "code": "RNG",
+    "broadcaster_name": "Radio Nicaragua"
+  },
+  {
+    "code": "RNI",
+    "broadcaster_name": "Radio Norway International"
+  },
+  {
+    "code": "RNL",
+    "broadcaster_name": "Radio Nile"
+  },
+  {
+    "code": "RNO",
+    "broadcaster_name": "WRNO Worldwide, Inc."
+  },
+  {
+    "code": "RNP",
+    "broadcaster_name": "R�dio Nacional do Brasil"
+  },
+  {
+    "code": "RNV",
+    "broadcaster_name": "Radio Nacional de Venezuela"
+  },
+  {
+    "code": "RNW",
+    "broadcaster_name": "Radio Nederland Wereldomroep"
+  },
+  {
+    "code": "RNZ",
+    "broadcaster_name": "Radio New Zealand"
+  },
+  {
+    "code": "ROC",
+    "broadcaster_name": "Funda��o Nossa Senhor do Rocio (Brazil)"
+  },
+  {
+    "code": "RON",
+    "broadcaster_name": "Radio Onda ASBL"
+  },
+  {
+    "code": "RPI",
+    "broadcaster_name": "Radio for Peace International (Costa Rica)"
+  },
+  {
+    "code": "RPR",
+    "broadcaster_name": "Radio Prague"
+  },
+  {
+    "code": "RRI",
+    "broadcaster_name": "Radio Republic of Indonesia"
+  },
+  {
+    "code": "RRM",
+    "broadcaster_name": "R�dio Rio Mar Ltda.(Brazil)"
+  },
+  {
+    "code": "RRO",
+    "broadcaster_name": "Radio Romania International"
+  },
+  {
+    "code": "RRS",
+    "broadcaster_name": "Radio Russia"
+  },
+  {
+    "code": "RRT",
+    "broadcaster_name": "Funda��o Sistema RTM de R�dio e Televis�o (Brazil)"
+  },
+  {
+    "code": "RSH",
+    "broadcaster_name": "Radio 700"
+  },
+  {
+    "code": "RSI",
+    "broadcaster_name": "Radio Singapore International"
+  },
+  {
+    "code": "RSO",
+    "broadcaster_name": "Radio Sultanate of Oman"
+  },
+  {
+    "code": "RSW",
+    "broadcaster_name": "Radio Sweden International"
+  },
+  {
+    "code": "RTA",
+    "broadcaster_name": "Radio Television of Afghanistan"
+  },
+  {
+    "code": "RTB",
+    "broadcaster_name": "Radio Television Belgium French"
+  },
+  {
+    "code": "RTD",
+    "broadcaster_name": "Radio & Television of Dubai"
+  },
+  {
+    "code": "RTE",
+    "broadcaster_name": "Radio Telefis Eireann"
+  },
+  {
+    "code": "RTK",
+    "broadcaster_name": "Radio of Turkmenistan"
+  },
+  {
+    "code": "RTM",
+    "broadcaster_name": "Radio Television Malaysia"
+  },
+  {
+    "code": "RTT",
+    "broadcaster_name": "Tunesian Radio & TV"
+  },
+  {
+    "code": "RUI",
+    "broadcaster_name": "Radio Ukraine International"
+  },
+  {
+    "code": "RUM",
+    "broadcaster_name": "R�dio Universit�ria Metropolitana (Brazil)"
+  },
+  {
+    "code": "RVA",
+    "broadcaster_name": "Radio Veritas Asia"
+  },
+  {
+    "code": "RVP",
+    "broadcaster_name": "Radio Voice of the People"
+  },
+  {
+    "code": "SAB",
+    "broadcaster_name": "South African Broadcasting Corporation"
+  },
+  {
+    "code": "SBC",
+    "broadcaster_name": "Sudan National Broadcasting Corporation"
+  },
+  {
+    "code": "SDA",
+    "broadcaster_name": "Adventist Broadcasting Service, Inc."
+  },
+  {
+    "code": "SEN",
+    "broadcaster_name": "R�dio Senado (Brazil)"
+  },
+  {
+    "code": "SHB",
+    "broadcaster_name": "Herald Broadcasting Syndicate, Inc."
+  },
+  {
+    "code": "SIB",
+    "broadcaster_name": "Solomon Islands Broadcasting"
+  },
+  {
+    "code": "SKK",
+    "broadcaster_name": "Senter for Kristen Kringkasting"
+  },
+  {
+    "code": "SLB",
+    "broadcaster_name": "Sri Lanka Broadcasting Corporation"
+  },
+  {
+    "code": "SMD",
+    "broadcaster_name": "SM Radio Dessau (Germany)"
+  },
+  {
+    "code": "SOR",
+    "broadcaster_name": "Somalia Radio"
+  },
+  {
+    "code": "SPW",
+    "broadcaster_name": "SPW Radio Warsaw - Transatlantic Radio Station Cultural Park Association (Poland)"
+  },
+  {
+    "code": "SRI",
+    "broadcaster_name": "Swiss Radio International"
+  },
+  {
+    "code": "SRL",
+    "broadcaster_name": "South African Radio League"
+  },
+  {
+    "code": "SRO",
+    "broadcaster_name": "Radio Slovakia"
+  },
+  {
+    "code": "ST2",
+    "broadcaster_name": "SE-TA 2 (Germany)"
+  },
+  {
+    "code": "SUN",
+    "broadcaster_name": "Sunrise Radio"
+  },
+  {
+    "code": "SWR",
+    "broadcaster_name": "Shortwave Radio Services (Germany)"
+  },
+  {
+    "code": "SWS",
+    "broadcaster_name": "Radio SWS (Germany)"
+  },
+  {
+    "code": "SYR",
+    "broadcaster_name": "Syria Radio & Television Corporation"
+  },
+  {
+    "code": "TBN",
+    "broadcaster_name": "Trinity Christian Center of Santa Ana"
+  },
+  {
+    "code": "TDA",
+    "broadcaster_name": "Telediffusion d'Algerie"
+  },
+  {
+    "code": "TDF",
+    "broadcaster_name": "TDF (France)"
+  },
+  {
+    "code": "TDJ",
+    "broadcaster_name": "Radio of Tadjikistan"
+  },
+  {
+    "code": "TDP",
+    "broadcaster_name": "TDP Radio"
+  },
+  {
+    "code": "TJC",
+    "broadcaster_name": "Grace Baptist Church"
+  },
+  {
+    "code": "TMI",
+    "broadcaster_name": "Transformation Media International, LP"
+  },
+  {
+    "code": "TOE",
+    "broadcaster_name": "Radio208"
+  },
+  {
+    "code": "TOM",
+    "broadcaster_name": "The Overcomer Ministry"
+  },
+  {
+    "code": "TRT",
+    "broadcaster_name": "Turkish Radio-TV Corp"
+  },
+  {
+    "code": "TUP",
+    "broadcaster_name": "R�dio Tupi Ltda. (Brazil)"
+  },
+  {
+    "code": "TWR",
+    "broadcaster_name": "Trans World Radio"
+  },
+  {
+    "code": "TWW",
+    "broadcaster_name": "Leap of Faith, Inc."
+  },
+  {
+    "code": "UCB",
+    "broadcaster_name": "United Christian Broadcasting Ltd. (England)"
+  },
+  {
+    "code": "UMC",
+    "broadcaster_name": "The United Methodist Church (USA)"
+  },
+  {
+    "code": "UNL",
+    "broadcaster_name": "Universelles Leben"
+  },
+  {
+    "code": "UNR",
+    "broadcaster_name": "United Nations Radio"
+  },
+  {
+    "code": "UZB",
+    "broadcaster_name": "Radio of Uzbekistan"
+  },
+  {
+    "code": "VAT",
+    "broadcaster_name": "Vatican Radio"
+  },
+  {
+    "code": "VBT",
+    "broadcaster_name": "Vanuatu Broadcasting and Television Corporation"
+  },
+  {
+    "code": "VCA",
+    "broadcaster_name": "Voice of Canada"
+  },
+  {
+    "code": "VIL",
+    "broadcaster_name": "Voice International Limited"
+  },
+  {
+    "code": "VIO",
+    "broadcaster_name": "Radio OZ-Viola"
+  },
+  {
+    "code": "VOA",
+    "broadcaster_name": "Voice of America"
+  },
+  {
+    "code": "VOC",
+    "broadcaster_name": "Voz Christiana (Chile)"
+  },
+  {
+    "code": "VOD",
+    "broadcaster_name": "Voice of Deleverance"
+  },
+  {
+    "code": "VOH",
+    "broadcaster_name": "Voice of Hope"
+  },
+  {
+    "code": "VOM",
+    "broadcaster_name": "Voice of Myanmar"
+  },
+  {
+    "code": "VOO",
+    "broadcaster_name": "Voice of Orthodoxy"
+  },
+  {
+    "code": "VOP",
+    "broadcaster_name": "Voice of Palestine"
+  },
+  {
+    "code": "VOR",
+    "broadcaster_name": "Voice of Russia"
+  },
+  {
+    "code": "VOT",
+    "broadcaster_name": "Voice of Tibet"
+  },
+  {
+    "code": "VOV",
+    "broadcaster_name": "Voice of Vietnam"
+  },
+  {
+    "code": "VRT",
+    "broadcaster_name": "Vlaamse Radio en Televisie"
+  },
+  {
+    "code": "VTC",
+    "broadcaster_name": "VT Communications"
+  },
+  {
+    "code": "WAR",
+    "broadcaster_name": "LeSea Broadcasting Corporation"
+  },
+  {
+    "code": "WBS",
+    "broadcaster_name": "Charles C. Josey"
+  },
+  {
+    "code": "WCR",
+    "broadcaster_name": "WNQM, Inc."
+  },
+  {
+    "code": "WIB",
+    "broadcaster_name": "World International Broadcasters"
+  },
+  {
+    "code": "WHR",
+    "broadcaster_name": "World Harvest Radio"
+  },
+  {
+    "code": "WMR",
+    "broadcaster_name": "World Music Radio"
+  },
+  {
+    "code": "WRB",
+    "broadcaster_name": "Blue Ridge Communications, Inc."
+  },
+  {
+    "code": "WRN",
+    "broadcaster_name": "World Radio Network"
+  },
+  {
+    "code": "YER",
+    "broadcaster_name": "Yemen Radio & Television"
+  },
+  {
+    "code": "YFR",
+    "broadcaster_name": "Family Stations, Inc."
+  },
+  {
+    "code": "YLE",
+    "broadcaster_name": "Oy Yleisradio"
+  },
+  {
+    "code": "YRT",
+    "broadcaster_name": "Yugoslav Radio-Television"
+  },
+  {
+    "code": "ZNB",
+    "broadcaster_name": "Zambia National Broadcasting Corporation"
+  },
+  {
+    "code": "ZRC",
+    "broadcaster_name": "Zilionis Radio TV Consulting, Lithuania"
+  }
+]

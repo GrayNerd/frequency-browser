@@ -9,6 +9,8 @@ export namespace main {
 	    station: string;
 	    language: string;
 	    target: string;
+	    transmitter: string;
+	    source: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new CSVRow(source);
@@ -24,6 +26,8 @@ export namespace main {
 	        this.station = source["station"];
 	        this.language = source["language"];
 	        this.target = source["target"];
+	        this.transmitter = source["transmitter"];
+	        this.source = source["source"];
 	    }
 	}
 
