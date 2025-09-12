@@ -22,6 +22,7 @@
     UpdateConfig,
     SendCustomCommand,
   } from "../wailsjs/go/main/App";
+  import app from "./main";
 
   // UI State and Components
   let table;
@@ -88,6 +89,7 @@
       return;
     }
     let filteredData = [...allData];
+    console.log("Applying filters to", filteredData.length, "records");
 
     // Apply frequency filtering
     if (frequencyFilterMode !== "all") {
@@ -172,7 +174,12 @@
     }
 
     console.log(`Filtered to ${filteredData.length} records`);
-    table.setData(filteredData);
+
+    if (table) {
+      table.setData(filteredData);
+    } else {
+      initTabulator(filteredData);
+    }
   }
 
   function handleManualInput(event) {
@@ -253,14 +260,10 @@
       }
 
       await SaveEIBIList(data);
-      allData = data;
-
-      if (table) {
-        table.setData(data);
-      } else {
-        initTabulator(data);
-      }
-
+      allData = await combineLists();
+      console.log(`Combined to ${allData.length} records`);
+      applyAllFilters(); // Apply filters after loading data
+      
       successMessage = `Successfully imported ${data.length} records and saved to eibi-list.json`;
     } catch (err) {
       errorMessage = `Failed to import EiBi CSV: ${err.message || "Unknown error"}`;
@@ -295,13 +298,8 @@
       }
 
       await SaveAokiList(data);
-      allData = data;
-
-      if (table) {
-        table.setData(data);
-      } else {
-        initTabulator(data);
-      }
+      allData = await combineLists();
+      applyAllFilters(); // Apply filters after loading data
 
       successMessage = `Successfully imported ${data.length} records and saved to aoki-list.json`;
     } catch (err) {
@@ -316,6 +314,7 @@
 
   async function importHFCC() {
     loading = true;
+    loadingHfcc = true; // Change text only for this button
     errorMessage = "";
     successMessage = "";
     debugInfo = "";
@@ -336,13 +335,8 @@
       }
 
       await SaveHfccList(data);
-      allData = data;
-
-      if (table) {
-        table.setData(data);
-      } else {
-        initTabulator(data);
-      }
+      allData = await combineLists();
+      applyAllFilters(); // Apply filters after loading data
 
       successMessage = `Successfully imported ${data.length} records and saved to hfcc-list.json`;
     } catch (err) {
@@ -351,7 +345,7 @@
       debugInfo = `Hfcc CSV Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
-      loadingHFCC = false;
+      loadingHfcc = false;
     }
   }
 
@@ -502,6 +496,24 @@
     }
   }
 
+  async function combineLists() {
+    try {
+      console.log("Loading existing data...");
+      const [eibiData, aokiData, hfccData] = await Promise.all([
+        LoadEIBIList().catch(() => []),
+        LoadAokiList().catch(() => []),
+        LoadHfccList().catch(() => []),
+      ]);
+
+      allData = [...(eibiData || []), ...(aokiData || []), ...(hfccData || [])];
+      console.log("Combined data loaded:", allData.length, "records");
+      return allData;
+    } catch (error) {
+      console.error("Error combining lists:", error);
+      errorMessage = "Failed to load combined data";
+    }
+  }
+
   onMount(() => {
     console.log("Component mounting...");
     if (hasMounted) return;
@@ -513,12 +525,13 @@
 
     (async () => {
       try {
-        const existingData = await LoadEIBIList();
-        if (existingData && existingData.length > 0) {
-          allData = existingData;
-          initTabulator(existingData);
+        allData = await combineLists();
+        console.log("Existing data loaded:", allData.length, "records");
+        if (allData.length > 0) {
+          // allData = existingData;
+          initTabulator(allData);
           applyAllFilters(); // Apply filters after loading data
-          successMessage = `Loaded ${existingData.length} records from eibi-list.json`;
+          successMessage = `Loaded ${allData.length} records from all sources`;
         } else {
           allData = [];
           initTabulator([]);
@@ -633,7 +646,7 @@
       showManualTimeInput = false;
       manualTimeMode = false;
     }
-
+    console.log("Time filter changed to:", filterType);
     applyAllFilters();
   }
 
