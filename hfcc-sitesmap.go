@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"os"
+	"embed"
 	"strings"
 	"sync"
 )
@@ -25,10 +25,14 @@ func init() {
 	loadHfccSiteMap("hfcc-sites.json")
 }
 
+
+//go:embed hfcc-sites.json
+var hfccSitesJSON embed.FS
+
 // loadHfccSiteMap loads and parses the HFCC site data from JSON file
 func loadHfccSiteMap(filename string) {
 	loadOnce.Do(func() {
-		file, err := os.ReadFile(filename)
+		file, err := hfccSitesJSON.ReadFile(filename)
 		if err != nil {
 			log.Printf("Warning: Could not load site map from %s: %v", filename, err)
 			hfccSiteMap = make(map[string]HfccSite)

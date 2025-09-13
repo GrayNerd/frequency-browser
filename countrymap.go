@@ -3,19 +3,24 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"os"
+	"embed"
 	"strings"
 )
 
 var ITUCountryMap map[string]string
+
+//go:embed countries.json
+var countriesJSON embed.FS
 
 func init() {
 	// Load country mappings from JSON file on startup
 	loadCountryMap("countries.json")
 }
 
+
+
 func loadCountryMap(filename string) {
-	file, err := os.ReadFile(filename)
+	file, err := countriesJSON.ReadFile(filename)
 	if err != nil {
 		log.Printf("Warning: Could not load country map from %s: %v", filename, err)
 		// Fall back to a minimal map if file can't be loaded

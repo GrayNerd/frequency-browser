@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
+	"embed"
 	"strings"
 )
 
@@ -15,8 +15,11 @@ func init() {
 	loadHfccStationMap("hfcc-station.json")
 }
 
+//go:embed hfcc-station.json
+var hfccStationJSON embed.FS
+
 func loadHfccStationMap(filename string) {
-    file, err := os.ReadFile(filename)
+    file, err := hfccStationJSON.ReadFile(filename)
     if err != nil {
         return
     }

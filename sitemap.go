@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"os"
+	"embed"
 	"regexp"
 	"sync"
 )
@@ -28,10 +28,13 @@ func init() {
 	})
 }
 
+//go:embed sites.json
+var sitesJSON embed.FS
+
 // loadSitesData reads the JSON file and populates the SitesMap
 func loadSitesData() {
 	// Read the JSON file
-	data, err := os.ReadFile("sites.json")
+	data, err := sitesJSON.ReadFile("sites.json")
 	if err != nil {
 		log.Fatalf("Error reading sites.json: %v", err)
 	}

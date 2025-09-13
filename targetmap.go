@@ -1,10 +1,11 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
-	"os"
-	"path/filepath"
+	// "os"
+	// "path/filepath"
 	"strings"
 )
 
@@ -16,27 +17,31 @@ func init() {
 	loadTargetMap()
 }
 
+
+//go:embed targets.json
+var targetsJSON embed.FS
+
 // loadTargetMap loads the target data from target.json into TargetMap
 func loadTargetMap() {
 		// Get the current directory
-		exePath, err := os.Executable()
-		if err != nil {
-			fmt.Printf("Error getting executable path: %v\n", err)
-			TargetMap = make(map[string]string)
-			return
-		}
-		dir := filepath.Dir(exePath)
-		jsonPath := filepath.Join(dir, "targets.json")
+		// exePath, err := os.Executable()
+		// if err != nil {
+		// 	fmt.Printf("Error getting executable path: %v\n", err)
+		// 	TargetMap = make(map[string]string)
+		// 	return
+		// }
+		// dir := filepath.Dir(exePath)
+		// jsonPath := filepath.Join(dir, "targets.json")
 
-		// Check if file exists
-		if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
-			fmt.Printf("targets.json file not found in: %s\n", jsonPath)
-			TargetMap = make(map[string]string)
-			return
-		}
+		// // Check if file exists
+		// if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
+		// 	fmt.Printf("targets.json file not found in: %s\n", jsonPath)
+		// 	TargetMap = make(map[string]string)
+		// 	return
+		// }
 
 		// Read the file
-		fileData, err := os.ReadFile(jsonPath)
+		fileData, err := targetsJSON.ReadFile("targets.json")
 		if err != nil {
 			fmt.Printf("Error reading targets.json: %v\n", err)
 			TargetMap = make(map[string]string)

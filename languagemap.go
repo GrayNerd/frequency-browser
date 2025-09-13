@@ -3,11 +3,14 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"os"
+	"embed"
 	"strings"
 )
 
 var LanguageMap map[string]string
+
+//go:embed language.json
+var languageJSON embed.FS
 
 func init() {
 	// Load language mappings from JSON file on startup
@@ -15,7 +18,7 @@ func init() {
 }
 
 func loadLanguageMap(filename string) {
-	file, err := os.ReadFile(filename)
+	file, err := languageJSON.ReadFile(filename)
 	if err != nil {
 		log.Printf("Warning: Could not load language map from %s: %v", filename, err)
 		// Fall back to a minimal map if file can't be loaded
