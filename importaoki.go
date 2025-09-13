@@ -6,13 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
-
-	// "time"
-
-	// "golang.org/x/text/encoding/charmap"
-	"golang.org/x/text/encoding/japanese"
-	"golang.org/x/text/transform"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -49,9 +42,10 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 	defer file.Close()
 
 	// Create a reader that converts from Shift-JIS to UTF-8 (common Japanese encoding)
-	transformer := transform.NewReader(file, japanese.ShiftJIS.NewDecoder())
+	// transformer := transform.NewReader(file, japanese.ShiftJIS.NewDecoder())
+	// transformer := transform.NewReader(file, charmap.ISO8859_1.NewDecoder())
 
-	scanner := bufio.NewScanner(transformer)
+	scanner := bufio.NewScanner(file)
 
 	// Convert to struct
 	var data []CSVRow
@@ -63,6 +57,7 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 		}
 
 		line := scanner.Text()
+		runes := []rune(line)
 		if len(line) < 20 {
 			break
 		}
@@ -70,17 +65,19 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 
 		// khz := strings.TrimSpace(substring(record[0], 0, 4))
 		// khz := substring(line, 0, 4)
-		khz := line[0:5]
+		khz := string(runes[0:5])
 		// fmt.Printf("khz: ***%v***\n", khz)
-		timeUTC := line[38:47] // strings.TrimSpace(substring(line, 36, 45))
+		timeUTC := string(runes[38:47]) // strings.TrimSpace(substring(line, 36, 45))
 		// ituCode := strings.TrimSpace(substring(line, 109, 112))
-		stationName := line[6:37]
-		daysString := line[48:55]
-		var ituCode, transmitter string
-		languageName := strings.TrimSpace(substring(line, 56, 76)) // Lang. column
-		if len(line) > 109 {
-			ituCode = line[109:112]
-			transmitter = strings.TrimSpace(substring(line, 84, 107)) // This might be Location now
+		stationName := string(runes[6:37])
+		daysString := string(runes[48:55])
+		languageName := string(runes[56:76]) // strings.TrimSpace(substring(line, 56, 76)) // Lang. column
+
+		var ituCode string
+		var transmitter string
+		if len(runes) > 109 {
+			ituCode = string(runes[109:112])
+			transmitter = string(runes[84:107]) // strings.TrimSpace(substring(line, 84, 107)) // This might be Location now
 		}
 
 		// fmt.Printf("line: %v\n", line)

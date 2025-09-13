@@ -73,6 +73,7 @@
 
   // Input filtering functions
   function applyAllFilters() {
+    let debug = false
     console.log(
       "Applying all filters - Frequency mode:",
       frequencyFilterMode,
@@ -88,8 +89,9 @@
       table.setData([]);
       return;
     }
+    // logInvalidTimeData(allData);
     let filteredData = [...allData];
-    console.log("Applying filters to", filteredData.length, "records");
+    if (debug) console.log("Applying filters to", filteredData.length, "records");
 
     // Apply frequency filtering
     if (frequencyFilterMode !== "all") {
@@ -124,49 +126,70 @@
 
       try {
         const filterMinutes = timeToMinutes(timeToUse);
+        if (debug) console.log("Filter time:", timeToUse, "=", filterMinutes, "minutes");
 
         if (currentTimeFilter === "now" || currentTimeFilter === "manual") {
           filteredData = filteredData.filter((row) => {
             const startMinutes = timeToMinutes(row.startTime);
             const endMinutes = timeToMinutes(row.endTime);
 
+            if (debug) console.log(`Row ${row.startTime}-${row.endTime}: start=${startMinutes}, end=${endMinutes}`);
+
+            let isNow;
             if (endMinutes < startMinutes) {
-              return (
-                filterMinutes >= startMinutes || filterMinutes <= endMinutes
-              );
+              // Broadcast spans midnight
+              isNow =
+                filterMinutes >= startMinutes || filterMinutes <= endMinutes;
+              if (debug)console.log(`  Spans midnight: ${isNow} (${filterMinutes} >= ${startMinutes} OR ${filterMinutes} <= ${endMinutes})`);
             } else {
-              return (
-                filterMinutes >= startMinutes && filterMinutes <= endMinutes
-              );
+              // Broadcast within same day
+              isNow =
+                filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+              if (debug) console.log(`  Same day: ${isNow} (${filterMinutes} >= ${startMinutes} AND ${filterMinutes} <= ${endMinutes})`);
             }
+
+            return isNow;
           });
         } else if (currentTimeFilter === "soon") {
           filteredData = filteredData.filter((row) => {
             const startMinutes = timeToMinutes(row.startTime);
             const endMinutes = timeToMinutes(row.endTime);
 
-            let isNow = false;
+            if (startMinutes === undefined || endMinutes === undefined) {
+              console.log("Invalid time data:", row);
+              return false;
+            }
+
+            if (debug) console.log(`Row ${row.startTime}-${row.endTime}: start=${startMinutes}, end=${endMinutes}`);
+
+            // Check if currently active
+            let isNow;
             if (endMinutes < startMinutes) {
               isNow =
                 filterMinutes >= startMinutes || filterMinutes <= endMinutes;
+              if (debug) console.log(`  Now (midnight): ${isNow}`);
             } else {
               isNow =
                 filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+              if (debug) console.log(`  Now (same day): ${isNow}`);
             }
 
+            // Calculate time until start
             let timeUntilStart;
-            if (startMinutes >= filterMinutes) {
+            if (filterMinutes <= startMinutes) {
+              // Start is later today
               timeUntilStart = startMinutes - filterMinutes;
             } else {
+              // Start is tomorrow (or next occurrence)
               timeUntilStart = 1440 - filterMinutes + startMinutes;
             }
+            if (debug)console.log(`  Time until start: ${timeUntilStart} minutes`);
 
             const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
+            if (debug) console.log(`  Is soon: ${isSoon}`);
 
             return isNow || isSoon;
           });
-          console.log(`Filtered to ${filteredData.length} records`);
-          table.setData(filteredData);
         }
       } catch (error) {
         console.error("Error applying time filter:", error);
@@ -180,6 +203,17 @@
     } else {
       initTabulator(filteredData);
     }
+  }
+  // Add this debug code to see which rows have invalid time formats
+  function logInvalidTimeData(data) {
+    data.forEach((row, index) => {
+      if (!row.startTime || !/^\d{4}$/.test(row.startTime)) {
+        console.warn(`Row ${index} has invalid startTime:`, row.startTime, row);
+      }
+      if (!row.endTime || !/^\d{4}$/.test(row.endTime)) {
+        console.warn(`Row ${index} has invalid endTime:`, row.endTime, row);
+      }
+    });
   }
 
   function handleManualInput(event) {
@@ -263,7 +297,7 @@
       allData = await combineLists();
       console.log(`Combined to ${allData.length} records`);
       applyAllFilters(); // Apply filters after loading data
-      
+
       successMessage = `Successfully imported ${data.length} records and saved to eibi-list.json`;
     } catch (err) {
       errorMessage = `Failed to import EiBi CSV: ${err.message || "Unknown error"}`;
@@ -631,6 +665,7 @@
   }
 
   function handleTimeFilterChange(event) {
+    console.log("Time filter change event:", event);
     const filterType = event.target.value;
     currentTimeFilter = filterType;
 
@@ -797,7 +832,7 @@
             name="time"
             value="now"
             checked={currentTimeFilter === "now"}
-            on:change={handleTimeFilterChange}
+            on:click={handleTimeFilterChange}
           />
           <span>Now</span>
         </label>
@@ -807,7 +842,7 @@
             name="time"
             value="soon"
             checked={currentTimeFilter === "soon"}
-            on:change={handleTimeFilterChange}
+            on:click={handleTimeFilterChange}
           />
           <span>Soon</span>
         </label>
@@ -817,7 +852,7 @@
             name="time"
             value="all"
             checked={currentTimeFilter === "all"}
-            on:change={handleTimeFilterChange}
+            on:click={handleTimeFilterChange}
           />
           <span>All</span>
         </label>
