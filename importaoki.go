@@ -69,7 +69,7 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 		// fmt.Printf("khz: ***%v***\n", khz)
 		timeUTC := string(runes[38:47]) // strings.TrimSpace(substring(line, 36, 45))
 		// ituCode := strings.TrimSpace(substring(line, 109, 112))
-		stationName := string(runes[6:37])
+		stationName := string(runes[6:38])
 		daysString := string(runes[48:55])
 		languageName := string(runes[56:76]) // strings.TrimSpace(substring(line, 56, 76)) // Lang. column
 

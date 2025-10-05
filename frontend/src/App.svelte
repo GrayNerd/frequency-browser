@@ -670,18 +670,27 @@
     currentTimeFilter = filterType;
 
     if (filterType === "manual") {
-      manualTimeInput = currentUTCTime;
+      // Initialize with current time if manualTimeInput is empty
+      if (!manualTimeInput) {
+        manualTimeInput = currentUTCTime;
+      }
       showManualTimeInput = true;
       manualTimeMode = true;
-      setTimeout(() => {
+      
+      // Use requestAnimationFrame for better timing
+      requestAnimationFrame(() => {
         const manualTimeInputEl = document.getElementById("manual-time-input");
-        if (manualTimeInputEl) manualTimeInputEl.focus();
-      }, 50);
+        if (manualTimeInputEl) {
+          manualTimeInputEl.focus();
+          manualTimeInputEl.select();
+        }
+      });
     } else {
       showManualTimeInput = false;
       manualTimeMode = false;
     }
-    console.log("Time filter changed to:", filterType);
+    
+    console.log("Time filter changed to:", filterType, "showManualTimeInput:", showManualTimeInput);
     applyAllFilters();
   }
 
@@ -689,6 +698,7 @@
     frequencyFilterMode = mode;
     applyAllFilters();
   }
+  
   async function updateFrequencyFromRadio() {
     try {
       const currentFreq = await GetCurrentFrequency();
@@ -714,7 +724,10 @@
     showManualInput = true;
     setTimeout(() => {
       const manualInput = document.getElementById("manual-frequency-input");
-      if (manualInput) manualInput.focus();
+      if (manualInput) {
+        manualInput.focus();
+        manualInput.select();
+      }
     }, 50);
   } else {
     showManualInput = false;
@@ -829,37 +842,37 @@
         <label class="radio-option">
           <input
             type="radio"
-            name="time"
+            name="timeFilter"
             value="now"
             checked={currentTimeFilter === "now"}
-            on:click={handleTimeFilterChange}
+            on:change={handleTimeFilterChange}
           />
           <span>Now</span>
         </label>
         <label class="radio-option">
           <input
             type="radio"
-            name="time"
+            name="timeFilter"
             value="soon"
             checked={currentTimeFilter === "soon"}
-            on:click={handleTimeFilterChange}
+            on:change={handleTimeFilterChange}
           />
           <span>Soon</span>
         </label>
         <label class="radio-option">
           <input
             type="radio"
-            name="time"
+            name="timeFilter"
             value="all"
             checked={currentTimeFilter === "all"}
-            on:click={handleTimeFilterChange}
+            on:change={handleTimeFilterChange}
           />
           <span>All</span>
         </label>
         <label class="radio-option">
           <input
             type="radio"
-            name="time"
+            name="timeFilter"
             value="manual"
             checked={currentTimeFilter === "manual"}
             on:change={handleTimeFilterChange}
