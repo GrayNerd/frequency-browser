@@ -85,7 +85,7 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 
 	// Parse CSV
 	reader := csv.NewReader(decodedReader)
-	reader.Comma = ';'          // Use semicolon as delimiter
+	reader.Comma = ';'          
 	reader.FieldsPerRecord = -1 // Allow variable number of fields
 	reader.TrimLeadingSpace = true
 	reader.LazyQuotes = true
@@ -105,7 +105,6 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		i=i
 		// Skip header/metadata rows
 		if isHeaderRow(record) {
-			// fmt.Printf("Skipping header row: %v\n", record)
 			continue
 		}
 
@@ -127,13 +126,8 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		startTime, endTime := ParseTimeRange(timeUTC)
 
 		daysString := ConvertDays(strings.TrimSpace(record[2]))	
-		// fmt.Printf("days: %s -> %s\n", strings.TrimSpace(record[2]), daysString)
-		// Convert ITU code to full country name
 		ituCode := strings.TrimSpace(record[3])
 		countryName := GetCountryName(ituCode)
-
-		// Debug output to see what's being parsed
-	// fmt.Printf("Row %d: khz='%s', ITU='%s' -> Country='%s'\n", i, record[0], ituCode, countryName)
 
 		stationName := strings.TrimSpace(record[4])
 
@@ -152,12 +146,6 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		// fmt.Printf("looking up transmitter for %s\n", ituCode)
 		transmitter := GetSiteDescription(ituCode, strings.TrimSpace(record[7]))
 
-		// Debug output to see what's being parsed
-		// fmt.Printf("Row %d: khz='%s', Lang='%s' -> Language='%s' Target='%s' Station='%s' Transmitter='%s' -> Site='%s'\n",
-		// i, record[0], langCode, languageName, targetName, stationName, record[7], transmitter)
-
-		// Extract Transmitter and Source if available in the record
-
 		row := CSVRow{
 			Khz:         strings.TrimSpace(record[0]),
 			StartTime:   startTime,
@@ -174,7 +162,6 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		data = append(data, row)
 	}
 
-	// fmt.Printf("Parsed %d data rows\n", len(data))
 	return data, nil
 }
 

@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
-
 
 // ImportAoki imports an Aoki format file and returns its contents
 func (a *App) ImportAOKI() ([]CSVRow, error) {
@@ -41,10 +41,6 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 	}
 	defer file.Close()
 
-	// Create a reader that converts from Shift-JIS to UTF-8 (common Japanese encoding)
-	// transformer := transform.NewReader(file, japanese.ShiftJIS.NewDecoder())
-	// transformer := transform.NewReader(file, charmap.ISO8859_1.NewDecoder())
-
 	scanner := bufio.NewScanner(file)
 
 	// Convert to struct
@@ -57,44 +53,32 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 		}
 
 		line := scanner.Text()
+		if strings.Contains(line, "?") {
+			fmt.Printf("skipping line %4d: %v\n", i+1, line)
+			continue
+		}
 		runes := []rune(line)
 		if len(line) < 20 {
 			break
 		}
-		// fmt.Printf("record: ***%v***\n", line)
-
-		// khz := strings.TrimSpace(substring(record[0], 0, 4))
-		// khz := substring(line, 0, 4)
 		khz := string(runes[0:5])
-		// fmt.Printf("khz: ***%v***\n", khz)
-		timeUTC := string(runes[38:47]) // strings.TrimSpace(substring(line, 36, 45))
-		// ituCode := strings.TrimSpace(substring(line, 109, 112))
+		timeUTC := string(runes[38:47])
 		stationName := string(runes[6:38])
 		daysString := string(runes[48:55])
-		languageName := string(runes[56:76]) // strings.TrimSpace(substring(line, 56, 76)) // Lang. column
+		languageName := string(runes[56:76])
 
 		var ituCode string
 		var transmitter string
 		if len(runes) > 109 {
 			ituCode = string(runes[109:112])
-			transmitter = string(runes[84:107]) // strings.TrimSpace(substring(line, 84, 107)) // This might be Location now
+			transmitter = string(runes[84:107]) 
 		}
 
-		// fmt.Printf("line: %v\n", line)
-		// fmt.Printf("khz: %v\n", khz)
-		// fmt.Printf("timeUTC: %v\n", timeUTC)
-		// fmt.Printf("ituCode: %v\n", ituCode)
-		// fmt.Printf("station: %v\n", stationName)
-		// fmt.Printf("langCode: ***%v***\n", languageName)
-
-		// fmt.Printf("khz: %s, timeUTC: %s, days: %s, ituCode: %s, stationName: %s, language: %s, target: %s\n", khz,record[2], days, ituCode, stationName, language, target)
 		// Parse time range into separate start and end times
 		startTime, endTime := ParseTimeRange(timeUTC)
 
-		// fmt.Printf("days: ***%s***\n", days)
 		countryName := GetCountryName(ituCode)
 
-		// fmt.Printf("khz: %s, startTime: %s, endTime: %s, days: %s, country: %s, station: %s, language: %s, transmitter: %s\n", khz, startTime, endTime, daysString, countryName, stationName, languageName, transmitter)
 		row := CSVRow{
 			Khz:       khz,
 			StartTime: startTime,
@@ -125,18 +109,15 @@ func (a *App) LoadAokiList() ([]CSVRow, error) {
 	dir := filepath.Dir(exePath)
 	jsonPath := filepath.Join(dir, "aoki-list.json")
 
-	// Check if file exists
 	if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
 		return nil, nil // File doesn't exist, return empty data
 	}
 
-	// Read the file
 	fileData, err := os.ReadFile(jsonPath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading JSON file: %w", err)
 	}
 
-	// Parse JSON
 	var data []CSVRow
 	err = json.Unmarshal(fileData, &data)
 	if err != nil {
@@ -165,13 +146,11 @@ func (a *App) SaveAokiList(data []CSVRow) error {
 		}
 	}
 
-	// Convert to JSON
 	jsonData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling JSON: %w", err)
 	}
 
-	// Write to file
 	err = os.WriteFile(jsonPath, jsonData, 0644)
 	if err != nil {
 		return fmt.Errorf("error writing JSON file: %w", err)
