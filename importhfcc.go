@@ -47,7 +47,7 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 	}
 	defer file.Close()
 
-	// Create a reader that converts from Shift-JIS to UTF-8 (common Japanese encoding)
+	// Create a reader that converts from Windows-1252 to UTF-8
 	transformer := transform.NewReader(file, charmap.Windows1252.NewDecoder())
 
 	scanner := bufio.NewScanner(transformer)
@@ -62,8 +62,8 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 		}
 
 		line := scanner.Text()
-		if len(line) < 20 {
-			break
+		if len(line) < 120 {
+			continue
 		}
 
 		khz := line[0:5]
@@ -77,7 +77,7 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 		languageCode := line[102:105]
 		languageName := getLanguageName(languageCode)
 
-		siteCode := line[47:50] // substring(record[0], 47, 50107)) // This might be Location now
+		siteCode := line[47:50] // site code (transmitter location)
 		siteName := GetHfccSiteName (siteCode)
 		siteCountry := GetCountryName(GetHfccSiteADM(siteCode))
 

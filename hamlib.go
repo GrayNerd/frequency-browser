@@ -62,13 +62,49 @@ func (a *App) sendRigCommand(command string) (string, error) {
         parts := strings.Split(response, " ")
         if len(parts) > 1 {
             if errorCode, err := strconv.Atoi(parts[1]); err == nil && errorCode != 0 {
-                return "", fmt.Errorf("rig error: %d", errorCode)
+                return "", fmt.Errorf("rig error: %d (%s)", errorCode, hamlibErrorText(errorCode))
             }
         }
     }
 
     return response, nil
 }
+
+// hamlibErrorText maps hamlib rig error codes to readable messages.
+// See hamlib rig.h: RIG_OK 0, RIG_EINVAL -1, RIG_EPROTO -2, RIG_ETIMEOUT -3,
+// RIG_EARGS -4, RIG_EIO -5, RIG_EINTERNAL -6, RIG_EPOWER -7, RIG_ELIMIT -8,
+// RIG_ERJCTED -9, RIG_ETRUNC -10, RIG_ENAVAIL -11, RIG_ENIMPL -12 ...
+func hamlibErrorText(code int) string {
+	switch code {
+	case -1:
+		return "invalid parameter"
+	case -2:
+		return "communication problem with the radio"
+	case -3:
+		return "communication timed out"
+	case -4:
+		return "invalid arguments"
+	case -5:
+		return "I/O error talking to the radio"
+	case -6:
+		return "internal radio error"
+	case -7:
+		return "radio is not powered on or not responding"
+	case -8:
+		return "frequency out of the radio's tuning range"
+	case -9:
+		return "radio rejected the command (frequency not supported)"
+	case -10:
+		return "value truncated by the radio"
+	case -11:
+		return "feature not available"
+	case -12:
+		return "operation not implemented"
+	default:
+		return fmt.Sprintf("radio error %d", code)
+	}
+}
+
 func (a *App) getFrequency() (float64, error) {
     response, err := a.sendRigCommand("f")
     if err != nil {
@@ -102,10 +138,25 @@ func (a *App) getMode() (string, error) {
 }
 
 func (a *App) SetFrequency(frequencykHz float64) error {
-    // Convert kHz to Hz
-    frequencyHz := int(frequencykHz * 1000)
-    _, err := a.sendRigCommand(fmt.Sprintf("F %d", frequencyHz))
-    return err
+	if frequencykHz <= 0 {
+		return fmt.Errorf("invalid frequency: %v kHz", frequencykHz)
+	}
+	// Convert kHz to Hz
+	frequencyHz := int(frequencykHz*1000 + 0.5)
+	_, err := a.sendRigCommand(fmt.Sprintf("F %d", frequencyHz))
+	if err != nil {
+		// Surface the frequency that failed so out-of-range rows are obvious
+		return fmt.Errorf("cannot tune to %s kHz: %v", formatKHz(frequencykHz), err)
+	}
+	return nil
+}
+
+// formatKHz renders a frequency in kHz with up to 3 decimals, trimming
+// trailing zeros (e.g. 16300 Hz -> "16.3", 5900 kHz -> "5900").
+func formatKHz(khz float64) string {
+	s := strconv.FormatFloat(khz, 'f', 3, 64)
+	s = strings.TrimRight(s, "0")
+	return strings.TrimSuffix(s, ".")
 }
 func (a *App) pollRadioFrequency() {
     ticker := time.NewTicker(250 * time.Millisecond)
@@ -136,6 +187,14 @@ func (a *App) pollRadioFrequency() {
             errorCount = 0
             a.isConnected = true
             runtime.EventsEmit(a.ctx, "connectionStatus", true)
+
+			// Emit modeUpdate if mode changed
+			mode, err := a.getMode()
+			if err == nil && mode != a.lastMode {
+				a.lastMode = mode
+				runtime.EventsEmit(a.ctx, "modeUpdate", mode)
+			}
+
             
             // Only send update if frequency changed significantly
             if math.Abs(frequency - lastFrequency) > 0.01 { // More than 1 Hz difference

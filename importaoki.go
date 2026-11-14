@@ -57,22 +57,19 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 			fmt.Printf("skipping line %4d: %v\n", i+1, line)
 			continue
 		}
-		runes := []rune(line)
-		if len(line) < 20 {
-			break
+		if len(line) < 112 {
+			continue
 		}
-		khz := string(runes[0:5])
-		timeUTC := string(runes[38:47])
-		stationName := string(runes[6:38])
-		daysString := string(runes[48:55])
-		languageName := string(runes[56:76])
+		khz := line[0:5]
+		timeUTC := line[38:47]
+		stationName := line[6:38]
+		daysString := line[48:55]
+		languageName := line[56:76]
 
 		var ituCode string
 		var transmitter string
-		if len(runes) > 109 {
-			ituCode = string(runes[109:112])
-			transmitter = string(runes[84:107]) 
-		}
+		ituCode = line[109:112]
+		transmitter = line[84:107]
 
 		// Parse time range into separate start and end times
 		startTime, endTime := ParseTimeRange(timeUTC)

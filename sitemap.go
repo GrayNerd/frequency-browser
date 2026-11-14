@@ -36,7 +36,9 @@ func loadSitesData() {
 	// Read the JSON file
 	data, err := sitesJSON.ReadFile("sites.json")
 	if err != nil {
-		log.Fatalf("Error reading sites.json: %v", err)
+		log.Printf("Warning: Could not load site map from sites.json: %v", err)
+		SitesMap = make(map[string]map[string]string)
+		return
 	}
 
 	// Parse the JSON data

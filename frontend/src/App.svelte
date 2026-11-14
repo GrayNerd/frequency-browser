@@ -21,6 +21,7 @@
     GetRadioStatus,
     UpdateConfig,
     SendCustomCommand,
+    GetFrequencyRange,
   } from "../wailsjs/go/main/App";
   import app from "./main";
 
@@ -71,8 +72,68 @@
   let customCommand = "";
   let commandResponse = "";
 
+  // Frequency of the last row the user clicked, kept visible across refilters
+  let pinnedKhz = null;
+
+  // Tuning range of the connected rig (kHz). Entries outside it are hidden
+  // because the radio physically cannot receive them.
+  let rigMinKhz = null;
+  let rigMaxKhz = null;
+
   // Input filtering functions
-  function applyAllFilters() {
+  let filterSeq = 0;
+  let lastFilteredRows = null;
+
+  // Re-apply the pinned-row highlight without rebuilding the table.
+  function refreshPinnedHighlight() {
+    if (!table) return;
+    table.getRows("display").forEach((row) => {
+      const el = row.getElement();
+      if (el) {
+        const isPinned =
+          pinnedKhz !== null && parseFloat(row.getData().khz) === pinnedKhz;
+        el.classList.toggle("row-pinned", isPinned);
+      }
+    });
+  }
+
+  // True when two filter results contain the same row objects in the same order.
+  function sameRows(a, b) {
+    if (!a || !b || a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+    return true;
+  }
+
+  // True when the entry falls inside the rig's tuning range. Entries outside
+  // it are dropped from the list because the radio cannot receive them.
+  function withinRigRange(row) {
+    if (rigMinKhz === null || rigMaxKhz === null) return true;
+    const khz = parseFloat(row.khz);
+    if (isNaN(khz)) return false;
+    return khz >= rigMinKhz && khz <= rigMaxKhz;
+  }
+
+  // Ask the backend for the connected rig's tuning range.
+  async function loadRigRange() {
+    try {
+      const range = await GetFrequencyRange();
+      if (range && isFinite(range.minKhz) && isFinite(range.maxKhz)) {
+        rigMinKhz = range.minKhz;
+        rigMaxKhz = range.maxKhz;
+        // Invalidate the cached filter result so the new range is applied.
+        lastFilteredRows = null;
+        console.log(`Rig tuning range: ${rigMinKhz} kHz - ${rigMaxKhz} kHz`);
+      }
+    } catch (err) {
+      // Leave the range unset so the list is shown unfiltered.
+      console.warn("Could not determine rig tuning range:", err);
+    }
+  }
+
+  async function applyAllFilters() {
+    const seq = ++filterSeq;
     let debug = false
     console.log(
       "Applying all filters - Frequency mode:",
@@ -92,6 +153,16 @@
     // logInvalidTimeData(allData);
     let filteredData = [...allData];
     if (debug) console.log("Applying filters to", filteredData.length, "records");
+
+    // Drop entries the connected radio cannot receive at all.
+    if (rigMinKhz !== null && rigMaxKhz !== null) {
+      const before = filteredData.length;
+      filteredData = filteredData.filter(withinRigRange);
+      if (debug)
+        console.log(
+          `Rig range filter (${rigMinKhz}-${rigMaxKhz} kHz): ${before} -> ${filteredData.length}`,
+        );
+    }
 
     // Apply frequency filtering
     if (frequencyFilterMode !== "all") {
@@ -199,7 +270,35 @@
     console.log(`Filtered to ${filteredData.length} records`);
 
     if (table) {
-      table.setData(filteredData);
+      // table.setData() destroys and rebuilds every row, which resets the
+      // scroll offset to the top and causes a visible flicker. Only rebuild
+      // when the filter result actually changed; otherwise just refresh the
+      // highlight and leave the grid exactly where it is.
+      if (sameRows(lastFilteredRows, filteredData)) {
+        refreshPinnedHighlight();
+        return;
+      }
+      lastFilteredRows = filteredData;
+
+      // Remember the scroll offset so the view stays put across the rebuild.
+      const scrollEl = table.rowManager?.element;
+      const savedScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+
+      await table.setData(filteredData);
+
+      // Abandon this pass if a newer filter run has started meanwhile.
+      if (seq !== filterSeq) return;
+
+      // setData() resolves before the rows are painted, so let the renderer
+      // finish a frame before restoring the view.
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      if (seq !== filterSeq) return;
+
+      // Restore the offset we were at before the refilter. Never scroll to the
+      // clicked row: the grid should stay exactly where the user left it.
+      if (scrollEl && savedScrollTop > 0) {
+        scrollEl.scrollTop = savedScrollTop;
+      }
     } else {
       initTabulator(filteredData);
     }
@@ -426,6 +525,14 @@
       layout: "fitColumns",
       responsiveLayout: "collapse",
       height: "100%",
+      // Applied on every row render, so the pinned-row highlight survives the
+      // full row rebuild that setData() performs when filters are re-applied.
+      rowFormatter: (row) => {
+        const el = row.getElement();
+        const isPinned =
+          pinnedKhz !== null && parseFloat(row.getData().khz) === pinnedKhz;
+        el.classList.toggle("row-pinned", isPinned);
+      },
       columns: [
         { title: "kHz", field: "khz", headerFilter: "input", width: 60 },
         {
@@ -497,6 +604,38 @@
         },
       ],
     });
+
+    // Tabulator 5.x removed option-based event callbacks (rowClick: fn is
+    // silently ignored). Events must be subscribed with table.on().
+    table.on("rowClick", async (e, row) => {
+      const rowData = row.getData();
+      const khz = parseFloat(rowData.khz);
+      if (isNaN(khz)) {
+        errorMessage = "Invalid frequency in row: " + rowData.khz;
+        return;
+      }
+      // Anchor the view on this row immediately, even if tuning later fails,
+      // so a rejected frequency doesn't throw the user back to the top.
+      pinnedKhz = khz;
+      try {
+        // Tune the radio to the frequency in the clicked row's kHz column
+        await SetFrequency(khz);
+        // Re-read the frequency from the radio so the display reflects
+        // what the rig actually accepted, not just what we asked for
+        const actual = await GetCurrentFrequency();
+        frequency = typeof actual === "string" ? parseFloat(actual) : actual;
+        statusMessage = "Radio tuned to " + formatFrequency(frequency) + " kHz";
+        errorMessage = "";
+      } catch (err) {
+        console.error("Set frequency error:", err);
+        errorMessage =
+          "Failed to set frequency: " + (err.message || String(err));
+      }
+      // Re-apply filters (the radio frequency changed) without moving the grid.
+      // The clicked row is highlighted by the rowFormatter.
+      applyAllFilters();
+    });
+
     tabulatorInitialized = true;
   }
 
@@ -559,6 +698,11 @@
 
     (async () => {
       try {
+        await updateStatus();
+        await updateFrequencyFromRadio();
+        // Learn the rig's tuning range before filtering so unreadable
+        // frequencies never appear in the table.
+        await loadRigRange();
         allData = await combineLists();
         console.log("Existing data loaded:", allData.length, "records");
         if (allData.length > 0) {
@@ -737,8 +881,13 @@
     applyAllFilters();
   }
 
+  let lastFilteredMinute = "";
   $: if (currentUTCTime && currentTimeFilter !== "all") {
-    applyAllFilters();
+    const minute = currentUTCTime.substring(0, 3); // HHM - changes once per minute
+    if (minute !== lastFilteredMinute) {
+      lastFilteredMinute = minute;
+      applyAllFilters();
+    }
   }
 </script>
 
@@ -1173,5 +1322,11 @@
 
   :global(.tabulator .tabulator-tableholder) {
     height: calc(100% - 40px) !important;
+  }
+
+  /* Row the user last clicked: keep it visually anchored across refilters */
+  :global(.tabulator .tabulator-row.row-pinned) {
+    background-color: #ffe9a8 !important;
+    box-shadow: inset 3px 0 0 #e67e22;
   }
 </style>

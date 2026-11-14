@@ -6,6 +6,10 @@ export function GetCurrentFrequency() {
   return window['go']['main']['App']['GetCurrentFrequency']();
 }
 
+export function GetFrequencyRange() {
+  return window['go']['main']['App']['GetFrequencyRange']();
+}
+
 export function GetMode() {
   return window['go']['main']['App']['GetMode']();
 }

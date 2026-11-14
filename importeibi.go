@@ -101,8 +101,7 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 
 	// Convert to struct
 	var data []CSVRow
-	for i, record := range records {
-		i=i
+	for _, record := range records {
 		// Skip header/metadata rows
 		if isHeaderRow(record) {
 			continue
@@ -116,7 +115,7 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		// Ensure we have enough fields (we need at least 8 for existing fields)
 		if len(record) < 8 {
 			// Pad with empty strings if needed
-			for len(record) < 7 {
+			for len(record) < 8 {
 				record = append(record, "")
 			}
 		}
@@ -139,8 +138,6 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		targetName := GetTargetDescription(targetCode)
 		if targetName == "" {
 			targetName = GetCountryName(targetCode) // Use country name if target code not found (e.g. "code")
-		} else {
-			targetName = targetCode
 		}
 
 		// fmt.Printf("looking up transmitter for %s\n", ituCode)

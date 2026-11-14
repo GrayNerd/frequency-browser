@@ -30,6 +30,20 @@ export namespace main {
 	        this.source = source["source"];
 	    }
 	}
+	export class FrequencyRange {
+	    minKhz: number;
+	    maxKhz: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new FrequencyRange(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.minKhz = source["minKhz"];
+	        this.maxKhz = source["maxKhz"];
+	    }
+	}
 
 }
 

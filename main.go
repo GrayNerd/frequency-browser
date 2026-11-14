@@ -19,6 +19,7 @@ type App struct {
     // rig         RadioInterface
     isConnected bool
 	pollingActive bool
+	lastMode      string
 	}
 
 // NewApp creates a new App application struct
@@ -31,6 +32,7 @@ func NewApp() *App {
 func (a *App) startup(ctx context.Context) {
     a.ctx = ctx
     a.config.Address = "localhost:4532" // Default rigctld address
+	a.pollingActive = true
 	go a.pollRadioFrequency()
 
 }

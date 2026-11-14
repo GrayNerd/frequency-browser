@@ -4,6 +4,8 @@ import {main} from '../models';
 
 export function GetCurrentFrequency():Promise<number>;
 
+export function GetFrequencyRange():Promise<main.FrequencyRange>;
+
 export function GetMode():Promise<string>;
 
 export function GetRadioStatus():Promise<Record<string, any>>;
