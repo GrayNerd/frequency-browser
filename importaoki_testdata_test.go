@@ -47,7 +47,20 @@ const (
 const aokiTestTitle = "A26 Shortwave Frequecy List  October 23 2026,  1000 UTC   Day 1 = Sunday\r\n"
 const aokiTestHeading = "FRE   STATION                         UTC       Su-W-Sa Language             Pow Azi Location                ADM L/L             Remarks\r\n"
 
-// aokiTestSchedule assembles a schedule file from the given encoded rows.
+// aokiRowLongName holds rows whose station name is longer than its 32-byte
+// column, or contains double-byte characters, so the time column is pushed to
+// the right and the fixed offsets would read the time as "00-2400 1". Captured
+// verbatim from a real xta26.txt.
+//
+//	SRR Radio Rom<0xe2n>nia Actualit<0x3f><0x3f>i 0000-2400 ... (name overflows)
+//	WRMI Radio Rep<0xfa>blica           0200-0300 ... (33-byte name)
+//	Sender K<0xf6>nigs Wusterhausen     0800-0900 ...
+const (
+	aokiRowOverflowLong    = "IDE0NTggU1JSIFJhZGlvIFJvbT9uaWEgQWN0dWFsaXQ/P2kgMDAwMC0yNDAwIDEyMzQ1NjcgUm9tYW5pYW4gICAgICAgICAgICAgIDUwICAgICBWYWx1IGx1aSBUcmFpYW4gICAgICAgICBST1UgNDQxMDEwTjAyODMyMjRFIFNSUg=="
+	aokiRowOverflowMid     = "IDU4MDAgV1JNSSBSYWRpbyBSZXA/YmxpY2EgICAgICAgICAgIDAyMDAtMDMwMCAgMzQ1NiAgIEVuZ2xpc2ggICAgICAgICAgICAgIDEwMCAxNjAgT2tlZWNob2JlZTEwICAgICAgICAgICAgVVNBIDI3MjcyNk4wODA1NTU5VyBSTUkgYTI2"
+	aokiRowOverflowShifted = "IDYwOTUgU2VuZGVyIEs/bmlncyBXdXN0ZXJoYXVzZW4gICAgIDA4MDAtMDkwMCAgICAxICAgIEdlcm1hbiAgICAgICAgICAgICAgIDEwMCAyMzMgTmF1ZW4gICAgICAgICAgICAgICAgICAgRCAgIDUyMzg1NU4wMTI1NDMzRSBTS1cgTUJSIGEyNiAxc3QgU2F0"
+)
+
 func aokiTestSchedule(t *testing.T, encodedRows ...string) []byte {
 	t.Helper()
 

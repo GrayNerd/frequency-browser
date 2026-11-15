@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"bytes"
+	"regexp"
 	"sort"
 	"strings"
 	"testing"
@@ -290,7 +291,91 @@ func TestAokiParseScheduleLocationOverflow(t *testing.T) {
 	}
 }
 
-// TestAokiImportLiveEndToEnd runs the real ImportAOKI used by the UI button: it
+// TestAokiParseScheduleNameOverflow pins the column realignment: a station name
+// longer than its 32-byte column would otherwise shift the time field and yield
+// times like "00-2400 1", which made the time filter silently drop every row.
+func TestAokiParseScheduleNameOverflow(t *testing.T) {
+	rows, err := aokiParseSchedule(aokiTestSchedule(t,
+		aokiRowOverflowLong,
+		aokiRowOverflowMid,
+		aokiRowOverflowShifted,
+	))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(rows) != 3 {
+		t.Fatalf("parsed %d rows, want 3: %+v", len(rows), rows)
+	}
+
+	// The time column is the one that must survive the overflow.
+	want := []struct{ khz, start, end string }{
+		{"1458", "0000", "2400"},
+		{"5800", "0200", "0300"},
+		{"6095", "0800", "0900"},
+	}
+	for i, w := range want {
+		got := rows[i]
+		if got.StartTime != w.start || got.EndTime != w.end {
+			t.Errorf("row %d times = %q-%q, want %q-%q (station %q)",
+				i, got.StartTime, got.EndTime, w.start, w.end, got.Station)
+		}
+		if !strings.HasPrefix(got.Khz, w.khz) {
+			t.Errorf("row %d Khz = %q, want %q", i, got.Khz, w.khz)
+		}
+	}
+
+	// The columns after the time shift with it, so they must be read correctly
+	// too rather than picking up the tail of the name.
+	if rows[0].Days != "1234567" {
+		t.Errorf("rows[0].Days = %q, want 1234567", rows[0].Days)
+	}
+	if rows[0].Language != "Romanian" {
+		t.Errorf("rows[0].Language = %q, want Romanian", rows[0].Language)
+	}
+	if rows[1].Language != "English" {
+		t.Errorf("rows[1].Language = %q, want English", rows[1].Language)
+	}
+	if rows[1].Days != "3456" {
+		t.Errorf("rows[1].Days = %q, want 3456", rows[1].Days)
+	}
+	if rows[2].Language != "German" {
+		t.Errorf("rows[2].Language = %q, want German", rows[2].Language)
+	}
+
+	// Every parsed row must survive the frontend's strict HHMM check, which is
+	// what the time filter relies on.
+	for _, row := range rows {
+		if !regexp.MustCompile(`^\d{4}$`).MatchString(row.StartTime) ||
+			!regexp.MustCompile(`^\d{4}$`).MatchString(row.EndTime) {
+			t.Errorf("row has an unusable time: %+v", row)
+		}
+	}
+}
+
+// TestAokiTimeField finds the time column wherever the name overflow put it.
+func TestAokiTimeField(t *testing.T) {
+	// Normal layout: time starts at the documented column.
+	normal := []byte("   40 Time Signal                     0000-2400 1234567")
+	if start, value, ok := aokiTimeField(normal); !ok || value != "0000-2400" {
+		t.Errorf("normal: start=%d value=%q ok=%v", start, value, ok)
+	} else if start != aokiTimeColumn {
+		t.Errorf("normal: start=%d, want %d", start, aokiTimeColumn)
+	}
+
+	// Pushed right by an over-long name (34 bytes before the time column).
+	shifted := []byte(" 1458 SRR Radio Romania ActualitatiIntl 0000-2400 1234567")
+	if start, value, ok := aokiTimeField(shifted); !ok || value != "0000-2400" {
+		t.Errorf("shifted: start=%d value=%q ok=%v", start, value, ok)
+	} else if start <= aokiTimeColumn {
+		t.Errorf("shifted: start=%d, want it after %d", start, aokiTimeColumn)
+	}
+
+	// A row with no time at all is reported as such rather than misread.
+	if _, _, ok := aokiTimeField([]byte("     *Jammed by CNR1")); ok {
+		t.Error("found a time in a row that has none")
+	}
+}
+
 // discovers the current archive on the Bi Newsletter page, unpacks the schedule
 // and parses it. Skipped when the site is unreachable.
 func TestAokiImportLiveEndToEnd(t *testing.T) {

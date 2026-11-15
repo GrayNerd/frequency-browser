@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 
 	"golang.org/x/text/encoding/japanese"
@@ -69,10 +70,23 @@ func aokiParseSchedule(content []byte) ([]CSVRow, error) {
 
 		khz := aokiField(raw, 0, 6)
 		stationName := aokiField(raw, 6, 38)
-		timeUTC := aokiField(raw, 38, 47)
-		daysString := aokiField(raw, 48, 55)
-		languageName := aokiField(raw, 56, 76)
 		ituCode, transmitter := aokiLocationAndCountry(raw)
+
+		// The station name column is 32 bytes, but a longer name (or a name
+		// holding double-byte characters, whose padding is two columns wide)
+		// pushes every later column to the right, so the fixed offset would
+		// read "0000-2400" as "00-2400 1". The time column is unambiguous, so
+		// the layout is re-synchronised on it instead.
+		timeStart, timeUTC, ok := aokiTimeField(raw)
+		if !ok {
+			skipped++
+			continue
+		}
+
+		// Columns after the time shift by however far the name overflowed.
+		shift := timeStart - aokiTimeColumn
+		daysString := aokiField(raw, 48+shift, 55+shift)
+		languageName := aokiField(raw, 56+shift, 76+shift)
 
 		if khz == "" || timeUTC == "" {
 			skipped++
@@ -183,6 +197,33 @@ func aokiCodeBefore(raw []byte, position int) string {
 // isAokiLetter reports whether b is an ASCII letter.
 func isAokiLetter(b byte) bool {
 	return (b >= 'A' && b <= 'Z') || (b >= 'a' && b <= 'z')
+}
+
+// aokiTimeColumn is the byte offset of the time column when no name overflow
+// pushes it right.
+const aokiTimeColumn = 38
+
+// aokiTimePattern matches the "0000-2400" time range.
+var aokiTimePattern = regexp.MustCompile(`\d{4}-\d{4}`)
+
+// aokiTimeField locates the time column and returns its offset and value.
+//
+// The column normally starts at aokiTimeColumn, but a station name longer than
+// its 32-byte field shifts it right. The range is searched for instead of being
+// sliced at a fixed offset, and the search starts after the name column so a
+// digits-only station name cannot be mistaken for a time.
+func aokiTimeField(raw []byte) (start int, value string, ok bool) {
+	const searchFrom = 30
+	if len(raw) <= searchFrom {
+		return 0, "", false
+	}
+
+	loc := aokiTimePattern.FindIndex(raw[searchFrom:])
+	if loc == nil {
+		return 0, "", false
+	}
+	offset := searchFrom + loc[0]
+	return offset, string(raw[offset : offset+loc[1]-loc[0]]), true
 }
 
 // aokiPositionStart returns the byte offset of the latitude/longitude field.

@@ -218,75 +218,64 @@
         timeToUse = manualTimeInput;
       }
 
-      try {
-        const filterMinutes = timeToMinutes(timeToUse);
-        if (debug) console.log("Filter time:", timeToUse, "=", filterMinutes, "minutes");
+      const filterMinutes = timeToMinutes(timeToUse);
+      if (filterMinutes === null) {
+        // Nothing sensible to filter against: leave the list untouched rather
+        // than blanking the grid while the user is still typing a time.
+        console.warn("Ignoring time filter: unusable time", timeToUse);
+      } else if (currentTimeFilter === "now" || currentTimeFilter === "manual") {
+        // Rows whose start or end time is malformed are skipped individually:
+        // they must not prevent the remaining rows from being filtered.
+        let skipped = 0;
+        filteredData = filteredData.filter((row) => {
+          const startMinutes = timeToMinutes(row.startTime);
+          const endMinutes = timeToMinutes(row.endTime);
+          if (startMinutes === null || endMinutes === null) {
+            skipped++;
+            return false;
+          }
 
-        if (currentTimeFilter === "now" || currentTimeFilter === "manual") {
-          filteredData = filteredData.filter((row) => {
-            const startMinutes = timeToMinutes(row.startTime);
-            const endMinutes = timeToMinutes(row.endTime);
+          // A broadcast "spans midnight" when it ends before it starts, e.g.
+          // 2300-0100; otherwise it is contained within the same day.
+          const isNow =
+            endMinutes < startMinutes
+              ? filterMinutes >= startMinutes || filterMinutes <= endMinutes
+              : filterMinutes >= startMinutes && filterMinutes <= endMinutes;
 
-            if (debug) console.log(`Row ${row.startTime}-${row.endTime}: start=${startMinutes}, end=${endMinutes}`);
-
-            let isNow;
-            if (endMinutes < startMinutes) {
-              // Broadcast spans midnight
-              isNow =
-                filterMinutes >= startMinutes || filterMinutes <= endMinutes;
-              if (debug)console.log(`  Spans midnight: ${isNow} (${filterMinutes} >= ${startMinutes} OR ${filterMinutes} <= ${endMinutes})`);
-            } else {
-              // Broadcast within same day
-              isNow =
-                filterMinutes >= startMinutes && filterMinutes <= endMinutes;
-              if (debug) console.log(`  Same day: ${isNow} (${filterMinutes} >= ${startMinutes} AND ${filterMinutes} <= ${endMinutes})`);
-            }
-
-            return isNow;
-          });
-        } else if (currentTimeFilter === "soon") {
-          filteredData = filteredData.filter((row) => {
-            const startMinutes = timeToMinutes(row.startTime);
-            const endMinutes = timeToMinutes(row.endTime);
-
-            if (startMinutes === undefined || endMinutes === undefined) {
-              console.log("Invalid time data:", row);
-              return false;
-            }
-
-            if (debug) console.log(`Row ${row.startTime}-${row.endTime}: start=${startMinutes}, end=${endMinutes}`);
-
-            // Check if currently active
-            let isNow;
-            if (endMinutes < startMinutes) {
-              isNow =
-                filterMinutes >= startMinutes || filterMinutes <= endMinutes;
-              if (debug) console.log(`  Now (midnight): ${isNow}`);
-            } else {
-              isNow =
-                filterMinutes >= startMinutes && filterMinutes <= endMinutes;
-              if (debug) console.log(`  Now (same day): ${isNow}`);
-            }
-
-            // Calculate time until start
-            let timeUntilStart;
-            if (filterMinutes <= startMinutes) {
-              // Start is later today
-              timeUntilStart = startMinutes - filterMinutes;
-            } else {
-              // Start is tomorrow (or next occurrence)
-              timeUntilStart = 1440 - filterMinutes + startMinutes;
-            }
-            if (debug)console.log(`  Time until start: ${timeUntilStart} minutes`);
-
-            const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
-            if (debug) console.log(`  Is soon: ${isSoon}`);
-
-            return isNow || isSoon;
-          });
+          return isNow;
+        });
+        if (skipped > 0) {
+          console.log(`Time filter skipped ${skipped} rows with invalid times`);
         }
-      } catch (error) {
-        console.error("Error applying time filter:", error);
+      } else if (currentTimeFilter === "soon") {
+        let skipped = 0;
+        filteredData = filteredData.filter((row) => {
+          const startMinutes = timeToMinutes(row.startTime);
+          const endMinutes = timeToMinutes(row.endTime);
+          if (startMinutes === null || endMinutes === null) {
+            skipped++;
+            return false;
+          }
+
+          // Check if currently active
+          const isNow =
+            endMinutes < startMinutes
+              ? filterMinutes >= startMinutes || filterMinutes <= endMinutes
+              : filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+
+          // Calculate time until start
+          const timeUntilStart =
+            filterMinutes <= startMinutes
+              ? startMinutes - filterMinutes // Start is later today
+              : 1440 - filterMinutes + startMinutes; // Start is tomorrow
+
+          const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
+
+          return isNow || isSoon;
+        });
+        if (skipped > 0) {
+          console.log(`Time filter skipped ${skipped} rows with invalid times`);
+        }
       }
     }
 
@@ -508,15 +497,20 @@
     }
   }
 
+  // Parses an HHMM string into minutes from midnight.
+  //
+  // Returns null for anything that is not a valid four-digit time, instead of
+  // throwing: the imported lists contain a few malformed rows (AOKI has entries
+  // such as "000" or "0."), and a throw inside Array.filter() would abort the
+  // whole filter and leave the table unfiltered.
   function timeToMinutes(timeString) {
-    if (!/^\d{4}$/.test(timeString)) {
-      throw new Error("Input must be a 4-digit string in HHMM format");
+    const value = String(timeString ?? "").trim();
+    if (!/^\d{4}$/.test(value)) {
+      return null;
     }
 
-    const [hours, minutes] = [
-      parseInt(timeString.substring(0, 2), 10),
-      parseInt(timeString.substring(2, 4), 10),
-    ];
+    const hours = parseInt(value.substring(0, 2), 10);
+    const minutes = parseInt(value.substring(2, 4), 10);
 
     if (
       hours < 0 ||
@@ -525,9 +519,7 @@
       minutes > 59 ||
       (hours === 24 && minutes !== 0)
     ) {
-      throw new Error(
-        "Invalid time values. Hours must be 00-24, minutes must be 00-59",
-      );
+      return null;
     }
 
     return hours * 60 + minutes;
