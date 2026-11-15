@@ -49,6 +49,25 @@
   let debugInfo = "";
   let connected = false;
 
+  // How long a message shown at the bottom of the window stays there. Failures
+  // are kept longer so an error is not missed.
+  const MESSAGE_TIMEOUT_MS = 5000;
+  const ERROR_TIMEOUT_MS = 10000;
+  let messageTimer = null;
+
+  // Clears the messages and cancels the pending countdown. Called when a new
+  // operation starts so an old message cannot be mistaken for its result, and
+  // again by the countdown itself when the message expires.
+  function clearMessages() {
+    if (messageTimer !== null) {
+      clearTimeout(messageTimer);
+      messageTimer = null;
+    }
+    errorMessage = "";
+    successMessage = "";
+    debugInfo = "";
+  }
+
   // Radio Configuration and State
   let config = {
     address: "localhost:4532",
@@ -377,9 +396,7 @@
   async function importEiBi() {
     loading = true;
     loadingEiBi = true; // Change text only for this button
-    errorMessage = "";
-    successMessage = "";
-    debugInfo = "";
+    clearMessages();
 
     try {
       // No file dialog any more: the backend downloads the newest EiBi schedule
@@ -418,9 +435,7 @@
   async function importAoki() {
     loading = true;
     loadingAoki = true; // Change text only for this button
-    errorMessage = "";
-    successMessage = "";
-    debugInfo = "";
+    clearMessages();
 
     try {
       // No file dialog any more: the backend downloads the newest AOKI shortwave
@@ -458,9 +473,7 @@
   async function importHFCC() {
     loading = true;
     loadingHfcc = true; // Change text only for this button
-    errorMessage = "";
-    successMessage = "";
-    debugInfo = "";
+    clearMessages();
 
     try {
       // No file dialog any more: the backend downloads the newest operational
@@ -922,6 +935,28 @@
     }, 50);
   } else {
     showManualInput = false;
+  }
+
+  // Any message shown at the bottom of the window disappears after a few
+  // seconds, after which the grid reflows into the freed space. Keying the
+  // reactive statement off the message text means every existing and future
+  // assignment is covered, and the clearing itself happens in a function so the
+  // block does not depend on a variable it writes (which Svelte rejects).
+  $: messageText = errorMessage || successMessage || debugInfo;
+  $: if (messageText) {
+    armMessageTimeout(!!errorMessage);
+  }
+
+  // (Re)starts the countdown that removes the current message.
+  function armMessageTimeout(isError) {
+    if (messageTimer !== null) {
+      clearTimeout(messageTimer);
+      messageTimer = null;
+    }
+    messageTimer = setTimeout(
+      clearMessages,
+      isError ? ERROR_TIMEOUT_MS : MESSAGE_TIMEOUT_MS,
+    );
   }
 
   $: if (frequency && frequencyFilterMode !== "all" && !manualFrequency) {
