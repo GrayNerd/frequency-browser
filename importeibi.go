@@ -15,8 +15,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // CSVRow represents a row in the CSV file
@@ -394,13 +392,6 @@ func (a *App) SaveEIBIList(data []CSVRow) error {
 	if err != nil {
 		return fmt.Errorf("error writing JSON file: %w", err)
 	}
-
-	// Show success message in dialog box with OK button
-	runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
-		Type:    runtime.InfoDialog,
-		Title:   "Success",
-		Message: fmt.Sprintf("Saved %d records to eibi-list.json", len(data)),
-	})
 
 	return nil
 }

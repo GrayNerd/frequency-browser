@@ -11,8 +11,6 @@ import (
 
 	"golang.org/x/text/encoding/japanese"
 	"golang.org/x/text/transform"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // ImportAOKI downloads the newest AOKI shortwave schedule published on the Bi
@@ -326,13 +324,6 @@ func (a *App) SaveAokiList(data []CSVRow) error {
 	if err != nil {
 		return fmt.Errorf("error writing JSON file: %w", err)
 	}
-
-	// Show success message in dialog box with OK button
-	runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
-		Type:    runtime.InfoDialog,
-		Title:   "Success",
-		Message: fmt.Sprintf("Saved %d records to aoki-list.json", len(data)),
-	})
 
 	return nil
 }

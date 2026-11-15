@@ -19,8 +19,6 @@ import (
 
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 const (
@@ -424,13 +422,6 @@ func (a *App) SaveHfccList(data []CSVRow) error {
 	if err != nil {
 		return fmt.Errorf("error writing JSON file: %w", err)
 	}
-
-	// Show success message in dialog box with OK button
-	runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
-		Type:    runtime.InfoDialog,
-		Title:   "Success",
-		Message: fmt.Sprintf("Saved %d records to hfcc-list.json", len(data)),
-	})
 
 	return nil
 }
