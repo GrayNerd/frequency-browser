@@ -210,21 +210,11 @@
         // they must not prevent the remaining rows from being filtered.
         let skipped = 0;
         filteredData = filteredData.filter((row) => {
-          const startMinutes = timeToMinutes(row.startTime);
-          const endMinutes = timeToMinutes(row.endTime);
-          if (startMinutes === null || endMinutes === null) {
+          if (timeToMinutes(row.startTime) === null || timeToMinutes(row.endTime) === null) {
             skipped++;
             return false;
           }
-
-          // A broadcast "spans midnight" when it ends before it starts, e.g.
-          // 2300-0100; otherwise it is contained within the same day.
-          const isNow =
-            endMinutes < startMinutes
-              ? filterMinutes >= startMinutes || filterMinutes <= endMinutes
-              : filterMinutes >= startMinutes && filterMinutes <= endMinutes;
-
-          return isNow;
+          return isOnAir(row.startTime, row.endTime, filterMinutes);
         });
         if (skipped > 0) {
           console.log(`Time filter skipped ${skipped} rows with invalid times`);
@@ -239,21 +229,11 @@
             return false;
           }
 
-          // Check if currently active
-          const isNow =
-            endMinutes < startMinutes
-              ? filterMinutes >= startMinutes || filterMinutes <= endMinutes
-              : filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+          // Already on air, or starting within the next half hour.
+          const isSoon =
+            ((startMinutes - filterMinutes + 1440) % 1440) <= 30;
 
-          // Calculate time until start
-          const timeUntilStart =
-            filterMinutes <= startMinutes
-              ? startMinutes - filterMinutes // Start is later today
-              : 1440 - filterMinutes + startMinutes; // Start is tomorrow
-
-          const isSoon = timeUntilStart <= 30 && timeUntilStart > 0;
-
-          return isNow || isSoon;
+          return isOnAir(row.startTime, row.endTime, filterMinutes) || isSoon;
         });
         if (skipped > 0) {
           console.log(`Time filter skipped ${skipped} rows with invalid times`);
@@ -507,6 +487,10 @@
   // throwing: the imported lists contain a few malformed rows (AOKI has entries
   // such as "000" or "0."), and a throw inside Array.filter() would abort the
   // whole filter and leave the table unfiltered.
+  //
+  // "2400" is end of day, i.e. the same instant as "0000" of the next day, so it
+  // is normalised to 0. Without that, a row such as 2300-2400 would be treated
+  // as wrapping past midnight and disappear from the "now" list at 00:00.
   function timeToMinutes(timeString) {
     const value = String(timeString ?? "").trim();
     if (!/^\d{4}$/.test(value)) {
@@ -526,7 +510,29 @@
       return null;
     }
 
-    return hours * 60 + minutes;
+    // 2400 == 0000 of the following day.
+    return (hours * 60 + minutes) % 1440;
+  }
+
+  // True when a broadcast from startTime to endTime is on air at filterMinutes.
+  //
+  // A range whose end is at or before its start runs past midnight
+  // (e.g. 2300-0100), and an identical start and end means a full 24 hours
+  // (e.g. 1200-1200).
+  function isOnAir(startTime, endTime, filterMinutes) {
+    const startMinutes = timeToMinutes(startTime);
+    const endMinutes = timeToMinutes(endTime);
+    if (startMinutes === null || endMinutes === null) {
+      return false;
+    }
+    if (startMinutes === endMinutes) {
+      return true; // full-day entry
+    }
+    if (endMinutes > startMinutes) {
+      return filterMinutes >= startMinutes && filterMinutes <= endMinutes;
+    }
+    // Spans midnight: either after the start or before the end.
+    return filterMinutes >= startMinutes || filterMinutes <= endMinutes;
   }
 
   function initTabulator(data) {
