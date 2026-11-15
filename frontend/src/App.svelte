@@ -155,36 +155,18 @@
     }
   }
 
-  async function applyAllFilters() {
-    const seq = ++filterSeq;
-    let debug = false
-    console.log(
-      "Applying all filters - Frequency mode:",
-      frequencyFilterMode,
-      "Time mode:",
-      currentTimeFilter,
-    );
-    if (!table) {
-      console.warn("Table not initialized yet");
-      return;
-    }
+  // Computes the rows that pass the active filters. Kept separate from
+  // applyAllFilters() so the startup path can filter before the grid exists.
+  function computeFilteredRows() {
     if (allData.length === 0) {
-      console.warn("No data to filter");
-      table.setData([]);
-      return;
+      return [];
     }
-    // logInvalidTimeData(allData);
+
     let filteredData = [...allData];
-    if (debug) console.log("Applying filters to", filteredData.length, "records");
 
     // Drop entries the connected radio cannot receive at all.
     if (rigMinKhz !== null && rigMaxKhz !== null) {
-      const before = filteredData.length;
       filteredData = filteredData.filter(withinRigRange);
-      if (debug)
-        console.log(
-          `Rig range filter (${rigMinKhz}-${rigMaxKhz} kHz): ${before} -> ${filteredData.length}`,
-        );
     }
 
     // Apply frequency filtering
@@ -280,39 +262,61 @@
     }
 
     console.log(`Filtered to ${filteredData.length} records`);
+    return filteredData;
+  }
 
-    if (table) {
-      // table.setData() destroys and rebuilds every row, which resets the
-      // scroll offset to the top and causes a visible flicker. Only rebuild
-      // when the filter result actually changed; otherwise just refresh the
-      // highlight and leave the grid exactly where it is.
-      if (sameRows(lastFilteredRows, filteredData)) {
-        refreshPinnedHighlight();
-        return;
-      }
-      lastFilteredRows = filteredData;
+  // Re-applies the active filters to the grid.
+  async function applyAllFilters() {
+    console.log(
+      "Applying filters - Frequency mode:",
+      frequencyFilterMode,
+      "Time mode:",
+      currentTimeFilter,
+    );
 
-      // Remember the scroll offset so the view stays put across the rebuild.
-      const scrollEl = table.rowManager?.element;
-      const savedScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+    if (!table) {
+      console.warn("Table not initialized yet");
+      return;
+    }
 
-      await table.setData(filteredData);
+    const seq = ++filterSeq;
+    const filteredData = computeFilteredRows();
 
-      // Abandon this pass if a newer filter run has started meanwhile.
-      if (seq !== filterSeq) return;
+    if (allData.length === 0) {
+      console.warn("No data to filter");
+      await table.setData([]);
+      lastFilteredRows = null;
+      return;
+    }
 
-      // setData() resolves before the rows are painted, so let the renderer
-      // finish a frame before restoring the view.
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      if (seq !== filterSeq) return;
+    // table.setData() destroys and rebuilds every row, which resets the
+    // scroll offset to the top and causes a visible flicker. Only rebuild
+    // when the filter result actually changed; otherwise just refresh the
+    // highlight and leave the grid exactly where it is.
+    if (sameRows(lastFilteredRows, filteredData)) {
+      refreshPinnedHighlight();
+      return;
+    }
+    lastFilteredRows = filteredData;
 
-      // Restore the offset we were at before the refilter. Never scroll to the
-      // clicked row: the grid should stay exactly where the user left it.
-      if (scrollEl && savedScrollTop > 0) {
-        scrollEl.scrollTop = savedScrollTop;
-      }
-    } else {
-      initTabulator(filteredData);
+    // Remember the scroll offset so the view stays put across the rebuild.
+    const scrollEl = table.rowManager?.element;
+    const savedScrollTop = scrollEl ? scrollEl.scrollTop : 0;
+
+    await table.setData(filteredData);
+
+    // Abandon this pass if a newer filter run has started meanwhile.
+    if (seq !== filterSeq) return;
+
+    // setData() resolves before the rows are painted, so let the renderer
+    // finish a frame before restoring the view.
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+    if (seq !== filterSeq) return;
+
+    // Restore the offset we were at before the refilter. Never scroll to the
+    // clicked row: the grid should stay exactly where the user left it.
+    if (scrollEl && savedScrollTop > 0) {
+      scrollEl.scrollTop = savedScrollTop;
     }
   }
   // Add this debug code to see which rows have invalid time formats
@@ -528,8 +532,9 @@
   function initTabulator(data) {
     console.log("Initializing Tabulator with data:", data.length, "records");
     if (tabulatorInitialized && table) {
+      // Re-applying the filters is the caller's job; doing it here as well
+      // would race the setData() above.
       table.setData(data);
-      applyAllFilters();
       return;
     }
 
@@ -758,9 +763,16 @@
         allData = await combineLists();
         console.log("Existing data loaded:", allData.length, "records");
         if (allData.length > 0) {
-          // allData = existingData;
-          initTabulator(allData);
-          applyAllFilters(); // Apply filters after loading data
+          // Filter before building the grid: constructing Tabulator with the
+          // full data and then calling setData() loses the race against its
+          // own initial load, which would leave the selected filters inactive.
+          const initialRows = computeFilteredRows();
+          lastFilteredRows = initialRows;
+          initTabulator(initialRows);
+          console.log(
+            `Startup filters (freq ${frequencyFilterMode}, time ${currentTimeFilter}): ` +
+              `${allData.length} -> ${initialRows.length} records`,
+          );
           successMessage = `Loaded ${allData.length} records from all sources`;
         } else {
           allData = [];
