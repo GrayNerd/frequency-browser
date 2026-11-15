@@ -15,6 +15,11 @@ import { Events, Window } from "@wailsio/runtime";
 
 const OK_BUTTON = "ok";
 
+// Show the busy mouse cursor while an import is running, clear it when done.
+function setBusy(busy) {
+  document.body.style.cursor = busy ? "progress" : "auto";
+}
+
 function formatImportDate(dates, source) {
   const recorded = dates && dates[source];
   if (!recorded) return "never";
@@ -44,27 +49,42 @@ async function refreshImportDates() {
 async function importEiBi() {
   // No file dialog any more: the backend downloads the newest EiBi schedule
   // database (sked-???.csv) plus README.TXT from http://www.eibispace.de/.
-  const data = await ImportEiBi();
-  if (!data) return;
-  if (data.length === 0) return;
-  await SaveEIBIList(data);
-  await refreshImportDates();
+  setBusy(true);
+  try {
+    const data = await ImportEiBi();
+    if (!data) return;
+    if (data.length === 0) return;
+    await SaveEIBIList(data);
+    await refreshImportDates();
+  } finally {
+    setBusy(false);
+  }
 }
 
 async function importAoki() {
-  const data = await ImportAOKI();
-  if (!data) return;
-  if (data.length === 0) return;
-  await SaveAokiList(data);
-  await refreshImportDates();
+  setBusy(true);
+  try {
+    const data = await ImportAOKI();
+    if (!data) return;
+    if (data.length === 0) return;
+    await SaveAokiList(data);
+    await refreshImportDates();
+  } finally {
+    setBusy(false);
+  }
 }
 
 async function importHfcc() {
-  const data = await ImportHFCC();
-  if (!data) return;
-  if (data.length === 0) return;
-  await SaveHfccList(data);
-  await refreshImportDates();
+  setBusy(true);
+  try {
+    const data = await ImportHFCC();
+    if (!data) return;
+    if (data.length === 0) return;
+    await SaveHfccList(data);
+    await refreshImportDates();
+  } finally {
+    setBusy(false);
+  }
 }
 
 document.getElementById("import-eibi").addEventListener("click", importEiBi);
