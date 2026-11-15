@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Import</title>
+    <link href="/src/import.css" rel="stylesheet"/>
+</head>
+<body>
+<main class="import-window">
+    <h1>Import</h1>
+    <div class="import-buttons">
+        <div class="import-row">
+            <button id="import-eibi" type="button">Import EiBi</button>
+            <span class="import-date" id="import-eibi-date" title="Last successful download">never</span>
+        </div>
+        <div class="import-row">
+            <button id="import-aoki" type="button">Import AOKI</button>
+            <span class="import-date" id="import-aoki-date" title="Last successful download">never</span>
+        </div>
+        <div class="import-row">
+            <button id="import-hfcc" type="button">Import HFCC</button>
+            <span class="import-date" id="import-hfcc-date" title="Last successful download">never</span>
+        </div>
+    </div>
+    <footer class="buttons">
+        <button id="ok" type="button">OK</button>
+    </footer>
+</main>
+<script src="./src/import.js" type="module"></script>
+</body>
+</html>

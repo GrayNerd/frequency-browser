@@ -1206,46 +1206,6 @@
       </div>
     </div>
 
-    <div class="import-buttons">
-      <div class="import-row">
-        <button id="import-eibi" on:click={importEiBi} disabled={loading}>
-          {loadingEiBi ? "Downloading..." : "Import EiBi"}
-        </button>
-        <span
-          class="import-date"
-          class:never={!importDates["EiBi"]}
-          title="Last successful download"
-        >
-          {formatImportDate(importDates, "EiBi")}
-        </span>
-      </div>
-
-      <div class="import-row">
-        <button id="import-aoki" on:click={importAoki} disabled={loading}>
-          {loadingAoki ? "Downloading..." : "Import AOKI"}
-        </button>
-        <span
-          class="import-date"
-          class:never={!importDates["AOKI"]}
-          title="Last successful download"
-        >
-          {formatImportDate(importDates, "AOKI")}
-        </span>
-      </div>
-
-      <div class="import-row">
-        <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
-          {loadingHfcc ? "Downloading..." : "Import HFCC"}
-        </button>
-        <span
-          class="import-date"
-          class:never={!importDates["HFCC"]}
-          title="Last successful download"
-        >
-          {formatImportDate(importDates, "HFCC")}
-        </span>
-      </div>
-    </div>
   </div>
 
   <div class="table-container" bind:this={tableContainer}>

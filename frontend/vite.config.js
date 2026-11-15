@@ -14,10 +14,12 @@ export default defineConfig({
   plugins: [svelte(), wails('./bindings')],
   build: {
     rollupOptions: {
-      // index.html is the main window; settings.html is the Settings window.
+      // index.html is the main window; settings.html is the Settings window;
+      // import.html is the Import window.
       input: {
         main: 'index.html',
         settings: 'settings.html',
+        import: 'import.html',
       },
     },
   },

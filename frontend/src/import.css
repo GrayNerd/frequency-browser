@@ -1,0 +1,105 @@
+/* Import window. Mirrors the Settings window layout: container, column of
+ * import rows, OK button at the bottom. */
+
+:root {
+  color-scheme: dark;
+  --bg: #1b2636;
+  --bg-input: #243447;
+  --fg: #e6e9ef;
+  --fg-dim: #9aa7b8;
+  --accent: #4a90d9;
+  --border: #35455c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Nunito", "Segoe UI", sans-serif;
+  font-size: 14px;
+}
+
+.import-window {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+}
+
+.import-window h1 {
+  color: var(--fg);
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.import-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.import-row {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.import-row button {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 20px;
+}
+
+.import-row button:hover {
+  border-color: var(--fg-dim);
+}
+
+.import-date {
+  color: var(--fg-dim);
+  font-family: monospace;
+}
+
+/* Status message fills the space between content and buttons. */
+.import-window::after {
+  content: "";
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.buttons button {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 20px;
+}
+
+.buttons button:hover {
+  border-color: var(--fg-dim);
+}
+
+.buttons #ok {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.buttons #ok:hover {
+  filter: brightness(1.1);
+}

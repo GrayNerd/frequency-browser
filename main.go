@@ -18,6 +18,37 @@ var mainWindow *application.WebviewWindow
 // reset to nil when the window closes so a later open creates a fresh one.
 var settingsWindow *application.WebviewWindow
 
+// importWindow holds the (single) Import window while it is open. It is
+// reset to nil when the window closes so a later open creates a fresh one.
+var importWindow *application.WebviewWindow
+
+// openImportWindow shows the native "Import" window, creating it on first use.
+//
+// The window hosts the schedule-import buttons (and their last successful
+// download dates) and an OK button that closes it. It is created hidden and
+// made a transient child of the main window so it centres on the main window,
+// exactly like the Settings window.
+func openImportWindow() {
+	app := application.Get()
+	if importWindow != nil {
+		importWindow.Show()
+		importWindow.Focus()
+		return
+	}
+	importWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
+		Title:  "Import",
+		Width:  480,
+		Height: 220,
+		URL:    "/import.html",
+		Hidden: true,
+	})
+	importWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
+		importWindow = nil
+	})
+	importWindow.SetTransientFor(mainWindow)
+	importWindow.Show()
+}
+
 // openSettings shows the Settings window, creating it on first use.
 func openSettings() {
 	app := application.Get()
@@ -110,6 +141,9 @@ func main() {
 	// header bar (GNOME-style primary menu). Menu items run through the app
 	// action group; OnClick callbacks fire on activation.
 	appMenu := application.NewMenu()
+	appMenu.Add("Import").OnClick(func(*application.Context) {
+		openImportWindow()
+	})
 	appMenu.Add("Settings").OnClick(func(*application.Context) {
 		openSettings()
 	})
