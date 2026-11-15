@@ -18,7 +18,7 @@ const OK_BUTTON = "ok";
 // Show the busy mouse cursor while an import is running, clear it when done.
 function setBusy(busy) {
   const el = document.querySelector(".import-window") || document.body;
-  el.style.cursor = busy ? "progress" : "";
+  el.classList.toggle("busy", busy);
 }
 
 function formatImportDate(dates, source) {

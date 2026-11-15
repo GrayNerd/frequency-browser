@@ -32,6 +32,15 @@ body {
   padding: 16px;
 }
 
+/* Busy state while an import is running. */
+.import-window.busy {
+  cursor: progress;
+}
+
+.import-window.busy button {
+  cursor: progress;
+}
+
 .import-buttons {
   display: flex;
   flex-direction: column;
