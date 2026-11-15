@@ -600,7 +600,7 @@
           width: 100,
         },
         {
-          title: "Days",
+          title: "Days 1=Su",
           field: "days",
           headerFilter: "input",
           width: 105,
