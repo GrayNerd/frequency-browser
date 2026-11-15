@@ -39,6 +39,7 @@ func (a *App) ImportAOKI() ([]CSVRow, error) {
 	}
 
 	fmt.Printf("Parsed %d data rows from AOKI %s\n", len(data), fileName)
+	recordImportDate("AOKI")
 	return data, nil
 }
 

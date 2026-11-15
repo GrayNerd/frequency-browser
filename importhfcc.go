@@ -102,6 +102,7 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 	}
 
 	fmt.Printf("Parsed %d data rows from HFCC file %s (season %s)\n", len(data), fileName, newest.Season)
+	recordImportDate("HFCC")
 	return data, nil
 }
 

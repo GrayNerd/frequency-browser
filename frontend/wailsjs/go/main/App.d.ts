@@ -22,6 +22,8 @@ export function LoadEIBIList():Promise<Array<main.CSVRow>>;
 
 export function LoadHfccList():Promise<Array<main.CSVRow>>;
 
+export function LoadImportDates():Promise<Record<string, string>>;
+
 export function SaveAokiList(arg1:Array<main.CSVRow>):Promise<void>;
 
 export function SaveEIBIList(arg1:Array<main.CSVRow>):Promise<void>;

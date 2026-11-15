@@ -13,6 +13,7 @@
     ImportHFCC,
     LoadHfccList,
     SaveHfccList,
+    LoadImportDates,
   } from "../wailsjs/go/main/App";
   import {
     GetCurrentFrequency,
@@ -37,6 +38,9 @@
   let loadingEiBi = false;
   let loadingAoki = false;
   let loadingHfcc = false;
+
+  // When each source was last downloaded (RFC 3339, from import-dates.json).
+  let importDates = {};
 
   // Status and Messages
   let statusMessage = "Connecting to radio...";
@@ -395,6 +399,7 @@
       }
 
       await SaveEIBIList(data);
+      await refreshImportDates();
       allData = await combineLists();
       console.log(`Combined to ${allData.length} records`);
       applyAllFilters(); // Apply filters after loading data
@@ -435,6 +440,7 @@
       }
 
       await SaveAokiList(data);
+      await refreshImportDates();
       allData = await combineLists();
       applyAllFilters(); // Apply filters after loading data
 
@@ -474,6 +480,7 @@
       }
 
       await SaveHfccList(data);
+      await refreshImportDates();
       allData = await combineLists();
       applyAllFilters(); // Apply filters after loading data
 
@@ -675,6 +682,33 @@
     }
   }
 
+  // Formats a recorded import time for the label beside each button.
+  // Returns a short local date, or a dash when the source was never imported.
+  function formatImportDate(source) {
+    const recorded = importDates && importDates[source];
+    if (!recorded) return "never";
+
+    const when = new Date(recorded);
+    if (isNaN(when.getTime())) return "never";
+
+    const day = String(when.getDate()).padStart(2, "0");
+    const month = when.toLocaleString(undefined, { month: "short" });
+    const year = when.getFullYear();
+    const hours = String(when.getHours()).padStart(2, "0");
+    const minutes = String(when.getMinutes()).padStart(2, "0");
+    return `${day} ${month} ${year} ${hours}:${minutes}`;
+  }
+
+  // Reads the stored import times so the labels survive a restart.
+  async function refreshImportDates() {
+    try {
+      importDates = (await LoadImportDates()) || {};
+    } catch (error) {
+      console.error("Error loading import dates:", error);
+      importDates = {};
+    }
+  }
+
   async function combineLists() {
     try {
       console.log("Loading existing data...");
@@ -709,6 +743,7 @@
         // Learn the rig's tuning range before filtering so unreadable
         // frequencies never appear in the table.
         await loadRigRange();
+        await refreshImportDates();
         allData = await combineLists();
         console.log("Existing data loaded:", allData.length, "records");
         if (allData.length > 0) {
@@ -1037,17 +1072,34 @@
       </div>
     </div>
 
-    <button id="import-eibi" on:click={importEiBi} disabled={loading}>
-      {loadingEiBi ? "Downloading..." : "Import EiBi"}
-    </button>
+    <div class="import-buttons">
+      <div class="import-row">
+        <button id="import-eibi" on:click={importEiBi} disabled={loading}>
+          {loadingEiBi ? "Downloading..." : "Import EiBi"}
+        </button>
+        <span class="import-date" title="Last successful download">
+          {formatImportDate("EiBi")}
+        </span>
+      </div>
 
-    <button id="import-aoki" on:click={importAoki} disabled={loading}>
-      {loadingAoki ? "Downloading..." : "Import AOKI"}
-    </button>
+      <div class="import-row">
+        <button id="import-aoki" on:click={importAoki} disabled={loading}>
+          {loadingAoki ? "Downloading..." : "Import AOKI"}
+        </button>
+        <span class="import-date" title="Last successful download">
+          {formatImportDate("AOKI")}
+        </span>
+      </div>
 
-    <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
-      {loadingHfcc ? "Downloading..." : "Import HFCC"}
-    </button>
+      <div class="import-row">
+        <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
+          {loadingHfcc ? "Downloading..." : "Import HFCC"}
+        </button>
+        <span class="import-date" title="Last successful download">
+          {formatImportDate("HFCC")}
+        </span>
+      </div>
+    </div>
   </div>
 
   <div class="table-container" bind:this={tableContainer}>
@@ -1144,6 +1196,36 @@
     gap: 10px;
     padding: 0px;
     flex-shrink: 0;
+  }
+
+  /* Import buttons stacked vertically, to the right of the time box. */
+  .import-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    flex-shrink: 0;
+    align-self: stretch;
+    padding: 4px 0;
+  }
+
+  .import-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .import-row button {
+    width: 130px;
+  }
+
+  /* Date the source was last downloaded, shown beside its button. */
+  .import-date {
+    font-family: monospace;
+    font-size: 12px;
+    color: #555555;
+    white-space: nowrap;
+    min-width: 132px;
   }
 
   .loading-message {
@@ -1292,14 +1374,19 @@
   }
 
   button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background-color: #3498db;
     color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 6px 14px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    line-height: 1;
     height: 30px;
+    white-space: nowrap;
   }
 
   button:disabled {

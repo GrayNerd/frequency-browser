@@ -119,6 +119,7 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 	}
 
 	fmt.Printf("Parsed %d data rows from EiBi %s\n", len(data), season.Name)
+	recordImportDate("EiBi")
 	return data, nil
 }
 

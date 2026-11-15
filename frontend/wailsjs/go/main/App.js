@@ -42,6 +42,10 @@ export function LoadHfccList() {
   return window['go']['main']['App']['LoadHfccList']();
 }
 
+export function LoadImportDates() {
+  return window['go']['main']['App']['LoadImportDates']();
+}
+
 export function SaveAokiList(arg1) {
   return window['go']['main']['App']['SaveAokiList'](arg1);
 }
