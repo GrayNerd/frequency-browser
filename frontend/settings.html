@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Settings</title>
+    <link href="/src/settings.css" rel="stylesheet"/>
+</head>
+<body>
+<main class="settings">
+    <div class="field">
+        <label for="address">rigctld address</label>
+        <input id="address" placeholder="localhost:4532" spellcheck="false" type="text"/>
+    </div>
+    <p class="message" id="message" role="alert"></p>
+    <footer class="buttons">
+        <button id="cancel" type="button">Cancel</button>
+        <button id="save" type="button">Save</button>
+    </footer>
+</main>
+<script src="./src/settings.js" type="module"></script>
+</body>
+</html>

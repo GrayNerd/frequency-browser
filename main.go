@@ -3,12 +3,55 @@ package main
 import (
 	"context"
 	"embed"
-
 	"github.com/wailsapp/wails/v3/pkg/application"
+	"github.com/wailsapp/wails/v3/pkg/events"
 )
 
 //go:embed all:frontend/dist
 var assets embed.FS
+
+// mainWindow holds the primary application window so other windows (e.g. the
+// Settings dialog) can be positioned relative to it.
+var mainWindow *application.WebviewWindow
+
+// settingsWindow holds the (single) Settings window while it is open. It is
+// reset to nil when the window closes so a later open creates a fresh one.
+var settingsWindow *application.WebviewWindow
+
+// openSettings shows the Settings window, creating it on first use.
+func openSettings() {
+	app := application.Get()
+	if settingsWindow != nil {
+		settingsWindow.Show()
+		settingsWindow.Focus()
+		// Keep it centered on the main window if it drifted.
+		if mainWindow != nil {
+			mx, my := mainWindow.Position()
+			mw, mh := mainWindow.Size()
+			sw, sh := settingsWindow.Size()
+			settingsWindow.SetPosition(mx+(mw-sw)/2, my+(mh-sh)/2)
+		}
+		app.Event.Emit("settingsOpened")
+		return
+	}
+	settingsWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
+		Title:  "Settings",
+		Width:  420,
+		Height: 220,
+		URL:    "/settings.html",
+		Hidden: true,
+	})
+	settingsWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
+		settingsWindow = nil
+	})
+	// Make the Settings window a transient child of the main window so the
+	// window manager keeps it on the same monitor (and centers it on the
+	// parent) instead of repositioning it arbitrarily.
+	if mainWindow != nil {
+		settingsWindow.SetTransientFor(mainWindow)
+	}
+	settingsWindow.Show()
+}
 
 // Register the events the backend emits with their data types. This is not
 // required, but the binding generator picks up registered events and provides
@@ -21,8 +64,8 @@ func init() {
 
 // App struct
 type App struct {
-	ctx           context.Context
-	config        RadioConfig
+	ctx    context.Context
+	config RadioConfig
 	// rig         RadioInterface
 	isConnected   bool
 	pollingActive bool
@@ -63,12 +106,35 @@ func main() {
 		},
 	})
 
-	app.Window.NewWithOptions(application.WebviewWindowOptions{
-		Title:            "Frequency Browser",
-		Width:            1024,
-		Height:           768,
-		BackgroundColour: application.NewRGB(27, 38, 54),
-		URL:              "/",
+	// Application menu, shown as a hamburger button in the main window's
+	// header bar (GNOME-style primary menu). Menu items run through the app
+	// action group; OnClick callbacks fire on activation.
+	appMenu := application.NewMenu()
+	appMenu.Add("Settings").OnClick(func(*application.Context) {
+		openSettings()
+	})
+	appMenu.Add("Exit").OnClick(func(*application.Context) {
+		application.Get().Quit()
+	})
+	app.Menu.Set(appMenu)
+
+	app.Event.OnApplicationEvent(events.Linux.ApplicationStartup, func(*application.ApplicationEvent) {
+		mainWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
+			Title:            "Frequency Browser",
+			Width:            1024,
+			Height:           768,
+			BackgroundColour: application.NewRGB(27, 38, 54),
+			URL:              "/",
+			// Render the application menu as a hamburger button in this
+			// window's native header bar instead of a traditional menu bar.
+			// The style is needed because the default menu-bar style cannot
+			// display plain top-level action items (GTK drops them with a
+			// warning).
+			UseApplicationMenu: true,
+			Linux: application.LinuxWindow{
+				MenuStyle: application.LinuxMenuStylePrimaryMenu,
+			},
+		})
 	})
 
 	err := app.Run()
