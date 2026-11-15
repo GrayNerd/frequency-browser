@@ -10,7 +10,7 @@ import (
     "time"
     "math"
     
-    "github.com/wailsapp/wails/v2/pkg/runtime"
+    "github.com/wailsapp/wails/v3/pkg/application"
 )
 
 // RadioInterface defines the methods required for radio communication.
@@ -177,7 +177,7 @@ func (a *App) pollRadioFrequency() {
                 errorCount++
                 if errorCount >= maxErrorCount {
                     a.isConnected = false
-                    runtime.EventsEmit(a.ctx, "connectionStatus", false)
+                    application.Get().Event.Emit("connectionStatus", false)
                     log.Printf("Connection lost: %v", err)
                 }
                 continue
@@ -186,13 +186,13 @@ func (a *App) pollRadioFrequency() {
             // Reset error count on successful communication
             errorCount = 0
             a.isConnected = true
-            runtime.EventsEmit(a.ctx, "connectionStatus", true)
+            application.Get().Event.Emit("connectionStatus", true)
 
 			// Emit modeUpdate if mode changed
 			mode, err := a.getMode()
 			if err == nil && mode != a.lastMode {
 				a.lastMode = mode
-				runtime.EventsEmit(a.ctx, "modeUpdate", mode)
+				application.Get().Event.Emit("modeUpdate", mode)
 			}
 
             
@@ -201,7 +201,7 @@ func (a *App) pollRadioFrequency() {
                 lastFrequency = frequency
                 
                 // Send frequency to frontend as float
-                runtime.EventsEmit(a.ctx, "frequencyUpdate", frequency)
+                application.Get().Event.Emit("frequencyUpdate", frequency)
             }
         }
     }

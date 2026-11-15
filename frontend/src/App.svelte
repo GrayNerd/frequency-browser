@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { EventsOn } from "../wailsjs/runtime";
+  import { Events } from "@wailsio/runtime";
   import { MoveRowsModule, TabulatorFull as Tabulator } from "tabulator-tables";
   import "tabulator-tables/dist/css/tabulator.min.css";
   import {
@@ -14,8 +14,6 @@
     LoadHfccList,
     SaveHfccList,
     LoadImportDates,
-  } from "../wailsjs/go/main/App";
-  import {
     GetCurrentFrequency,
     SetFrequency,
     GetMode,
@@ -23,7 +21,7 @@
     UpdateConfig,
     SendCustomCommand,
     GetFrequencyRange,
-  } from "../wailsjs/go/main/App";
+  } from "../bindings/frequency-browser/app";
   import app from "./main";
 
   // UI State and Components
@@ -850,7 +848,11 @@
       await updateStatus();
     })();
 
-    EventsOn("frequencyUpdate", (newFrequency) => {
+    // In v3 the callback receives a WailsEvent object whose payload is on
+    // .data (v2 passed the payload directly), and On() returns an unsubscribe
+    // function so the listeners can be detached in the cleanup below.
+    const unsubFrequency = Events.On("frequencyUpdate", (ev) => {
+      const newFrequency = ev.data;
       if (!manualFrequency) {
         frequency =
           typeof newFrequency === "string"
@@ -859,11 +861,12 @@
       }
     });
 
-    EventsOn("modeUpdate", (newMode) => {
-      mode = newMode;
+    const unsubMode = Events.On("modeUpdate", (ev) => {
+      mode = ev.data;
     });
 
-    EventsOn("connectionStatus", (isConnected) => {
+    const unsubConnection = Events.On("connectionStatus", (ev) => {
+      const isConnected = ev.data;
       connected = isConnected;
       statusMessage = isConnected ? "Connected to radio" : "Disconnected";
     });
@@ -873,6 +876,9 @@
     return () => {
       clearInterval(timeInterval);
       window.removeEventListener("resize", handleResize);
+      unsubFrequency();
+      unsubMode();
+      unsubConnection();
       if (manualInputDebounceTimer !== null) {
         clearTimeout(manualInputDebounceTimer);
         manualInputDebounceTimer = null;

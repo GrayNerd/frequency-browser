@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=frequency-browser
+Exec=frequency-browser
+Icon=frequency-browser
+Categories=Development;
+Terminal=false
+Keywords=wails
+Version=1.0
+StartupNotify=false

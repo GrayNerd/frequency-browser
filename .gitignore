@@ -1,6 +1,10 @@
 build/bin
+.task
+bin
 node_modules
 frontend/dist
+build/linux/appimage/build
+build/windows/nsis/MicrosoftEdgeWebview2Setup.exe
 hfcc-reftables.json
 *-list.json
 eibi-reftables.json
