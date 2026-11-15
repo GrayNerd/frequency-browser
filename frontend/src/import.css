@@ -1,5 +1,7 @@
-/* Import window. Mirrors the Settings window layout: container, column of
- * import rows, OK button at the bottom. */
+/* Import window. Mirrors the Settings window layout: column of import rows
+ * and OK button at the bottom. The window title (native header) already says
+ * "Import", so no in-body heading is needed; the fixed window height is sized
+ * so the OK button fits without scrolling. */
 
 :root {
   color-scheme: dark;
@@ -28,13 +30,6 @@ body {
   flex-direction: column;
   height: 100vh;
   padding: 16px;
-}
-
-.import-window h1 {
-  color: var(--fg);
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 16px;
 }
 
 .import-buttons {

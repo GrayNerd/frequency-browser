@@ -41,6 +41,12 @@ func openImportWindow() {
 		Height: 220,
 		URL:    "/import.html",
 		Hidden: true,
+		// Fixed size: not resizable, sized so the OK button fits.
+		DisableResize: true,
+		MinWidth:     480,
+		MinHeight:    220,
+		MaxWidth:     480,
+		MaxHeight:    220,
 	})
 	importWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
 		importWindow = nil
