@@ -683,9 +683,13 @@
   }
 
   // Formats a recorded import time for the label beside each button.
-  // Returns a short local date, or a dash when the source was never imported.
-  function formatImportDate(source) {
-    const recorded = importDates && importDates[source];
+  //
+  // `dates` is passed explicitly rather than closed over: Svelte only re-renders
+  // a call expression when the variables it references are passed as arguments.
+  // Without the parameter the compiler emits no update branch and the label
+  // keeps showing its initial value.
+  function formatImportDate(dates, source) {
+    const recorded = dates && dates[source];
     if (!recorded) return "never";
 
     const when = new Date(recorded);
@@ -702,7 +706,9 @@
   // Reads the stored import times so the labels survive a restart.
   async function refreshImportDates() {
     try {
-      importDates = (await LoadImportDates()) || {};
+      const dates = (await LoadImportDates()) || {};
+      // Always replace the object so the assignment is seen as a change.
+      importDates = { ...dates };
     } catch (error) {
       console.error("Error loading import dates:", error);
       importDates = {};
@@ -1078,7 +1084,7 @@
           {loadingEiBi ? "Downloading..." : "Import EiBi"}
         </button>
         <span class="import-date" title="Last successful download">
-          {formatImportDate("EiBi")}
+          {formatImportDate(importDates, "EiBi")}
         </span>
       </div>
 
@@ -1087,7 +1093,7 @@
           {loadingAoki ? "Downloading..." : "Import AOKI"}
         </button>
         <span class="import-date" title="Last successful download">
-          {formatImportDate("AOKI")}
+          {formatImportDate(importDates, "AOKI")}
         </span>
       </div>
 
@@ -1096,7 +1102,7 @@
           {loadingHfcc ? "Downloading..." : "Import HFCC"}
         </button>
         <span class="import-date" title="Last successful download">
-          {formatImportDate("HFCC")}
+          {formatImportDate(importDates, "HFCC")}
         </span>
       </div>
     </div>
