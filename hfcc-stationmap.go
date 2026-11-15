@@ -45,11 +45,13 @@ func loadHfccStationMap(filename string) {
     
     fmt.Printf("Loaded %d station mappings\n", len(HfccStationMap))
 }
-// getLanguageName returns the full language name for an abbreviation or multiple abbreviations
+// GetHfccStationName returns the broadcaster name for a given station code
 func GetHfccStationName(stationCode string) string {
 	code := strings.TrimSpace(strings.ToUpper(stationCode))
-	if stationName, exists := HfccStationMap[code]; exists {
-
+	referenceTablesMu.RLock()
+	stationName, exists := HfccStationMap[code]
+	referenceTablesMu.RUnlock()
+	if exists {
 		return stationName
 	}
 	return stationCode+" Unknown"

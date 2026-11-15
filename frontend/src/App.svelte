@@ -378,17 +378,19 @@
     debugInfo = "";
 
     try {
-      console.log("Starting EiBi CSV import...");
+      // No file dialog any more: the backend downloads the newest EiBi schedule
+      // database (sked-???.csv) plus README.TXT from http://www.eibispace.de/.
+      console.log("Downloading newest EiBi schedule from http://www.eibispace.de/...");
       const data = await ImportEiBi();
-      console.log("EiBi CSV data received:", data);
+      console.log("EiBi data received:", data);
 
       if (!data) {
-        successMessage = "EiBi CSV Import cancelled by user";
+        successMessage = "EiBi import cancelled";
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in EiBi CSV file";
+        successMessage = "No data rows found in the newest EiBi schedule";
         return;
       }
 
@@ -397,11 +399,11 @@
       console.log(`Combined to ${allData.length} records`);
       applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records and saved to eibi-list.json`;
+      successMessage = `Successfully imported ${data.length} records from the newest EiBi schedule (reference tables refreshed) and saved to eibi-list.json`;
     } catch (err) {
-      errorMessage = `Failed to import EiBi CSV: ${err.message || "Unknown error"}`;
-      console.error("EiBi CSV Import error details:", err);
-      debugInfo = `EiBi CSV Import Error details: ${err.toString()}`;
+      errorMessage = `Failed to import EiBi data: ${err.message || "Unknown error"}`;
+      console.error("EiBi Import error details:", err);
+      debugInfo = `EiBi Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
       loadingEiBi = false;
@@ -416,17 +418,19 @@
     debugInfo = "";
 
     try {
-      console.log("Starting Aoki CSV import...");
+      // No file dialog any more: the backend downloads the newest AOKI shortwave
+      // schedule archive from the Bi Newsletter page and unpacks the .txt inside.
+      console.log("Downloading newest AOKI schedule from the Bi Newsletter page...");
       const data = await ImportAOKI();
-      console.log("Aoki CSV data received:", data);
+      console.log("Aoki data received:", data);
 
       if (!data) {
-        successMessage = "Aoki CSV Import cancelled by user";
+        successMessage = "Aoki import cancelled";
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in Aoki CSV file";
+        successMessage = "No data rows found in the newest AOKI schedule";
         return;
       }
 
@@ -434,11 +438,11 @@
       allData = await combineLists();
       applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records and saved to aoki-list.json`;
+      successMessage = `Successfully imported ${data.length} records from the newest AOKI schedule and saved to aoki-list.json`;
     } catch (err) {
-      errorMessage = `Failed to import Aoki CSV: ${err.message || "Unknown error"}`;
-      console.error("Aoki CSV Import error details:", err);
-      debugInfo = `Aoki CSV Import Error details: ${err.toString()}`;
+      errorMessage = `Failed to import AOKI data: ${err.message || "Unknown error"}`;
+      console.error("Aoki Import error details:", err);
+      debugInfo = `Aoki Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
       loadingAoki = false;
@@ -453,17 +457,19 @@
     debugInfo = "";
 
     try {
-      console.log("Starting Hfcc CSV import...");
+      // No file dialog any more: the backend downloads the newest operational
+      // schedule archive from https://new.hfcc.org/data/ and parses it.
+      console.log("Downloading newest HFCC schedule from https://new.hfcc.org/data/...");
       const data = await ImportHFCC();
-      console.log("Hfcc CSV data received:", data);
+      console.log("Hfcc data received:", data);
 
       if (!data) {
-        successMessage = "Hfcc CSV Import cancelled by user";
+        successMessage = "Hfcc import cancelled";
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in Hfcc CSV file";
+        successMessage = "No data rows found in the newest HFCC schedule";
         return;
       }
 
@@ -471,11 +477,11 @@
       allData = await combineLists();
       applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records and saved to hfcc-list.json`;
+      successMessage = `Successfully imported ${data.length} records from the newest HFCC schedule (reference tables refreshed) and saved to hfcc-list.json`;
     } catch (err) {
-      errorMessage = `Failed to import hfcc CSV: ${err.message || "Unknown error"}`;
-      console.error("hfcc CSV Import error details:", err);
-      debugInfo = `Hfcc CSV Import Error details: ${err.toString()}`;
+      errorMessage = `Failed to import HFCC data: ${err.message || "Unknown error"}`;
+      console.error("hfcc Import error details:", err);
+      debugInfo = `Hfcc Import Error details: ${err.toString()}`;
     } finally {
       loading = false;
       loadingHfcc = false;
@@ -1032,15 +1038,15 @@
     </div>
 
     <button id="import-eibi" on:click={importEiBi} disabled={loading}>
-      {loadingEiBi ? "Importing..." : "Import EiBi"}
+      {loadingEiBi ? "Downloading..." : "Import EiBi"}
     </button>
 
     <button id="import-aoki" on:click={importAoki} disabled={loading}>
-      {loadingAoki ? "Importing..." : "Import AOKI"}
+      {loadingAoki ? "Downloading..." : "Import AOKI"}
     </button>
 
     <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
-      {loadingHfcc ? "Importing..." : "Import HFCC"}
+      {loadingHfcc ? "Downloading..." : "Import HFCC"}
     </button>
   </div>
 

@@ -1,11 +1,12 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
 	"log"
-	"embed"
 	"regexp"
+	"strings"
 	"sync"
 )
 
@@ -64,9 +65,9 @@ func loadSitesData() {
 }
 
 // GetSiteDescription returns the site name for the given country and site abbreviations
-// If siteAbbrev is empty, it returns the site name with empty site abbreviation 
+// If siteAbbrev is empty, it returns the site name with empty site abbreviation
 // if siteAbbrev is /XXX, it returns the country name
-// if siteAbbrev is /XXX-xx, it returns the country name and site name 
+// if siteAbbrev is /XXX-xx, it returns the country name and site name
 func GetSiteDescription(countryAbbrev, siteAbbrev string) string {
 	// Check if the country exists
 	countrySites, exists := SitesMap[countryAbbrev]
@@ -91,7 +92,7 @@ func GetSiteDescription(countryAbbrev, siteAbbrev string) string {
 	slashAlphaRegex := regexp.MustCompile(`^/([a-zA-Z]{1,3})$`)
 	if matches := slashAlphaRegex.FindStringSubmatch(siteAbbrev); matches != nil {
 		// matches[1] contains the alpha characters without the slash
-			return GetCountryName(matches[1])
+		return GetCountryName(matches[1])
 	}
 
 	// Regex for /XXX-xx
@@ -108,4 +109,94 @@ func GetSiteDescription(countryAbbrev, siteAbbrev string) string {
 		}
 	}
 	return fmt.Sprintf("Site '%s' not found for country '%s'", siteAbbrev, countryAbbrev)
+}
+
+// GetEiBiSiteDescription resolves an EiBi transmitter-site code, as found in
+// column 8 of the EiBi CSV database.
+//
+// A bare code ("mo") refers to a site in the station's home country, "/XXX"
+// to the host country of a relay, and "/XXX-ab" to a specific relay site. An
+// empty code means the country's only (or main) transmitter site. Unknown codes
+// return an empty string so the caller can fall back.
+func GetEiBiSiteDescription(countryAbbrev, siteAbbrev string) string {
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
+
+	code := strings.TrimSpace(siteAbbrev)
+	country := strings.ToUpper(strings.TrimSpace(countryAbbrev))
+
+	// /XXX or /XXX-ab: the relay is in another country.
+	if strings.HasPrefix(code, "/") {
+		relayCountry := strings.TrimPrefix(code, "/")
+		relaySite := ""
+		if dash := strings.Index(relayCountry, "-"); dash >= 0 {
+			relayCountry, relaySite = relayCountry[:dash], relayCountry[dash+1:]
+		}
+		relayCountry = strings.ToUpper(relayCountry)
+		if relaySite == "" {
+			if name := GetCountryName(relayCountry); name != relayCountry {
+				return name
+			}
+			return ""
+		}
+		if name, ok := lookupEiBiSite(relayCountry, relaySite); ok {
+			return GetCountryName(relayCountry) + " - " + name
+		}
+		if name := GetCountryName(relayCountry); name != relayCountry {
+			return name
+		}
+		return ""
+	}
+
+	if name, ok := lookupEiBiSite(country, code); ok {
+		return name
+	}
+	return ""
+}
+
+// lookupEiBiSite returns the site name for a country and code.
+//
+// The refreshed README table is authoritative whenever it describes the
+// country. The embedded sites.json is a fallback only for countries it does not
+// cover, and only for real site codes: its empty-key entries were generated from
+// an older README and contain leaked codes (e.g. "L-Luena (Moxico)").
+// Callers must hold referenceTablesMu.
+func lookupEiBiSite(country, code string) (string, bool) {
+	country = strings.ToUpper(strings.TrimSpace(country))
+	if sites, ok := eibiSiteMap[country]; ok {
+		if name, ok := sites[code]; ok && name != "" {
+			return name, true
+		}
+		// An empty code means "the country's only site", which EiBi leaves
+		// implicit when there is just one transmitter site in that country.
+		if code == "" && len(sites) == 1 {
+			for _, name := range sites {
+				if name != "" {
+					return name, true
+				}
+			}
+		}
+		return "", false
+	}
+
+	if sites, ok := SitesMap[country]; ok {
+		if name, ok := sites[code]; ok && name != "" {
+			if code == "" && looksLikeLeakedSiteCode(name) {
+				return "", false
+			}
+			return name, true
+		}
+	}
+	return "", false
+}
+
+// looksLikeLeakedSiteCode reports whether a default site name taken from
+// sites.json is really a "code-Name" string that the old converter failed to
+// split, e.g. "L-Luena (Moxico)" or "tr2-Trenton Receiver Site ON".
+func looksLikeLeakedSiteCode(name string) bool {
+	dash := strings.Index(name, "-")
+	if dash < 1 || dash > 3 {
+		return false
+	}
+	return isAlphaNumeric(name[:dash])
 }

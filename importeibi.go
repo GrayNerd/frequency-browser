@@ -4,12 +4,17 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
 	"os"
+	"path"
 	"path/filepath"
+	"regexp"
+	"sort"
+	"strconv"
 	"strings"
-
-	"golang.org/x/text/encoding/charmap"
-	"golang.org/x/text/transform"
+	"time"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -26,6 +31,28 @@ type CSVRow struct {
 	Target      string `json:"target"`
 	Transmitter string `json:"transmitter"` // New field
 	Source      string `json:"source"`      // New field
+}
+
+const (
+	// eibiSiteURL is the EiBi home page; it links the current season's CSV
+	// database and the README with the reference tables.
+	eibiSiteURL = "http://www.eibispace.de/"
+	eibiBaseURL = "http://www.eibispace.de/"
+
+	// eibiHTTPTimeout bounds each HTTP request made while importing.
+	eibiHTTPTimeout = 2 * time.Minute
+)
+
+var eibiScheduleLinkRE = regexp.MustCompile(`(?i)HREF="([^"]*sked-[a-z0-9]+\.csv)"`)
+
+// eibiSeasonRE extracts the season from a file name, e.g. "sked-b26.csv" -> "B26".
+var eibiSeasonRE = regexp.MustCompile(`(?i)sked-([ab])(\d{2})\.csv`)
+
+// eibiSeason describes the EiBi schedule currently published on the web site.
+type eibiSeason struct {
+	Season string // "B26"
+	URL    string // absolute URL of the CSV database
+	Name   string // file name, e.g. "sked-b26.csv"
 }
 
 // parseTimeRange splits a time range like "0000-2400" into start and end times
@@ -54,38 +81,180 @@ func isHeaderRow(record []string) bool {
 		strings.Contains(firstField, "frequency") || strings.Contains(firstField, "freq")
 }
 
-// ImportEiBi imports a CSV file and returns its contents
+// ImportEiBi downloads the newest EiBi schedule database (sked-???.csv) and its
+// README.TXT reference tables, refreshes the lookups and returns the rows.
 func (a *App) ImportEiBi() ([]CSVRow, error) {
-	// Open file dialog
-	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Select CSV File",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "CSV Files (*.csv)",
-				Pattern:     "*.csv",
-			},
-		},
+	season, err := eibiFetchCurrentSeason()
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Downloading EiBi schedule %s from %s\n", season.Season, season.URL)
+
+	sked, err := eibiDownload(season.URL)
+	if err != nil {
+		return nil, err
+	}
+
+	// Refresh the reference tables from README.TXT before parsing, so new
+	// language, country, target and transmitter-site codes resolve.
+	tables, err := eibiFetchReferenceTables(season.Season)
+	if err != nil {
+		fmt.Printf("Warning: could not refresh EiBi reference tables: %v\n", err)
+	} else {
+		if len(tables.Missing) > 0 {
+			fmt.Printf("EiBi README.TXT is missing %s; keeping existing entries\n",
+				strings.Join(tables.Missing, ", "))
+		}
+		stats := eibiApplyReferenceTables(tables)
+		fmt.Printf("Updated EiBi %s\n", stats)
+		if err := eibiSaveReferenceTables(tables); err != nil {
+			fmt.Printf("Warning: could not cache EiBi reference tables: %v\n", err)
+		}
+	}
+
+	data, err := eibiParseSchedule(sked)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Parsed %d data rows from EiBi %s\n", len(data), season.Name)
+	return data, nil
+}
+
+// eibiDownload fetches rawURL and returns the response body.
+func eibiDownload(rawURL string) ([]byte, error) {
+	req, err := http.NewRequest(http.MethodGet, rawURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("building request for %s: %w", rawURL, err)
+	}
+	req.Header.Set("User-Agent", "frequency-browser/1.0")
+
+	client := &http.Client{Timeout: eibiHTTPTimeout}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("downloading %s: %w", rawURL, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("downloading %s: unexpected status %s", rawURL, resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("reading %s: %w", rawURL, err)
+	}
+	return body, nil
+}
+
+// eibiFetchCurrentSeason reads the EiBi home page and returns the schedule
+// database for the current season.
+func eibiFetchCurrentSeason() (eibiSeason, error) {
+	page, err := eibiDownload(eibiSiteURL)
+	if err != nil {
+		return eibiSeason{}, err
+	}
+	seasons := eibiParseSeasonLinks(page, eibiBaseURL)
+	if len(seasons) == 0 {
+		return eibiSeason{}, fmt.Errorf("no schedule database (sked-???.csv) found on %s", eibiSiteURL)
+	}
+	return seasons[len(seasons)-1], nil
+}
+
+// eibiParseSeasonLinks extracts every schedule database reference from the EiBi
+// home page, resolving relative links against baseURL and ordering the list by
+// season so the last entry is the current one.
+func eibiParseSeasonLinks(page []byte, baseURL string) []eibiSeason {
+	base, err := url.Parse(baseURL)
+	if err != nil {
+		return nil
+	}
+
+	matches := eibiScheduleLinkRE.FindAllSubmatchIndex(page, -1)
+	seasons := make([]eibiSeason, 0, len(matches))
+	seen := make(map[string]struct{}, len(matches))
+
+	for _, match := range matches {
+		href := string(page[match[2]:match[3]])
+		ref, err := url.Parse(href)
+		if err != nil {
+			continue
+		}
+
+		name := path.Base(ref.Path)
+		if _, dup := seen[name]; dup {
+			continue
+		}
+		seen[name] = struct{}{}
+
+		s := eibiSeason{
+			Season: eibiSeasonCode(name),
+			Name:   name,
+			URL:    base.ResolveReference(ref).String(),
+		}
+		if s.Season == "" {
+			continue
+		}
+		seasons = append(seasons, s)
+	}
+
+	sort.SliceStable(seasons, func(i, j int) bool {
+		iy, io := eibiSeasonRank(seasons[i].Season)
+		jy, jo := eibiSeasonRank(seasons[j].Season)
+		if iy != jy {
+			return iy < jy
+		}
+		return io < jo
 	})
+	return seasons
+}
+
+// eibiSeasonCode returns the season code of a schedule file name
+// ("sked-b26.csv" -> "B26"), or an empty string when it has none.
+func eibiSeasonCode(name string) string {
+	match := eibiSeasonRE.FindStringSubmatch(name)
+	if match == nil {
+		return ""
+	}
+	return strings.ToUpper(match[1] + match[2])
+}
+
+// eibiSeasonRank orders season codes chronologically: A25, B25, A26, B26.
+func eibiSeasonRank(season string) (year int, order int) {
+	if len(season) < 3 {
+		return 0, 0
+	}
+	year, err := strconv.Atoi(season[1:])
 	if err != nil {
-		return nil, fmt.Errorf("error opening file dialog: %w", err)
+		return 0, 0
 	}
-
-	if filePath == "" {
-		return nil, nil // User cancelled
+	if strings.EqualFold(season[:1], "A") {
+		return year, 0
 	}
+	return year, 1
+}
 
-	file, err := os.Open(filePath)
+// eibiFetchReferenceTables downloads README.TXT and parses its reference tables.
+func eibiFetchReferenceTables(season string) (eibiReferenceTables, error) {
+	readme, err := eibiDownload(eibiBaseURL + "dx/README.TXT")
 	if err != nil {
-		return nil, fmt.Errorf("error opening file: %w", err)
+		return eibiReferenceTables{}, err
 	}
-	defer file.Close()
 
-	// Create a reader that converts from Windows-1252 to UTF-8 and removes BOM
-	decodedReader := transform.NewReader(file, charmap.Windows1252.NewDecoder())
+	tables := eibiParseReadme(readme)
+	tables.Season = season
+	return tables, nil
+}
+
+// eibiParseSchedule converts the EiBi CSV database into rows.
+func eibiParseSchedule(content []byte) ([]CSVRow, error) {
+	// Create a reader that converts from Windows-1252 to UTF-8
+	decodedReader := strings.NewReader(eibiDecodeText(content))
 
 	// Parse CSV
 	reader := csv.NewReader(decodedReader)
-	reader.Comma = ';'          
+	reader.Comma = ';'
 	reader.FieldsPerRecord = -1 // Allow variable number of fields
 	reader.TrimLeadingSpace = true
 	reader.LazyQuotes = true
@@ -124,7 +293,7 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 		timeUTC := strings.TrimSpace(record[1])
 		startTime, endTime := ParseTimeRange(timeUTC)
 
-		daysString := ConvertDays(strings.TrimSpace(record[2]))	
+		daysString := ConvertDays(strings.TrimSpace(record[2]))
 		ituCode := strings.TrimSpace(record[3])
 		countryName := GetCountryName(ituCode)
 
@@ -140,8 +309,9 @@ func (a *App) ImportEiBi() ([]CSVRow, error) {
 			targetName = GetCountryName(targetCode) // Use country name if target code not found (e.g. "code")
 		}
 
-		// fmt.Printf("looking up transmitter for %s\n", ituCode)
-		transmitter := GetSiteDescription(ituCode, strings.TrimSpace(record[7]))
+		// Resolve the transmitter site from the refreshed README table, falling
+		// back to the embedded sites.json for countries it does not cover.
+		transmitter := GetEiBiSiteDescription(ituCode, strings.TrimSpace(record[7]))
 
 		row := CSVRow{
 			Khz:         strings.TrimSpace(record[0]),
@@ -233,4 +403,3 @@ func (a *App) SaveEIBIList(data []CSVRow) error {
 
 	return nil
 }
-

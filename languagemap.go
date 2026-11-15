@@ -51,9 +51,12 @@ func loadLanguageMap(filename string) {
 
 // getLanguageName returns the full language name for an abbreviation or multiple abbreviations
 func getLanguageName(langCode string) string {
-    if langCode == "" {
-        return ""
-    }
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
+
+	if langCode == "" {
+		return ""
+	}
     
     // Split by comma to handle multiple languages
     codes := strings.Split(langCode, ",")

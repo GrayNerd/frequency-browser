@@ -32,6 +32,12 @@ func NewApp() *App {
 func (a *App) startup(ctx context.Context) {
     a.ctx = ctx
     a.config.Address = "localhost:4532" // Default rigctld address
+	// Merge reference tables cached by a previous HFCC import over the
+	// embedded defaults, so new site/broadcaster/country/language codes still
+	// resolve when the machine is offline.
+	hfccLoadReferenceCache()
+	// Same for the tables parsed from EiBi's README.TXT.
+	eibiLoadReferenceCache()
 	a.pollingActive = true
 	go a.pollRadioFrequency()
 

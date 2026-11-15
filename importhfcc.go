@@ -1,14 +1,21 @@
 package main
 
 import (
+	"archive/zip"
 	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
 	"os"
+	"path"
 	"path/filepath"
-	// "strings"
-
-	// "time"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
 
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
@@ -16,52 +23,304 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
+const (
+	// hfccDataPageURL is the HFCC public data files index page. It lists every
+	// published operational schedule archive (*allx2.zip).
+	hfccDataPageURL = "https://new.hfcc.org/data/"
 
+	// hfccHTTPTimeout bounds each HTTP request made while importing.
+	hfccHTTPTimeout = 2 * time.Minute
 
+	// hfccScheduleNamePrefixLen is the number of leading characters shared by a
+	// schedule archive and the schedule data file inside it. For example
+	// "b26allx2.zip" contains "B26all00.TXT" (both start with "b26a").
+	hfccScheduleNamePrefixLen = 4
+)
+
+// hfccSchedule describes one downloadable schedule archive listed on the HFCC
+// public data files page.
+type hfccSchedule struct {
+	Name    string    // Archive file name, e.g. "B26allx2.zip"
+	URL     string    // Absolute URL of the archive
+	Season  string    // Season code taken from the name, e.g. "B26"
+	Updated time.Time // "Last updated on" date from the page, zero if absent
+}
+
+var (
+	hfccScheduleLinkRE = regexp.MustCompile(`(?i)HREF="([^"]*allx2\.zip)"`)
+	hfccLastUpdatedRE  = regexp.MustCompile(`(?i)Last updated on\s+(\d{1,2})-([A-Za-z]{3})-(\d{4})`)
+	hfccSeasonRE       = regexp.MustCompile(`(?i)^([ab])(\d{2})`)
+)
+
+// ImportHFCC downloads the newest operational schedule published on the HFCC
+// public data files page, extracts the matching schedule file from the archive
+// and returns the parsed rows.
 func (a *App) ImportHFCC() ([]CSVRow, error) {
-	// Open file dialog
-	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Select HFCC File (userlist1.txt)",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "Text Files (*.txt)",
-				Pattern:     "*.txt",
-			},
-			{
-				DisplayName: "All Files (*.*)",
-				Pattern:     "*.*",
-			},
-		},
-	})
+	page, err := hfccFetchSchedulePage()
 	if err != nil {
-		return nil, fmt.Errorf("error opening file dialog: %w", err)
+		return nil, err
 	}
 
-	if filePath == "" {
-		return nil, nil // User cancelled
+	schedules := hfccParseScheduleLinks(page, hfccDataPageURL)
+	newest, ok := hfccNewestSchedule(schedules)
+	if !ok {
+		return nil, fmt.Errorf("no schedule archives (*allx2.zip) found on %s", hfccDataPageURL)
 	}
 
-	file, err := os.Open(filePath)
+	fmt.Printf("Downloading HFCC schedule %s from %s\n", newest.Season, newest.URL)
+
+	archive, err := hfccDownload(newest.URL)
 	if err != nil {
-		return nil, fmt.Errorf("error opening file: %w", err)
+		return nil, err
 	}
-	defer file.Close()
 
-	// Create a reader that converts from Windows-1252 to UTF-8
-	transformer := transform.NewReader(file, charmap.Windows1252.NewDecoder())
+	fileName, content, err := hfccScheduleFromZip(archive, newest.Name)
+	if err != nil {
+		return nil, err
+	}
 
-	scanner := bufio.NewScanner(transformer)
+	// Refresh the reference tables (sites, broadcasters, administrations,
+	// languages) from the same archive before parsing, so new codes resolve.
+	tables, err := hfccReferenceTablesFromZip(archive, newest.Name)
+	if err != nil {
+		return nil, err
+	}
+	tables.Season = newest.Season
+	if len(tables.Missing) > 0 {
+		fmt.Printf("HFCC archive %s has no %s; keeping existing entries\n",
+			newest.Name, strings.Join(tables.Missing, ", "))
+	}
+	stats := hfccApplyReferenceTables(tables)
+	fmt.Printf("Updated HFCC %s\n", stats)
+	if err := hfccSaveReferenceTables(tables); err != nil {
+		fmt.Printf("Warning: could not cache HFCC reference tables: %v\n", err)
+	}
 
-	// Convert to struct
-	var data []CSVRow
-	i := 0
-	for scanner.Scan() {
-		i++
-		if i < 8 {
+	data, err := hfccParseScheduleFile(content)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Parsed %d data rows from HFCC file %s (season %s)\n", len(data), fileName, newest.Season)
+	return data, nil
+}
+
+// hfccFetchSchedulePage retrieves the HTML of the HFCC public data files page.
+func hfccFetchSchedulePage() ([]byte, error) {
+	return hfccDownload(hfccDataPageURL)
+}
+
+// hfccDownload fetches rawURL and returns the response body.
+func hfccDownload(rawURL string) ([]byte, error) {
+	req, err := http.NewRequest(http.MethodGet, rawURL, nil)
+	if err != nil {
+		return nil, fmt.Errorf("building request for %s: %w", rawURL, err)
+	}
+	req.Header.Set("User-Agent", "frequency-browser/1.0")
+
+	client := &http.Client{Timeout: hfccHTTPTimeout}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("downloading %s: %w", rawURL, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("downloading %s: unexpected status %s", rawURL, resp.Status)
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("reading %s: %w", rawURL, err)
+	}
+	return body, nil
+}
+
+// hfccParseScheduleLinks extracts every schedule archive reference from the
+// HFCC data page HTML, resolving relative links against baseURL.
+func hfccParseScheduleLinks(page []byte, baseURL string) []hfccSchedule {
+	base, err := url.Parse(baseURL)
+	if err != nil {
+		return nil
+	}
+
+	matches := hfccScheduleLinkRE.FindAllSubmatchIndex(page, -1)
+	schedules := make([]hfccSchedule, 0, len(matches))
+	for i, match := range matches {
+		href := string(page[match[2]:match[3]])
+
+		// The "Last updated on" note follows the link inside the same list item,
+		// so only look at the text up to the next archive link.
+		textEnd := len(page)
+		if i+1 < len(matches) {
+			textEnd = matches[i+1][0]
+		}
+		note := page[match[1]:textEnd]
+
+		ref, err := url.Parse(href)
+		if err != nil {
 			continue
 		}
 
-		line := scanner.Text()
+		name := path.Base(ref.Path)
+		schedule := hfccSchedule{
+			Name:   name,
+			URL:    base.ResolveReference(ref).String(),
+			Season: hfccSeasonCode(name),
+		}
+		if updated, ok := hfccParseLastUpdated(note); ok {
+			schedule.Updated = updated
+		}
+		schedules = append(schedules, schedule)
+	}
+	return schedules
+}
+
+// hfccParseLastUpdated pulls the update date out of the text that follows a
+// schedule link, e.g. "Last updated on 14-Nov-2026".
+func hfccParseLastUpdated(text []byte) (time.Time, bool) {
+	match := hfccLastUpdatedRE.FindSubmatch(text)
+	if match == nil {
+		return time.Time{}, false
+	}
+
+	day := string(match[1])
+	month := strings.ToUpper(string(match[2][:1])) + strings.ToLower(string(match[2][1:]))
+	year := string(match[3])
+
+	updated, err := time.Parse("2-Jan-2006", day+"-"+month+"-"+year)
+	if err != nil {
+		return time.Time{}, false
+	}
+	return updated, true
+}
+
+// hfccSeasonCode derives the season code ("B26") from an archive name
+// ("b26allx2.zip"). It returns an empty string when the name has no season.
+func hfccSeasonCode(name string) string {
+	match := hfccSeasonRE.FindStringSubmatch(name)
+	if match == nil {
+		return ""
+	}
+	return strings.ToUpper(match[1] + match[2])
+}
+
+// hfccSeasonRank orders season codes chronologically: B25, A26, B26, ...
+// The letter is the half of the season (A before B) and the number the year.
+func hfccSeasonRank(season string) (year int, order int) {
+	if len(season) < 3 {
+		return 0, 0
+	}
+	year, err := strconv.Atoi(season[1:])
+	if err != nil {
+		return 0, 0
+	}
+	if strings.EqualFold(season[:1], "A") {
+		return year, 0
+	}
+	return year, 1
+}
+
+// hfccNewestSchedule returns the most recent schedule in the list. The
+// "Last updated" date wins when the page provides one, otherwise the season
+// code decides.
+func hfccNewestSchedule(schedules []hfccSchedule) (hfccSchedule, bool) {
+	var best hfccSchedule
+	found := false
+
+	for _, schedule := range schedules {
+		if !found {
+			best = schedule
+			found = true
+			continue
+		}
+		if hfccScheduleNewer(schedule, best) {
+			best = schedule
+		}
+	}
+	return best, found
+}
+
+// hfccScheduleNewer reports whether schedule a should be preferred over b.
+func hfccScheduleNewer(a, b hfccSchedule) bool {
+	if !a.Updated.Equal(b.Updated) {
+		return a.Updated.After(b.Updated)
+	}
+
+	aYear, aOrder := hfccSeasonRank(a.Season)
+	bYear, bOrder := hfccSeasonRank(b.Season)
+	if aYear != bYear {
+		return aYear > bYear
+	}
+	return aOrder > bOrder
+}
+
+// hfccScheduleFromZip returns the name and contents of the schedule data file
+// inside archive: the first *.txt entry whose first four characters match the
+// first four characters of the archive name (B26allx2.zip -> B26all00.TXT).
+func hfccScheduleFromZip(archive []byte, archiveName string) (string, []byte, error) {
+	reader, err := zip.NewReader(bytes.NewReader(archive), int64(len(archive)))
+	if err != nil {
+		return "", nil, fmt.Errorf("opening zip archive %s: %w", archiveName, err)
+	}
+
+	prefix := strings.ToLower(archiveName)
+	if len(prefix) > hfccScheduleNamePrefixLen {
+		prefix = prefix[:hfccScheduleNamePrefixLen]
+	}
+
+	var entries []string
+	for _, file := range reader.File {
+		if file.FileInfo().IsDir() {
+			continue
+		}
+
+		name := path.Base(file.Name)
+		entries = append(entries, name)
+
+		lowerName := strings.ToLower(name)
+		if len(name) < hfccScheduleNamePrefixLen || !strings.HasSuffix(lowerName, ".txt") {
+			continue
+		}
+		if lowerName[:hfccScheduleNamePrefixLen] != prefix {
+			continue
+		}
+
+		fileReader, err := file.Open()
+		if err != nil {
+			return "", nil, fmt.Errorf("opening %s in %s: %w", name, archiveName, err)
+		}
+		content, readErr := io.ReadAll(fileReader)
+		closeErr := fileReader.Close()
+		if readErr != nil {
+			return "", nil, fmt.Errorf("reading %s in %s: %w", name, archiveName, readErr)
+		}
+		if closeErr != nil {
+			return "", nil, fmt.Errorf("closing %s in %s: %w", name, archiveName, closeErr)
+		}
+
+		return name, content, nil
+	}
+
+	return "", nil, fmt.Errorf("no *.txt file starting with %q found in %s (entries: %s)",
+		strings.ToUpper(prefix), archiveName, strings.Join(entries, ", "))
+}
+
+// hfccParseScheduleFile converts an HFCC schedule file (Windows-1252, fixed
+// width columns) into rows.
+func hfccParseScheduleFile(content []byte) ([]CSVRow, error) {
+	// Create a reader that converts from Windows-1252 to UTF-8
+	decoder := transform.NewReader(bytes.NewReader(content), charmap.Windows1252.NewDecoder())
+	scanner := bufio.NewScanner(decoder)
+
+	// Convert to struct
+	var data []CSVRow
+	for scanner.Scan() {
+		line := strings.TrimRight(scanner.Text(), "\r")
+		// Skip comment/header lines and anything too short to hold a record.
+		if line == "" || strings.HasPrefix(line, ";") {
+			continue
+		}
 		if len(line) < 120 {
 			continue
 		}
@@ -78,10 +337,9 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 		languageName := getLanguageName(languageCode)
 
 		siteCode := line[47:50] // site code (transmitter location)
-		siteName := GetHfccSiteName (siteCode)
+		siteName := GetHfccSiteName(siteCode)
 		siteCountry := GetCountryName(GetHfccSiteADM(siteCode))
 
-		// fmt.Printf("khz: %s, startTime: %s, endTime: %s, days: %s, country: %s, station: %s, language: %s, transmitter: %s\n", khz, startTime, endTime, daysString, countryName, stationName, languageName, transmitter)
 		row := CSVRow{
 			Khz:       khz,
 			StartTime: startTime,
@@ -98,7 +356,9 @@ func (a *App) ImportHFCC() ([]CSVRow, error) {
 		data = append(data, row)
 	}
 
-	fmt.Printf("Parsed %d data rows from HFCC file\n", len(data))
+	if err := scanner.Err(); err != nil {
+		return nil, fmt.Errorf("reading HFCC schedule data: %w", err)
+	}
 	return data, nil
 }
 
@@ -173,4 +433,3 @@ func (a *App) SaveHfccList(data []CSVRow) error {
 
 	return nil
 }
-

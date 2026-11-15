@@ -62,6 +62,8 @@ func loadHfccSiteMap(filename string) {
 // Returns the HfccSite struct containing site_name and ADM, and a boolean indicating if found
 func GetHfccSite(code string) (HfccSite, bool) {
 	cleanCode := strings.ToUpper(strings.TrimSpace(code))
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
 	site, exists := hfccSiteMap[cleanCode]
 	return site, exists
 }
@@ -86,6 +88,9 @@ func GetHfccSiteADM(code string) string {
 
 // GetAllSites returns a copy of all loaded sites
 func GetAllSites() map[string]HfccSite {
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
+
 	result := make(map[string]HfccSite)
 	for k, v := range hfccSiteMap {
 		result[k] = v
@@ -95,5 +100,7 @@ func GetAllSites() map[string]HfccSite {
 
 // GetSiteCount returns the number of loaded sites
 func GetSiteCount() int {
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
 	return len(hfccSiteMap)
 }

@@ -1,99 +1,231 @@
 package main
 
 import (
-	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"golang.org/x/text/encoding/japanese"
+	"golang.org/x/text/transform"
+
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-// ImportAoki imports an Aoki format file and returns its contents
+// ImportAOKI downloads the newest AOKI shortwave schedule published on the Bi
+// Newsletter page and returns the parsed rows.
 func (a *App) ImportAOKI() ([]CSVRow, error) {
-	// Open file dialog
-	filePath, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
-		Title: "Select Aoki File (userlist1.txt)",
-		Filters: []runtime.FileFilter{
-			{
-				DisplayName: "Text Files (*.txt)",
-				Pattern:     "*.txt",
-			},
-			{
-				DisplayName: "All Files (*.*)",
-				Pattern:     "*.*",
-			},
-		},
-	})
+	page, pageURL, err := aokiFetchLinkPage()
 	if err != nil {
-		return nil, fmt.Errorf("error opening file dialog: %w", err)
+		return nil, err
 	}
 
-	if filePath == "" {
-		return nil, nil // User cancelled
-	}
-
-	file, err := os.Open(filePath)
+	schedules := aokiParseScheduleLinks(page, pageURL)
+	schedule, fileName, content, err := aokiNewestArchive(schedules)
 	if err != nil {
-		return nil, fmt.Errorf("error opening file: %w", err)
+		return nil, err
 	}
-	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
+	fmt.Printf("Downloading AOKI schedule %s (%s) from %s\n", schedule.Season, schedule.Name, schedule.URL)
+	if !schedule.Revised.IsZero() {
+		fmt.Printf("Schedule %s is dated %s\n", fileName, schedule.Revised.Format("02-Jan-2006"))
+	}
 
-	// Convert to struct
+	data, err := aokiParseSchedule(content)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("Parsed %d data rows from AOKI %s\n", len(data), fileName)
+	return data, nil
+}
+
+// aokiParseSchedule converts an AOKI schedule file into rows.
+//
+// The file is Shift_JIS (CP932) with fixed-width columns measured in bytes: a
+// double-byte character occupies exactly two columns, so the columns have to be
+// sliced out of the raw bytes and each field decoded separately. Splitting the
+// whole file into UTF-8 first would shift every column after a Japanese station
+// or power name.
+func aokiParseSchedule(content []byte) ([]CSVRow, error) {
 	var data []CSVRow
-	i := 0
-	for scanner.Scan() {
-		i++
-		if i < 3 {
+	skipped := 0
+
+	for i, raw := range bytes.Split(content, []byte("\n")) {
+		raw = bytes.TrimSuffix(raw, []byte("\r"))
+		// The first two lines are the title and the column headings.
+		if i < 2 || len(bytes.TrimSpace(raw)) == 0 {
+			continue
+		}
+		// Some rows stop before the trailing columns (no ADM/L/L/remarks), and
+		// the file ends with a free-text note; keep the former, drop the latter.
+		if len(raw) < 38 {
+			skipped++
 			continue
 		}
 
-		line := scanner.Text()
-		if strings.Contains(line, "?") {
-			fmt.Printf("skipping line %4d: %v\n", i+1, line)
-			continue
-		}
-		if len(line) < 112 {
-			continue
-		}
-		khz := line[0:5]
-		timeUTC := line[38:47]
-		stationName := line[6:38]
-		daysString := line[48:55]
-		languageName := line[56:76]
+		khz := aokiField(raw, 0, 6)
+		stationName := aokiField(raw, 6, 38)
+		timeUTC := aokiField(raw, 38, 47)
+		daysString := aokiField(raw, 48, 55)
+		languageName := aokiField(raw, 56, 76)
+		ituCode, transmitter := aokiLocationAndCountry(raw)
 
-		var ituCode string
-		var transmitter string
-		ituCode = line[109:112]
-		transmitter = line[84:107]
+		if khz == "" || timeUTC == "" {
+			skipped++
+			continue
+		}
 
 		// Parse time range into separate start and end times
 		startTime, endTime := ParseTimeRange(timeUTC)
-
 		countryName := GetCountryName(ituCode)
 
-		row := CSVRow{
-			Khz:       khz,
-			StartTime: startTime,
-			EndTime:   endTime,
-			Days:      daysString,
-			Country:   countryName,
-			Station:   stationName,
-			Language:  languageName,
-			// Target:      targetName,
+		data = append(data, CSVRow{
+			Khz:         khz,
+			StartTime:   startTime,
+			EndTime:     endTime,
+			Days:        daysString,
+			Country:     countryName,
+			Station:     stationName,
+			Language:    languageName,
 			Transmitter: transmitter,
 			Source:      "Aoki",
-		}
-
-		data = append(data, row)
+		})
 	}
 
-	fmt.Printf("Parsed %d data rows from Aoki file\n", len(data))
+	if skipped > 0 {
+		fmt.Printf("Skipped %d unparseable AOKI lines\n", skipped)
+	}
 	return data, nil
+}
+
+// aokiField returns raw[start:end] decoded from Shift_JIS and trimmed of
+// surrounding spaces, tolerating short rows.
+func aokiField(raw []byte, start, end int) string {
+	if start >= len(raw) {
+		return ""
+	}
+	if end > len(raw) {
+		end = len(raw)
+	}
+	return strings.TrimSpace(aokiDecode(raw[start:end]))
+}
+
+// aokiLocationAndCountry splits the transmitter location from the administration
+// code that follows it.
+//
+// The columns are normally Location 85-107 and ADM 109-111, but a location
+// longer than its 23 bytes pushes the code to the right, which would otherwise
+// be read as text: "Ceske Bud?jovice/HusovaCZE" yields the fragment "ZE". The
+// position string is fixed width, so when the fixed columns do not produce a
+// known administration code the row is re-aligned on that position instead.
+func aokiLocationAndCountry(raw []byte) (country, location string) {
+	fixedCountry := aokiField(raw, 109, 112)
+	fixedLocation := aokiField(raw, 85, 108)
+
+	// A code the country table knows is trusted as-is.
+	if isKnownAokiCountry(fixedCountry) {
+		return fixedCountry, fixedLocation
+	}
+
+	if position := aokiPositionStart(raw); position > 0 {
+		if code := aokiCodeBefore(raw, position); code != "" && isKnownAokiCountry(code) {
+			return code, aokiField(raw, 85, position-len(code)-1)
+		}
+	}
+
+	// Neither alignment produced a known code: keep the raw columns so the row
+	// is still imported (private stations often have no administration).
+	return fixedCountry, fixedLocation
+}
+
+// isKnownAokiCountry reports whether code is an administration code present in
+// the country table.
+func isKnownAokiCountry(code string) bool {
+	if code == "" {
+		return false
+	}
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
+
+	_, ok := ITUCountryMap[strings.ToUpper(code)]
+	return ok
+}
+
+// aokiCodeBefore returns the administration code that ends immediately before
+// the position field at offset position, e.g. for
+//
+//	"...HusovaCZE 485920N0142937E"
+//
+// it returns "CZE": the letters immediately before the single space that
+// separates the code from the position.
+func aokiCodeBefore(raw []byte, position int) string {
+	// Step over the single space separating the code from the position.
+	end := position
+	if end > 0 && raw[end-1] == ' ' {
+		end--
+	}
+
+	// The code is at most three letters.
+	start := end
+	for start > 0 && end-start < 3 && isAokiLetter(raw[start-1]) {
+		start--
+	}
+	if start == end {
+		return ""
+	}
+	return aokiField(raw, start, end)
+}
+
+// isAokiLetter reports whether b is an ASCII letter.
+func isAokiLetter(b byte) bool {
+	return (b >= 'A' && b <= 'Z') || (b >= 'a' && b <= 'z')
+}
+
+// aokiPositionStart returns the byte offset of the latitude/longitude field.
+// It searches from before the expected column (a long location pushes the field
+// right) so an "N" inside a location name cannot match, and requires the field
+// to be a space-separated 6-digit latitude followed by N/S.
+func aokiPositionStart(raw []byte) int {
+	for i := 100; i+7 < len(raw); i++ {
+		if !isDigits(raw[i : i+6]) {
+			continue
+		}
+		if raw[i+6] != 'N' && raw[i+6] != 'S' {
+			continue
+		}
+		// The position must be preceded by a space separator.
+		if i == 0 || raw[i-1] != ' ' {
+			continue
+		}
+		return i
+	}
+	return -1
+}
+
+// isDigits reports whether b is non-empty and made only of ASCII digits.
+func isDigits(b []byte) bool {
+	if len(b) == 0 {
+		return false
+	}
+	for _, c := range b {
+		if c < '0' || c > '9' {
+			return false
+		}
+	}
+	return true
+}
+
+// aokiDecode converts Shift_JIS (CP932) bytes to UTF-8, falling back to the raw
+// bytes when decoding fails so that a single bad character cannot drop a row.
+func aokiDecode(raw []byte) string {
+	decoded, _, err := transform.Bytes(japanese.ShiftJIS.NewDecoder(), raw)
+	if err != nil {
+		return string(raw)
+	}
+	return string(decoded)
 }
 
 // LoadAokiList loads data from aoki-list.json if it exists

@@ -51,6 +51,9 @@ func loadCountryMap(filename string) {
 
 // getCountryName returns the full country name for an ITU abbreviation
 func GetCountryName(ituCode string) string {
+	referenceTablesMu.RLock()
+	defer referenceTablesMu.RUnlock()
+
 	if ituCode == "" {
 		return ""
 	}
