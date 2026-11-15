@@ -53,6 +53,10 @@
   // are kept longer so an error is not missed.
   const MESSAGE_TIMEOUT_MS = 5000;
   const ERROR_TIMEOUT_MS = 10000;
+  // How long typing in the manual frequency box waits before the grid is
+  // re-filtered: table.setData() rebuilds every row, so doing it on every
+  // keystroke is wasteful and visibly flickers.
+  const MANUAL_INPUT_DEBOUNCE_MS = 150;
   let messageTimer = null;
 
   // Clears the messages and cancels the pending countdown. Called when a new
@@ -82,6 +86,11 @@
   let manualFrequency = false;
   let editableFrequency = "";
   let showManualInput = false;
+  // The manual frequency is debounced: the field shows each keystroke at once,
+  // while the value the filters use follows a beat behind so typing does not
+  // rebuild the grid for every character.
+  let debouncedEditableFrequency = "";
+  let manualInputDebounceTimer = null;
 
   // Time Filtering
   let currentTimeFilter = "now";
@@ -182,7 +191,10 @@
           return Math.abs(rowFrequency - frequency) <= 2.5;
         });
       } else if (frequencyFilterMode === "manual") {
-        const manualFreq = parseFloat(editableFrequency);
+        // The debounced value, not the raw field, so every filter pass sees
+        // the same settled input even when another trigger (say, a rig
+        // frequency update) re-filters while the user is still typing.
+        const manualFreq = parseFloat(debouncedEditableFrequency);
         if (!isNaN(manualFreq)) {
           filteredData = filteredData.filter((row) => {
             const rowFrequency = parseFloat(row.khz);
@@ -326,7 +338,16 @@
     }
 
     event.target.value = editableFrequency;
-    applyAllFilters(); // Apply filters as user types
+
+    // Restart the debounce window; the consolidated reactive trigger picks the
+    // value up once it settles.
+    if (manualInputDebounceTimer !== null) {
+      clearTimeout(manualInputDebounceTimer);
+    }
+    manualInputDebounceTimer = setTimeout(() => {
+      manualInputDebounceTimer = null;
+      debouncedEditableFrequency = editableFrequency;
+    }, MANUAL_INPUT_DEBOUNCE_MS);
   }
 
   function handleManualKeypress(event) {
@@ -354,10 +375,17 @@
       try {
         const freqValue = parseFloat(editableFrequency);
         if (!isNaN(freqValue)) {
+          // Enter applies immediately: flush any pending debounce so the
+          // filters use exactly the frequency being tuned to. The reactive
+          // trigger then re-filters when the radio frequency updates.
+          if (manualInputDebounceTimer !== null) {
+            clearTimeout(manualInputDebounceTimer);
+            manualInputDebounceTimer = null;
+          }
+          debouncedEditableFrequency = editableFrequency;
           await SetFrequency(freqValue);
           frequency = freqValue;
           statusMessage = "Manual frequency set successfully";
-          applyAllFilters(); // Apply filters after setting frequency
         }
       } catch (error) {
         statusMessage = "Failed to set manual frequency";
@@ -379,12 +407,12 @@
       console.log("EiBi data received:", data);
 
       if (!data) {
-        successMessage = "EiBi import cancelled";
+        showSuccess("EiBi import cancelled");
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in the newest EiBi schedule";
+        showSuccess("No data rows found in the newest EiBi schedule");
         return;
       }
 
@@ -392,11 +420,10 @@
       await refreshImportDates();
       allData = await combineLists();
       console.log(`Combined to ${allData.length} records`);
-      applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records from the newest EiBi schedule (reference tables refreshed) and saved to eibi-list.json`;
+      showSuccess(`Successfully imported ${data.length} records from the newest EiBi schedule (reference tables refreshed) and saved to eibi-list.json`);
     } catch (err) {
-      errorMessage = `Failed to import EiBi data: ${err.message || "Unknown error"}`;
+      showError(`Failed to import EiBi data: ${err.message || "Unknown error"}`);
       console.error("EiBi Import error details:", err);
       debugInfo = `EiBi Import Error details: ${err.toString()}`;
     } finally {
@@ -418,23 +445,22 @@
       console.log("Aoki data received:", data);
 
       if (!data) {
-        successMessage = "Aoki import cancelled";
+        showSuccess("Aoki import cancelled");
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in the newest AOKI schedule";
+        showSuccess("No data rows found in the newest AOKI schedule");
         return;
       }
 
       await SaveAokiList(data);
       await refreshImportDates();
       allData = await combineLists();
-      applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records from the newest AOKI schedule and saved to aoki-list.json`;
+      showSuccess(`Successfully imported ${data.length} records from the newest AOKI schedule and saved to aoki-list.json`);
     } catch (err) {
-      errorMessage = `Failed to import AOKI data: ${err.message || "Unknown error"}`;
+      showError(`Failed to import AOKI data: ${err.message || "Unknown error"}`);
       console.error("Aoki Import error details:", err);
       debugInfo = `Aoki Import Error details: ${err.toString()}`;
     } finally {
@@ -456,23 +482,22 @@
       console.log("Hfcc data received:", data);
 
       if (!data) {
-        successMessage = "Hfcc import cancelled";
+        showSuccess("Hfcc import cancelled");
         return;
       }
 
       if (data.length === 0) {
-        successMessage = "No data rows found in the newest HFCC schedule";
+        showSuccess("No data rows found in the newest HFCC schedule");
         return;
       }
 
       await SaveHfccList(data);
       await refreshImportDates();
       allData = await combineLists();
-      applyAllFilters(); // Apply filters after loading data
 
-      successMessage = `Successfully imported ${data.length} records from the newest HFCC schedule (reference tables refreshed) and saved to hfcc-list.json`;
+      showSuccess(`Successfully imported ${data.length} records from the newest HFCC schedule (reference tables refreshed) and saved to hfcc-list.json`);
     } catch (err) {
-      errorMessage = `Failed to import HFCC data: ${err.message || "Unknown error"}`;
+      showError(`Failed to import HFCC data: ${err.message || "Unknown error"}`);
       console.error("hfcc Import error details:", err);
       debugInfo = `Hfcc Import Error details: ${err.toString()}`;
     } finally {
@@ -640,7 +665,7 @@
       const rowData = row.getData();
       const khz = parseFloat(rowData.khz);
       if (isNaN(khz)) {
-        errorMessage = "Invalid frequency in row: " + rowData.khz;
+        showError("Invalid frequency in row: " + rowData.khz);
         return;
       }
       // Anchor the view on this row immediately, even if tuning later fails,
@@ -657,11 +682,12 @@
         errorMessage = "";
       } catch (err) {
         console.error("Set frequency error:", err);
-        errorMessage =
-          "Failed to set frequency: " + (err.message || String(err));
+        showError("Failed to set frequency: " + (err.message || String(err)));
       }
-      // Re-apply filters (the radio frequency changed) without moving the grid.
-      // The clicked row is highlighted by the rowFormatter.
+      // Re-apply the filters right away instead of waiting for the reactive
+      // trigger: when tuning failed the radio frequency did not change, so
+      // nothing else would refresh the pinned-row highlight. When tuning
+      // succeeded the trigger fires as well; applyAllFilters() deduplicates.
       applyAllFilters();
     });
 
@@ -731,6 +757,9 @@
     }
   }
 
+  // Loads every saved list and returns the rows combined. Assigning the result
+  // to allData is the caller's job, so exactly one assignment per import drives
+  // the reactive re-filter.
   async function combineLists() {
     try {
       console.log("Loading existing data...");
@@ -740,12 +769,41 @@
         LoadHfccList().catch(() => []),
       ]);
 
-      allData = [...(eibiData || []), ...(aokiData || []), ...(hfccData || [])];
-      console.log("Combined data loaded:", allData.length, "records");
-      return allData;
+      const combined = [
+        ...(eibiData || []),
+        ...(aokiData || []),
+        ...(hfccData || []),
+      ];
+      // Sort by frequency so the grid reads in tuning order instead of in
+      // source-block order (EiBi, then Aoki, then HFCC). kHz arrives as a
+      // string, so compare numerically; rows with an unparseable frequency
+      // sort last. Ties fall back to start time so the schedule order reads
+      // naturally, and otherwise keep their combined order (the sort is
+      // stable).
+      combined.sort((a, b) => {
+        const fa = parseFloat(a.khz);
+        const fb = parseFloat(b.khz);
+        const na = isNaN(fa);
+        const nb = isNaN(fb);
+        if (na !== nb) {
+          return na ? 1 : -1;
+        }
+        if (!na && fa !== fb) {
+          return fa - fb;
+        }
+        const ta = String(a.startTime ?? "");
+        const tb = String(b.startTime ?? "");
+        if (ta !== tb) {
+          return ta < tb ? -1 : 1;
+        }
+        return 0;
+      });
+      console.log("Combined data loaded:", combined.length, "records");
+      return combined;
     } catch (error) {
       console.error("Error combining lists:", error);
-      errorMessage = "Failed to load combined data";
+      showError("Failed to load combined data");
+      return [];
     }
   }
 
@@ -779,7 +837,7 @@
             `Startup filters (freq ${frequencyFilterMode}, time ${currentTimeFilter}): ` +
               `${allData.length} -> ${initialRows.length} records`,
           );
-          successMessage = `Loaded ${allData.length} records from all sources`;
+          showSuccess(`Loaded ${allData.length} records from all sources`);
         } else {
           allData = [];
           initTabulator([]);
@@ -815,6 +873,10 @@
     return () => {
       clearInterval(timeInterval);
       window.removeEventListener("resize", handleResize);
+      if (manualInputDebounceTimer !== null) {
+        clearTimeout(manualInputDebounceTimer);
+        manualInputDebounceTimer = null;
+      }
       if (table) {
         table.destroy();
         table = null;
@@ -835,7 +897,7 @@
     const filteredInput = input.replace(/[^0-9]/g, "");
     manualTimeInput = filteredInput.slice(0, 4);
     event.target.value = manualTimeInput;
-    applyAllFilters(); // Apply filters as user types
+    // The consolidated reactive trigger re-filters as this changes.
   }
 
   function handleManualTimeKeypress(event) {
@@ -866,7 +928,6 @@
 
         if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
           currentUTCTime = manualTimeInput;
-          applyAllFilters(); // Apply filters after setting time
           statusMessage = "Manual time applied successfully";
         } else {
           statusMessage = "Invalid time format (HHMM)";
@@ -905,12 +966,11 @@
     }
     
     console.log("Time filter changed to:", filterType, "showManualTimeInput:", showManualTimeInput);
-    applyAllFilters();
   }
 
   function handleFrequencyFilterChange(mode) {
+    // The consolidated reactive trigger re-filters when the mode changes.
     frequencyFilterMode = mode;
-    applyAllFilters();
   }
   
   async function updateFrequencyFromRadio() {
@@ -928,13 +988,12 @@
     }
   }
 
-  $: if (frequencyFilterMode === "all") {
-    console.log("Frequency filter mode changed to 'all'");
-    applyAllFilters();
-  }
-
   $: if (frequencyFilterMode === "manual") {
     editableFrequency = formatFrequency(frequency);
+    // Publish the settled value immediately, without the typing debounce, so
+    // switching into manual mode filters right away around the radio's
+    // current frequency.
+    debouncedEditableFrequency = editableFrequency;
     showManualInput = true;
     setTimeout(() => {
       const manualInput = document.getElementById("manual-frequency-input");
@@ -948,13 +1007,18 @@
   }
 
   // Any message shown at the bottom of the window disappears after a few
-  // seconds, after which the grid reflows into the freed space. Keying the
-  // reactive statement off the message text means every existing and future
-  // assignment is covered, and the clearing itself happens in a function so the
-  // block does not depend on a variable it writes (which Svelte rejects).
-  $: messageText = errorMessage || successMessage || debugInfo;
-  $: if (messageText) {
-    armMessageTimeout(!!errorMessage);
+  // seconds, after which the grid reflows into the freed space. The countdown
+  // is armed directly by the showError/showSuccess helpers at every assignment
+  // instead of by a derived reactive statement watching the combined message
+  // text; failures keep the longer countdown so an error is not missed.
+  function showError(text) {
+    errorMessage = text;
+    armMessageTimeout(true);
+  }
+
+  function showSuccess(text) {
+    successMessage = text;
+    armMessageTimeout(false);
   }
 
   // (Re)starts the countdown that removes the current message.
@@ -969,15 +1033,28 @@
     );
   }
 
-  $: if (frequency && frequencyFilterMode !== "all" && !manualFrequency) {
-    applyAllFilters();
-  }
+  // The UTC clock updates every second, but the time filters only change their
+  // result when the minute turns. Deriving a stable per-minute value keeps the
+  // trigger below from re-filtering the grid once per second.
+  $: currentMinute = currentUTCTime.substring(0, 3);
 
-  let lastFilteredMinute = "";
-  $: if (currentUTCTime && currentTimeFilter !== "all") {
-    const minute = currentUTCTime.substring(0, 3); // HHM - changes once per minute
-    if (minute !== lastFilteredMinute) {
-      lastFilteredMinute = minute;
+  // The single reactive trigger for re-filtering the grid. Every input the
+  // filters read is referenced in the block so Svelte re-runs it when that
+  // input changes; redundant firings (several inputs changing at once) are
+  // cheap because applyAllFilters() skips the row rebuild when the filtered
+  // result is unchanged.
+  $: {
+    allData;
+    rigMinKhz;
+    rigMaxKhz;
+    frequencyFilterMode;
+    frequency;
+    debouncedEditableFrequency;
+    currentTimeFilter;
+    currentMinute;
+    manualTimeInput;
+
+    if (table) {
       applyAllFilters();
     }
   }
