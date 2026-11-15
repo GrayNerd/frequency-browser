@@ -1083,7 +1083,11 @@
         <button id="import-eibi" on:click={importEiBi} disabled={loading}>
           {loadingEiBi ? "Downloading..." : "Import EiBi"}
         </button>
-        <span class="import-date" title="Last successful download">
+        <span
+          class="import-date"
+          class:never={!importDates["EiBi"]}
+          title="Last successful download"
+        >
           {formatImportDate(importDates, "EiBi")}
         </span>
       </div>
@@ -1092,7 +1096,11 @@
         <button id="import-aoki" on:click={importAoki} disabled={loading}>
           {loadingAoki ? "Downloading..." : "Import AOKI"}
         </button>
-        <span class="import-date" title="Last successful download">
+        <span
+          class="import-date"
+          class:never={!importDates["AOKI"]}
+          title="Last successful download"
+        >
           {formatImportDate(importDates, "AOKI")}
         </span>
       </div>
@@ -1101,7 +1109,11 @@
         <button id="import-hfcc" on:click={importHFCC} disabled={loading}>
           {loadingHfcc ? "Downloading..." : "Import HFCC"}
         </button>
-        <span class="import-date" title="Last successful download">
+        <span
+          class="import-date"
+          class:never={!importDates["HFCC"]}
+          title="Last successful download"
+        >
           {formatImportDate(importDates, "HFCC")}
         </span>
       </div>
@@ -1225,13 +1237,30 @@
     width: 130px;
   }
 
-  /* Date the source was last downloaded, shown beside its button. */
+  /* Date the source was last downloaded, shown beside its button.
+     The label sits on the dark window background (#1B2636), where the old
+     #555555 grey measured only 2.05:1 contrast. These colours give 12.5:1,
+     and the panel sets the date apart from the button label. */
   .import-date {
     font-family: monospace;
-    font-size: 12px;
-    color: #555555;
+    font-size: 13px;
+    font-weight: 600;
+    color: #e6e9ec;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+    padding: 4px 8px;
+    line-height: 1.2;
     white-space: nowrap;
     min-width: 132px;
+    text-align: center;
+  }
+
+  /* A source that has never been imported is muted but still legible. */
+  .import-date.never {
+    color: #aeb6c2;
+    font-weight: 500;
+    font-style: italic;
   }
 
   .loading-message {
