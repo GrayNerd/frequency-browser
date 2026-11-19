@@ -5,12 +5,17 @@
 // @ts-ignore: Unused imports
 import type { Events } from "@wailsio/runtime";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: Unused imports
+import type * as main$0 from "../../../../../frequency-browser/models.js";
+
 declare module "@wailsio/runtime" {
     namespace Events {
         interface CustomEvents {
             "connectionStatus": boolean;
             "frequencyUpdate": number;
             "modeUpdate": string;
+            "settingsState": main$0.SettingsState;
         }
     }
 }

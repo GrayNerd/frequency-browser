@@ -13,7 +13,6 @@
     ImportHFCC,
     LoadHfccList,
     SaveHfccList,
-    LoadImportDates,
     GetCurrentFrequency,
     SetFrequency,
     GetMode,
@@ -36,9 +35,6 @@
   let loadingEiBi = false;
   let loadingAoki = false;
   let loadingHfcc = false;
-
-  // When each source was last downloaded (RFC 3339, from import-dates.json).
-  let importDates = {};
 
   // Status and Messages
   let statusMessage = "Connecting to radio...";
@@ -415,7 +411,6 @@
       }
 
       await SaveEIBIList(data);
-      await refreshImportDates();
       allData = await combineLists();
       console.log(`Combined to ${allData.length} records`);
 
@@ -453,7 +448,6 @@
       }
 
       await SaveAokiList(data);
-      await refreshImportDates();
       allData = await combineLists();
 
       showSuccess(`Successfully imported ${data.length} records from the newest AOKI schedule and saved to aoki-list.json`);
@@ -490,7 +484,6 @@
       }
 
       await SaveHfccList(data);
-      await refreshImportDates();
       allData = await combineLists();
 
       showSuccess(`Successfully imported ${data.length} records from the newest HFCC schedule (reference tables refreshed) and saved to hfcc-list.json`);
@@ -722,39 +715,6 @@
     }
   }
 
-  // Formats a recorded import time for the label beside each button.
-  //
-  // `dates` is passed explicitly rather than closed over: Svelte only re-renders
-  // a call expression when the variables it references are passed as arguments.
-  // Without the parameter the compiler emits no update branch and the label
-  // keeps showing its initial value.
-  function formatImportDate(dates, source) {
-    const recorded = dates && dates[source];
-    if (!recorded) return "never";
-
-    const when = new Date(recorded);
-    if (isNaN(when.getTime())) return "never";
-
-    const day = String(when.getDate()).padStart(2, "0");
-    const month = when.toLocaleString(undefined, { month: "short" });
-    const year = when.getFullYear();
-    const hours = String(when.getHours()).padStart(2, "0");
-    const minutes = String(when.getMinutes()).padStart(2, "0");
-    return `${day} ${month} ${year} ${hours}:${minutes}`;
-  }
-
-  // Reads the stored import times so the labels survive a restart.
-  async function refreshImportDates() {
-    try {
-      const dates = (await LoadImportDates()) || {};
-      // Always replace the object so the assignment is seen as a change.
-      importDates = { ...dates };
-    } catch (error) {
-      console.error("Error loading import dates:", error);
-      importDates = {};
-    }
-  }
-
   // Loads every saved list and returns the rows combined. Assigning the result
   // to allData is the caller's job, so exactly one assignment per import drives
   // the reactive re-filter.
@@ -821,7 +781,6 @@
         // Learn the rig's tuning range before filtering so unreadable
         // frequencies never appear in the table.
         await loadRigRange();
-        await refreshImportDates();
         allData = await combineLists();
         console.log("Existing data loaded:", allData.length, "records");
         if (allData.length > 0) {
@@ -1229,24 +1188,24 @@
 
 <style>
   .debug {
-    color: #7d3c98;
+    color: #c9a7e8;
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #e8daef;
+    background-color: #2b2138;
     border-radius: 4px;
-    border-left: 4px solid #7d3c98;
+    border-left: 4px solid #9b59b6;
     font-family: monospace;
     font-size: 12px;
     overflow-x: auto;
   }
 
   .error {
-    color: #e74c3c;
+    color: var(--danger);
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #fadbd8;
+    background-color: #3a2228;
     border-radius: 4px;
-    border-left: 4px solid #e74c3c;
+    border-left: 4px solid var(--danger);
   }
 
   .frequency-box {
@@ -1254,10 +1213,11 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 4px;
-    background-color: #f8f9fa;
+    background-color: var(--bg);
+    color: var(--fg);
     min-width: 220px;
     position: relative;
   }
@@ -1279,7 +1239,7 @@
   .frequency-label {
     font-weight: bold;
     font-size: 14px;
-    color: #000000;
+    color: var(--fg);
   }
 
   .frequency-options {
@@ -1304,59 +1264,12 @@
     flex-shrink: 0;
   }
 
-  /* Import buttons stacked vertically, to the right of the time box. */
-  .import-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-    flex-shrink: 0;
-    align-self: stretch;
-    padding: 4px 0;
-  }
-
-  .import-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .import-row button {
-    width: 130px;
-  }
-
-  /* Date the source was last downloaded, shown beside its button.
-     The label sits on the dark window background (#1B2636), where the old
-     #555555 grey measured only 2.05:1 contrast. These colours give 12.5:1,
-     and the panel sets the date apart from the button label. */
-  .import-date {
-    font-family: monospace;
-    font-size: 13px;
-    font-weight: 600;
-    color: #e6e9ec;
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 4px;
-    padding: 4px 8px;
-    line-height: 1.2;
-    white-space: nowrap;
-    min-width: 132px;
-    text-align: center;
-  }
-
-  /* A source that has never been imported is muted but still legible. */
-  .import-date.never {
-    color: #aeb6c2;
-    font-weight: 500;
-    font-style: italic;
-  }
-
   .loading-message {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #666;
+    color: var(--fg-dim);
     font-style: italic;
   }
 
@@ -1375,17 +1288,17 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 6px 6px;
-    border: 2px solid #3498db;
+    border: 2px solid var(--accent);
     border-radius: 4px;
     width: 120px;
     text-align: center;
     font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg-input);
+    color: var(--fg);
     font-size: 18px;
     font-weight: bold;
     z-index: 10;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    box-shadow: 0 0 5px rgba(74, 144, 217, 0.5);
   }
 
   .manual-time-input {
@@ -1394,17 +1307,17 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 6px 6px;
-    border: 2px solid #3498db;
+    border: 2px solid var(--accent);
     border-radius: 4px;
     width: 80px;
     text-align: center;
     font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg-input);
+    color: var(--fg);
     font-size: 18px;
     font-weight: bold;
     z-index: 10;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+    box-shadow: 0 0 5px rgba(74, 144, 217, 0.5);
   }
 
   .radio-buttons {
@@ -1416,13 +1329,13 @@
 
   .radio-input {
     padding: 6px 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 4px;
     width: 120px;
     text-align: center;
     font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg-input);
+    color: var(--fg);
     cursor: not-allowed;
     font-size: 18px;
     font-weight: bold;
@@ -1433,22 +1346,22 @@
   }
 
   .radio-option span {
-    color: #000000;
+    color: var(--fg);
     font-weight: normal;
   }
 
   .success {
-    color: #27ae60;
+    color: #7ee0a0;
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #d5f4e6;
+    background-color: #1e3629;
     border-radius: 4px;
     border-left: 4px solid #27ae60;
   }
 
   .table-container {
     flex: 1;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border);
     border-radius: 4px;
     overflow: hidden;
     margin-top: 6px;
@@ -1479,46 +1392,21 @@
   .time-label {
     font-weight: bold;
     font-size: 14px;
-    color: #000000;
+    color: var(--fg);
   }
 
   .utc-time-display {
     padding: 6px 6px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 4px;
     width: 80px;
     text-align: center;
     font-family: monospace;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--bg-input);
+    color: var(--fg);
     cursor: not-allowed;
     font-size: 18px;
     font-weight: bold;
-  }
-
-  button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #3498db;
-    color: black;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 1;
-    height: 30px;
-    white-space: nowrap;
-  }
-
-  button:disabled {
-    background-color: #95a5a6;
-    cursor: not-allowed;
-  }
-
-  button:hover:not(:disabled) {
-    background-color: #2980b9;
   }
 
   :global(*) {
@@ -1534,15 +1422,79 @@
 
   :global(.tabulator) {
     height: 100% !important;
+    background-color: var(--bg);
+    color: var(--fg);
+    border-color: var(--border);
   }
 
   :global(.tabulator .tabulator-tableholder) {
     height: calc(100% - 40px) !important;
+    background-color: var(--bg);
+  }
+
+  /* Header row: dark surface with lighter text. */
+  :global(.tabulator .tabulator-header) {
+    background-color: var(--bg-input);
+    color: var(--fg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  :global(.tabulator .tabulator-header .tabulator-col) {
+    background-color: var(--bg-input);
+    color: var(--fg);
+    border-right: 1px solid var(--border);
+  }
+
+  :global(.tabulator .tabulator-header .tabulator-col .tabulator-col-content) {
+    color: var(--fg);
+  }
+
+  /* Column header filter boxes. */
+  :global(.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input) {
+    background-color: var(--bg);
+    color: var(--fg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+
+  :global(.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input::placeholder) {
+    color: var(--fg-dim);
+  }
+
+  /* Detail records. */
+  :global(.tabulator .tabulator-row) {
+    background-color: var(--bg);
+    color: var(--fg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  :global(.tabulator .tabulator-row.tabulator-row-even) {
+    background-color: var(--bg-input);
+  }
+
+  :global(.tabulator .tabulator-row .tabulator-cell) {
+    background-color: transparent;
+    color: var(--fg);
+    border-right: 1px solid var(--border);
+  }
+
+  :global(.tabulator .tabulator-row.tabulator-selectable:hover) {
+    background-color: #2c3e55;
+  }
+
+  :global(.tabulator .tabulator-row.tabulator-selected) {
+    background-color: #35506f;
   }
 
   /* Row the user last clicked: keep it visually anchored across refilters */
   :global(.tabulator .tabulator-row.row-pinned) {
-    background-color: #ffe9a8 !important;
-    box-shadow: inset 3px 0 0 #e67e22;
+    background-color: #3a4d24 !important;
+    color: var(--fg) !important;
+    box-shadow: inset 3px 0 0 #e0a03a;
+  }
+
+  :global(.tabulator .tabulator-row.row-pinned .tabulator-cell) {
+    background-color: transparent;
+    color: var(--fg);
   }
 </style>

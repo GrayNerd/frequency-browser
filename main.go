@@ -22,6 +22,10 @@ var settingsWindow *application.WebviewWindow
 // reset to nil when the window closes so a later open creates a fresh one.
 var importWindow *application.WebviewWindow
 
+// appService is the single App service instance. Shutdown handling uses it to
+// persist settings when the user chooses Save while quitting.
+var appService *App
+
 // openImportWindow shows the native "Import" window, creating it on first use.
 //
 // The window hosts the schedule-import buttons (and their last successful
@@ -80,6 +84,7 @@ func openSettings() {
 	})
 	settingsWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
 		settingsWindow = nil
+		resetSettingsState()
 	})
 	// Make the Settings window a transient child of the main window so the
 	// window manager keeps it on the same monitor (and centers it on the
@@ -97,6 +102,7 @@ func init() {
 	application.RegisterEvent[float64]("frequencyUpdate")
 	application.RegisterEvent[string]("modeUpdate")
 	application.RegisterEvent[bool]("connectionStatus")
+	application.RegisterEvent[SettingsState]("settingsState")
 }
 
 // App struct
@@ -132,11 +138,12 @@ func (a *App) ServiceStartup(ctx context.Context, options application.ServiceOpt
 }
 
 func main() {
+	appService = NewApp()
 	app := application.New(application.Options{
 		Name:        "Frequency Browser",
 		Description: "Browse shortwave broadcast schedules and tune a rigctld-controlled radio",
 		Services: []application.Service{
-			application.NewService(&App{}),
+			application.NewService(appService),
 		},
 		Assets: application.AssetOptions{
 			Handler: application.AssetFileServerFS(assets),
@@ -154,9 +161,13 @@ func main() {
 		openSettings()
 	})
 	appMenu.Add("Exit").OnClick(func(*application.Context) {
-		application.Get().Quit()
+		requestShutdown()
 	})
 	app.Menu.Set(appMenu)
+
+	// The Settings window reports its unsaved state whenever the address field
+	// changes so a shutdown can prompt before discarding those edits.
+	app.Event.On("settingsState", onSettingsState)
 
 	app.Event.OnApplicationEvent(events.Linux.ApplicationStartup, func(*application.ApplicationEvent) {
 		mainWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
@@ -175,6 +186,10 @@ func main() {
 				MenuStyle: application.LinuxMenuStylePrimaryMenu,
 			},
 		})
+		// Auxiliary windows must be closed before the main window, and an
+		// unsaved Settings window gets a say. The hook can cancel the close,
+		// so the orderly shutdown happens in requestShutdown instead.
+		mainWindow.RegisterHook(events.Common.WindowClosing, onMainWindowClosing)
 	})
 
 	err := app.Run()

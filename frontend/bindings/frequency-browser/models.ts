@@ -40,3 +40,12 @@ export interface FrequencyRange {
  * binding is a simple object rather than a named class.
  */
 export type ImportDates = { [_ in string]?: string } | null;
+
+/**
+ * SettingsState is reported by the Settings window whenever its fields change,
+ * so the backend can decide whether a shutdown needs to prompt the user.
+ */
+export interface SettingsState {
+    "dirty": boolean;
+    "address": string;
+}
