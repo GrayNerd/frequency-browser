@@ -8,10 +8,42 @@
 </head>
 <body>
 <main class="settings">
-    <div class="field">
-        <label for="address">rigctld address</label>
-        <input id="address" placeholder="localhost:4532" spellcheck="false" type="text"/>
+    <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="appearance" type="button">Appearance</button>
+        <button class="tab" data-tab="radio" type="button">Radio</button>
     </div>
+
+    <section class="panel active" data-panel="appearance">
+        <div class="field">
+            <span class="field-label">Theme</span>
+            <div class="radio-row">
+                <label>
+                    <input checked name="theme" type="radio" value="light"/>
+                    <span>Light Mode</span>
+                </label>
+                <label>
+                    <input name="theme" type="radio" value="dark"/>
+                    <span>Dark Mode</span>
+                </label>
+            </div>
+        </div>
+
+        <label class="check-row">
+            <input id="save-window-pos" type="checkbox"/>
+            <span>Save Window Size/Position on Exit</span>
+        </label>
+
+        <button id="save-now" type="button">Save Now</button>
+    </section>
+
+    <section class="panel" data-panel="radio">
+        <div class="field">
+            <label for="address">rigctld address</label>
+            <input id="address" placeholder="localhost:4532" spellcheck="false" type="text"/>
+            <span class="hint">hamlib net rigctl (rigctld) daemon, host:port</span>
+        </div>
+    </section>
+
     <p class="message" id="message" role="alert"></p>
     <footer class="buttons">
         <button id="cancel" type="button">Cancel</button>

@@ -38,6 +38,13 @@ export function GetRadioStatus(): $CancellablePromise<{ [_ in string]?: any } | 
 }
 
 /**
+ * GetSettings returns the current settings for the Settings window.
+ */
+export function GetSettings(): $CancellablePromise<$models.Settings> {
+    return $Call.ByID(2554697378);
+}
+
+/**
  * ImportAOKI downloads the newest AOKI shortwave schedule published on the Bi
  * Newsletter page and returns the parsed rows.
  */
@@ -110,6 +117,26 @@ export function SaveEIBIList(data: $models.CSVRow[] | null): $CancellablePromise
  */
 export function SaveHfccList(data: $models.CSVRow[] | null): $CancellablePromise<void> {
     return $Call.ByID(124508864, data);
+}
+
+/**
+ * SaveSettings validates and applies new settings from the Settings window
+ * and persists them. The rigctld address is validated by actually connecting
+ * (UpdateConfig reverts the radio config itself on failure), so the error
+ * can be shown as-is.
+ */
+export function SaveSettings(s: $models.Settings): $CancellablePromise<void> {
+    return $Call.ByID(1949631069, s);
+}
+
+/**
+ * SaveWindowGeometryNow records the main window's current size and position
+ * in the settings file. Bound to the "Save Now" button in the Appearance
+ * tab. It returns the captured geometry so the caller can confirm exactly
+ * what was saved.
+ */
+export function SaveWindowGeometryNow(): $CancellablePromise<$models.Settings> {
+    return $Call.ByID(632575940);
 }
 
 export function SendCustomCommand(command: string): $CancellablePromise<string> {

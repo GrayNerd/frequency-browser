@@ -1,16 +1,8 @@
-/* Settings window. Uses the same dark palette as the main window
- * (background rgb(27, 38, 54), set natively via the window option). */
+/* Settings window: tab strip over two panels, shared Cancel/Save footer.
+ * Uses the shared palette from theme.css; the light theme is applied by
+ * toggling html.theme-light on this document. */
 
-:root {
-  color-scheme: dark;
-  --bg: #1b2636;
-  --bg-input: #243447;
-  --fg: #e6e9ef;
-  --fg-dim: #9aa7b8;
-  --accent: #4a90d9;
-  --danger: #e06c75;
-  --border: #35455c;
-}
+@import "./theme.css";
 
 * {
   box-sizing: border-box;
@@ -28,7 +20,48 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 16px;
+  padding: 12px 16px 16px;
+}
+
+/* Tab strip at the top of the window. */
+.tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--fg-dim);
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 14px;
+}
+
+.tab:hover {
+  color: var(--fg);
+}
+
+.tab.active {
+  border-bottom-color: var(--accent);
+  color: var(--fg);
+}
+
+/* Only the active panel is visible. */
+.panel {
+  display: none;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.panel.active {
+  display: flex;
 }
 
 .field {
@@ -37,14 +70,15 @@ body {
   gap: 6px;
 }
 
-.field label {
+.field label,
+.field .field-label {
   color: var(--fg-dim);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.field input {
+.field input[type="text"] {
   background: var(--bg-input);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -53,18 +87,60 @@ body {
   padding: 8px 10px;
 }
 
-.field input:focus {
+.field input[type="text"]:focus {
   border-color: var(--accent);
   outline: none;
 }
 
-/* Status/error line: fills the space between the field and the buttons so the
- * buttons stay pinned to the lower right. */
+.hint {
+  color: var(--fg-dim);
+  font-size: 12px;
+}
+
+.radio-row {
+  display: flex;
+  gap: 18px;
+}
+
+.radio-row label,
+.check-row {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.check-row {
+  cursor: pointer;
+}
+
+/* Save Now sits below the checkbox in the Appearance tab. */
+#save-now {
+  align-self: flex-start;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--fg);
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 20px;
+}
+
+#save-now:hover {
+  border-color: var(--fg-dim);
+}
+
+/* Status/error line: fills the space between the panels and the buttons so
+ * the buttons stay pinned to the lower right. */
 .message {
   color: var(--danger);
-  flex: 1;
+  flex: 0 0 auto;
   margin: 8px 0 0;
-  min-height: 1em;
+  min-height: 1.2em;
+  line-height: 1.2em;
+}
+
+.message.ok {
+  color: var(--success-fg);
 }
 
 .buttons {

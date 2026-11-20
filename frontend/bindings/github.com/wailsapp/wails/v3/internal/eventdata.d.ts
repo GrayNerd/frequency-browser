@@ -16,6 +16,7 @@ declare module "@wailsio/runtime" {
             "frequencyUpdate": number;
             "modeUpdate": string;
             "settingsState": main$0.SettingsState;
+            "themeChanged": string;
         }
     }
 }

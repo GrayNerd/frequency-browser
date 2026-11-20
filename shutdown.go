@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"sync"
 	"sync/atomic"
 
@@ -10,14 +11,16 @@ import (
 // SettingsState is reported by the Settings window whenever its fields change,
 // so the backend can decide whether a shutdown needs to prompt the user.
 type SettingsState struct {
-	Dirty   bool   `json:"dirty"`
-	Address string `json:"address"`
+	Dirty bool `json:"dirty"`
+	// Settings is the window's full pending state, saved as-is when the
+	// user chooses Save during shutdown.
+	Settings Settings `json:"settings"`
 }
 
 var (
-	settingsStateLock  sync.Mutex
-	settingsDirty      bool
-	settingsNewAddress string
+	settingsStateLock sync.Mutex
+	settingsDirty     bool
+	settingsPending   Settings
 
 	// shutdownInProgress stops a second close request (menu Exit pressed twice,
 	// or the window manager trying again) from running the flow twice.
@@ -32,14 +35,47 @@ var (
 // address is kept so the shutdown prompt can save it without racing the
 // Settings window's own JavaScript.
 func onSettingsState(event *application.CustomEvent) {
-	state, ok := event.Data.(SettingsState)
+	state, ok := decodeSettingsState(event.Data)
 	if !ok {
 		return
 	}
 	settingsStateLock.Lock()
 	settingsDirty = state.Dirty
-	settingsNewAddress = state.Address
+	settingsPending = state.Settings
 	settingsStateLock.Unlock()
+}
+
+// decodeSettingsState accepts the payload in the shapes it can arrive in: a
+// real SettingsState (typed dispatch), or the JSON-decoded forms the runtime
+// hands over for events emitted from JavaScript.
+func decodeSettingsState(data any) (SettingsState, bool) {
+	var state SettingsState
+	switch v := data.(type) {
+	case SettingsState:
+		return v, true
+	case *SettingsState:
+		return *v, true
+	case map[string]any:
+		b, err := json.Marshal(v)
+		if err != nil {
+			return SettingsState{}, false
+		}
+		if err := json.Unmarshal(b, &state); err != nil {
+			return SettingsState{}, false
+		}
+		return state, true
+	case []byte:
+		if err := json.Unmarshal(v, &state); err != nil {
+			return SettingsState{}, false
+		}
+		return state, true
+	case string:
+		if err := json.Unmarshal([]byte(v), &state); err != nil {
+			return SettingsState{}, false
+		}
+		return state, true
+	}
+	return SettingsState{}, false
 }
 
 // resetSettingsState forgets the recorded edits. Called when the Settings
@@ -47,14 +83,14 @@ func onSettingsState(event *application.CustomEvent) {
 func resetSettingsState() {
 	settingsStateLock.Lock()
 	settingsDirty = false
-	settingsNewAddress = ""
+	settingsPending = Settings{}
 	settingsStateLock.Unlock()
 }
 
-func getSettingsState() (bool, string) {
+func getSettingsState() (bool, Settings) {
 	settingsStateLock.Lock()
 	defer settingsStateLock.Unlock()
-	return settingsDirty, settingsNewAddress
+	return settingsDirty, settingsPending
 }
 
 // onMainWindowClosing intercepts the main window's close so the auxiliary
@@ -86,6 +122,12 @@ func requestShutdown() {
 			return
 		}
 
+		// Record the main window's geometry before anything closes, when
+		// the user asked for it in the settings.
+		if appService != nil {
+			appService.saveWindowGeometryOnExit()
+		}
+
 		closeAuxiliaryWindows()
 
 		allowMainWindowClose.Store(true)
@@ -103,7 +145,7 @@ func requestShutdown() {
 // confirmUnsavedSettings returns false when the shutdown should be abandoned.
 // With no unsaved changes it returns true immediately.
 func confirmUnsavedSettings() bool {
-	dirty, address := getSettingsState()
+	dirty, pending := getSettingsState()
 	if !dirty || settingsWindow == nil {
 		return true
 	}
@@ -131,7 +173,7 @@ func confirmUnsavedSettings() bool {
 		if appService == nil {
 			return true
 		}
-		if err := appService.UpdateConfig(address); err != nil {
+		if err := appService.SaveSettings(pending); err != nil {
 			application.Get().Dialog.Error().
 				SetTitle("Could not save settings").
 				SetMessage(err.Error()).

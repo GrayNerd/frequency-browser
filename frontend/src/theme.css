@@ -1,0 +1,50 @@
+/* Shared palette for every window. The dark values are the default (the
+ * root variables); html.theme-light overrides them when the user picks the
+ * light theme. The semantic colours are used by the main window's message
+ * boxes and the Tabulator row states. */
+
+:root {
+  color-scheme: dark;
+  --bg: #1b2636;
+  --bg-input: #243447;
+  --fg: #e6e9ef;
+  --fg-dim: #9aa7b8;
+  --accent: #4a90d9;
+  --danger: #e06c75;
+  --border: #35455c;
+
+  --debug-fg: #c9a7e8;
+  --debug-bg: #2b2138;
+  --debug-accent: #9b59b6;
+  --error-bg: #3a2228;
+  --success-fg: #7ee0a0;
+  --success-bg: #1e3629;
+  --success-accent: #27ae60;
+  --row-hover: #2c3e55;
+  --row-selected: #35506f;
+  --row-pinned-bg: #3a4d24;
+  --row-pinned-accent: #e0a03a;
+}
+
+html.theme-light {
+  color-scheme: light;
+  --bg: #f5f6f8;
+  --bg-input: #ffffff;
+  --fg: #1e2430;
+  --fg-dim: #5f6b7a;
+  --accent: #2f6fb5;
+  --danger: #c0392b;
+  --border: #d0d7e0;
+
+  --debug-fg: #6b3fa0;
+  --debug-bg: #f4eefb;
+  --debug-accent: #8e44ad;
+  --error-bg: #fbeaea;
+  --success-fg: #1e7a46;
+  --success-bg: #e9f7ef;
+  --success-accent: #27ae60;
+  --row-hover: #dce8f5;
+  --row-selected: #c7dcf1;
+  --row-pinned-bg: #f0f4e4;
+  --row-pinned-accent: #b7791f;
+}

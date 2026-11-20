@@ -3,6 +3,9 @@ package main
 import (
 	"context"
 	"embed"
+	"sync"
+	"time"
+
 	"github.com/wailsapp/wails/v3/pkg/application"
 	"github.com/wailsapp/wails/v3/pkg/events"
 )
@@ -44,13 +47,15 @@ func openImportWindow() {
 		Width:  480,
 		Height: 220,
 		URL:    "/import.html",
-		Hidden: true,
+		// Themed so the native background matches the webview palette.
+		BackgroundColour: themeBackground(appService.currentSettings().Theme),
+		Hidden:           true,
 		// Fixed size: not resizable, sized so the OK button fits.
 		DisableResize: true,
-		MinWidth:     480,
-		MinHeight:    220,
-		MaxWidth:     480,
-		MaxHeight:    220,
+		MinWidth:      480,
+		MinHeight:     220,
+		MaxWidth:      480,
+		MaxHeight:     220,
 	})
 	importWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
 		importWindow = nil
@@ -78,9 +83,11 @@ func openSettings() {
 	settingsWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
 		Title:  "Settings",
 		Width:  420,
-		Height: 220,
+		Height: 320,
 		URL:    "/settings.html",
-		Hidden: true,
+		// Themed so the native background matches the webview palette.
+		BackgroundColour: themeBackground(appService.currentSettings().Theme),
+		Hidden:           true,
 	})
 	settingsWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
 		settingsWindow = nil
@@ -103,6 +110,7 @@ func init() {
 	application.RegisterEvent[string]("modeUpdate")
 	application.RegisterEvent[bool]("connectionStatus")
 	application.RegisterEvent[SettingsState]("settingsState")
+	application.RegisterEvent[string]("themeChanged")
 }
 
 // App struct
@@ -113,6 +121,12 @@ type App struct {
 	isConnected   bool
 	pollingActive bool
 	lastMode      string
+
+	// settings holds the persisted user preferences loaded from
+	// settings.config at startup. settingsMu guards access from service
+	// calls and the shutdown goroutine.
+	settings   Settings
+	settingsMu sync.Mutex
 }
 
 // NewApp creates a new App application struct
@@ -124,7 +138,12 @@ func NewApp() *App {
 // so the poll goroutine can watch for shutdown.
 func (a *App) ServiceStartup(ctx context.Context, options application.ServiceOptions) error {
 	a.ctx = ctx
-	a.config.Address = "localhost:4532" // Default rigctld address
+	// Load persisted settings before any window exists: the theme drives
+	// the native background colours, the saved geometry sizes the main
+	// window, and the radio address configures the rigctld connection. A
+	// missing file is created with defaults.
+	a.settings = loadSettings()
+	a.config.Address = a.settings.RadioAddress // Default rigctld address
 	// Merge reference tables cached by a previous HFCC import over the
 	// embedded defaults, so new site/broadcaster/country/language codes still
 	// resolve when the machine is offline.
@@ -170,26 +189,11 @@ func main() {
 	app.Event.On("settingsState", onSettingsState)
 
 	app.Event.OnApplicationEvent(events.Linux.ApplicationStartup, func(*application.ApplicationEvent) {
-		mainWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
-			Title:            "Frequency Browser",
-			Width:            1024,
-			Height:           768,
-			BackgroundColour: application.NewRGB(27, 38, 54),
-			URL:              "/",
-			// Render the application menu as a hamburger button in this
-			// window's native header bar instead of a traditional menu bar.
-			// The style is needed because the default menu-bar style cannot
-			// display plain top-level action items (GTK drops them with a
-			// warning).
-			UseApplicationMenu: true,
-			Linux: application.LinuxWindow{
-				MenuStyle: application.LinuxMenuStylePrimaryMenu,
-			},
-		})
-		// Auxiliary windows must be closed before the main window, and an
-		// unsaved Settings window gets a say. The hook can cancel the close,
-		// so the orderly shutdown happens in requestShutdown instead.
-		mainWindow.RegisterHook(events.Common.WindowClosing, onMainWindowClosing)
+		// Create the main window once the screen list is available. Wails
+		// populates its screen cache in its own ApplicationStartup listener,
+		// which runs concurrently with this one, so the saved position cannot
+		// be converted to screen-relative coordinates until that finishes.
+		go createMainWindowWhenScreensReady(app)
 	})
 
 	err := app.Run()
@@ -203,4 +207,71 @@ func (a *App) StartPolling() {
 		a.pollingActive = true
 		go a.pollRadioFrequency()
 	}
+}
+
+// createMainWindowWhenScreensReady waits for Wails to finish caching the
+// screen list, then creates the main window. The saved window position is
+// passed through the creation options (WindowXY) so the window is placed
+// correctly by the platform before it is first shown.
+func createMainWindowWhenScreensReady(app *application.App) {
+	// Wait for the screen cache to be populated (bounded, so a failure to
+	// enumerate screens does not hang startup).
+	deadline := time.Now().Add(3 * time.Second)
+	for len(app.Screen.GetAll()) == 0 && time.Now().Before(deadline) {
+		time.Sleep(20 * time.Millisecond)
+	}
+
+	application.InvokeSync(func() {
+		createMainWindow(app)
+	})
+}
+
+// createMainWindow builds the main window. It must run on the UI thread.
+func createMainWindow(app *application.App) {
+	s := appService.currentSettings()
+
+	opts := application.WebviewWindowOptions{
+		Title:  "Frequency Browser",
+		Width:  s.WindowWidth,
+		Height: s.WindowHeight,
+		X: s.WindowX,
+		Y: s.WindowY,
+		// Themed so the native background matches the webview palette.
+		BackgroundColour: themeBackground(s.Theme),
+		URL:              "/",
+		// Render the application menu as a hamburger button in this window's
+		// native header bar instead of a traditional menu bar. The style is
+		// needed because the default menu-bar style cannot display plain
+		// top-level action items (GTK drops them with a warning).
+		UseApplicationMenu: true,
+		Linux: application.LinuxWindow{
+			MenuStyle: application.LinuxMenuStylePrimaryMenu,
+		},
+	}
+
+	// Restore the saved window position through the creation options. On
+	// Linux, WindowXY positions the window relative to a screen's work area,
+	// so the saved absolute coordinates are converted to an offset within
+	// the screen that contains them. When no position has been saved the
+	// window stays centred (the default).
+	if s.WindowSaved {
+		opts.InitialPosition = application.WindowXY
+		opts.X = s.WindowX
+		opts.Y = s.WindowY
+		if screen := app.Screen.ScreenNearestPhysicalPoint(application.Point{X: s.WindowX, Y: s.WindowY}); screen != nil {
+			opts.Screen = screen
+			opts.X = s.WindowX - screen.WorkArea.X
+			opts.Y = s.WindowY - screen.WorkArea.Y
+		}
+	}
+
+	mainWindow = app.Window.NewWithOptions(opts)
+	// Auxiliary windows must be closed before the main window, and an unsaved
+	// Settings window gets a say. The hook can cancel the close, so the
+	// orderly shutdown happens in requestShutdown instead.
+	mainWindow.RegisterHook(events.Common.WindowClosing, onMainWindowClosing)
+	// The window is shown by the platform during creation; because it is not
+	// hidden, run() re-applies the screen placement after the surface exists,
+	// so the saved position is honoured.
+	mainWindow.Show()
 }

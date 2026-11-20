@@ -10,8 +10,25 @@ import {
   SaveEIBIList,
   SaveAokiList,
   SaveHfccList,
+  GetSettings,
 } from "../bindings/frequency-browser/app";
 import { Events, Window } from "@wailsio/runtime";
+
+// Follow the persisted theme, and live-update if it changes while open.
+function applyImportTheme(theme) {
+  document.documentElement.classList.toggle("theme-light", theme !== "dark");
+}
+
+(async () => {
+  try {
+    const settings = await GetSettings();
+    applyImportTheme(settings ? settings.theme : null);
+  } catch (err) {
+    console.warn("Could not load theme:", err);
+  }
+})();
+
+Events.On("themeChanged", (ev) => applyImportTheme(ev.data));
 
 const OK_BUTTON = "ok";
 

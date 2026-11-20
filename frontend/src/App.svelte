@@ -20,6 +20,7 @@
     UpdateConfig,
     SendCustomCommand,
     GetFrequencyRange,
+    GetSettings,
   } from "../bindings/frequency-browser/app";
   import app from "./main";
 
@@ -765,6 +766,12 @@
     }
   }
 
+  // Applies the persisted or newly saved theme by toggling the light
+  // palette on the document root; the CSS variables in theme.css do the rest.
+  function applyTheme(theme) {
+    document.documentElement.classList.toggle("theme-light", theme !== "dark");
+  }
+
   onMount(() => {
     console.log("Component mounting...");
     if (hasMounted) return;
@@ -776,6 +783,13 @@
 
     (async () => {
       try {
+        // Apply the persisted theme before anything else paints.
+        try {
+          const settings = await GetSettings();
+          applyTheme(settings ? settings.theme : null);
+        } catch (themeErr) {
+          console.warn("Could not load theme:", themeErr);
+        }
         await updateStatus();
         await updateFrequencyFromRadio();
         // Learn the rig's tuning range before filtering so unreadable
@@ -830,6 +844,10 @@
       statusMessage = isConnected ? "Connected to radio" : "Disconnected";
     });
 
+    const unsubTheme = Events.On("themeChanged", (ev) => {
+      applyTheme(ev.data);
+    });
+
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -838,6 +856,7 @@
       unsubFrequency();
       unsubMode();
       unsubConnection();
+      unsubTheme();
       if (manualInputDebounceTimer !== null) {
         clearTimeout(manualInputDebounceTimer);
         manualInputDebounceTimer = null;
@@ -1188,12 +1207,12 @@
 
 <style>
   .debug {
-    color: #c9a7e8;
+    color: var(--debug-fg);
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #2b2138;
+    background-color: var(--debug-bg);
     border-radius: 4px;
-    border-left: 4px solid #9b59b6;
+    border-left: 4px solid var(--debug-accent);
     font-family: monospace;
     font-size: 12px;
     overflow-x: auto;
@@ -1203,7 +1222,7 @@
     color: var(--danger);
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #3a2228;
+    background-color: var(--error-bg);
     border-radius: 4px;
     border-left: 4px solid var(--danger);
   }
@@ -1351,12 +1370,12 @@
   }
 
   .success {
-    color: #7ee0a0;
+    color: var(--success-fg);
     padding: 10px;
     margin-bottom: 15px;
-    background-color: #1e3629;
+    background-color: var(--success-bg);
     border-radius: 4px;
-    border-left: 4px solid #27ae60;
+    border-left: 4px solid var(--success-accent);
   }
 
   .table-container {
@@ -1479,18 +1498,18 @@
   }
 
   :global(.tabulator .tabulator-row.tabulator-selectable:hover) {
-    background-color: #2c3e55;
+    background-color: var(--row-hover);
   }
 
   :global(.tabulator .tabulator-row.tabulator-selected) {
-    background-color: #35506f;
+    background-color: var(--row-selected);
   }
 
   /* Row the user last clicked: keep it visually anchored across refilters */
   :global(.tabulator .tabulator-row.row-pinned) {
-    background-color: #3a4d24 !important;
+    background-color: var(--row-pinned-bg) !important;
     color: var(--fg) !important;
-    box-shadow: inset 3px 0 0 #e0a03a;
+    box-shadow: inset 3px 0 0 var(--row-pinned-accent);
   }
 
   :global(.tabulator .tabulator-row.row-pinned .tabulator-cell) {

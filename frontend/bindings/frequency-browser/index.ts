@@ -10,5 +10,6 @@ export type {
     CSVRow,
     FrequencyRange,
     ImportDates,
+    Settings,
     SettingsState
 } from "./models.js";

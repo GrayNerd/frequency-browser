@@ -1,14 +1,5 @@
 /* Dark palette shared with the Settings and Import windows. */
-:root {
-  color-scheme: dark;
-  --bg: #1b2636;
-  --bg-input: #243447;
-  --fg: #e6e9ef;
-  --fg-dim: #9aa7b8;
-  --accent: #4a90d9;
-  --danger: #e06c75;
-  --border: #35455c;
-}
+@import "./theme.css";
 
 html {
   background-color: var(--bg);

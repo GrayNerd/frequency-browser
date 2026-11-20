@@ -1,14 +1,14 @@
-# Dark Mode + Shutdown Handoff
+# Settings Persistence Handoff
 
 ## Status
-Dark mode complete. Shutdown-safety work in progress (code done, untested).
+Persistent settings + tabbed Settings window implemented and building. Runtime verification pending.
 
 ## Done
-- Dark palette applied app-wide; Tabulator, boxes, inputs, and messages are dark.
-- Shutdown now closes Settings/Import windows before the main window (`shutdown.go`).
-- Unsaved Settings changes trigger a Save / Discard / Cancel prompt on exit.
-- Settings window reports dirty state via the `settingsState` event.
+- settings.config in the user data dir (go-app-paths); auto-created with defaults on first run.
+- Settings window: Appearance/Radio tabs; theme (light default), Save Window Size/Position, Save Now; rigctld address.
+- Light/dark themes via theme.css; live switch via the themeChanged event.
+- Main window geometry restored while hidden before show; saved on exit when enabled.
+- go build, go test -short, and frontend npm run build all pass; settings round-trip tested.
 
 ## Remaining
-- Run `wails dev`: verify prompt, save-failure handling, and window order.
-- Commit changes.
+- wails dev verification (theme switch, geometry restore, Save Now); commit.

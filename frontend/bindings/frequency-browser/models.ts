@@ -42,10 +42,43 @@ export interface FrequencyRange {
 export type ImportDates = { [_ in string]?: string } | null;
 
 /**
+ * Settings holds every persisted user preference.
+ * 
+ * WindowSaved distinguishes "no geometry recorded yet" from a real position
+ * of 0,0, so a first run still centres the window instead of pinning it to
+ * the top-left corner.
+ */
+export interface Settings {
+    "theme": string;
+
+    /**
+     * When true the main window's size and position are written back to
+     * this file every time the application exits.
+     */
+    "saveWindowPos": boolean;
+    "windowWidth": number;
+    "windowHeight": number;
+    "windowX": number;
+    "windowY": number;
+    "windowSaved": boolean;
+
+    /**
+     * RadioAddress is the host:port of the rigctld daemon spoken to through
+     * hamlib's "hamlib net rigctl" backend.
+     */
+    "radioAddress": string;
+}
+
+/**
  * SettingsState is reported by the Settings window whenever its fields change,
  * so the backend can decide whether a shutdown needs to prompt the user.
  */
 export interface SettingsState {
     "dirty": boolean;
-    "address": string;
+
+    /**
+     * Settings is the window's full pending state, saved as-is when the
+     * user chooses Save during shutdown.
+     */
+    "settings": Settings;
 }

@@ -3,15 +3,7 @@
  * "Import", so no in-body heading is needed; the fixed window height is sized
  * so the OK button fits without scrolling. */
 
-:root {
-  color-scheme: dark;
-  --bg: #1b2636;
-  --bg-input: #243447;
-  --fg: #e6e9ef;
-  --fg-dim: #9aa7b8;
-  --accent: #4a90d9;
-  --border: #35455c;
-}
+@import "./theme.css";
 
 * {
   box-sizing: border-box;
