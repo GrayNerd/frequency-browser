@@ -234,11 +234,13 @@ func createMainWindow(app *application.App) {
 		Title:  "Frequency Browser",
 		Width:  s.WindowWidth,
 		Height: s.WindowHeight,
-		X: s.WindowX,
-		Y: s.WindowY,
 		// Themed so the native background matches the webview palette.
 		BackgroundColour: themeBackground(s.Theme),
 		URL:              "/",
+		// Created hidden so the window is never mapped at a default position
+		// and then moved (which would flash). It is revealed at the saved
+		// position below.
+		Hidden: true,
 		// Render the application menu as a hamburger button in this window's
 		// native header bar instead of a traditional menu bar. The style is
 		// needed because the default menu-bar style cannot display plain
@@ -249,29 +251,28 @@ func createMainWindow(app *application.App) {
 		},
 	}
 
-	// Restore the saved window position through the creation options. On
-	// Linux, WindowXY positions the window relative to a screen's work area,
-	// so the saved absolute coordinates are converted to an offset within
-	// the screen that contains them. When no position has been saved the
-	// window stays centred (the default).
-	if s.WindowSaved {
-		opts.InitialPosition = application.WindowXY
-		opts.X = s.WindowX
-		opts.Y = s.WindowY
-		if screen := app.Screen.ScreenNearestPhysicalPoint(application.Point{X: s.WindowX, Y: s.WindowY}); screen != nil {
-			opts.Screen = screen
-			opts.X = s.WindowX - screen.WorkArea.X
-			opts.Y = s.WindowY - screen.WorkArea.Y
-		}
-	}
-
 	mainWindow = app.Window.NewWithOptions(opts)
 	// Auxiliary windows must be closed before the main window, and an unsaved
 	// Settings window gets a say. The hook can cancel the close, so the
 	// orderly shutdown happens in requestShutdown instead.
 	mainWindow.RegisterHook(events.Common.WindowClosing, onMainWindowClosing)
-	// The window is shown by the platform during creation; because it is not
-	// hidden, run() re-applies the screen placement after the surface exists,
-	// so the saved position is honoured.
+
+	// Build the platform implementation while the window is still hidden.
+	mainWindow.Run()
+
+	// Reveal the window. With a saved position, showWindowAt maps it directly
+	// at those coordinates (X11 pre-map placement) so there is no visible jump
+	// from a default location. Without a saved position, or where pre-map
+	// placement is unavailable (e.g. Wayland), it is simply shown centred.
+	if s.WindowSaved && showWindowAt(mainWindow, s.WindowX, s.WindowY) {
+		return
+	}
+	if s.WindowSaved {
+		// Fallback: position could not be applied before mapping, so show and
+		// then move (a brief jump is possible on this path).
+		mainWindow.Show()
+		mainWindow.SetPosition(s.WindowX, s.WindowY)
+		return
+	}
 	mainWindow.Show()
 }
