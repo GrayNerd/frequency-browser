@@ -21,6 +21,8 @@
     SendCustomCommand,
     GetFrequencyRange,
     GetSettings,
+    LoadColumnWidths,
+    SaveColumnWidths,
   } from "../bindings/frequency-browser/app";
   import app from "./main";
 
@@ -651,6 +653,42 @@
           width: 79,
         },
       ],
+    });
+
+    // Restore persisted column widths, if any. Columns without a saved width
+    // keep the default declared above.
+    (async () => {
+      try {
+        const saved = await LoadColumnWidths();
+        if (saved) {
+          for (const col of table.getColumns()) {
+            const field = col.getField();
+            const width = saved[field];
+            if (field && typeof width === "number" && width > 0) {
+              col.setWidth(width);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load column widths:", err);
+      }
+    })();
+
+    // Persist column widths whenever the user resizes a column, so the layout
+    // survives between sessions.
+    table.on("columnResized", async (column) => {
+      try {
+        const widths = {};
+        for (const col of table.getColumns()) {
+          const field = col.getField();
+          if (field) {
+            widths[field] = col.getWidth();
+          }
+        }
+        await SaveColumnWidths(widths);
+      } catch (err) {
+        console.warn("Could not save column widths:", err);
+      }
     });
 
     // Tabulator 5.x removed option-based event callbacks (rowClick: fn is

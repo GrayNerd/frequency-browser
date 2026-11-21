@@ -99,6 +99,14 @@ export function LoadImportDates(): $CancellablePromise<$models.ImportDates> {
 }
 
 /**
+ * LoadColumnWidths returns the persisted per-column widths, keyed by column
+ * field name. Returns an empty map when none have been saved yet.
+ */
+export function LoadColumnWidths(): $CancellablePromise<{ [_ in string]?: number } | null> {
+    return $Call.ByID(2865142186);
+}
+
+/**
  * SaveAokiList saves data to aoki-list.json
  */
 export function SaveAokiList(data: $models.CSVRow[] | null): $CancellablePromise<void> {
@@ -117,6 +125,15 @@ export function SaveEIBIList(data: $models.CSVRow[] | null): $CancellablePromise
  */
 export function SaveHfccList(data: $models.CSVRow[] | null): $CancellablePromise<void> {
     return $Call.ByID(124508864, data);
+}
+
+/**
+ * SaveColumnWidths merges the given per-column widths into the stored
+ * settings and persists them. Unlike SaveSettings it does not validate the
+ * radio address, so resizing a column never trips the rigctld checks.
+ */
+export function SaveColumnWidths(widths: { [_ in string]?: number } | null): $CancellablePromise<void> {
+    return $Call.ByID(2709123951, widths);
 }
 
 /**

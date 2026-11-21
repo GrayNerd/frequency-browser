@@ -67,6 +67,12 @@ export interface Settings {
      * hamlib's "hamlib net rigctl" backend.
      */
     "radioAddress": string;
+
+    /**
+     * ColumnWidths records the user-adjusted width of each Tabulator column,
+     * keyed by the column's field name.
+     */
+    "columnWidths": { [_ in string]?: number };
 }
 
 /**

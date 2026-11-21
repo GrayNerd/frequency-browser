@@ -51,6 +51,11 @@ type Settings struct {
 	// RadioAddress is the host:port of the rigctld daemon spoken to through
 	// hamlib's "hamlib net rigctl" backend.
 	RadioAddress string `json:"radioAddress"`
+
+	// ColumnWidths records the user-adjusted width of each Tabulator column,
+	// keyed by the column's field name. Persisted so the grid keeps its layout
+	// between sessions.
+	ColumnWidths map[string]int `json:"columnWidths"`
 }
 
 // defaultSettings returns the settings used on first run and as the fallback
@@ -164,6 +169,40 @@ func saveSettings(s Settings) error {
 		return fmt.Errorf("could not save settings: %w", err)
 	}
 	return nil
+}
+
+// LoadColumnWidths returns the persisted per-column widths, keyed by column
+// field name. Returns an empty map when none have been saved yet.
+func (a *App) LoadColumnWidths() (map[string]int, error) {
+	a.settingsMu.Lock()
+	defer a.settingsMu.Unlock()
+	widths := a.settings.ColumnWidths
+	if widths == nil {
+		widths = make(map[string]int)
+	}
+	// Return a copy so the caller can't mutate our internal state.
+	out := make(map[string]int, len(widths))
+	for k, v := range widths {
+		out[k] = v
+	}
+	return out, nil
+}
+
+// SaveColumnWidths merges the given per-column widths into the stored
+// settings and persists them. Unlike SaveSettings it does not validate the
+// radio address, so resizing a column never trips the rigctld checks.
+func (a *App) SaveColumnWidths(widths map[string]int) error {
+	a.settingsMu.Lock()
+	if a.settings.ColumnWidths == nil {
+		a.settings.ColumnWidths = make(map[string]int, len(widths))
+	}
+	for k, v := range widths {
+		a.settings.ColumnWidths[k] = v
+	}
+	s := a.settings
+	a.settingsMu.Unlock()
+
+	return saveSettings(s)
 }
 
 // themeBackground returns the native window background colour matching the
