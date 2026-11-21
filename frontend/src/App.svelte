@@ -569,7 +569,9 @@
     table = new Tabulator(tableContainer, {
       data: data,
       layout: "fitColumns",
-      responsiveLayout: "collapse",
+      // Hide columns instead of wrapping row content when the window is too
+      // narrow ("collapse" mode puts cell content into a wrapped row).
+      responsiveLayout: true,
       height: "100%",
       // Applied on every row render, so the pinned-row highlight survives the
       // full row rebuild that setData() performs when filters are re-applied.
