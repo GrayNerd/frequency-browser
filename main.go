@@ -237,6 +237,9 @@ func createMainWindow(app *application.App) {
 		Title:  "Frequency Browser",
 		Width:  s.WindowWidth,
 		Height: s.WindowHeight,
+		// Minimum window size: the schedule grid needs a usable size.
+		MinWidth:  900,
+		MinHeight: 600,
 		// Themed so the native background matches the webview palette.
 		BackgroundColour: themeBackground(s.Theme),
 		URL:              "/",
