@@ -172,14 +172,22 @@ func main() {
 	// Application menu, shown as a hamburger button in the main window's
 	// header bar (GNOME-style primary menu). Menu items run through the app
 	// action group; OnClick callbacks fire on activation.
+	//
+	// GTK requires a GMenu-backed popover menu to hold submenus at the top
+	// level, and refuses flat action items with
+	// "Gtk-WARNING **: Don't know how to handle this item", so the actions are
+	// grouped one level down in submenus.
 	appMenu := application.NewMenu()
-	appMenu.Add("Import").OnClick(func(*application.Context) {
+	browseMenu := appMenu.AddSubmenu("Browse")
+	browseMenu.Add("Import").OnClick(func(*application.Context) {
 		openImportWindow()
 	})
-	appMenu.Add("Settings").OnClick(func(*application.Context) {
+	preferencesMenu := appMenu.AddSubmenu("Preferences")
+	preferencesMenu.Add("Settings").OnClick(func(*application.Context) {
 		openSettings()
 	})
-	appMenu.Add("Exit").OnClick(func(*application.Context) {
+	systemMenu := appMenu.AddSubmenu("System")
+	systemMenu.Add("Exit").OnClick(func(*application.Context) {
 		requestShutdown()
 	})
 	app.Menu.Set(appMenu)
