@@ -15,8 +15,8 @@ import (
 	"golang.org/x/text/transform"
 )
 
-// eibiReferenceCacheFile is written beside the executable so refreshed EiBi
-// reference tables survive a restart.
+// eibiReferenceCacheFile is written to the per-user data directory (as resolved
+// by go-app-paths) so refreshed EiBi reference tables survive a restart.
 const eibiReferenceCacheFile = "eibi-reftables.json"
 
 // eibiSiteMap holds the transmitter site table parsed from EiBi's README.TXT:
@@ -405,17 +405,14 @@ func eibiApplyReferenceTables(tables eibiReferenceTables) eibiReferenceStats {
 	return stats
 }
 
-// eibiReferenceCachePath returns the path of the EiBi reference table cache.
+// eibiReferenceCachePath returns the path of the EiBi reference table cache,
+// inside the per-user data directory resolved by go-app-paths.
 func eibiReferenceCachePath() (string, error) {
-	exePath, err := os.Executable()
-	if err != nil {
-		return "", fmt.Errorf("error getting executable path: %w", err)
-	}
-	return filepath.Join(filepath.Dir(exePath), eibiReferenceCacheFile), nil
+	return appDataPath(eibiReferenceCacheFile)
 }
 
-// eibiSaveReferenceTables stores the refreshed tables next to the executable so
-// they are reused on the next start.
+// eibiSaveReferenceTables stores the refreshed tables in the per-user data
+// directory so they are reused on the next start.
 func eibiSaveReferenceTables(tables eibiReferenceTables) error {
 	cachePath, err := eibiReferenceCachePath()
 	if err != nil {
@@ -429,6 +426,9 @@ func eibiSaveReferenceTablesTo(cachePath string, tables eibiReferenceTables) err
 	data, err := json.MarshalIndent(tables, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling reference tables: %w", err)
+	}
+	if err := os.MkdirAll(filepath.Dir(cachePath), 0o755); err != nil {
+		return fmt.Errorf("error creating reference cache directory: %w", err)
 	}
 	if err := os.WriteFile(cachePath, data, 0644); err != nil {
 		return fmt.Errorf("error writing %s: %w", cachePath, err)

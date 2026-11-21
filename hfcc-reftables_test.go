@@ -315,13 +315,19 @@ func TestHfccLoadReferenceCacheMissingFile(t *testing.T) {
 	hfccLoadReferenceCacheFrom(filepath.Join(t.TempDir(), "does-not-exist.json"))
 }
 
-// TestHfccReferenceCachePath uses the executable directory.
+// TestHfccReferenceCachePath checks the cache lives in the app data directory.
 func TestHfccReferenceCachePath(t *testing.T) {
+	tmp := t.TempDir()
+	t.Setenv("XDG_DATA_HOME", tmp)
+
 	cachePath, err := hfccReferenceCachePath()
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
 	if filepath.Base(cachePath) != hfccReferenceCacheFile {
 		t.Errorf("cache file = %q, want %q", filepath.Base(cachePath), hfccReferenceCacheFile)
+	}
+	if dir := filepath.Dir(cachePath); dir != filepath.Join(tmp, "frequency-browser") {
+		t.Errorf("dir = %q, want %q", dir, filepath.Join(tmp, "frequency-browser"))
 	}
 }

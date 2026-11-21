@@ -25,8 +25,8 @@ const (
 	hfccLanguageTableName     = "language.txt"
 )
 
-// hfccReferenceCacheFile is written beside the executable so refreshed
-// reference tables survive a restart.
+// hfccReferenceCacheFile is written to the per-user data directory (as resolved
+// by go-app-paths) so refreshed reference tables survive a restart.
 const hfccReferenceCacheFile = "hfcc-reftables.json"
 
 // referenceTablesMu guards the reference lookup maps so an import can refresh
@@ -326,18 +326,14 @@ func hfccApplyReferenceTables(tables hfccReferenceTables) hfccReferenceStats {
 	return stats
 }
 
-// hfccReferenceCachePath returns the path of the reference table cache: a file
-// next to the executable.
+// hfccReferenceCachePath returns the path of the reference table cache, inside
+// the per-user data directory resolved by go-app-paths.
 func hfccReferenceCachePath() (string, error) {
-	exePath, err := os.Executable()
-	if err != nil {
-		return "", fmt.Errorf("error getting executable path: %w", err)
-	}
-	return filepath.Join(filepath.Dir(exePath), hfccReferenceCacheFile), nil
+	return appDataPath(hfccReferenceCacheFile)
 }
 
-// hfccSaveReferenceTables stores the refreshed tables next to the executable so
-// they are reused on the next start (see hfccLoadReferenceCache).
+// hfccSaveReferenceTables stores the refreshed tables in the per-user data
+// directory so they are reused on the next start (see hfccLoadReferenceCache).
 func hfccSaveReferenceTables(tables hfccReferenceTables) error {
 	cachePath, err := hfccReferenceCachePath()
 	if err != nil {
@@ -351,6 +347,9 @@ func hfccSaveReferenceTablesTo(cachePath string, tables hfccReferenceTables) err
 	data, err := json.MarshalIndent(tables, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling reference tables: %w", err)
+	}
+	if err := os.MkdirAll(filepath.Dir(cachePath), 0o755); err != nil {
+		return fmt.Errorf("error creating reference cache directory: %w", err)
 	}
 	if err := os.WriteFile(cachePath, data, 0644); err != nil {
 		return fmt.Errorf("error writing %s: %w", cachePath, err)

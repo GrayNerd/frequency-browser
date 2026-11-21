@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"sync"
 
-	gap "github.com/muesli/go-app-paths"
 	"github.com/wailsapp/wails/v3/pkg/application"
 )
 
@@ -73,11 +72,11 @@ var (
 	settingsPathErr   error
 )
 
-// settingsPath resolves the settings file location once per process.
+// settingsPath resolves the settings file location once per process, from the
+// per-user data directory resolved by go-app-paths.
 func settingsPath() (string, error) {
 	settingsPathOnce.Do(func() {
-		scope := gap.NewScope(gap.User, "frequency-browser")
-		p, err := scope.DataPath(settingsFileName)
+		p, err := appDataPath(settingsFileName)
 		if err != nil {
 			settingsPathErr = fmt.Errorf("could not resolve settings path: %w", err)
 			return

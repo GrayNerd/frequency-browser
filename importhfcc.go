@@ -363,13 +363,10 @@ func hfccParseScheduleFile(content []byte) ([]CSVRow, error) {
 
 // LoadHfccList loads data from hfcc-list.json if it exists
 func (a *App) LoadHfccList() ([]CSVRow, error) {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("hfcc-list.json")
 	if err != nil {
-		return nil, fmt.Errorf("error getting executable path: %w", err)
+		return nil, err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "hfcc-list.json")
 
 	// Check if file exists
 	if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
@@ -395,13 +392,10 @@ func (a *App) LoadHfccList() ([]CSVRow, error) {
 
 // SaveAHfccList saves data to hfcc-list.json
 func (a *App) SaveHfccList(data []CSVRow) error {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("hfcc-list.json")
 	if err != nil {
-		return fmt.Errorf("error getting executable path: %w", err)
+		return err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "hfcc-list.json")
 
 	// Delete existing file if it exists
 	if _, err := os.Stat(jsonPath); err == nil {
@@ -415,6 +409,10 @@ func (a *App) SaveHfccList(data []CSVRow) error {
 	jsonData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling JSON: %w", err)
+	}
+
+	if err := os.MkdirAll(filepath.Dir(jsonPath), 0o755); err != nil {
+		return fmt.Errorf("error creating data directory: %w", err)
 	}
 
 	// Write to file

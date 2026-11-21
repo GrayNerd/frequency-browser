@@ -270,13 +270,10 @@ func aokiDecode(raw []byte) string {
 
 // LoadAokiList loads data from aoki-list.json if it exists
 func (a *App) LoadAokiList() ([]CSVRow, error) {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("aoki-list.json")
 	if err != nil {
-		return nil, fmt.Errorf("error getting executable path: %w", err)
+		return nil, err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "aoki-list.json")
 
 	if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
 		return nil, nil // File doesn't exist, return empty data
@@ -299,13 +296,10 @@ func (a *App) LoadAokiList() ([]CSVRow, error) {
 
 // SaveAokiList saves data to aoki-list.json
 func (a *App) SaveAokiList(data []CSVRow) error {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("aoki-list.json")
 	if err != nil {
-		return fmt.Errorf("error getting executable path: %w", err)
+		return err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "aoki-list.json")
 
 	// Delete existing file if it exists
 	if _, err := os.Stat(jsonPath); err == nil {
@@ -320,6 +314,9 @@ func (a *App) SaveAokiList(data []CSVRow) error {
 		return fmt.Errorf("error marshaling JSON: %w", err)
 	}
 
+	if err := os.MkdirAll(filepath.Dir(jsonPath), 0o755); err != nil {
+		return fmt.Errorf("error creating data directory: %w", err)
+	}
 	err = os.WriteFile(jsonPath, jsonData, 0644)
 	if err != nil {
 		return fmt.Errorf("error writing JSON file: %w", err)

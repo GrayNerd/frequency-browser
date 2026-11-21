@@ -333,13 +333,10 @@ func eibiParseSchedule(content []byte) ([]CSVRow, error) {
 
 // LoadEIBIList loads data from eibi-list.json if it exists
 func (a *App) LoadEIBIList() ([]CSVRow, error) {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("eibi-list.json")
 	if err != nil {
-		return nil, fmt.Errorf("error getting executable path: %w", err)
+		return nil, err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "eibi-list.json")
 
 	// Check if file exists
 	if _, err := os.Stat(jsonPath); os.IsNotExist(err) {
@@ -365,13 +362,10 @@ func (a *App) LoadEIBIList() ([]CSVRow, error) {
 
 // SaveEIBIList saves data to eibi-list.json
 func (a *App) SaveEIBIList(data []CSVRow) error {
-	// Get the current directory
-	exePath, err := os.Executable()
+	jsonPath, err := appDataPath("eibi-list.json")
 	if err != nil {
-		return fmt.Errorf("error getting executable path: %w", err)
+		return err
 	}
-	dir := filepath.Dir(exePath)
-	jsonPath := filepath.Join(dir, "eibi-list.json")
 
 	// Delete existing file if it exists
 	if _, err := os.Stat(jsonPath); err == nil {
@@ -385,6 +379,10 @@ func (a *App) SaveEIBIList(data []CSVRow) error {
 	jsonData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling JSON: %w", err)
+	}
+
+	if err := os.MkdirAll(filepath.Dir(jsonPath), 0o755); err != nil {
+		return fmt.Errorf("error creating data directory: %w", err)
 	}
 
 	// Write to file

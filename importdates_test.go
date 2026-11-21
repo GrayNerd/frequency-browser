@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"path/filepath"
 	"testing"
 	"time"
@@ -92,8 +91,11 @@ func TestRecordImportDateUpdatesEntry(t *testing.T) {
 	}
 }
 
-// TestImportDatesPath checks the record sits beside the executable.
+// TestImportDatesPath checks the record lives in the app data directory.
 func TestImportDatesPath(t *testing.T) {
+	tmp := t.TempDir()
+	t.Setenv("XDG_DATA_HOME", tmp)
+
 	path, err := importDatesPath()
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
@@ -101,11 +103,7 @@ func TestImportDatesPath(t *testing.T) {
 	if filepath.Base(path) != importDatesFile {
 		t.Errorf("file = %q, want %q", filepath.Base(path), importDatesFile)
 	}
-	exe, err := os.Executable()
-	if err != nil {
-		t.Fatalf("executable: %v", err)
-	}
-	if filepath.Dir(path) != filepath.Dir(exe) {
-		t.Errorf("dir = %q, want %q", filepath.Dir(path), filepath.Dir(exe))
+	if dir := filepath.Dir(path); dir != filepath.Join(tmp, "frequency-browser") {
+		t.Errorf("dir = %q, want %q", dir, filepath.Join(tmp, "frequency-browser"))
 	}
 }

@@ -9,8 +9,8 @@ import (
 )
 
 // importDatesFile records when each source was last imported, so the UI can show
-// how old the loaded schedule data is. It sits next to the executable alongside
-// the *-list.json files.
+// how old the loaded schedule data is. It lives in the per-user data directory
+// resolved by go-app-paths.
 const importDatesFile = "import-dates.json"
 
 // ImportDates maps a source name ("EiBi", "AOKI", "HFCC") to the RFC 3339 time
@@ -28,13 +28,10 @@ func (a *App) LoadImportDates() (ImportDates, error) {
 	return readImportDatesFrom(path)
 }
 
-// importDatesPath returns the path of the import date record.
+// importDatesPath returns the path of the import date record, inside the
+// per-user data directory resolved by go-app-paths.
 func importDatesPath() (string, error) {
-	exePath, err := os.Executable()
-	if err != nil {
-		return "", fmt.Errorf("error getting executable path: %w", err)
-	}
-	return filepath.Join(filepath.Dir(exePath), importDatesFile), nil
+	return appDataPath(importDatesFile)
 }
 
 // recordImportDate stores the time a source was successfully imported. A failure
@@ -87,6 +84,9 @@ func writeImportDatesTo(path string, dates ImportDates) error {
 	data, err := json.MarshalIndent(dates, "", "  ")
 	if err != nil {
 		return fmt.Errorf("error marshaling import dates: %w", err)
+	}
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return fmt.Errorf("error creating import dates directory: %w", err)
 	}
 	if err := os.WriteFile(path, data, 0644); err != nil {
 		return fmt.Errorf("error writing %s: %w", path, err)
