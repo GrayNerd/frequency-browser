@@ -585,13 +585,13 @@
           title: "Start",
           field: "startTime",
           headerFilter: "input",
-          width: 60,
+          width: 75,
         },
         {
           title: "End",
           field: "endTime",
           headerFilter: "input",
-          width: 60,
+          width: 75,
         },
         {
           title: "Days 1=Su",
