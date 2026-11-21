@@ -88,6 +88,11 @@ func openSettings() {
 		// Themed so the native background matches the webview palette.
 		BackgroundColour: themeBackground(appService.currentSettings().Theme),
 		Hidden:           true,
+		// The Settings window is a dialog: it gets no menu of its own (an
+		// empty one, so it does not fall back to the application menu).
+		Linux: application.LinuxWindow{
+			Menu: application.NewMenu(),
+		},
 	})
 	settingsWindow.OnWindowEvent(events.Common.WindowClosing, func(*application.WindowEvent) {
 		settingsWindow = nil
@@ -171,24 +176,14 @@ func main() {
 
 	// Application menu, shown as a hamburger button in the main window's
 	// header bar (GNOME-style primary menu). Menu items run through the app
-	// action group; OnClick callbacks fire on activation.
-	//
-	// GTK requires a GMenu-backed popover menu to hold submenus at the top
-	// level, and refuses flat action items with
-	// "Gtk-WARNING **: Don't know how to handle this item", so the actions are
-	// grouped one level down in submenus.
+	// action group; OnClick callbacks fire on activation. It offers the two
+	// actions the user wants, and nothing else.
 	appMenu := application.NewMenu()
-	browseMenu := appMenu.AddSubmenu("Browse")
-	browseMenu.Add("Import").OnClick(func(*application.Context) {
+	appMenu.Add("Import").OnClick(func(*application.Context) {
 		openImportWindow()
 	})
-	preferencesMenu := appMenu.AddSubmenu("Preferences")
-	preferencesMenu.Add("Settings").OnClick(func(*application.Context) {
+	appMenu.Add("Settings").OnClick(func(*application.Context) {
 		openSettings()
-	})
-	systemMenu := appMenu.AddSubmenu("System")
-	systemMenu.Add("Exit").OnClick(func(*application.Context) {
-		requestShutdown()
 	})
 	app.Menu.Set(appMenu)
 
