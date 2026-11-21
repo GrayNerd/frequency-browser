@@ -56,6 +56,10 @@ type Settings struct {
 	// keyed by the column's field name. Persisted so the grid keeps its layout
 	// between sessions.
 	ColumnWidths map[string]int `json:"columnWidths"`
+
+	// ColumnOrder records the user-adjusted order of the Tabulator columns,
+	// as field names. Persisted so the grid keeps its layout between sessions.
+	ColumnOrder []string `json:"columnOrder"`
 }
 
 // defaultSettings returns the settings used on first run and as the fallback
@@ -199,6 +203,33 @@ func (a *App) SaveColumnWidths(widths map[string]int) error {
 	for k, v := range widths {
 		a.settings.ColumnWidths[k] = v
 	}
+	s := a.settings
+	a.settingsMu.Unlock()
+
+	return saveSettings(s)
+}
+
+// LoadColumnOrder returns the persisted column order as field names, or an
+// empty slice when none has been saved yet.
+func (a *App) LoadColumnOrder() ([]string, error) {
+	a.settingsMu.Lock()
+	defer a.settingsMu.Unlock()
+	order := a.settings.ColumnOrder
+	if order == nil {
+		order = make([]string, 0)
+	}
+	out := make([]string, len(order))
+	copy(out, order)
+	return out, nil
+}
+
+// SaveColumnOrder replaces the stored column order with the given field names
+// and persists them.
+func (a *App) SaveColumnOrder(order []string) error {
+	a.settingsMu.Lock()
+	out := make([]string, len(order))
+	copy(out, order)
+	a.settings.ColumnOrder = out
 	s := a.settings
 	a.settingsMu.Unlock()
 

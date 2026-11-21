@@ -574,6 +574,10 @@
       // Hide columns instead of wrapping row content when the window is too
       // narrow ("collapse" mode puts cell content into a wrapped row).
       responsiveLayout: true,
+      // Let the user drag column headers to reorder them; the new order is
+      // saved and restored across sessions.
+      movableColumns: true,
+      modules: [MoveRowsModule],
       height: "100%",
       // Applied on every row render, so the pinned-row highlight survives the
       // full row rebuild that setData() performs when filters are re-applied.
@@ -674,6 +678,29 @@
       }
     })();
 
+    // Restore persisted column order, if any. Columns are moved to match the
+    // saved field order; any column not mentioned keeps its relative position.
+    (async () => {
+      try {
+        const saved = await LoadColumnOrder();
+        if (saved && saved.length > 0) {
+          const fields = saved.filter((f) => typeof f === "string");
+          // Walk the saved order left to right, moving each field to its
+          // target position so the final order matches.
+          let insertAfter = null;
+          for (const field of fields) {
+            const col = table.getColumn(field);
+            if (col) {
+              col.move(insertAfter);
+              insertAfter = field;
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Could not load column order:", err);
+      }
+    })();
+
     // Persist column widths whenever the user resizes a column, so the layout
     // survives between sessions.
     table.on("columnResized", async (column) => {
@@ -688,6 +715,16 @@
         await SaveColumnWidths(widths);
       } catch (err) {
         console.warn("Could not save column widths:", err);
+      }
+    });
+
+    // Persist column order whenever the user drags a column to reorder it.
+    table.on("columnMoved", async (column, columns) => {
+      try {
+        const order = table.getColumns().map((col) => col.getField());
+        await SaveColumnOrder(order);
+      } catch (err) {
+        console.warn("Could not save column order:", err);
       }
     });
 

@@ -70,9 +70,16 @@ export interface Settings {
 
     /**
      * ColumnWidths records the user-adjusted width of each Tabulator column,
-     * keyed by the column's field name.
+     * keyed by the column's field name. Persisted so the grid keeps its layout
+     * between sessions.
      */
-    "columnWidths": { [_ in string]?: number };
+    "columnWidths": { [_ in string]?: number } | null;
+
+    /**
+     * ColumnOrder records the user-adjusted order of the Tabulator columns,
+     * as field names.
+     */
+    "columnOrder": string[] | null;
 }
 
 /**
