@@ -582,16 +582,16 @@
       columns: [
         { title: "kHz", field: "khz", headerFilter: "input", width: 60 },
         {
-          title: "Start Time",
+          title: "Start",
           field: "startTime",
           headerFilter: "input",
-          width: 100,
+          width: 60,
         },
         {
-          title: "End Time",
+          title: "End",
           field: "endTime",
           headerFilter: "input",
-          width: 100,
+          width: 60,
         },
         {
           title: "Days 1=Su",

@@ -110,6 +110,7 @@ body {
 }
 
 .check-row {
+  color: var(--fg-dim);
   cursor: pointer;
 }
 
