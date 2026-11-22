@@ -960,6 +960,9 @@
   });
 
   function updateUTCTime() {
+    // When the user is running a manual time filter, the live clock is
+    // frozen so the chosen time stays in effect.
+    if (manualTimeMode) return;
     const now = new Date();
     const hours = now.getUTCHours().toString().padStart(2, "0");
     const minutes = now.getUTCMinutes().toString().padStart(2, "0");
@@ -1016,6 +1019,7 @@
   function handleTimeFilterChange(event) {
     console.log("Time filter change event:", event);
     const filterType = event.target.value;
+    const wasManual = currentTimeFilter === "manual";
     currentTimeFilter = filterType;
     void SaveFilterOptions(frequencyFilterMode, currentTimeFilter);
 
@@ -1038,15 +1042,35 @@
     } else {
       showManualTimeInput = false;
       manualTimeMode = false;
+      // Leaving manual time mode: resync the clock to the real current time.
+      if (wasManual) {
+        updateUTCTime();
+      }
     }
     
     console.log("Time filter changed to:", filterType, "showManualTimeInput:", showManualTimeInput);
   }
 
-  function handleFrequencyFilterChange(mode) {
+  async function handleFrequencyFilterChange(mode) {
+    const wasManual = frequencyFilterMode === "manual";
     // The consolidated reactive trigger re-filters when the mode changes.
     frequencyFilterMode = mode;
     void SaveFilterOptions(frequencyFilterMode, currentTimeFilter);
+    // Leaving manual frequency mode: sync the display to the radio's actual
+    // frequency so the grid reflects the rig rather than the last manual entry.
+    if (wasManual && mode !== "manual") {
+      try {
+        const currentFreq = await GetCurrentFrequency();
+        if (currentFreq !== undefined) {
+          frequency =
+            typeof currentFreq === "string"
+              ? parseFloat(currentFreq)
+              : currentFreq;
+        }
+      } catch (error) {
+        console.error("Failed to restore frequency from radio:", error);
+      }
+    }
   }
   
   async function updateFrequencyFromRadio() {

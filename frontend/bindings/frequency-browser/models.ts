@@ -89,7 +89,7 @@ export interface Settings {
 
     /**
      * ColumnOrder records the user-adjusted order of the Tabulator columns,
-     * as field names.
+     * as field names. Persisted so the grid keeps its layout between sessions.
      */
     "columnOrder": string[] | null;
 }

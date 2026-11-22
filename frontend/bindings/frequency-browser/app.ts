@@ -77,19 +77,19 @@ export function LoadAokiList(): $CancellablePromise<$models.CSVRow[] | null> {
 }
 
 /**
+ * LoadColumnOrder returns the persisted column order as field names, or an
+ * empty slice when none has been saved yet.
+ */
+export function LoadColumnOrder(): $CancellablePromise<string[] | null> {
+    return $Call.ByID(2853189565);
+}
+
+/**
  * LoadColumnWidths returns the persisted per-column widths, keyed by column
  * field name. Returns an empty map when none have been saved yet.
  */
 export function LoadColumnWidths(): $CancellablePromise<{ [_ in string]?: number } | null> {
     return $Call.ByID(2865142186);
-}
-
-/**
- * LoadColumnOrder returns the persisted column order as field names, or null
- * when none has been saved yet.
- */
-export function LoadColumnOrder(): $CancellablePromise<string[] | null> {
-    return $Call.ByID(2853189565);
 }
 
 /**
@@ -122,6 +122,14 @@ export function SaveAokiList(data: $models.CSVRow[] | null): $CancellablePromise
 }
 
 /**
+ * SaveColumnOrder replaces the stored column order with the given field names
+ * and persists them.
+ */
+export function SaveColumnOrder(order: string[] | null): $CancellablePromise<void> {
+    return $Call.ByID(3370206258, order);
+}
+
+/**
  * SaveColumnWidths merges the given per-column widths into the stored
  * settings and persists them. Unlike SaveSettings it does not validate the
  * radio address, so resizing a column never trips the rigctld checks.
@@ -131,27 +139,19 @@ export function SaveColumnWidths(widths: { [_ in string]?: number } | null): $Ca
 }
 
 /**
- * SaveColumnOrder replaces the stored column order with the given field names
- * and persists them.
+ * SaveEIBIList saves data to eibi-list.json
  */
-export function SaveColumnOrder(order: string[] | null): $CancellablePromise<void> {
-    return $Call.ByID(3370206258, order);
+export function SaveEIBIList(data: $models.CSVRow[] | null): $CancellablePromise<void> {
+    return $Call.ByID(2940524995, data);
 }
 
 /**
  * SaveFilterOptions persists the frequency and time filter modes so they
  * survive between sessions. Unlike SaveSettings it does not validate the
- * rigctld address.
+ * rigctld address, so changing a filter never trips the radio checks.
  */
 export function SaveFilterOptions(frequencyFilterMode: string, currentTimeFilter: string): $CancellablePromise<void> {
     return $Call.ByID(1988944556, frequencyFilterMode, currentTimeFilter);
-}
-
-/**
- * SaveEIBIList saves data to eibi-list.json
- */
-export function SaveEIBIList(data: $models.CSVRow[] | null): $CancellablePromise<void> {
-    return $Call.ByID(2940524995, data);
 }
 
 /**
