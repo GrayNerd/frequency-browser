@@ -69,6 +69,18 @@ export interface Settings {
     "radioAddress": string;
 
     /**
+     * FrequencyFilterMode is the persisted frequency input mode: "exact",
+     * "near", "all", or "manual".
+     */
+    "frequencyFilterMode": string;
+
+    /**
+     * CurrentTimeFilter is the persisted time filter mode: "now", "soon",
+     * "all", or "manual".
+     */
+    "currentTimeFilter": string;
+
+    /**
      * ColumnWidths records the user-adjusted width of each Tabulator column,
      * keyed by the column's field name. Persisted so the grid keeps its layout
      * between sessions.

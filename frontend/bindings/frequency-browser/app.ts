@@ -139,6 +139,15 @@ export function SaveColumnOrder(order: string[] | null): $CancellablePromise<voi
 }
 
 /**
+ * SaveFilterOptions persists the frequency and time filter modes so they
+ * survive between sessions. Unlike SaveSettings it does not validate the
+ * rigctld address.
+ */
+export function SaveFilterOptions(frequencyFilterMode: string, currentTimeFilter: string): $CancellablePromise<void> {
+    return $Call.ByID(1988944556, frequencyFilterMode, currentTimeFilter);
+}
+
+/**
  * SaveEIBIList saves data to eibi-list.json
  */
 export function SaveEIBIList(data: $models.CSVRow[] | null): $CancellablePromise<void> {

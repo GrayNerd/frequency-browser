@@ -23,6 +23,9 @@
     GetSettings,
     LoadColumnWidths,
     SaveColumnWidths,
+    LoadColumnOrder,
+    SaveColumnOrder,
+    SaveFilterOptions,
   } from "../bindings/frequency-browser/app";
   import app from "./main";
 
@@ -864,6 +867,16 @@
         try {
           const settings = await GetSettings();
           applyTheme(settings ? settings.theme : null);
+          // Restore the persisted filter modes before the grid is built so
+          // they take effect on the first render instead of defaulting.
+          if (settings) {
+            if (settings.frequencyFilterMode) {
+              frequencyFilterMode = settings.frequencyFilterMode;
+            }
+            if (settings.currentTimeFilter) {
+              currentTimeFilter = settings.currentTimeFilter;
+            }
+          }
         } catch (themeErr) {
           console.warn("Could not load theme:", themeErr);
         }
@@ -1004,6 +1017,7 @@
     console.log("Time filter change event:", event);
     const filterType = event.target.value;
     currentTimeFilter = filterType;
+    void SaveFilterOptions(frequencyFilterMode, currentTimeFilter);
 
     if (filterType === "manual") {
       // Initialize with current time if manualTimeInput is empty
@@ -1032,6 +1046,7 @@
   function handleFrequencyFilterChange(mode) {
     // The consolidated reactive trigger re-filters when the mode changes.
     frequencyFilterMode = mode;
+    void SaveFilterOptions(frequencyFilterMode, currentTimeFilter);
   }
   
   async function updateFrequencyFromRadio() {

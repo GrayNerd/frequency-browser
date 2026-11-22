@@ -28,6 +28,10 @@ const (
 	defaultWindowWidth  = 1024
 	defaultWindowHeight = 768
 	defaultRadioAddress = "localhost:4532"
+
+	// First-run defaults for the filter modes.
+	defaultFrequencyFilterMode = "near" // "exact", "near", "all", or "manual"
+	defaultCurrentTimeFilter   = "now"  // "now", "soon", "all", or "manual"
 )
 
 // Settings holds every persisted user preference.
@@ -52,6 +56,14 @@ type Settings struct {
 	// hamlib's "hamlib net rigctl" backend.
 	RadioAddress string `json:"radioAddress"`
 
+	// FrequencyFilterMode is the persisted frequency input mode: "exact",
+	// "near", "all", or "manual".
+	FrequencyFilterMode string `json:"frequencyFilterMode"`
+
+	// CurrentTimeFilter is the persisted time filter mode: "now", "soon",
+	// "all", or "manual".
+	CurrentTimeFilter string `json:"currentTimeFilter"`
+
 	// ColumnWidths records the user-adjusted width of each Tabulator column,
 	// keyed by the column's field name. Persisted so the grid keeps its layout
 	// between sessions.
@@ -72,6 +84,10 @@ func defaultSettings() Settings {
 		WindowWidth:   defaultWindowWidth,
 		WindowHeight:  defaultWindowHeight,
 		RadioAddress:  defaultRadioAddress,
+
+		// First-run defaults: near the tuned frequency, and "now" for time.
+		FrequencyFilterMode: defaultFrequencyFilterMode,
+		CurrentTimeFilter:   defaultCurrentTimeFilter,
 	}
 }
 
@@ -103,6 +119,14 @@ func (s Settings) normalized() Settings {
 	}
 	if s.RadioAddress == "" {
 		s.RadioAddress = defaultRadioAddress
+	}
+	if s.FrequencyFilterMode != "exact" && s.FrequencyFilterMode != "near" &&
+		s.FrequencyFilterMode != "all" && s.FrequencyFilterMode != "manual" {
+		s.FrequencyFilterMode = defaultFrequencyFilterMode
+	}
+	if s.CurrentTimeFilter != "now" && s.CurrentTimeFilter != "soon" &&
+		s.CurrentTimeFilter != "all" && s.CurrentTimeFilter != "manual" {
+		s.CurrentTimeFilter = defaultCurrentTimeFilter
 	}
 	if s.WindowWidth <= 0 {
 		s.WindowWidth = defaultWindowWidth
@@ -230,6 +254,19 @@ func (a *App) SaveColumnOrder(order []string) error {
 	out := make([]string, len(order))
 	copy(out, order)
 	a.settings.ColumnOrder = out
+	s := a.settings
+	a.settingsMu.Unlock()
+
+	return saveSettings(s)
+}
+
+// SaveFilterOptions persists the frequency and time filter modes so they
+// survive between sessions. Unlike SaveSettings it does not validate the
+// rigctld address, so changing a filter never trips the radio checks.
+func (a *App) SaveFilterOptions(frequencyFilterMode, currentTimeFilter string) error {
+	a.settingsMu.Lock()
+	a.settings.FrequencyFilterMode = frequencyFilterMode
+	a.settings.CurrentTimeFilter = currentTimeFilter
 	s := a.settings
 	a.settingsMu.Unlock()
 
