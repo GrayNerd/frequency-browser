@@ -22,13 +22,6 @@ func ConvertDays(input string) string {
 	if input == "" {
 		return "1234567"
 	}
-	// Handle specific day-name patterns
-	if input == "sasu" || input == "sasusu" {
-		return "1.....7"
-	}
-	if input == "1.sa" {
-		return "1.....7"
-	}
 
 	// Initialize result with dots
 	result := make([]rune, 7)
@@ -39,9 +32,34 @@ func ConvertDays(input string) string {
 	originalInput := input
 	matched := false
 
-	// Handle ranges
+	// Handle ranges first (hyphen indicates a range, e.g. "mo-fr", "1-7")
 	if strings.Contains(input, "-") {
 		if handleRange(input, result, dayToDigit) {
+			matched = true
+		}
+	}
+
+	// Handle weekend pattern: Sunday + Saturday only, in any form.
+	// Matches "1.sa", "sa1", "1sa", "su.sa", "1,7", "1 7", etc.
+	// Day abbreviations are normalized to digits, separators are stripped,
+	// and the result is checked for exactly positions 1 and 7.
+	if !matched {
+		weekendCheck := input
+		weekendCheck = strings.ReplaceAll(weekendCheck, "saturday", "7")
+		weekendCheck = strings.ReplaceAll(weekendCheck, "sunday", "1")
+		weekendCheck = strings.ReplaceAll(weekendCheck, "sat", "7")
+		weekendCheck = strings.ReplaceAll(weekendCheck, "sun", "1")
+		weekendCheck = strings.ReplaceAll(weekendCheck, "sa", "7")
+		weekendCheck = strings.ReplaceAll(weekendCheck, "su", "1")
+		weekendCheck = strings.Map(func(r rune) rune {
+			if r >= '1' && r <= '7' {
+				return r
+			}
+			return -1
+		}, weekendCheck)
+		if weekendCheck == "17" || weekendCheck == "71" {
+			result[0] = '1'
+			result[6] = '7'
 			matched = true
 		}
 	}
