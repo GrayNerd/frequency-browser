@@ -1089,6 +1089,7 @@
   }
 
   $: if (frequencyFilterMode === "manual") {
+    manualFrequency = true;
     editableFrequency = formatFrequency(frequency);
     // Publish the settled value immediately, without the typing debounce, so
     // switching into manual mode filters right away around the radio's
@@ -1103,6 +1104,7 @@
       }
     }, 50);
   } else {
+    manualFrequency = false;
     showManualInput = false;
   }
 
