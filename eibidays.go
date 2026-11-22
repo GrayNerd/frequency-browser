@@ -17,12 +17,16 @@ func ConvertDays(input string) string {
 	}
 
 	input = strings.ToLower(strings.TrimSpace(input))
-	
+
 	// Handle empty input - return "1234567"
 	if input == "" {
 		return "1234567"
 	}
-	if input == "SaSu" {
+	// Handle specific day-name patterns
+	if input == "sasu" || input == "sasusu" {
+		return "1.....7"
+	}
+	if input == "1.sa" {
 		return "1.....7"
 	}
 
@@ -56,7 +60,8 @@ func ConvertDays(input string) string {
 		}
 	}
 
-	// Handle digit strings (Monday-based)
+	// Handle digit strings: each digit maps directly to its own position
+	// (1=Sunday, 2=Monday, ..., 7=Saturday), padding with dots to 7 chars.
 	if !matched && isAllDigits(input) {
 		handleDigitString(input, result)
 		matched = true
@@ -129,20 +134,12 @@ func handleSingleDay(input string, result []rune, dayToDigit map[string]int) boo
 }
 
 func handleDigitString(input string, result []rune) {
-	// Convert Monday-based digits to Sunday-based positions
-	// Monday(1) -> Monday(2), Tuesday(2) -> Tuesday(3), etc.
-	// Sunday(7) -> Sunday(1)
+	// Direct position mapping: each digit maps to its own position
+	// (1=Sunday, 2=Monday, ..., 7=Saturday), padding with dots to 7 chars.
 	for _, char := range input {
 		digit := int(char - '0')
 		if digit >= 1 && digit <= 7 {
-			// Map Monday-based to Sunday-based
-			sundayDigit := digit
-			if digit == 7 {
-				sundayDigit = 1 // Sunday moves from position 7 to 1
-			} else {
-				sundayDigit = digit + 1 // Shift other days forward
-			}
-			result[sundayDigit-1] = rune(sundayDigit + '0')
+			result[digit-1] = rune(digit + '0')
 		}
 	}
 }

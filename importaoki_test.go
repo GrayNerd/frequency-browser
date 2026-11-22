@@ -335,8 +335,8 @@ func TestAokiParseScheduleNameOverflow(t *testing.T) {
 	if rows[1].Language != "English" {
 		t.Errorf("rows[1].Language = %q, want English", rows[1].Language)
 	}
-	if rows[1].Days != "3456" {
-		t.Errorf("rows[1].Days = %q, want 3456", rows[1].Days)
+	if rows[1].Days != "..3456." {
+		t.Errorf("rows[1].Days = %q, want ..3456.", rows[1].Days)
 	}
 	if rows[2].Language != "German" {
 		t.Errorf("rows[2].Language = %q, want German", rows[2].Language)

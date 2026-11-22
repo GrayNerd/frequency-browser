@@ -83,7 +83,7 @@ func aokiParseSchedule(content []byte) ([]CSVRow, error) {
 
 		// Columns after the time shift by however far the name overflowed.
 		shift := timeStart - aokiTimeColumn
-		daysString := aokiField(raw, 48+shift, 55+shift)
+		daysString := ConvertDays(strings.TrimSpace(aokiField(raw, 48+shift, 55+shift)))
 		languageName := aokiField(raw, 56+shift, 76+shift)
 
 		if khz == "" || timeUTC == "" {

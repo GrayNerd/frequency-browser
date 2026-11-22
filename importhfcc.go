@@ -327,7 +327,7 @@ func hfccParseScheduleFile(content []byte) ([]CSVRow, error) {
 		khz := line[0:5]
 		startTime := line[6:10]
 		endTime := line[11:15]
-		daysString := line[72:79]
+		daysString := ConvertDays(strings.TrimSpace(line[72:79]))
 		ituCode := line[113:116]
 		countryName := GetCountryName(ituCode)
 		stationCode := line[117:120]
