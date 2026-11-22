@@ -1586,6 +1586,19 @@
     color: var(--fg);
   }
 
+  :global(.tabulator .tabulator-header .tabulator-col:hover),
+  :global(.tabulator .tabulator-header .tabulator-col.tabulator-sortable:not(.tabulator-col-group):hover),
+  :global(.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover) {
+    background-color: var(--row-hover) !important;
+    color: var(--fg);
+  }
+
+  :global(.tabulator .tabulator-header .tabulator-col:hover .tabulator-col-content),
+  :global(.tabulator .tabulator-header .tabulator-col.tabulator-sortable:not(.tabulator-col-group):hover .tabulator-col-content),
+  :global(.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover .tabulator-col-content) {
+    color: var(--fg);
+  }
+
   /* Column header filter boxes. */
   :global(.tabulator .tabulator-header .tabulator-col .tabulator-header-filter input) {
     background-color: var(--bg);
