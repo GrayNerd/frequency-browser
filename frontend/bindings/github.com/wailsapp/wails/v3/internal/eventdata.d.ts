@@ -13,8 +13,10 @@ declare module "@wailsio/runtime" {
     namespace Events {
         interface CustomEvents {
             "connectionStatus": boolean;
+            "daemonStatus": main$0.DaemonStatus;
             "frequencyUpdate": number;
             "modeUpdate": string;
+            "radioRestarted": boolean;
             "settingsState": main$0.SettingsState;
             "themeChanged": string;
         }

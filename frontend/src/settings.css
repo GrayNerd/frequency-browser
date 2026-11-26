@@ -8,6 +8,13 @@
   box-sizing: border-box;
 }
 
+/* The Radio tab hides controls with the hidden attribute. A bare [hidden] is a
+ * display:none of the lowest priority, so any rule that sets display (such as
+ * .field's flex) would silently override it; this keeps hiding reliable. */
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -50,13 +57,18 @@ body {
   color: var(--fg);
 }
 
-/* Only the active panel is visible. */
+/* Only the active panel is visible. Vertical scrolling is a last resort; the
+ * window is sized so it is not normally needed, and horizontal scrolling is
+ * never wanted: overflow-x is pinned to hidden rather than left to inherit
+ * from overflow-y, which would otherwise turn any wide child into a horizontal
+ * scrollbar across the dialog. */
 .panel {
   display: none;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -67,7 +79,50 @@ body {
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  flex: 1 1 auto;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* A line of fields side by side: the left one takes the spare space, the right
+ * one is sized by its content. Used for Rig + Polling and for DTR + RTS. */
+.row {
+  align-items: flex-end;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Short lists (a polling speed, a control-line state) do not need a wide box.
+ * The widths are set in ch units, so they follow the font and are just wide
+ * enough for the longest entry (including the select's own arrow). */
+.field.narrow {
+  flex: 0 0 auto;
+  width: 6.5em;
+}
+
+/* Polling: sized by its own contents, so the longest entry ("500 ms", "Never")
+ * always fits whatever font and platform select the webview uses. */
+.field.poll-field {
+  align-self: flex-end;
+  flex: 0 0 auto;
+  width: auto;
+}
+
+/* Rig: takes the rest of the line, so long model names have room and the two
+ * fields together never overflow. */
+.field.rig-field {
+  flex: 1 1 auto;
+  min-width: 8ch;
+}
+
+/* Baud Rate: sized by its own contents, i.e. just wide enough for 115200.
+ * align-self is required because a flex column stretches its children. */
+.field.baud-field {
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: auto;
 }
 
 .field label,
@@ -78,18 +133,67 @@ body {
   letter-spacing: 0.05em;
 }
 
-.field input[type="text"] {
+.field input[type="text"],
+.field select {
   background: var(--bg-input);
+  min-width: 0;
+  width: 100%;
   border: 1px solid var(--border);
   border-radius: 6px;
   color: var(--fg);
   font: inherit;
-  padding: 8px 10px;
+  padding: 6px 8px;
 }
 
-.field input[type="text"]:focus {
+.field select {
+  cursor: pointer;
+  /* A select's automatic minimum width is its widest option, which can be
+   * wider than the window; without this the dialog grows a horizontal
+   * scrollbar instead of clipping the text. */
+  min-width: 0;
+  width: 100%;
+}
+
+.field select:disabled {
+  color: var(--fg-dim);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.field input[type="text"]:focus,
+.field select:focus {
   border-color: var(--accent);
   outline: none;
+}
+
+/* Selects inherit the color-scheme from :root, so the native popup list
+ * follows the dark/light palette set in theme.css. */
+.field select option,
+.field select optgroup {
+  background: var(--bg-input);
+  color: var(--fg);
+}
+
+/* Grouping box for the Radio tab: CAT control, its serial parameters and the
+ * forced control lines are nested so the containment is visible. */
+.box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  min-width: 0;
+  padding: 4px 10px 8px;
+}
+
+.box legend {
+  color: var(--fg-dim);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  padding: 0 5px;
+  text-transform: uppercase;
 }
 
 .hint {
@@ -99,7 +203,8 @@ body {
 
 .radio-row {
   display: flex;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 4px 16px;
 }
 
 .radio-row label,

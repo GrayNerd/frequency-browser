@@ -17,7 +17,6 @@
     SetFrequency,
     GetMode,
     GetRadioStatus,
-    UpdateConfig,
     SendCustomCommand,
     GetFrequencyRange,
     GetSettings,
@@ -938,6 +937,16 @@
       applyTheme(ev.data);
     });
 
+    // The Settings window restarted the rigctld daemon with new options (a
+    // different rig, serial parameters or polling interval), so re-read the
+    // rig: its frequency, mode and tuning range may all have changed.
+    const unsubRadio = Events.On("radioRestarted", async () => {
+      await updateStatus();
+      await updateFrequencyFromRadio();
+      await loadRigRange();
+      applyAllFilters();
+    });
+
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -947,6 +956,7 @@
       unsubMode();
       unsubConnection();
       unsubTheme();
+      unsubRadio();
       if (manualInputDebounceTimer !== null) {
         clearTimeout(manualInputDebounceTimer);
         manualInputDebounceTimer = null;

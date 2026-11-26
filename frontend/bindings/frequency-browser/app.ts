@@ -19,6 +19,13 @@ export function GetCurrentFrequency(): $CancellablePromise<number> {
 }
 
 /**
+ * GetDaemonStatus reports the daemon state for the Settings window.
+ */
+export function GetDaemonStatus(): $CancellablePromise<$models.DaemonStatus> {
+    return $Call.ByID(3250828617);
+}
+
+/**
  * GetFrequencyRange returns the range of frequencies the connected rig can
  * tune. The frontend uses it to hide broadcast entries the rig cannot receive.
  */
@@ -35,6 +42,32 @@ export function GetMode(): $CancellablePromise<string> {
  */
 export function GetRadioStatus(): $CancellablePromise<{ [_ in string]?: any } | null> {
     return $Call.ByID(4198984836);
+}
+
+/**
+ * GetRigModels lists the radios known to the rigctld binary this app will
+ * launch, so the model numbers offered always match that binary.
+ */
+export function GetRigModels(): $CancellablePromise<$models.RigModel[] | null> {
+    return $Call.ByID(367026277);
+}
+
+/**
+ * GetRigctlVersion returns Hamlib's version banner, as printed by `rigctl -V`.
+ * The Settings window shows it so the user can tell which hamlib is actually
+ * installed, which matters when a rig model needs a recent release.
+ */
+export function GetRigctlVersion(): $CancellablePromise<string> {
+    return $Call.ByID(422861552);
+}
+
+/**
+ * GetSerialPorts lists the serial devices on this machine for the Serial Port
+ * dropdown. Every /dev entry is offered, including the phantom ttyS ports that
+ * most PCs have: the dialog shows what the system exposes.
+ */
+export function GetSerialPorts(): $CancellablePromise<$models.SerialPort[] | null> {
+    return $Call.ByID(2103145165);
 }
 
 /**
@@ -162,10 +195,13 @@ export function SaveHfccList(data: $models.CSVRow[] | null): $CancellablePromise
 }
 
 /**
- * SaveSettings validates and applies new settings from the Settings window
- * and persists them. The rigctld address is validated by actually connecting
- * (UpdateConfig reverts the radio config itself on failure), so the error
- * can be shown as-is.
+ * SaveSettings validates and applies new settings from the Settings window and
+ * persists them.
+ * 
+ * When a Radio field changed the rigctld daemon is restarted with the new
+ * options, and the save only takes effect once that daemon is up: a rejected
+ * command line (wrong rig for the port, unplugged adapter) reverts everything
+ * and returns hamlib's own message, which the dialog shows verbatim.
  */
 export function SaveSettings(s: $models.Settings): $CancellablePromise<void> {
     return $Call.ByID(1949631069, s);

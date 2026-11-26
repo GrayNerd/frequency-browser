@@ -2,11 +2,14 @@ package main
 
 import (
     "bufio"
+    "errors"
     "fmt"
+    "io"
     "log"
     "net"
     "strconv"
     "strings"
+    "syscall"
     "time"
     "math"
     
@@ -27,22 +30,69 @@ type RadioConfig struct {
     Model   int    `json:"model"`
 }
 
+// rigCommandAttempts is how many times a command is tried. A single retry covers
+// the transient connection resets rigctld produces while a client connection is
+// being torn down (most visible right after a daemon restart), which would
+// otherwise surface as a spurious "cannot tune" error. Every command the app
+// sends is idempotent - they only get or set rig state - so a retry is safe.
+const rigCommandAttempts = 3
+
+// rigCommandTimeout bounds one rigctld request/response exchange. It is a
+// variable so tests can shorten it.
+var rigCommandTimeout = 8 * time.Second
+
 func (a *App) sendRigCommand(command string) (string, error) {
+	var lastErr error
+	for attempt := 1; attempt <= rigCommandAttempts; attempt++ {
+		response, err := a.sendRigCommandOnce(command)
+		if err == nil {
+			return response, nil
+		}
+		if !isTransientRigError(err) {
+			return "", err
+		}
+		lastErr = err
+		if attempt < rigCommandAttempts {
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+	return "", lastErr
+}
+
+// isTransientRigError reports whether err is a connection-level failure worth
+// retrying, as opposed to a rig error reply ("RPRT -8" and friends), which is a
+// real answer that will not change on a retry.
+func isTransientRigError(err error) bool {
+	if err == nil {
+		return false
+	}
+	if strings.HasPrefix(err.Error(), "rig error:") {
+		return false
+	}
+	return errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) ||
+		errors.Is(err, syscall.ECONNRESET) || errors.Is(err, syscall.ECONNREFUSED) ||
+		errors.Is(err, syscall.EPIPE)
+}
+
+func (a *App) sendRigCommandOnce(command string) (string, error) {
     conn, err := net.Dial("tcp", a.config.Address)
     if err != nil {
         a.isConnected = false
-        return "", fmt.Errorf("failed to connect to rigctld: %v", err)
+        return "", fmt.Errorf("failed to connect to rigctld: %w", err)
     }
     defer conn.Close()
     
-    // Set read timeout
-    conn.SetReadDeadline(time.Now().Add(2 * time.Second))
+    // Set the read timeout. A real radio can take longer than a virtual one to
+    // answer (an Icom IC-7610 over CI-V needs a few hundred milliseconds, and
+    // more right after the port is opened), so the deadline is generous; it
+    // only exists to stop a wedged daemon from hanging the UI forever.
+    conn.SetDeadline(time.Now().Add(rigCommandTimeout))
     
     // Send command
     _, err = conn.Write([]byte(command + "\n"))
     if err != nil {
         a.isConnected = false
-        return "", fmt.Errorf("failed to send command: %v", err)
+        return "", fmt.Errorf("failed to send command: %w", err)
     }
     
     // Use bufio.Reader to read until newline
@@ -50,7 +100,7 @@ func (a *App) sendRigCommand(command string) (string, error) {
     response, err := reader.ReadString('\n')
     if err != nil {
         a.isConnected = false
-        return "", fmt.Errorf("failed to read response: %v", err)
+        return "", fmt.Errorf("failed to read response: %w", err)
     }
     
     a.isConnected = true
@@ -158,53 +208,89 @@ func formatKHz(khz float64) string {
 	s = strings.TrimRight(s, "0")
 	return strings.TrimSuffix(s, ".")
 }
+
+// pollRadioFrequency reads the rig's frequency and mode every PollIntervalMs and
+// emits the updates the main window listens for. The interval is re-read on
+// every pass, so changing it (including to "Never") takes effect immediately;
+// when it is "Never" the rig is not polled at all and this loop simply waits.
 func (a *App) pollRadioFrequency() {
-    ticker := time.NewTicker(250 * time.Millisecond)
-    defer ticker.Stop()
-    
-    var lastFrequency float64 = -1
-    var errorCount int = 0
-    const maxErrorCount = 3
-    
-    for {
-        select {
-        case <-a.ctx.Done():
-            return
-            
-        case <-ticker.C:
-            frequency, err := a.getFrequency()
-            if err != nil {
-                errorCount++
-                if errorCount >= maxErrorCount {
-                    a.isConnected = false
-                    application.Get().Event.Emit("connectionStatus", false)
-                    log.Printf("Connection lost: %v", err)
-                }
-                continue
-            }
-            
-            // Reset error count on successful communication
-            errorCount = 0
-            a.isConnected = true
-            application.Get().Event.Emit("connectionStatus", true)
+	var lastFrequency float64 = -1
+	var errorCount int = 0
+	const maxErrorCount = 3
 
-			// Emit modeUpdate if mode changed
-			mode, err := a.getMode()
-			if err == nil && mode != a.lastMode {
-				a.lastMode = mode
-				application.Get().Event.Emit("modeUpdate", mode)
+	for {
+		interval := a.pollInterval()
+		if interval <= 0 {
+			// Polling is switched off: sleep until the settings change or
+			// the application shuts down.
+			select {
+			case <-a.ctx.Done():
+				return
+			case <-a.pollWake:
+				continue
 			}
+		}
 
-            
-            // Only send update if frequency changed significantly
-            if math.Abs(frequency - lastFrequency) > 0.01 { // More than 1 Hz difference
-                lastFrequency = frequency
-                
-                // Send frequency to frontend as float
-                application.Get().Event.Emit("frequencyUpdate", frequency)
-            }
-        }
-    }
+		select {
+		case <-a.ctx.Done():
+			return
+		case <-a.pollWake:
+			// Interval or daemon changed: restart the countdown.
+			continue
+		case <-time.After(interval):
+		}
+
+		frequency, err := a.getFrequency()
+		if err != nil {
+			errorCount++
+			if errorCount >= maxErrorCount {
+				a.isConnected = false
+				application.Get().Event.Emit("connectionStatus", false)
+				log.Printf("Connection lost: %v", err)
+			}
+			continue
+		}
+
+		// Reset error count on successful communication
+		errorCount = 0
+		a.isConnected = true
+		application.Get().Event.Emit("connectionStatus", true)
+
+		// Emit modeUpdate if mode changed
+		mode, err := a.getMode()
+		if err == nil && mode != a.lastMode {
+			a.lastMode = mode
+			application.Get().Event.Emit("modeUpdate", mode)
+		}
+
+		// Only send update if frequency changed significantly
+		if math.Abs(frequency-lastFrequency) > 0.01 { // More than 1 Hz difference
+			lastFrequency = frequency
+
+			// Send frequency to frontend as float
+			application.Get().Event.Emit("frequencyUpdate", frequency)
+		}
+	}
+}
+
+// pollInterval returns the configured polling period, or 0 for "Never".
+func (a *App) pollInterval() time.Duration {
+	a.settingsMu.Lock()
+	ms := a.settings.PollIntervalMs
+	a.settingsMu.Unlock()
+	if ms <= 0 {
+		return 0
+	}
+	return time.Duration(ms) * time.Millisecond
+}
+
+// wakePolling nudges the poll loop so new settings take effect at once
+// instead of after the current interval.
+func (a *App) wakePolling() {
+	select {
+	case a.pollWake <- struct{}{}:
+	default:
+	}
 }
 
 // Update GetRadioStatus to handle float frequency

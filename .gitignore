@@ -9,3 +9,7 @@ hfcc-reftables.json
 *-list.json
 eibi-reftables.json
 import-dates.json
+
+# `go build ./...` at the module root writes the binary here; real build
+# output lives in build/bin (already ignored above).
+/frequency-browser

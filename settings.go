@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 
 	"github.com/wailsapp/wails/v3/pkg/application"
@@ -29,10 +30,27 @@ const (
 	defaultWindowHeight = 768
 	defaultRadioAddress = "localhost:4532"
 
+	// defaultRemoteAddress is what the Network Address field is pre-filled
+	// with for a network backend. It uses the name "localhost" rather than
+	// this machine's IP: a network rig usually runs on the same host, and
+	// localhost keeps working when the machine's address changes.
+	defaultRemoteAddress = "localhost:4532"
+
 	// First-run defaults for the filter modes.
 	defaultFrequencyFilterMode = "near" // "exact", "near", "all", or "manual"
 	defaultCurrentTimeFilter   = "now"  // "now", "soon", "all", or "manual"
+
+	// Defaults for the managed rigctld daemon started from the Radio tab.
+	defaultBaudRate       = 19200
+	defaultPollIntervalMs = 500
 )
+
+// baudRateChoices are the serial speeds offered in the Radio tab.
+var baudRateChoices = []int{1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 57600, 76800, 115200}
+
+// pollIntervalChoices are the rig polling speeds offered in the Radio tab, in
+// milliseconds. A stored value of 0 means "Never": the rig is not polled.
+var pollIntervalChoices = []int{250, 500, 1000, 2000, 5000}
 
 // Settings holds every persisted user preference.
 //
@@ -53,8 +71,35 @@ type Settings struct {
 	WindowSaved  bool `json:"windowSaved"`
 
 	// RadioAddress is the host:port of the rigctld daemon spoken to through
-	// hamlib's "hamlib net rigctl" backend.
+	// hamlib's "hamlib net rigctl" backend. It is no longer shown in the UI:
+	// the app starts its own daemon on the loopback address.
 	RadioAddress string `json:"radioAddress"`
+
+	// RigModel is hamlib's internal model number for the attached radio, the
+	// value rigctld's -m option takes (3078 is the Icom IC-7610). Zero means
+	// the radio has not been configured yet, in which case no daemon is
+	// started and the app only adopts one that is already running.
+	RigModel int `json:"rigModel"`
+
+	// SerialPort and the parameters below are passed straight through to
+	// rigctld. An empty value means "Default": that option is left off the
+	// command line so hamlib's own default applies.
+	// RemoteAddress is the host:port of a rigctld daemon to control when the
+	// chosen rig model is hamlib's "NET rigctl" backend. That backend has no
+	// serial port: its -r argument is the address of the remote daemon.
+	RemoteAddress string `json:"remoteAddress"`
+
+	SerialPort string `json:"serialPort"` // e.g. /dev/ttyUSB0
+	BaudRate   int    `json:"baudRate"`   // one of baudRateChoices
+	DataBits   string `json:"dataBits"`   // "" (default) | "7" | "8"
+	StopBits   string `json:"stopBits"`   // "" (default) | "1" | "2"
+	Handshake  string `json:"handshake"`  // "" (default) | "None" | "XONXOFF" | "Hardware"
+	DTR        string `json:"dtr"`        // "" (blank) | "High" | "Low"
+	RTS        string `json:"rts"`        // "" (blank) | "High" | "Low"
+
+	// PollIntervalMs is how often the rig frequency is read: one of
+	// pollIntervalChoices, or 0 for "Never" (no polling at all).
+	PollIntervalMs int `json:"pollIntervalMs"`
 
 	// FrequencyFilterMode is the persisted frequency input mode: "exact",
 	// "near", "all", or "manual".
@@ -84,6 +129,13 @@ func defaultSettings() Settings {
 		WindowWidth:   defaultWindowWidth,
 		WindowHeight:  defaultWindowHeight,
 		RadioAddress:  defaultRadioAddress,
+
+		// No rig is chosen on first run: the user picks one in Settings,
+		// Radio. The remaining serial parameters keep hamlib's defaults.
+		RigModel:       0,
+		RemoteAddress:  defaultRemoteAddress,
+		BaudRate:       defaultBaudRate,
+		PollIntervalMs: defaultPollIntervalMs,
 
 		// First-run defaults: near the tuned frequency, and "now" for time.
 		FrequencyFilterMode: defaultFrequencyFilterMode,
@@ -120,6 +172,7 @@ func (s Settings) normalized() Settings {
 	if s.RadioAddress == "" {
 		s.RadioAddress = defaultRadioAddress
 	}
+	s = normalizeRadio(s)
 	if s.FrequencyFilterMode != "exact" && s.FrequencyFilterMode != "near" &&
 		s.FrequencyFilterMode != "all" && s.FrequencyFilterMode != "manual" {
 		s.FrequencyFilterMode = defaultFrequencyFilterMode
@@ -135,6 +188,74 @@ func (s Settings) normalized() Settings {
 		s.WindowHeight = defaultWindowHeight
 	}
 	return s
+}
+
+// normalizeRadio repairs the Radio tab's values, so a hand-edited config or a
+// version of hamlib without a given option still yields a usable daemon command
+// line. Unknown choices fall back to "Default" (the option is omitted).
+func normalizeRadio(s Settings) Settings {
+	if s.RigModel < 0 {
+		s.RigModel = 0
+	}
+	if !containsInt(baudRateChoices, s.BaudRate) {
+		s.BaudRate = defaultBaudRate
+	}
+	if !validOrDefault(s.DataBits, "7", "8") {
+		s.DataBits = ""
+	}
+	if !validOrDefault(s.StopBits, "1", "2") {
+		s.StopBits = ""
+	}
+	if !validOrDefault(s.Handshake, "None", "XONXOFF", "Hardware") {
+		s.Handshake = ""
+	}
+	if !validOrDefault(s.DTR, "High", "Low") {
+		s.DTR = ""
+	}
+	if !validOrDefault(s.RTS, "High", "Low") {
+		s.RTS = ""
+	}
+	s.RemoteAddress = strings.TrimSpace(s.RemoteAddress)
+	if s.PollIntervalMs != 0 && !containsInt(pollIntervalChoices, s.PollIntervalMs) {
+		s.PollIntervalMs = defaultPollIntervalMs
+	}
+	return s
+}
+
+func containsInt(values []int, want int) bool {
+	for _, v := range values {
+		if v == want {
+			return true
+		}
+	}
+	return false
+}
+
+// validOrDefault reports whether v is empty ("Default") or one of allowed.
+func validOrDefault(v string, allowed ...string) bool {
+	if v == "" {
+		return true
+	}
+	for _, a := range allowed {
+		if v == a {
+			return true
+		}
+	}
+	return false
+}
+
+// radioChanged reports whether any Radio tab field differs, which is what
+// decides if the daemon has to be restarted.
+func radioChanged(before, after Settings) bool {
+	return before.RigModel != after.RigModel ||
+		before.RemoteAddress != after.RemoteAddress ||
+		before.SerialPort != after.SerialPort ||
+		before.BaudRate != after.BaudRate ||
+		before.DataBits != after.DataBits ||
+		before.StopBits != after.StopBits ||
+		before.Handshake != after.Handshake ||
+		before.DTR != after.DTR ||
+		before.RTS != after.RTS
 }
 
 // loadSettings reads the settings file, creating it with defaults when it
@@ -283,6 +404,16 @@ func themeBackground(theme string) application.RGBA {
 	return application.NewRGB(245, 246, 248)
 }
 
+// emitEvent sends a backend event to the open windows. It is a no-op when no
+// application exists yet, so service methods stay usable from tests.
+func emitEvent(name string, data any) {
+	app := application.Get()
+	if app == nil {
+		return
+	}
+	app.Event.Emit(name, data)
+}
+
 // currentSettings returns a copy of the live settings.
 func (a *App) currentSettings() Settings {
 	a.settingsMu.Lock()
@@ -295,26 +426,44 @@ func (a *App) GetSettings() Settings {
 	return a.currentSettings()
 }
 
-// SaveSettings validates and applies new settings from the Settings window
-// and persists them. The rigctld address is validated by actually connecting
-// (UpdateConfig reverts the radio config itself on failure), so the error
-// can be shown as-is.
+// SaveSettings validates and applies new settings from the Settings window and
+// persists them.
+//
+// When a Radio field changed the rigctld daemon is restarted with the new
+// options, and the save only takes effect once that daemon is up: a rejected
+// command line (wrong rig for the port, unplugged adapter) reverts everything
+// and returns hamlib's own message, which the dialog shows verbatim.
 func (a *App) SaveSettings(s Settings) error {
 	s = s.normalized()
-	if s.RadioAddress == "" {
-		return fmt.Errorf("enter a rigctld address")
-	}
 
 	a.settingsMu.Lock()
 	previous := a.settings
 	a.settings = s
 	a.settingsMu.Unlock()
+	// The rig client always talks to the address in the settings, whether or not
+	// this save touched the Radio tab.
+	a.config.Address = s.RadioAddress
 
-	if err := a.UpdateConfig(s.RadioAddress); err != nil {
-		a.settingsMu.Lock()
-		a.settings = previous
-		a.settingsMu.Unlock()
-		return err
+	// Pressing Save must leave a working daemon behind: restart it when the
+	// options changed, and start one if none is running (for example on a first
+	// run, or after it failed to come up).
+	needDaemon := radioChanged(previous, s) ||
+		(s.RigModel > 0 && !a.probeDaemon(s.RadioAddress))
+
+	if needDaemon {
+		if err := a.restartDaemon(s); err != nil {
+			// The old daemon is already gone, so put the previous settings
+			// back in force and restart from them: a rejected change must not
+			// leave the app with no radio at all.
+			a.settingsMu.Lock()
+			a.settings = previous
+			a.config.Address = previous.RadioAddress
+			a.settingsMu.Unlock()
+			if restoreErr := a.restartDaemon(previous); restoreErr != nil {
+				log.Printf("rigctld: could not restore the previous daemon: %v", restoreErr)
+			}
+			return err
+		}
 	}
 
 	if err := saveSettings(s); err != nil {
@@ -324,9 +473,18 @@ func (a *App) SaveSettings(s Settings) error {
 		return err
 	}
 
+	if needDaemon || previous.PollIntervalMs != s.PollIntervalMs {
+		// Wake the poll loop so a changed interval (or "Never") applies at
+		// once, and tell the main window to re-read the rig.
+		a.wakePolling()
+	}
+	if needDaemon {
+		emitEvent("radioRestarted", true)
+	}
+
 	// Tell the open windows about the new theme so they switch immediately.
 	if previous.Theme != s.Theme {
-		application.Get().Event.Emit("themeChanged", s.Theme)
+		emitEvent("themeChanged", s.Theme)
 	}
 	return nil
 }

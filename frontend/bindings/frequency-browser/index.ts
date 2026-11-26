@@ -8,8 +8,11 @@ export {
 
 export type {
     CSVRow,
+    DaemonStatus,
     FrequencyRange,
     ImportDates,
+    RigModel,
+    SerialPort,
     Settings,
     SettingsState
 } from "./models.js";

@@ -36,12 +36,153 @@
         <button id="save-now" type="button">Save Now</button>
     </section>
 
+    <!-- Radio tab: the rig is described completely, and the app starts (or
+         restarts) the rigctld daemon from these values when Save is pressed. -->
     <section class="panel" data-panel="radio">
-        <div class="field">
-            <label for="address">rigctld address</label>
-            <input id="address" placeholder="localhost:4532" spellcheck="false" type="text"/>
-            <span class="hint">hamlib net rigctl (rigctld) daemon, host:port</span>
+        <!-- Rig list and polling share one line: the rig needs room for long
+             model names, polling only needs a few characters. -->
+        <div class="row">
+            <div class="field rig-field">
+                <label for="rig">Rig:</label>
+                <select id="rig"></select>
+            </div>
+            <div class="field poll-field">
+                <label for="poll-interval">Polling:</label>
+                <select id="poll-interval">
+                    <option value="250">250 ms</option>
+                    <option selected value="500">500 ms</option>
+                    <option value="1000">1000 ms</option>
+                    <option value="2000">2000 ms</option>
+                    <option value="5000">5000 ms</option>
+                    <option value="0">Never</option>
+                </select>
+            </div>
         </div>
+
+        <fieldset class="box">
+            <legend>CAT control</legend>
+
+            <!-- Serial rigs get a device list; a network backend (hamlib's
+                 NET rigctl) gets the address of the daemon it controls. Only
+                 one of the two is ever shown. -->
+            <div class="field" id="serial-port-row">
+                <label for="serial-port">Serial Port:</label>
+                <select id="serial-port"></select>
+            </div>
+
+            <div class="field" id="network-address-row">
+                <label for="network-address">Network Address:</label>
+                <input id="network-address" placeholder="localhost:4532"
+                       spellcheck="false" type="text"/>
+                <span class="hint">host:port of the rigctld daemon to control</span>
+            </div>
+
+            <fieldset class="box" id="serial-params-box">
+                <legend>Serial Port Parameters</legend>
+
+                <div class="field baud-field">
+                    <label for="baud-rate">Baud Rate:</label>
+                    <select id="baud-rate">
+                        <option value="1200">1200</option>
+                        <option value="2400">2400</option>
+                        <option value="4800">4800</option>
+                        <option value="9600">9600</option>
+                        <option value="14400">14400</option>
+                        <option selected value="19200">19200</option>
+                        <option value="28800">28800</option>
+                        <option value="38400">38400</option>
+                        <option value="57600">57600</option>
+                        <option value="76800">76800</option>
+                        <option value="115200">115200</option>
+                    </select>
+                </div>
+
+                <fieldset class="box">
+                    <legend>Data Bits</legend>
+                    <div class="radio-row">
+                        <label>
+                            <input checked name="data-bits" type="radio" value=""/>
+                            <span>Default</span>
+                        </label>
+                        <label>
+                            <input name="data-bits" type="radio" value="7"/>
+                            <span>Seven</span>
+                        </label>
+                        <label>
+                            <input name="data-bits" type="radio" value="8"/>
+                            <span>Eight</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="box">
+                    <legend>Stop Bits</legend>
+                    <div class="radio-row">
+                        <label>
+                            <input checked name="stop-bits" type="radio" value=""/>
+                            <span>Default</span>
+                        </label>
+                        <label>
+                            <input name="stop-bits" type="radio" value="1"/>
+                            <span>One</span>
+                        </label>
+                        <label>
+                            <input name="stop-bits" type="radio" value="2"/>
+                            <span>Two</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="box">
+                    <legend>Handshake</legend>
+                    <div class="radio-row">
+                        <label>
+                            <input checked name="handshake" type="radio" value=""/>
+                            <span>Default</span>
+                        </label>
+                        <label>
+                            <input name="handshake" type="radio" value="None"/>
+                            <span>None</span>
+                        </label>
+                        <label>
+                            <input name="handshake" type="radio" value="XONXOFF"/>
+                            <span>XON/XOFF</span>
+                        </label>
+                        <label>
+                            <input name="handshake" type="radio" value="Hardware"/>
+                            <span>Hardware</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="box">
+                    <legend>Force Control Lines</legend>
+
+                    <!-- DTR and RTS are short lists, so they share a line. -->
+                    <div class="row">
+                        <div class="field narrow">
+                            <label for="dtr">DTR:</label>
+                            <select id="dtr">
+                                <option selected value=""></option>
+                                <option value="High">High</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+
+                        <div class="field narrow">
+                            <label for="rts">RTS:</label>
+                            <select id="rts">
+                                <option selected value=""></option>
+                                <option value="High">High</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+        </fieldset>
+
+        <p class="hint" id="hamlib-version" title="Hamlib (rigctl) version"></p>
     </section>
 
     <p class="message" id="message" role="alert"></p>

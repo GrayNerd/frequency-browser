@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"embed"
+	"log"
 	"sync"
 	"time"
 
@@ -82,12 +83,19 @@ func openSettings() {
 	}
 	settingsWindow = app.Window.NewWithOptions(application.WebviewWindowOptions{
 		Title:  "Settings",
-		Width:  420,
-		Height: 320,
+		Width:  520,
+		Height: 760,
 		URL:    "/settings.html",
 		// Themed so the native background matches the webview palette.
 		BackgroundColour: themeBackground(appService.currentSettings().Theme),
 		Hidden:           true,
+		// Fixed size: the Radio tab is laid out for exactly this window, so
+		// neither resizing nor a different size can clip or force scrolling.
+		DisableResize: true,
+		MinWidth:      520,
+		MinHeight:     760,
+		MaxWidth:      520,
+		MaxHeight:     760,
 		// The Settings window is a dialog: it gets no menu of its own (an
 		// empty one, so it does not fall back to the application menu).
 		Linux: application.LinuxWindow{
@@ -116,6 +124,8 @@ func init() {
 	application.RegisterEvent[bool]("connectionStatus")
 	application.RegisterEvent[SettingsState]("settingsState")
 	application.RegisterEvent[string]("themeChanged")
+	application.RegisterEvent[DaemonStatus]("daemonStatus")
+	application.RegisterEvent[bool]("radioRestarted")
 }
 
 // App struct
@@ -132,11 +142,16 @@ type App struct {
 	// calls and the shutdown goroutine.
 	settings   Settings
 	settingsMu sync.Mutex
+
+	// pollWake interrupts the frequency poll loop when the polling interval
+	// or the daemon changes, so new settings apply without waiting out the
+	// old interval.
+	pollWake chan struct{}
 }
 
 // NewApp creates a new App application struct
 func NewApp() *App {
-	return &App{}
+	return &App{pollWake: make(chan struct{}, 1)}
 }
 
 // ServiceStartup is called when the service starts. The context is saved
@@ -148,7 +163,13 @@ func (a *App) ServiceStartup(ctx context.Context, options application.ServiceOpt
 	// window, and the radio address configures the rigctld connection. A
 	// missing file is created with defaults.
 	a.settings = loadSettings()
-	a.config.Address = a.settings.RadioAddress // Default rigctld address
+	a.config.Address = a.settings.RadioAddress // rigctld endpoint (loopback)
+	// Adopt an already-running rigctld, or start one from the saved Radio
+	// settings. A failure here is not fatal: the app is still usable without
+	// a radio, and the Settings window reports what went wrong.
+	if err := a.ensureDaemon(); err != nil {
+		log.Printf("rigctld: %v", err)
+	}
 	// Merge reference tables cached by a previous HFCC import over the
 	// embedded defaults, so new site/broadcaster/country/language codes still
 	// resolve when the machine is offline.
@@ -165,7 +186,7 @@ func main() {
 	appService = NewApp()
 	app := application.New(application.Options{
 		Name:        "Frequency Browser",
-		Description: "Browse shortwave broadcast schedules and tune a rigctld-controlled radio",
+		Description: "Browse shortwave broadcast schedules and tune a hamlib-controlled radio",
 		Services: []application.Service{
 			application.NewService(appService),
 		},

@@ -335,9 +335,18 @@ func hfccParseScheduleFile(content []byte) ([]CSVRow, error) {
 		languageCode := line[102:105]
 		languageName := getLanguageName(languageCode)
 
-		siteCode := line[47:50] // site code (transmitter location)
+		siteCode := strings.TrimSpace(line[47:50]) // site code (transmitter location)
 		siteName := GetHfccSiteName(siteCode)
 		siteCountry := GetCountryName(GetHfccSiteADM(siteCode))
+		if siteName == "Unknown" {
+			// HFCC occasionally lists a site code that its own site.txt does not
+			// define (season B26 references "ZWL", for example). Rather than
+			// showing "Unknown, Unknown", keep the raw code so the gap is
+			// traceable and take the country from the row's own administration
+			// column, which is always present.
+			siteName = siteCode
+			siteCountry = countryName
+		}
 
 		row := CSVRow{
 			Khz:       khz,

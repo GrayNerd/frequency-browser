@@ -26,6 +26,24 @@ export interface CSVRow {
 }
 
 /**
+ * DaemonStatus describes the rigctld daemon the app is talking to. It drives
+ * the status line in the Radio tab of the Settings window.
+ */
+export interface DaemonStatus {
+    "running": boolean;
+
+    /**
+     * started by this app, so this app may stop it
+     */
+    "owned": boolean;
+    "address": string;
+    "pid": number;
+    "exitErr": string;
+    "log": string;
+    "note": string;
+}
+
+/**
  * FrequencyRange describes the span of frequencies the connected rig can tune,
  * expressed in kHz to match the rest of the application.
  */
@@ -40,6 +58,36 @@ export interface FrequencyRange {
  * binding is a simple object rather than a named class.
  */
 export type ImportDates = { [_ in string]?: string } | null;
+
+/**
+ * RigModel is one radio Hamlib supports. ID is the internal model number
+ * Hamlib assigns, which is exactly what rigctld's -m option takes (3078 is the
+ * Icom IC-7610).
+ */
+export interface RigModel {
+    "id": number;
+    "mfg": string;
+    "model": string;
+    "status": string;
+
+    /**
+     * PortType is how this backend reaches the radio: "RS-232", "USB",
+     * "Network link", "None", and so on. It decides whether the Serial Port
+     * field applies at all, so the dialog can stop a serial device being
+     * handed to a network or virtual backend.
+     */
+    "portType": string;
+}
+
+/**
+ * SerialPort is one candidate CAT device under /dev. Label carries the stable
+ * /dev/serial/by-id description when the system provides one, so two identical
+ * adapters can be told apart.
+ */
+export interface SerialPort {
+    "path": string;
+    "label": string;
+}
 
 /**
  * Settings holds every persisted user preference.
@@ -64,9 +112,69 @@ export interface Settings {
 
     /**
      * RadioAddress is the host:port of the rigctld daemon spoken to through
-     * hamlib's "hamlib net rigctl" backend.
+     * hamlib's "hamlib net rigctl" backend. It is no longer shown in the UI:
+     * the app starts its own daemon on the loopback address.
      */
     "radioAddress": string;
+
+    /**
+     * RigModel is hamlib's internal model number for the attached radio, the
+     * value rigctld's -m option takes (3078 is the Icom IC-7610). Zero means
+     * the radio has not been configured yet, in which case no daemon is
+     * started and the app only adopts one that is already running.
+     */
+    "rigModel": number;
+
+    /**
+     * SerialPort and the parameters below are passed straight through to
+     * rigctld. An empty value means "Default": that option is left off the
+     * command line so hamlib's own default applies.
+     * RemoteAddress is the host:port of a rigctld daemon to control when the
+     * chosen rig model is hamlib's "NET rigctl" backend. That backend has no
+     * serial port: its -r argument is the address of the remote daemon.
+     */
+    "remoteAddress": string;
+
+    /**
+     * e.g. /dev/ttyUSB0
+     */
+    "serialPort": string;
+
+    /**
+     * one of baudRateChoices
+     */
+    "baudRate": number;
+
+    /**
+     * "" (default) | "7" | "8"
+     */
+    "dataBits": string;
+
+    /**
+     * "" (default) | "1" | "2"
+     */
+    "stopBits": string;
+
+    /**
+     * "" (default) | "None" | "XONXOFF" | "Hardware"
+     */
+    "handshake": string;
+
+    /**
+     * "" (blank) | "High" | "Low"
+     */
+    "dtr": string;
+
+    /**
+     * "" (blank) | "High" | "Low"
+     */
+    "rts": string;
+
+    /**
+     * PollIntervalMs is how often the rig frequency is read: one of
+     * pollIntervalChoices, or 0 for "Never" (no polling at all).
+     */
+    "pollIntervalMs": number;
 
     /**
      * FrequencyFilterMode is the persisted frequency input mode: "exact",

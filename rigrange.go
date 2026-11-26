@@ -9,6 +9,20 @@ import (
 	"time"
 )
 
+// dumpStateIdleTimeout is how long to wait for more of a dump_state reply before
+// deciding it is complete. hamlib 4.5.x sends no terminator, so completion is
+// detected by the stream going quiet.
+//
+// Measured on an IC-7610: the entire reply (1878 bytes, 62 lines) arrives in a
+// single TCP segment, so this only has to absorb scheduling noise, not a slow
+// radio. It stays well under that segment's arrival time to keep startup snappy
+// while leaving a wide margin.
+var dumpStateIdleTimeout = 150 * time.Millisecond
+
+// dumpStateTotalTimeout caps the whole exchange, so a daemon that accepts the
+// command but never answers cannot block the caller.
+var dumpStateTotalTimeout = 8 * time.Second
+
 // FrequencyRange describes the span of frequencies the connected rig can tune,
 // expressed in kHz to match the rest of the application.
 type FrequencyRange struct {
@@ -31,7 +45,9 @@ func (a *App) queryDumpState() (string, error) {
 	}
 	defer conn.Close()
 
-	if err := conn.SetDeadline(time.Now().Add(5 * time.Second)); err != nil {
+	// Overall cap, so a wedged daemon cannot hang the caller forever.
+	overallDeadline := time.Now().Add(dumpStateTotalTimeout)
+	if err := conn.SetDeadline(overallDeadline); err != nil {
 		return "", err
 	}
 
@@ -39,9 +55,19 @@ func (a *App) queryDumpState() (string, error) {
 		return "", fmt.Errorf("failed to send dump_state: %v", err)
 	}
 
+	// hamlib 4.5.x does not end the reply with a marker: it stops after the
+	// capability masks, with no trailing "done" line. Waiting for one means
+	// blocking until the deadline above expires on every single start, which is
+	// the delay this function used to add to the window opening. Older hamlib
+	// did print "done", so that is still honoured, and otherwise the reply is
+	// considered complete once the daemon pauses: a read that times out after
+	// receiving at least one line ends the loop immediately.
 	var sb strings.Builder
 	reader := bufio.NewReader(conn)
 	for {
+		if err := conn.SetReadDeadline(time.Now().Add(dumpStateIdleTimeout)); err != nil {
+			break
+		}
 		line, readErr := reader.ReadString('\n')
 		if line != "" {
 			sb.WriteString(line)
@@ -50,7 +76,15 @@ func (a *App) queryDumpState() (string, error) {
 			}
 		}
 		if readErr != nil {
-			break // deadline or EOF; use whatever we collected
+			if sb.Len() > 0 {
+				// Idle after data, or the overall deadline: we have the reply.
+				break
+			}
+			// Nothing at all yet: keep trying until the overall deadline.
+			if ne, ok := readErr.(net.Error); ok && ne.Timeout() && time.Now().Before(overallDeadline) {
+				continue
+			}
+			break
 		}
 		if sb.Len() > 1<<20 {
 			break
