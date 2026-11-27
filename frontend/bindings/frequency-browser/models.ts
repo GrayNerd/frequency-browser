@@ -100,6 +100,12 @@ export interface Settings {
     "theme": string;
 
     /**
+     * When true the grid only shows frequencies the connected radio can
+     * receive (within its tuning range). When false all frequencies are shown.
+     */
+    "restrictFrequency": boolean;
+
+    /**
      * When true the main window's size and position are written back to
      * this file every time the application exits.
      */

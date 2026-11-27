@@ -111,6 +111,10 @@
   let rigMinKhz = null;
   let rigMaxKhz = null;
 
+  // When true, only show frequencies the radio can receive (within its tuning
+  // range). When false, show all frequencies regardless of the radio's limits.
+  let restrictFrequency = false;
+
   // Input filtering functions
   let filterSeq = 0;
   let lastFilteredRows = null;
@@ -172,8 +176,9 @@
 
     let filteredData = [...allData];
 
-    // Drop entries the connected radio cannot receive at all.
-    if (rigMinKhz !== null && rigMaxKhz !== null) {
+    // Drop entries the connected radio cannot receive at all, but only when
+    // the user asked for it.
+    if (restrictFrequency && rigMinKhz !== null && rigMaxKhz !== null) {
       filteredData = filteredData.filter(withinRigRange);
     }
 
@@ -875,6 +880,7 @@
             if (settings.currentTimeFilter) {
               currentTimeFilter = settings.currentTimeFilter;
             }
+            restrictFrequency = settings.restrictFrequency ?? false;
           }
         } catch (themeErr) {
           console.warn("Could not load theme:", themeErr);
@@ -937,6 +943,10 @@
       applyTheme(ev.data);
     });
 
+    const unsubRestrict = Events.On("restrictFrequencyChanged", (ev) => {
+      restrictFrequency = ev.data;
+    });
+
     // The Settings window restarted the rigctld daemon with new options (a
     // different rig, serial parameters or polling interval), so re-read the
     // rig: its frequency, mode and tuning range may all have changed.
@@ -956,6 +966,7 @@
       unsubMode();
       unsubConnection();
       unsubTheme();
+      unsubRestrict();
       unsubRadio();
       if (manualInputDebounceTimer !== null) {
         clearTimeout(manualInputDebounceTimer);
@@ -1159,6 +1170,7 @@
     allData;
     rigMinKhz;
     rigMaxKhz;
+    restrictFrequency;
     frequencyFilterMode;
     frequency;
     debouncedEditableFrequency;

@@ -61,6 +61,12 @@ body {
   border-color: var(--fg-dim);
 }
 
+.import-row button.import-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: var(--fg-dim);
+}
+
 .import-date {
   color: var(--fg-dim);
   font-family: monospace;

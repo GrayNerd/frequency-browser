@@ -60,6 +60,10 @@ var pollIntervalChoices = []int{250, 500, 1000, 2000, 5000}
 type Settings struct {
 	Theme string `json:"theme"`
 
+	// When true the grid only shows frequencies the connected radio can
+	// receive (within its tuning range). When false all frequencies are shown.
+	RestrictFrequency bool `json:"restrictFrequency"`
+
 	// When true the main window's size and position are written back to
 	// this file every time the application exits.
 	SaveWindowPos bool `json:"saveWindowPos"`
@@ -124,12 +128,12 @@ type Settings struct {
 // window geometry is not tracked until the user asks for it.
 func defaultSettings() Settings {
 	return Settings{
-		Theme:         ThemeLight,
-		SaveWindowPos: false,
-		WindowWidth:   defaultWindowWidth,
-		WindowHeight:  defaultWindowHeight,
-		RadioAddress:  defaultRadioAddress,
-
+		Theme:             ThemeLight,
+		SaveWindowPos:     false,
+		WindowWidth:       defaultWindowWidth,
+		WindowHeight:      defaultWindowHeight,
+		RadioAddress:      defaultRadioAddress,
+		RestrictFrequency: false,
 		// No rig is chosen on first run: the user picks one in Settings,
 		// Radio. The remaining serial parameters keep hamlib's defaults.
 		RigModel:       0,
@@ -485,6 +489,11 @@ func (a *App) SaveSettings(s Settings) error {
 	// Tell the open windows about the new theme so they switch immediately.
 	if previous.Theme != s.Theme {
 		emitEvent("themeChanged", s.Theme)
+	}
+	// Tell the open windows the restrict-frequency setting changed so the
+	// grid can re-filter without waiting for a restart.
+	if previous.RestrictFrequency != s.RestrictFrequency {
+		emitEvent("restrictFrequencyChanged", s.RestrictFrequency)
 	}
 	return nil
 }

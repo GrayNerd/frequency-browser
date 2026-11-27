@@ -1,4 +1,4 @@
-/* Settings window: tab strip over two panels, shared Cancel/Save footer.
+/* Settings window: tab strip over three panels, shared Cancel/Save footer.
  * Uses the shared palette from theme.css; the light theme is applied by
  * toggling html.theme-light on this document. */
 
@@ -219,7 +219,38 @@ body {
   cursor: pointer;
 }
 
-/* Save Now sits below the checkbox in the Appearance tab. */
+/* General tab: checkboxes in column 1, text in column 2. The "Save Now"
+ * button sits in column 2 of row 2 so its left edge lines up with the text
+ * on the row above. */
+.save-controls {
+  display: grid;
+  grid-template-columns: 18px auto;
+  column-gap: 6px;
+  gap: 8px;
+}
+.save-controls input[type="checkbox"] {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+.save-controls .label-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+.save-controls #save-now {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: start;
+}
+.save-controls .restrict-row {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Save Now: standalone button on its own row in the General tab. */
 #save-now {
   align-self: flex-start;
   background: var(--bg-input);

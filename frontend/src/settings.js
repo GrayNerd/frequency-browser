@@ -27,6 +27,7 @@ const pollIntervalSelect = document.getElementById("poll-interval");
 const hamlibVersionEl = document.getElementById("hamlib-version");
 const messageEl = document.getElementById("message");
 const saveWindowPosInput = document.getElementById("save-window-pos");
+const restrictFrequencyInput = document.getElementById("restrict-frequency");
 const saveNowButton = document.getElementById("save-now");
 
 // The settings as last loaded or saved. The dirty check compares the form
@@ -199,6 +200,7 @@ function collect() {
     ...clean,
     theme: themeInput ? themeInput.value : "light",
     saveWindowPos: saveWindowPosInput.checked,
+    restrictFrequency: restrictFrequencyInput.checked,
     rigModel: Number(rigSelect.value) || 0,
     serialPort: isNetworkBackend(rigSelect.value) || hasNoPort(rigSelect.value)
       ? ""
@@ -222,6 +224,7 @@ function isDirty() {
   return (
     current.theme !== clean.theme ||
     current.saveWindowPos !== clean.saveWindowPos ||
+    current.restrictFrequency !== clean.restrictFrequency ||
     current.rigModel !== clean.rigModel ||
     current.serialPort !== clean.serialPort ||
     current.remoteAddress !== (clean.remoteAddress ?? "") ||
@@ -286,6 +289,7 @@ async function loadCurrent() {
     clean = settings ?? {
       theme: "light",
       saveWindowPos: false,
+      restrictFrequency: false,
       rigModel: 0,
       serialPort: "",
       baudRate: 19200,
@@ -302,6 +306,7 @@ async function loadCurrent() {
     );
     if (themeInput) themeInput.checked = true;
     saveWindowPosInput.checked = Boolean(clean.saveWindowPos);
+    restrictFrequencyInput.checked = Boolean(clean.restrictFrequency);
 
     await loadRigModels(clean.rigModel);
     await loadSerialPorts(clean.serialPort);
@@ -345,10 +350,10 @@ document.querySelectorAll(".tab").forEach((tab) => {
   tab.addEventListener("click", () => selectTab(tab.dataset.tab));
 });
 
-// Live preview: the theme applies to this window as soon as the radio changes.
+// Live preview removed: nothing takes effect until Save is pressed.
+// Every control just reports the unsaved state.
 document.querySelectorAll('input[name="theme"]').forEach((input) => {
   input.addEventListener("change", () => {
-    applyTheme(input.value);
     reportState();
   });
 });

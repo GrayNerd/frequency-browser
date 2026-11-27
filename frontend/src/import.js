@@ -65,8 +65,8 @@ async function refreshImportDates() {
 }
 
 async function importEiBi() {
-  // No file dialog any more: the backend downloads the newest EiBi schedule
-  // database (sked-???.csv) plus README.TXT from http://www.eibispace.de/.
+  const btn = document.getElementById("import-eibi");
+  setDisabled(btn, true);
   setBusy(true);
   try {
     const data = await ImportEiBi();
@@ -75,11 +75,14 @@ async function importEiBi() {
     await SaveEIBIList(data);
     await refreshImportDates();
   } finally {
+    setDisabled(btn, false);
     setBusy(false);
   }
 }
 
 async function importAoki() {
+  const btn = document.getElementById("import-aoki");
+  setDisabled(btn, true);
   setBusy(true);
   try {
     const data = await ImportAOKI();
@@ -88,11 +91,14 @@ async function importAoki() {
     await SaveAokiList(data);
     await refreshImportDates();
   } finally {
+    setDisabled(btn, false);
     setBusy(false);
   }
 }
 
 async function importHfcc() {
+  const btn = document.getElementById("import-hfcc");
+  setDisabled(btn, true);
   setBusy(true);
   try {
     const data = await ImportHFCC();
@@ -101,8 +107,15 @@ async function importHfcc() {
     await SaveHfccList(data);
     await refreshImportDates();
   } finally {
+    setDisabled(btn, false);
     setBusy(false);
   }
+}
+
+function setDisabled(btn, disabled) {
+  btn.disabled = disabled;
+  if (disabled) btn.classList.add("import-disabled");
+  else btn.classList.remove("import-disabled");
 }
 
 document.getElementById("import-eibi").addEventListener("click", importEiBi);

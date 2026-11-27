@@ -9,11 +9,24 @@
 <body>
 <main class="settings">
     <div class="tabs" role="tablist">
-        <button class="tab active" data-tab="appearance" type="button">Appearance</button>
+        <button class="tab active" data-tab="general" type="button">General</button>
+        <button class="tab" data-tab="appearance" type="button">Appearance</button>
         <button class="tab" data-tab="radio" type="button">Radio</button>
     </div>
 
-    <section class="panel active" data-panel="appearance">
+    <section class="panel active" data-panel="general">
+        <div class="save-controls">
+            <input id="save-window-pos" type="checkbox"/>
+            <span class="label-text">Save Window Size/Position on Exit</span>
+            <button id="save-now" type="button">Save Now</button>
+            <div class="restrict-row">
+                <input id="restrict-frequency" type="checkbox"/>
+                <span>Restrict Frequency to Radio Capabilities</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel" data-panel="appearance">
         <div class="field">
             <span class="field-label">Theme</span>
             <div class="radio-row">
@@ -27,13 +40,6 @@
                 </label>
             </div>
         </div>
-
-        <label class="check-row">
-            <input id="save-window-pos" type="checkbox"/>
-            <span>Save Window Size/Position on Exit</span>
-        </label>
-
-        <button id="save-now" type="button">Save Now</button>
     </section>
 
     <!-- Radio tab: the rig is described completely, and the app starts (or
