@@ -23,8 +23,11 @@
 - `shutdown.go`: `onMainWindowClosing`, `requestShutdown`, `confirmUnsavedSettings`, `closeAuxiliaryWindows`, settings-state tracking.
 - `main.go`: main window hook registered, Exit menu routed through `requestShutdown`, `settingsState` event wiring, service instance stored in `appService`.
 - `settings.js`: tracks `cleanAddress`, emits dirty state on load/input/save, and re-raising Settings no longer overwrites unsaved edits.
-- `handoff.md` (83 words) and this checkpoint updated.
+- Settings window: General/Appearance/Radio tabs; Restrict Frequency checkbox; Save Now repositioned; no live preview (changes apply on Save only).
+- Import window: active import button disables during import; other buttons unaffected.
+- `handoff.md` (<100 words) and this checkpoint updated.
 - `go build`, `go test ./...`, and `frontend npm run build` all succeed.
+- Committed and pushed to origin/wails3.
 
 ### Active
 - Awaiting runtime verification with `wails dev`.
@@ -35,7 +38,9 @@
 ## Next Move
 1. Run `wails dev`; edit Settings, then Exit and exercise Save, Discard, and Cancel.
 2. Confirm Settings/Import close before the main window (including the main window X button).
-3. Commit `main.go`, `shutdown.go`, `App.svelte`, `style.css`, `settings.js`, `handoff.md`, `checkpoint.md`.
+3. Verify the General tab restrict-frequency checkbox saves and re-filters immediately.
+4. Verify import buttons disable during active import.
+5. Commit `handoff.md`, `checkpoint.md`.
 
 ## Relevant Files
 - `main.go`: window creation, menu, event wiring, close hook.

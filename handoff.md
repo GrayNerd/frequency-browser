@@ -1,16 +1,14 @@
-# Settings Persistence + Window Geometry Handoff
+# Settings Persistence Handoff
 
 ## Status
-Persistent settings, tabbed Settings window, light/dark themes, and flash-free
-window geometry restore all implemented and verified.
+Implemented and verified: settings persistence, tabbed Settings window, themes, flash-free geometry restore, Restrict Frequency.
 
 ## Done
-- settings.config in the user data dir (go-app-paths); auto-created with defaults on first run.
-- Settings window: Appearance/Radio tabs; theme (light default), Save Window Size/Position, Save Now; rigctld address.
-- Light/dark themes via theme.css; live switch via the themeChanged event.
-- Window geometry saved on exit (when enabled) and via Save Now.
-- Flash-free restore: window created hidden, realized with Run(), then mapped at the saved position via X11 pre-map placement (window_place_linux.go / showWindowAt). See mainwindow.md.
-- go build, go vet, go test -short, and frontend npm run build all pass.
-
-## Remaining
-- Commit and push to GitHub.
+- settings.config in user data dir; defaults on first run.
+- Settings window: General/Appearance/Radio tabs; theme, Save Window Size/Position, Save Now; rigctld address.
+- General tab: Restrict Frequency to Radio Capabilities; grid filters by rig range only when enabled.
+- Themes applied only after Save (no live preview).
+- Window geometry saved on exit and via Save Now.
+- Flash-free restore via X11 pre-map placement.
+- go build, go test pass.
+- Committed and pushed to origin/wails3.
