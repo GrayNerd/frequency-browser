@@ -27,8 +27,8 @@
     </section>
 
     <section class="panel" data-panel="appearance">
-        <div class="field">
-            <span class="field-label">Theme</span>
+        <fieldset class="settings-group">
+            <legend>Theme</legend>
             <div class="radio-row">
                 <label>
                     <input checked name="theme" type="radio" value="light"/>
@@ -39,7 +39,7 @@
                     <span>Dark Mode</span>
                 </label>
             </div>
-        </div>
+        </fieldset>
     </section>
 
     <!-- Radio tab: the rig is described completely, and the app starts (or
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <fieldset class="box">
+        <fieldset class="settings-group">
             <legend>CAT control</legend>
 
             <!-- Serial rigs get a device list; a network backend (hamlib's
@@ -77,13 +77,13 @@
             </div>
 
             <div class="field" id="network-address-row">
-                <label for="network-address">Network Address:</label>
+                <label for="network-address">Network Server:</label>
                 <input id="network-address" placeholder="localhost:4532"
                        spellcheck="false" type="text"/>
                 <span class="hint">host:port of the rigctld daemon to control</span>
             </div>
 
-            <fieldset class="box" id="serial-params-box">
+            <fieldset class="settings-group" id="serial-params-box">
                 <legend>Serial Port Parameters</legend>
 
                 <div class="field baud-field">
@@ -103,7 +103,7 @@
                     </select>
                 </div>
 
-                <fieldset class="box">
+                <fieldset class="settings-group">
                     <legend>Data Bits</legend>
                     <div class="radio-row">
                         <label>
@@ -121,7 +121,7 @@
                     </div>
                 </fieldset>
 
-                <fieldset class="box">
+                <fieldset class="settings-group">
                     <legend>Stop Bits</legend>
                     <div class="radio-row">
                         <label>
@@ -139,7 +139,7 @@
                     </div>
                 </fieldset>
 
-                <fieldset class="box">
+                <fieldset class="settings-group">
                     <legend>Handshake</legend>
                     <div class="radio-row">
                         <label>
@@ -161,7 +161,7 @@
                     </div>
                 </fieldset>
 
-                <fieldset class="box">
+                <fieldset class="settings-group">
                     <legend>Force Control Lines</legend>
 
                     <!-- DTR and RTS are short lists, so they share a line. -->
