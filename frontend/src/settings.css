@@ -188,10 +188,17 @@ body {
 }
 
 .settings-group legend {
+  /* A fieldset with display:flex makes its legend a flex item; default
+   * align-items:stretch would stretch it full-width and erase the top
+   * border (the legend's width is gapped out of the border by spec). */
   padding: 0 4px;
   font-weight: bold;
   color: var(--fg);
   font-size: 13px;
+  background:transparent;
+  display: inline-block;
+  width: auto;
+  align-self: flex-start;
 }
 
 /* Nested group inside another group: tighter padding, same border. */
